@@ -1,7 +1,7 @@
 // src/hooks/useDatabaseSeed.ts
 import { useEffect, useState } from 'react';
 import { db } from '../lib/db';
-import { type IUser } from '../types/db';
+import { type IUser } from '../types/database';
 
 /**
  * A custom hook to seed the database with initial data if it's empty.
