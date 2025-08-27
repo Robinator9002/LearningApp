@@ -8,6 +8,8 @@ import UserSelectionPage from './pages/UserSelectionPage';
 import LearnerDashboardPage from './pages/LearnerDashboardPage';
 import AdminDashboardPage from './pages/AdminDashboardPage';
 
+import "./styles/main.css"
+
 /**
  * The main application layout component.
  * It includes a consistent header and an Outlet to render the current page.
