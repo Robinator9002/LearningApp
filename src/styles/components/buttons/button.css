@@ -1,6 +1,8 @@
-/* src/components/common/Button/Button.module.css */
+/* src/styles/components/buttons/button.css */
 
-.button {
+/* Using a BEM-like convention (Block__Element--Modifier) for global scope */
+/* Block: 'btn' */
+.btn {
     display: inline-block;
     padding: calc(var(--spacing-unit) * 1.5) calc(var(--spacing-unit) * 3);
     font-size: 1rem;
@@ -15,18 +17,19 @@
     user-select: none; /* Prevents text selection on click */
 }
 
-.primary {
+/* Modifier: 'primary' */
+.btn--primary {
     background-color: var(--color-primary-blue);
     color: #ffffff;
     border-color: var(--color-primary-blue);
 }
 
-.primary:hover {
+.btn--primary:hover {
     background-color: var(--color-primary-blue-dark);
     border-color: var(--color-primary-blue-dark);
 }
 
-.primary:disabled {
+.btn--primary:disabled {
     background-color: #a0a0a0;
     border-color: #a0a0a0;
     cursor: not-allowed;
