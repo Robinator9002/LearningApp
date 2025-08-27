@@ -1,0 +1,13 @@
+{
+    "translation": {
+        "appTitle": "Lern-App",
+        "userSelection": {
+            "title": "Wähle dein Profil",
+            "selectUser": "Profil auswählen"
+        },
+        "dashboard": {
+            "learnerTitle": "Lern-Dashboard",
+            "adminTitle": "Admin-Dashboard"
+        }
+    }
+}

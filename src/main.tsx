@@ -5,6 +5,9 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App.tsx';
 import './styles/index.css';
 
+// Import the i18n configuration to initialize it
+import './lib/i18n.ts';
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
         <BrowserRouter>
