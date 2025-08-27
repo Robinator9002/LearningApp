@@ -1,4 +1,4 @@
-import Dexie, { Table } from 'dexie';
+import Dexie, { type Table } from 'dexie';
 
 // We will define these interfaces in the /types folder later
 // import { IUser, ICourse, IProgressLog } from '../types';
