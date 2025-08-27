@@ -18,7 +18,7 @@ export const useDatabaseSeed = () => {
                     console.log('Database is empty. Seeding initial users...');
                     const defaultUsers: IUser[] = [
                         { name: 'Admin', type: 'admin' },
-                        { name: 'Bruder', type: 'learner' },
+                        { name: 'Lerner', type: 'learner' },
                     ];
                     await db.users.bulkAdd(defaultUsers);
                     console.log('Default users seeded successfully.');
