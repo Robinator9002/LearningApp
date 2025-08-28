@@ -1,0 +1,32 @@
+/* src/styles/components/learner/course-summary.css */
+
+.course-summary {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: calc(var(--spacing-unit) * 6);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+}
+
+.course-summary__title {
+    font-size: calc(var(--font-size-base) * 2);
+    font-weight: 700;
+    color: var(--color-accent);
+    margin-bottom: var(--spacing-unit);
+}
+
+.course-summary__message {
+    font-size: calc(var(--font-size-base) * 1.2);
+    color: var(--color-text-secondary);
+    margin-bottom: calc(var(--spacing-unit) * 4);
+}
+
+.course-summary__score {
+    font-size: calc(var(--font-size-base) * 1.5);
+    font-weight: 700;
+    margin-bottom: calc(var(--spacing-unit) * 4);
+}

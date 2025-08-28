@@ -14,7 +14,10 @@
 @import "./components/admin/course-list.css";
 
 /* == LEARNER == */
-@import "./components/learner/course-card.css";
+/* = COURSE = */
+@import "./components/learner/course/course-card.css";
+@import "./components/learner/course/course-summary.css";
+/* = QA = */
 @import "./components/learner/answer-options.css";
 @import "./components/learner/question-display.css";
 

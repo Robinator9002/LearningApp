@@ -2,8 +2,8 @@
 import React from 'react';
 import type { IQuestion } from '../../../types/database';
 import Button from '../../common/Button/Button';
-import Input from '../../common/forms/Input/Input';
-import Label from '../../common/forms/Label/Label';
+import Input from '../../common/Form/Input/Input';
+import Label from '../../common/Form/Label/Label';
 
 interface QuestionEditorProps {
     question: IQuestion;

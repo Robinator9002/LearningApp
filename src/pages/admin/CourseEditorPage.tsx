@@ -8,9 +8,9 @@ import { ModalContext } from '../../contexts/ModalContext'; // Import ModalConte
 import type { ICourse, IQuestion } from '../../types/database';
 
 import Button from '../../components/common/Button/Button';
-import Input from '../../components/common/forms/Input/Input';
-import Label from '../../components/common/forms/Label/Label';
-import Select from '../../components/common/forms/Select/Select';
+import Input from '../../components/common/Form/Input/Input';
+import Label from '../../components/common/Form/Label/Label';
+import Select from '../../components/common/Form/Select/Select';
 import QuestionEditor from '../../components/admin/QuestionEditor/QuestionEditor';
 
 const createNewQuestion = (): IQuestion => {
