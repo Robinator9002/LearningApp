@@ -1,0 +1,15 @@
+/* src/styles/components/learner/question-display.css */
+
+.question-display {
+    padding: calc(var(--spacing-unit) * 3);
+    margin-bottom: calc(var(--spacing-unit) * 4);
+    background-color: var(--color-surface);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--color-border);
+}
+
+.question-display__text {
+    font-size: calc(var(--font-size-base) * 1.5);
+    font-weight: 500;
+    text-align: center;
+}

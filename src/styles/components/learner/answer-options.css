@@ -1,0 +1,49 @@
+/* src/styles/components/learner/answer-option.css */
+
+.answer-option {
+    width: 100%;
+    padding: calc(var(--spacing-unit) * 2);
+    margin-bottom: var(--spacing-unit);
+    font-size: calc(var(--font-size-base) * 1.1);
+    text-align: left;
+    border: 2px solid var(--color-border);
+    border-radius: var(--border-radius);
+    background-color: var(--color-surface);
+    cursor: pointer;
+    transition: transform 0.2s, border-color 0.2s, background-color 0.2s;
+}
+
+.answer-option:not(:disabled):hover {
+    transform: scale(1.02);
+    border-color: var(--color-accent);
+}
+
+/* --- MODIFIERS --- */
+
+.answer-option--selected {
+    border-color: var(--color-accent);
+    background-color: color-mix(in srgb, var(--color-accent) 15%, transparent);
+}
+
+.answer-option--correct {
+    border-color: var(--color-feedback-positive);
+    background-color: color-mix(in srgb, var(--color-feedback-positive) 15%, transparent);
+    color: var(--color-feedback-positive);
+    font-weight: 700;
+}
+
+.answer-option--incorrect {
+    border-color: var(--color-feedback-negative);
+    background-color: color-mix(in srgb, var(--color-feedback-negative) 15%, transparent);
+    color: var(--color-feedback-negative);
+    opacity: 0.7;
+}
+
+.answer-option:disabled {
+    cursor: not-allowed;
+}
+
+/* When an answer is revealed, non-selected incorrect answers should be faded */
+.answer-option--incorrect:not(.answer-option--selected) {
+    opacity: 0.5;
+}
