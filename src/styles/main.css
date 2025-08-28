@@ -3,6 +3,7 @@
 /* === COMPONENTS === */
 @import './components/buttons/button.css';
 @import './components/admin/course-list.css';
+@import './components/forms/forms.css';
 
 /* === PAGES === */
 @import './pages/user-selection.css';

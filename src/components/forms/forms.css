@@ -1,0 +1,34 @@
+/* src/styles/components/forms/forms.css */
+
+/* Block: 'form-group' */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: calc(var(--spacing-unit) * 2);
+}
+
+/* Block: 'form-label' */
+.form-label {
+    margin-bottom: var(--spacing-unit);
+    font-weight: 500;
+    color: var(--color-text-secondary);
+}
+
+/* Block: 'form-input' & 'form-select' */
+.form-input,
+.form-select {
+    width: 100%;
+    padding: calc(var(--spacing-unit) * 1.25) var(--spacing-unit);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    background-color: var(--color-surface);
+    color: var(--color-text-primary);
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.form-input:focus,
+.form-select:focus {
+    outline: none;
+    border-color: var(--color-primary-blue);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
