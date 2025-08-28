@@ -1,7 +1,7 @@
 // src/pages/admin/CourseEditorPage.tsx
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid'; // We'll need to install this library
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 
 import { db } from '../../lib/db';
 import type { ICourse, IQuestion } from '../../types/database';
@@ -29,9 +29,37 @@ const createNewQuestion = (): IQuestion => {
 
 const CourseEditorPage: React.FC = () => {
     const navigate = useNavigate();
+    const { courseId } = useParams<{ courseId?: string }>();
+    const isEditMode = Boolean(courseId);
+
     const [title, setTitle] = useState('');
     const [subject, setSubject] = useState<'Math' | 'Reading' | 'Writing'>('Math');
     const [questions, setQuestions] = useState<IQuestion[]>([]);
+    const [isLoading, setIsLoading] = useState(isEditMode); // Only load if in edit mode
+
+    useEffect(() => {
+        if (isEditMode && courseId) {
+            const fetchCourse = async () => {
+                try {
+                    const id = parseInt(courseId, 10);
+                    const courseToEdit = await db.courses.get(id);
+                    if (courseToEdit) {
+                        setTitle(courseToEdit.title);
+                        setSubject(courseToEdit.subject);
+                        setQuestions(courseToEdit.questions);
+                    } else {
+                        console.error('Course not found!');
+                        navigate('/admin'); // Redirect if course doesn't exist
+                    }
+                } catch (error) {
+                    console.error('Failed to fetch course:', error);
+                } finally {
+                    setIsLoading(false);
+                }
+            };
+            fetchCourse();
+        }
+    }, [courseId, isEditMode, navigate]);
 
     const handleAddQuestion = () => {
         setQuestions([...questions, createNewQuestion()]);
@@ -53,11 +81,18 @@ const CourseEditorPage: React.FC = () => {
             return;
         }
 
-        const newCourse: ICourse = { title, subject, questions };
+        const courseData: ICourse = { title, subject, questions };
 
         try {
-            await db.courses.add(newCourse);
-            console.log('Course saved successfully!');
+            if (isEditMode && courseId) {
+                // Update existing course
+                await db.courses.put({ ...courseData, id: parseInt(courseId, 10) });
+                console.log('Course updated successfully!');
+            } else {
+                // Add new course
+                await db.courses.add(courseData);
+                console.log('Course saved successfully!');
+            }
             navigate('/admin');
         } catch (error) {
             console.error('Failed to save course:', error);
@@ -65,10 +100,16 @@ const CourseEditorPage: React.FC = () => {
         }
     };
 
+    if (isLoading) {
+        return <div>Loading course data...</div>;
+    }
+
     return (
         <div className="course-editor-page">
             <header className="course-editor-page__header">
-                <h2 className="course-editor-page__title">Create New Course</h2>
+                <h2 className="course-editor-page__title">
+                    {isEditMode ? 'Edit Course' : 'Create New Course'}
+                </h2>
             </header>
 
             <div className="course-editor-page__meta">
@@ -100,7 +141,7 @@ const CourseEditorPage: React.FC = () => {
                     <h3 className="course-editor-page__questions-title">Questions</h3>
                     <Button onClick={handleAddQuestion}>Add Question</Button>
                 </div>
-                {questions.map((q: any, index: any) => (
+                {questions.map((q, index) => (
                     <QuestionEditor
                         key={q.id}
                         index={index}
@@ -113,7 +154,7 @@ const CourseEditorPage: React.FC = () => {
 
             <footer className="course-editor-page__footer">
                 <Button variant="primary" onClick={handleSaveCourse}>
-                    Save Course
+                    Save Changes
                 </Button>
             </footer>
         </div>
