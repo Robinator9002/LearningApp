@@ -1,4 +1,5 @@
-// src/components/common/forms/Input/Input.tsx
+// src/components/common/Form/Input/Input.tsx
+
 import React from 'react';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {}

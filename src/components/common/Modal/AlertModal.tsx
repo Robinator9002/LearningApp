@@ -1,4 +1,5 @@
 // src/components/common/Modal/AlertModal.tsx
+
 import React from 'react';
 import Modal from './Modal';
 import Button from '../Button/Button';

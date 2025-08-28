@@ -1,4 +1,5 @@
-// src/components/common/forms/Label/Label.tsx
+// src/components/common/Form/Label/Label.tsx
+
 import React from 'react';
 
 interface LabelProps extends React.LabelHTMLAttributes<HTMLLabelElement> {

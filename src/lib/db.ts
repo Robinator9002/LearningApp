@@ -1,3 +1,5 @@
+// src/lib/db.ts
+
 import Dexie, { type Table } from 'dexie';
 
 // We will define these interfaces in the /types folder later

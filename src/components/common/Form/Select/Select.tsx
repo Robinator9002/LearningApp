@@ -1,4 +1,5 @@
-// src/components/common/forms/Select/Select.tsx
+// src/components/common/Form/Select/Select.tsx
+
 import React from 'react';
 
 interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {

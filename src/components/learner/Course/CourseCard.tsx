@@ -1,4 +1,5 @@
 // src/components/learner/CourseCard/CourseCard.tsx
+
 import React from 'react';
 import { Book, Calculator, Pencil } from 'lucide-react';
 import type { ICourse } from '../../../types/database';

@@ -1,4 +1,5 @@
 // src/components/admin/QuestionEditor/QuestionEditor.tsx
+
 import React from 'react';
 import type { IQuestion } from '../../../types/database';
 import Button from '../../common/Button/Button';

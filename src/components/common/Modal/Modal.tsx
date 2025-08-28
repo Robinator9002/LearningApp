@@ -1,4 +1,5 @@
 // src/components/common/Modal/Modal.tsx
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 

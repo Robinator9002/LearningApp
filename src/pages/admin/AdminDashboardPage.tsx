@@ -1,4 +1,5 @@
-// src/pages/AdminDashboardPage.tsx
+// src/pages/admin/AdminDashboardPage.tsx
+
 import React, { useContext } from 'react';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { useTranslation } from 'react-i18next';

@@ -1,4 +1,5 @@
-// src/pages/LearnerDashboardPage.tsx
+// src/pages/learner/LearnerDashboardPage.tsx
+
 import React from 'react';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { useNavigate } from 'react-router-dom';

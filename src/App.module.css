@@ -1,46 +1,24 @@
-/* src/styles/components/topbar/topbar.css */
+/* src/App.module.css */
 
-.topbar {
+.appLayout {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: var(--spacing-unit) calc(var(--spacing-unit) * 2);
-    background-color: var(--color-surface);
-    border-bottom: 1px solid var(--color-border);
-    margin-bottom: calc(var(--spacing-unit) * 4);
+    flex-direction: column;
+    min-height: calc(100vh - 64px);
 }
 
-.topbar__brand {
-    font-size: calc(var(--font-size-base) * 1.5);
+.appHeader {
+    padding: calc(var(--spacing-unit) * 2);
+    border-bottom: 1px solid var(--color-border);
+    margin-bottom: calc(var(--spacing-unit) * 4);
+    text-align: center;
+}
+
+.appTitle {
+    font-size: calc(var(--font-size-base) * 2);
     font-weight: 700;
     color: var(--color-accent);
 }
 
-.topbar__user-info {
-    display: flex;
-    align-items: center;
-    gap: calc(var(--spacing-unit) * 2);
-}
-
-.topbar__user-name {
-    font-weight: 500;
-    color: var(--color-text-primary);
-}
-
-.icon-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: var(--color-text-secondary);
-    padding: var(--spacing-unit);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    transition: background-color 0.2s, color 0.2s;
-}
-
-.icon-btn:hover {
-    background-color: var(--color-background);
-    color: var(--color-text-primary);
+.pageContent {
+    flex-grow: 1;
 }

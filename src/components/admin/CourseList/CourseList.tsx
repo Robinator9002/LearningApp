@@ -1,4 +1,5 @@
 // src/components/admin/CourseList/CourseList.tsx
+
 import React from 'react';
 import type { ICourse } from '../../../types/database';
 import Button from '../../common/Button/Button';

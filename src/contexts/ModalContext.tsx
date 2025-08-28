@@ -1,4 +1,5 @@
 // src/contexts/ModalContext.tsx
+
 import React, { createContext, useState, type ReactNode } from 'react';
 import ConfirmModal from '../components/common/Modal/ConfirmModal';
 import AlertModal from '../components/common/Modal/AlertModal'; // Import the new component

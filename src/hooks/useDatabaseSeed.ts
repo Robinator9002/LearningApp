@@ -1,4 +1,5 @@
 // src/hooks/useDatabaseSeed.ts
+
 import { useEffect, useState } from 'react';
 import { db } from '../lib/db';
 import { type IUser } from '../types/database';

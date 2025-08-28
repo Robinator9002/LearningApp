@@ -1,4 +1,5 @@
 // src/contexts/AuthContext.tsx
+
 import React, { createContext, useState, useEffect, type ReactNode } from 'react';
 import type { IUser } from '../types/database';
 
