@@ -19,11 +19,11 @@ const AdminDashboardPage: React.FC = () => {
         navigate('/admin/create-course');
     };
 
-    /**
-     * Handles the deletion of a course after user confirmation.
-     */
+    const handleEditCourse = (courseId: number) => {
+        navigate(`/admin/edit-course/${courseId}`);
+    };
+
     const handleDeleteCourse = async (courseId: number) => {
-        // NOTE: In a real app, replace window.confirm with a custom, non-blocking modal component.
         const isConfirmed = window.confirm(
             'Are you sure you want to delete this course? This action cannot be undone.',
         );
@@ -49,7 +49,11 @@ const AdminDashboardPage: React.FC = () => {
             </div>
 
             {courses ? (
-                <CourseList courses={courses} onDeleteCourse={handleDeleteCourse} />
+                <CourseList
+                    courses={courses}
+                    onEditCourse={handleEditCourse}
+                    onDeleteCourse={handleDeleteCourse}
+                />
             ) : (
                 <p>Loading courses...</p>
             )}

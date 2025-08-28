@@ -5,13 +5,14 @@ import Button from '../../common/Button/Button';
 
 interface CourseListProps {
     courses: ICourse[];
-    onDeleteCourse: (courseId: number) => void; // Add this prop
+    onEditCourse: (courseId: number) => void; // Add this prop
+    onDeleteCourse: (courseId: number) => void;
 }
 
 /**
  * A component to display a list of courses in a table-like format for admins.
  */
-const CourseList: React.FC<CourseListProps> = ({ courses, onDeleteCourse }) => {
+const CourseList: React.FC<CourseListProps> = ({ courses, onEditCourse, onDeleteCourse }) => {
     if (courses.length === 0) {
         return (
             <div className="course-list__empty">No courses found. Create one to get started!</div>
@@ -32,10 +33,13 @@ const CourseList: React.FC<CourseListProps> = ({ courses, onDeleteCourse }) => {
                         {course.subject}
                     </div>
                     <div className="course-list__cell course-list__cell--actions">
-                        <Button variant="primary" onClick={() => alert(`Editing ${course.title}`)}>
+                        {/* Wire up the edit handler */}
+                        <Button
+                            variant="primary"
+                            onClick={() => course.id && onEditCourse(course.id)}
+                        >
                             Edit
                         </Button>
-                        {/* Wire up the delete handler */}
                         <Button
                             variant="primary"
                             onClick={() => course.id && onDeleteCourse(course.id)}

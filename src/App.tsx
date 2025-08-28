@@ -12,7 +12,7 @@ import { useDatabaseSeed } from './hooks/useDatabaseSeed';
 import UserSelectionPage from './pages/UserSelectionPage';
 import LearnerDashboardPage from './pages/LearnerDashboardPage';
 import AdminDashboardPage from './pages/AdminDashboardPage';
-import CourseEditorPage from './pages/admin/CourseEditorPage'; // Import the new page
+import CourseEditorPage from './pages/admin/CourseEditorPage';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 
 const AppLayout: React.FC = () => {
@@ -54,6 +54,8 @@ const AppCore: React.FC = () => {
                 <Route element={<ProtectedRoute allowedType="admin" />}>
                     <Route path="admin" element={<AdminDashboardPage />} />
                     <Route path="admin/create-course" element={<CourseEditorPage />} />
+                    {/* Add the new route for editing with a dynamic courseId */}
+                    <Route path="admin/edit-course/:courseId" element={<CourseEditorPage />} />
                 </Route>
             </Route>
         </Routes>
