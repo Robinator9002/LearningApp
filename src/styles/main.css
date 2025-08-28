@@ -8,6 +8,9 @@
 @import "./components/admin/question-editor.css";
 @import "./components/admin/course-list.css";
 
+/* == MODALS == */
+@import "./components/mcommon/modals/modal.css";
+
 /* === PAGES === */
 @import "./pages/user-selection.css";
 @import "./pages/admin-dashboard.css";
