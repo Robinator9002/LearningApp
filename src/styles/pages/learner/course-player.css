@@ -1,0 +1,33 @@
+/* src/styles/pages/course-player.css */
+
+.course-player {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: var(--spacing-unit);
+}
+
+.course-player__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: calc(var(--spacing-unit) * 4);
+}
+
+.course-player__title {
+    font-size: calc(var(--font-size-base) * 1.75);
+}
+
+.course-player__progress {
+    font-size: calc(var(--font-size-base) * 1.1);
+    color: var(--color-text-secondary);
+    font-weight: 500;
+}
+
+.course-player__footer {
+    margin-top: calc(var(--spacing-unit) * 4);
+    padding-top: calc(var(--spacing-unit) * 2);
+    border-top: 1px solid var(--color-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

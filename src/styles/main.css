@@ -1,7 +1,9 @@
 /* src/styles/main.css */
 
+
 /* === THEMES === */
 @import "./themes/themes.css";
+
 
 /* === COMPONENTS === */
 @import "./components/common/buttons/button.css";
@@ -20,8 +22,14 @@
 /* == MODALS == */
 @import "./components/common/modals/modal.css";
 
+
 /* === PAGES === */
 @import "./pages/user-selection.css";
-@import "./pages/admin-dashboard.css";
-@import "./pages/learner-dashboard.css";
-@import "./pages/course-editor.css";
+
+/* == ADMIN == */
+@import "./pages/admin/admin-dashboard.css";
+@import "./pages/admin/course-editor.css";
+
+/* == LEARNER == */
+@import "./pages/learner/learner-dashboard.css";
+@import "./pages/learner/course-player.css";
