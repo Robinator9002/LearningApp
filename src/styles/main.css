@@ -2,8 +2,11 @@
 
 /* === COMPONENTS === */
 @import './components/buttons/button.css';
-@import './components/admin/course-list.css';
 @import './components/forms/forms.css';
+
+/* == ADMIN == */
+@import './components/admin/question-editor.css';
+@import './components/admin/course-list.css';
 
 /* === PAGES === */
 @import './pages/user-selection.css';

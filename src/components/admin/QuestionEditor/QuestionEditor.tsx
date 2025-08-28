@@ -1,10 +1,9 @@
 // src/components/admin/QuestionEditor/QuestionEditor.tsx
 import React from 'react';
-import { IQuestion, IMCQOption } from '../../../types/database';
+import type { IQuestion } from '../../../types/database';
 import Button from '../../common/Button/Button';
-import Input from '../../../common/forms/Input/Input';
+import Input from '../../common/forms/Input/Input';
 import Label from '../../common/forms/Label/Label';
-import Label from '../../common/'
 
 interface QuestionEditorProps {
     question: IQuestion;
