@@ -8,6 +8,9 @@
 @import "./components/admin/question-editor.css";
 @import "./components/admin/course-list.css";
 
+/* == TOPBAR == */
+@import "./components/topbar/topbar.css";
+
 /* == MODALS == */
 @import "./components/mcommon/modals/modal.css";
 
