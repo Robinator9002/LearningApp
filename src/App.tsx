@@ -12,7 +12,8 @@ import { useDatabaseSeed } from './hooks/useDatabaseSeed';
 import UserSelectionPage from './pages/UserSelectionPage';
 import LearnerDashboardPage from './pages/LearnerDashboardPage';
 import AdminDashboardPage from './pages/AdminDashboardPage';
-import ProtectedRoute from './components/auth/ProtectedRoute'; // Import the new component
+import CourseEditorPage from './pages/admin/CourseEditorPage'; // Import the new page
+import ProtectedRoute from './components/auth/ProtectedRoute';
 
 const AppLayout: React.FC = () => {
     const { t } = useTranslation();
@@ -49,9 +50,10 @@ const AppCore: React.FC = () => {
                     <Route path="dashboard" element={<LearnerDashboardPage />} />
                 </Route>
 
-                {/* Protected Admin Dashboard */}
+                {/* Protected Admin Routes */}
                 <Route element={<ProtectedRoute allowedType="admin" />}>
                     <Route path="admin" element={<AdminDashboardPage />} />
+                    <Route path="admin/create-course" element={<CourseEditorPage />} />
                 </Route>
             </Route>
         </Routes>

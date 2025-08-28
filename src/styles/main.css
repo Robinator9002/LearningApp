@@ -1,14 +1,14 @@
 /* src/styles/main.css */
 
 /* === COMPONENTS === */
-@import './components/buttons/button.css';
-@import './components/forms/forms.css';
+@import "./components/buttons/button.css";
+@import "./components/forms/forms.css";
 
 /* == ADMIN == */
-@import './components/admin/question-editor.css';
-@import './components/admin/course-list.css';
-@import './components/admin/course-editor.css';
+@import "./components/admin/question-editor.css";
+@import "./components/admin/course-list.css";
 
 /* === PAGES === */
-@import './pages/user-selection.css';
-@import './pages/admin-dashboard.css';
+@import "./pages/user-selection.css";
+@import "./pages/admin-dashboard.css";
+@import "./pages/course-editor.css";
