@@ -3,11 +3,11 @@ import React, { useContext } from 'react';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { db } from '../lib/db';
-import { ModalContext } from '../contexts/ModalContext';
+import { db } from '../../lib/db';
+import { ModalContext } from '../../contexts/ModalContext';
 
-import CourseList from '../components/admin/CourseList/CourseList';
-import Button from '../components/common/Button/Button';
+import CourseList from '../../components/admin/CourseList/CourseList';
+import Button from '../../components/common/Button/Button';
 
 import '../styles/pages/admin-dashboard.css';
 

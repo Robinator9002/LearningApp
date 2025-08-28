@@ -13,7 +13,7 @@ import { useDatabaseSeed } from './hooks/useDatabaseSeed';
 import Topbar from './components/topbar/Topbar';
 import UserSelectionPage from './pages/UserSelectionPage';
 import LearnerDashboardPage from './pages/LearnerDashboardPage';
-import AdminDashboardPage from './pages/AdminDashboardPage';
+import AdminDashboardPage from './pages/admin/AdminDashboardPage';
 import CourseEditorPage from './pages/admin/CourseEditorPage';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 

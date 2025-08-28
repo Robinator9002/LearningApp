@@ -11,6 +11,9 @@
 @import "./components/admin/question-editor.css";
 @import "./components/admin/course-list.css";
 
+/* == LEARNER == */
+@import "./components/learner/course-card.css";
+
 /* == TOPBAR == */
 @import "./components/topbar/topbar.css";
 
@@ -20,4 +23,5 @@
 /* === PAGES === */
 @import "./pages/user-selection.css";
 @import "./pages/admin-dashboard.css";
+@import "./pages/learner-dashboard.css";
 @import "./pages/course-editor.css";

@@ -1,0 +1,15 @@
+/* src/styles/pages/learner-dashboard.css */
+
+.learner-dashboard__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: calc(var(--spacing-unit) * 3);
+    padding: var(--spacing-unit);
+}
+
+.learner-dashboard__empty {
+    text-align: center;
+    padding: calc(var(--spacing-unit) * 8);
+    color: var(--color-text-secondary);
+    font-size: calc(var(--font-size-base) * 1.1);
+}

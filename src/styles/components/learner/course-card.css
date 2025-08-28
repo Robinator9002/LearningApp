@@ -1,0 +1,49 @@
+/* src/styles/components/learner/course-card.css */
+
+.course-card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.course-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.course-card__icon-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: calc(var(--spacing-unit) * 4);
+    background-color: color-mix(in srgb, var(--color-accent) 10%, var(--color-surface));
+    color: var(--color-accent);
+}
+
+.course-card__content {
+    padding: calc(var(--spacing-unit) * 2);
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.course-card__title {
+    font-size: calc(var(--font-size-base) * 1.25);
+    font-weight: 700;
+    margin-bottom: var(--spacing-unit);
+}
+
+.course-card__subject {
+    color: var(--color-text-secondary);
+    margin-bottom: calc(var(--spacing-unit) * 2);
+}
+
+.course-card__actions {
+    margin-top: auto; /* Pushes the button to the bottom of the card */
+    padding-top: var(--spacing-unit) * 2;
+}
