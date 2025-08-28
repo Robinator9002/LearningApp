@@ -1,6 +1,7 @@
 // src/contexts/ModalContext.tsx
 import React, { createContext, useState, type ReactNode } from 'react';
 import ConfirmModal from '../components/common/Modal/ConfirmModal';
+import AlertModal from '../components/common/Modal/AlertModal'; // Import the new component
 
 interface ModalOptions {
     title: string;
@@ -12,9 +13,13 @@ interface ConfirmOptions extends ModalOptions {
     onCancel?: () => void;
 }
 
+interface AlertOptions extends ModalOptions {
+    onClose?: () => void;
+}
+
 interface ModalContextType {
     showConfirm: (options: ConfirmOptions) => void;
-    // We can add showAlert, showCustom, etc. here later
+    showAlert: (options: AlertOptions) => void; // Add the new function type
 }
 
 export const ModalContext = createContext<ModalContextType | undefined>(undefined);
@@ -25,12 +30,17 @@ interface ModalProviderProps {
 
 export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
     const [confirmState, setConfirmState] = useState<ConfirmOptions | null>(null);
+    const [alertState, setAlertState] = useState<AlertOptions | null>(null); // Add state for alerts
 
     const showConfirm = (options: ConfirmOptions) => {
         setConfirmState(options);
     };
 
-    const handleClose = () => {
+    const showAlert = (options: AlertOptions) => {
+        setAlertState(options);
+    };
+
+    const handleConfirmClose = () => {
         if (confirmState?.onCancel) {
             confirmState.onCancel();
         }
@@ -44,8 +54,15 @@ export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
         setConfirmState(null);
     };
 
+    const handleAlertClose = () => {
+        if (alertState?.onClose) {
+            alertState.onClose();
+        }
+        setAlertState(null);
+    };
+
     return (
-        <ModalContext.Provider value={{ showConfirm }}>
+        <ModalContext.Provider value={{ showConfirm, showAlert }}>
             {children}
             {confirmState && (
                 <ConfirmModal
@@ -53,7 +70,15 @@ export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
                     title={confirmState.title}
                     message={confirmState.message}
                     onConfirm={handleConfirm}
-                    onClose={handleClose}
+                    onClose={handleConfirmClose}
+                />
+            )}
+            {alertState && (
+                <AlertModal
+                    isOpen={!!alertState}
+                    title={alertState.title}
+                    message={alertState.message}
+                    onClose={handleAlertClose}
                 />
             )}
         </ModalContext.Provider>
