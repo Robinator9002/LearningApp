@@ -9,8 +9,6 @@ import { ModalContext } from '../../contexts/ModalContext';
 import CourseList from '../../components/admin/CourseList/CourseList';
 import Button from '../../components/common/Button/Button';
 
-import '../styles/pages/admin-dashboard.css';
-
 const AdminDashboardPage: React.FC = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
