@@ -1,0 +1,14 @@
+/* src/styles/themes/_sizes.css */
+/* Defines font sizing and other dimensional variables. */
+
+:root {
+    /* This variable will be controlled by React to scale all fonts */
+    --font-scale-factor: 1;
+
+    /* Abstracted base size that all components will use */
+    --font-size-base: calc(1rem * var(--font-scale-factor));
+
+    /* Other global sizes */
+    --spacing-unit: 8px;
+    --border-radius: 4px;
+}

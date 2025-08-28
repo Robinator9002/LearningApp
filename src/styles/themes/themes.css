@@ -1,0 +1,70 @@
+/* src/styles/themes/themes.css */
+/* This is the main engine that combines variables and applies theme logic. */
+
+@import './_colors.css';
+@import './_fonts.css';
+@import './_sizes.css';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Lora:ital,wght@0,400;0,700;1,400&family=Roboto+Mono&display=swap');
+
+/* --- DEFAULT THEME DEFINITION (Light, Normal Contrast, Blue, Sans-Serif) --- */
+:root {
+    /* Abstract Color Variables */
+    --color-background: var(--light-bg);
+    --color-surface: var(--light-surface);
+    --color-text-primary: var(--light-text-primary);
+    --color-text-secondary: var(--light-text-secondary);
+    --color-border: var(--light-border);
+    --color-accent: var(--accent-blue);
+    --color-accent-dark: var(--accent-blue-dark);
+    --color-feedback-positive: var(--feedback-positive);
+    --color-feedback-negative: var(--feedback-negative);
+
+    /* Abstract Font Variable */
+    --font-family: var(--font-sans-serif);
+}
+
+/* --- THEME LOGIC --- */
+
+/* Color Theme: Dark */
+[data-theme='dark'] {
+    --color-background: var(--dark-bg);
+    --color-surface: var(--dark-surface);
+    --color-text-primary: var(--dark-text-primary);
+    --color-text-secondary: var(--dark-text-secondary);
+    --color-border: var(--dark-border);
+}
+
+/* Contrast: High */
+[data-contrast='high'][data-theme='light'] {
+    --color-background: var(--light-hc-bg);
+    --color-surface: var(--light-hc-surface);
+    --color-text-primary: var(--light-hc-text-primary);
+    --color-text-secondary: var(--light-hc-text-secondary);
+    --color-border: var(--light-hc-border);
+}
+
+[data-contrast='high'][data-theme='dark'] {
+    --color-background: var(--dark-hc-bg);
+    --color-surface: var(--dark-hc-surface);
+    --color-text-primary: var(--dark-hc-text-primary);
+    --color-text-secondary: var(--dark-hc-text-secondary);
+    --color-border: var(--dark-hc-border);
+}
+
+/* Accent Color Logic */
+[data-accent='purple'] {
+    --color-accent: var(--accent-purple);
+    --color-accent-dark: var(--accent-purple-dark);
+}
+[data-accent='green'] {
+    --color-accent: var(--accent-green);
+    --color-accent-dark: var(--accent-green-dark);
+}
+
+/* Font Family Logic */
+[data-font='serif'] {
+    --font-family: var(--font-serif);
+}
+[data-font='mono'] {
+    --font-family: var(--font-mono);
+}

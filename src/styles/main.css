@@ -1,5 +1,8 @@
 /* src/styles/main.css */
 
+/* === THEMES === */
+@import "./themes/themes.css";
+
 /* === COMPONENTS === */
 @import "./components/common/buttons/button.css";
 @import "./components/common/forms/forms.css";

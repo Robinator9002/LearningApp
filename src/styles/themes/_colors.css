@@ -1,0 +1,44 @@
+/* src/styles/themes/_colors.css */
+/* This file defines the raw color palettes available to the application. */
+
+:root {
+    /* --- Light Theme Palette --- */
+    --light-bg: #f8f9fa;
+    --light-surface: #ffffff;
+    --light-text-primary: #212529;
+    --light-text-secondary: #6c757d;
+    --light-border: #dee2e6;
+
+    /* --- Dark Theme Palette --- */
+    --dark-bg: #121212;
+    --dark-surface: #1e1e1e;
+    --dark-text-primary: #e0e0e0;
+    --dark-text-secondary: #a0a0a0;
+    --dark-border: #333333;
+
+    /* --- High Contrast Light Theme --- */
+    --light-hc-bg: #ffffff;
+    --light-hc-surface: #ffffff;
+    --light-hc-text-primary: #000000;
+    --light-hc-text-secondary: #404040;
+    --light-hc-border: #000000;
+
+    /* --- High Contrast Dark Theme --- */
+    --dark-hc-bg: #000000;
+    --dark-hc-surface: #000000;
+    --dark-hc-text-primary: #ffffff;
+    --dark-hc-text-secondary: #cccccc;
+    --dark-hc-border: #ffffff;
+
+    /* --- Accent Color Palette --- */
+    --accent-blue: #007bff;
+    --accent-blue-dark: #0056b3;
+    --accent-purple: #6f42c1;
+    --accent-purple-dark: #5a32a3;
+    --accent-green: #28a745;
+    --accent-green-dark: #1e7e34;
+
+    /* --- Feedback Colors (Universal) --- */
+    --feedback-positive: #28a745;
+    --feedback-negative: #dc3545;
+}
