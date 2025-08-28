@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 // Import contexts and hooks
 import { AuthProvider } from './contexts/AuthContext';
+import { ModalProvider } from './contexts/ModalContext'; // Import ModalProvider
 import { useDatabaseSeed } from './hooks/useDatabaseSeed';
 
 // Import page components
@@ -45,16 +46,13 @@ const AppCore: React.FC = () => {
             <Route path="/" element={<AppLayout />}>
                 <Route index element={<UserSelectionPage />} />
 
-                {/* Protected Learner Dashboard */}
                 <Route element={<ProtectedRoute allowedType="learner" />}>
                     <Route path="dashboard" element={<LearnerDashboardPage />} />
                 </Route>
 
-                {/* Protected Admin Routes */}
                 <Route element={<ProtectedRoute allowedType="admin" />}>
                     <Route path="admin" element={<AdminDashboardPage />} />
                     <Route path="admin/create-course" element={<CourseEditorPage />} />
-                    {/* Add the new route for editing with a dynamic courseId */}
                     <Route path="admin/edit-course/:courseId" element={<CourseEditorPage />} />
                 </Route>
             </Route>
@@ -65,7 +63,11 @@ const AppCore: React.FC = () => {
 const App: React.FC = () => {
     return (
         <AuthProvider>
-            <AppCore />
+            <ModalProvider>
+                {' '}
+                {/* Wrap the core app with the ModalProvider */}
+                <AppCore />
+            </ModalProvider>
         </AuthProvider>
     );
 };

@@ -1,9 +1,10 @@
 // src/pages/AdminDashboardPage.tsx
-import React from 'react';
+import React, { useContext } from 'react'; // Import useContext
 import { useLiveQuery } from 'dexie-react-hooks';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { db } from '../lib/db';
+import { ModalContext } from '../contexts/ModalContext'; // Import the ModalContext
 
 import CourseList from '../components/admin/CourseList/CourseList';
 import Button from '../components/common/Button/Button';
@@ -13,7 +14,12 @@ import '../styles/pages/admin-dashboard.css';
 const AdminDashboardPage: React.FC = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
+    const modal = useContext(ModalContext);
     const courses = useLiveQuery(() => db.courses.toArray(), []);
+
+    if (!modal) {
+        throw new Error('AdminDashboardPage must be used within a ModalProvider');
+    }
 
     const handleCreateCourse = () => {
         navigate('/admin/create-course');
@@ -23,20 +29,21 @@ const AdminDashboardPage: React.FC = () => {
         navigate(`/admin/edit-course/${courseId}`);
     };
 
-    const handleDeleteCourse = async (courseId: number) => {
-        const isConfirmed = window.confirm(
-            'Are you sure you want to delete this course? This action cannot be undone.',
-        );
-
-        if (isConfirmed) {
-            try {
-                await db.courses.delete(courseId);
-                console.log(`Course with id ${courseId} deleted successfully.`);
-            } catch (error) {
-                console.error('Failed to delete course:', error);
-                alert('There was an error deleting the course.');
-            }
-        }
+    const handleDeleteCourse = (courseId: number) => {
+        modal.showConfirm({
+            title: 'Delete Course',
+            message: 'Are you sure you want to delete this course? This action cannot be undone.',
+            onConfirm: async () => {
+                try {
+                    await db.courses.delete(courseId);
+                    console.log(`Course with id ${courseId} deleted successfully.`);
+                } catch (error) {
+                    console.error('Failed to delete course:', error);
+                    // Here we could use an alert modal in the future
+                    alert('There was an error deleting the course.');
+                }
+            },
+        });
     };
 
     return (
