@@ -1,4 +1,4 @@
-/* src/styles/components/common/topbar.css */
+/* src/styles/components/topbar/topbar.css */
 
 .topbar {
     display: flex;
@@ -11,9 +11,9 @@
 }
 
 .topbar__brand {
-    font-size: 1.5rem;
+    font-size: calc(var(--font-size-base) * 1.5);
     font-weight: 700;
-    color: var(--color-primary-blue);
+    color: var(--color-accent);
 }
 
 .topbar__user-info {
@@ -24,9 +24,9 @@
 
 .topbar__user-name {
     font-weight: 500;
+    color: var(--color-text-primary);
 }
 
-/* Styling for icon buttons */
 .icon-btn {
     background: none;
     border: none;

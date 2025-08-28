@@ -1,11 +1,9 @@
-/* src/styles/components/buttons/button.css */
+/* src/styles/components/common/buttons/button.css */
 
-/* Using a BEM-like convention (Block__Element--Modifier) for global scope */
-/* Block: 'btn' */
 .btn {
     display: inline-block;
     padding: calc(var(--spacing-unit) * 1.5) calc(var(--spacing-unit) * 3);
-    font-size: 1rem;
+    font-size: var(--font-size-base);
     font-weight: 500;
     text-align: center;
     text-decoration: none;
@@ -14,23 +12,23 @@
     border-radius: var(--border-radius);
     transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out,
         border-color 0.2s ease-in-out;
-    user-select: none; /* Prevents text selection on click */
+    user-select: none;
 }
 
-/* Modifier: 'primary' */
 .btn--primary {
-    background-color: var(--color-primary-blue);
-    color: #ffffff;
-    border-color: var(--color-primary-blue);
+    background-color: var(--color-accent);
+    color: #ffffff; /* White text is usually best on accent colors */
+    border-color: var(--color-accent);
 }
 
 .btn--primary:hover {
-    background-color: var(--color-primary-blue-dark);
-    border-color: var(--color-primary-blue-dark);
+    background-color: var(--color-accent-dark);
+    border-color: var(--color-accent-dark);
 }
 
 .btn--primary:disabled {
-    background-color: #a0a0a0;
-    border-color: #a0a0a0;
+    background-color: var(--color-text-secondary);
+    border-color: var(--color-text-secondary);
     cursor: not-allowed;
+    opacity: 0.7;
 }
