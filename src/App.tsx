@@ -1,15 +1,16 @@
 // src/App.tsx
-import React, { useContext } from 'react'; // Import useContext
+import React, { useContext } from 'react';
 import { Routes, Route, Outlet } from 'react-router-dom';
 import styles from './App.module.css';
 
 // Import contexts and hooks
 import { AuthContext, AuthProvider } from './contexts/AuthContext';
 import { ModalProvider } from './contexts/ModalContext';
+import { ThemeProvider } from './contexts/ThemeContext'; // Import ThemeProvider
 import { useDatabaseSeed } from './hooks/useDatabaseSeed';
 
 // Import components
-import Topbar from './components/topbar/Topbar'; // Import the new Topbar
+import Topbar from './components/topbar/Topbar';
 import UserSelectionPage from './pages/UserSelectionPage';
 import LearnerDashboardPage from './pages/LearnerDashboardPage';
 import AdminDashboardPage from './pages/AdminDashboardPage';
@@ -21,10 +22,7 @@ const AppLayout: React.FC = () => {
     const hasUser = !!auth?.currentUser;
 
     return (
-        // We remove the main appLayout style if there is a user,
-        // as the Topbar provides its own structure.
         <div className={hasUser ? '' : styles.appLayout}>
-            {/* Conditionally render the Topbar or the old header */}
             {hasUser ? (
                 <Topbar />
             ) : (
@@ -72,9 +70,13 @@ const AppCore: React.FC = () => {
 const App: React.FC = () => {
     return (
         <AuthProvider>
-            <ModalProvider>
-                <AppCore />
-            </ModalProvider>
+            <ThemeProvider>
+                {' '}
+                {/* Wrap the other providers with ThemeProvider */}
+                <ModalProvider>
+                    <AppCore />
+                </ModalProvider>
+            </ThemeProvider>
         </AuthProvider>
     );
 };
