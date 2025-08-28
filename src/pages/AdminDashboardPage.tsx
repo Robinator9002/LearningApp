@@ -1,10 +1,10 @@
 // src/pages/AdminDashboardPage.tsx
-import React, { useContext } from 'react'; // Import useContext
+import React, { useContext } from 'react';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { db } from '../lib/db';
-import { ModalContext } from '../contexts/ModalContext'; // Import the ModalContext
+import { ModalContext } from '../contexts/ModalContext';
 
 import CourseList from '../components/admin/CourseList/CourseList';
 import Button from '../components/common/Button/Button';
@@ -39,8 +39,10 @@ const AdminDashboardPage: React.FC = () => {
                     console.log(`Course with id ${courseId} deleted successfully.`);
                 } catch (error) {
                     console.error('Failed to delete course:', error);
-                    // Here we could use an alert modal in the future
-                    alert('There was an error deleting the course.');
+                    modal.showAlert({
+                        title: 'Delete Error',
+                        message: 'There was an error deleting the course.',
+                    });
                 }
             },
         });

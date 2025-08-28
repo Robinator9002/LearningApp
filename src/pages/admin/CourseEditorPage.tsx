@@ -1,9 +1,10 @@
 // src/pages/admin/CourseEditorPage.tsx
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react'; // Import useContext
 import { useNavigate, useParams } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 
 import { db } from '../../lib/db';
+import { ModalContext } from '../../contexts/ModalContext'; // Import ModalContext
 import type { ICourse, IQuestion } from '../../types/database';
 
 import Button from '../../components/common/Button/Button';
@@ -30,12 +31,17 @@ const createNewQuestion = (): IQuestion => {
 const CourseEditorPage: React.FC = () => {
     const navigate = useNavigate();
     const { courseId } = useParams<{ courseId?: string }>();
+    const modal = useContext(ModalContext);
     const isEditMode = Boolean(courseId);
 
     const [title, setTitle] = useState('');
     const [subject, setSubject] = useState<'Math' | 'Reading' | 'Writing'>('Math');
     const [questions, setQuestions] = useState<IQuestion[]>([]);
-    const [isLoading, setIsLoading] = useState(isEditMode); // Only load if in edit mode
+    const [isLoading, setIsLoading] = useState(isEditMode);
+
+    if (!modal) {
+        throw new Error('CourseEditorPage must be used within a ModalProvider');
+    }
 
     useEffect(() => {
         if (isEditMode && courseId) {
@@ -49,7 +55,7 @@ const CourseEditorPage: React.FC = () => {
                         setQuestions(courseToEdit.questions);
                     } else {
                         console.error('Course not found!');
-                        navigate('/admin'); // Redirect if course doesn't exist
+                        navigate('/admin');
                     }
                 } catch (error) {
                     console.error('Failed to fetch course:', error);
@@ -77,7 +83,7 @@ const CourseEditorPage: React.FC = () => {
 
     const handleSaveCourse = async () => {
         if (!title.trim()) {
-            alert('Please enter a course title.');
+            modal.showAlert({ title: 'Validation Error', message: 'Please enter a course title.' });
             return;
         }
 
@@ -85,18 +91,17 @@ const CourseEditorPage: React.FC = () => {
 
         try {
             if (isEditMode && courseId) {
-                // Update existing course
                 await db.courses.put({ ...courseData, id: parseInt(courseId, 10) });
-                console.log('Course updated successfully!');
             } else {
-                // Add new course
                 await db.courses.add(courseData);
-                console.log('Course saved successfully!');
             }
             navigate('/admin');
         } catch (error) {
             console.error('Failed to save course:', error);
-            alert('There was an error saving the course.');
+            modal.showAlert({
+                title: 'Save Error',
+                message: 'There was an error saving the course.',
+            });
         }
     };
 
@@ -112,6 +117,7 @@ const CourseEditorPage: React.FC = () => {
                 </h2>
             </header>
 
+            {/* Form content remains the same */}
             <div className="course-editor-page__meta">
                 <div className="form-group">
                     <Label htmlFor="course-title">Course Title</Label>
@@ -135,7 +141,6 @@ const CourseEditorPage: React.FC = () => {
                     </Select>
                 </div>
             </div>
-
             <div className="course-editor-page__questions">
                 <div className="course-editor-page__questions-header">
                     <h3 className="course-editor-page__questions-title">Questions</h3>
@@ -151,7 +156,6 @@ const CourseEditorPage: React.FC = () => {
                     />
                 ))}
             </div>
-
             <footer className="course-editor-page__footer">
                 <Button variant="primary" onClick={handleSaveCourse}>
                     Save Changes
