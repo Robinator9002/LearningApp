@@ -1,15 +1,15 @@
 // src/App.tsx
-import React from 'react';
+import React, { useContext } from 'react'; // Import useContext
 import { Routes, Route, Outlet } from 'react-router-dom';
 import styles from './App.module.css';
-import { useTranslation } from 'react-i18next';
 
 // Import contexts and hooks
-import { AuthProvider } from './contexts/AuthContext';
-import { ModalProvider } from './contexts/ModalContext'; // Import ModalProvider
+import { AuthContext, AuthProvider } from './contexts/AuthContext';
+import { ModalProvider } from './contexts/ModalContext';
 import { useDatabaseSeed } from './hooks/useDatabaseSeed';
 
-// Import page components
+// Import components
+import Topbar from './components/topbar/Topbar'; // Import the new Topbar
 import UserSelectionPage from './pages/UserSelectionPage';
 import LearnerDashboardPage from './pages/LearnerDashboardPage';
 import AdminDashboardPage from './pages/AdminDashboardPage';
@@ -17,12 +17,21 @@ import CourseEditorPage from './pages/admin/CourseEditorPage';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 
 const AppLayout: React.FC = () => {
-    const { t } = useTranslation();
+    const auth = useContext(AuthContext);
+    const hasUser = !!auth?.currentUser;
+
     return (
-        <div className={styles.appLayout}>
-            <header className={styles.appHeader}>
-                <h1 className={styles.appTitle}>{t('appTitle')}</h1>
-            </header>
+        // We remove the main appLayout style if there is a user,
+        // as the Topbar provides its own structure.
+        <div className={hasUser ? '' : styles.appLayout}>
+            {/* Conditionally render the Topbar or the old header */}
+            {hasUser ? (
+                <Topbar />
+            ) : (
+                <header className={styles.appHeader}>
+                    <h1 className={styles.appTitle}>Learning App</h1>
+                </header>
+            )}
             <main className={styles.pageContent}>
                 <Outlet />
             </main>
@@ -64,8 +73,6 @@ const App: React.FC = () => {
     return (
         <AuthProvider>
             <ModalProvider>
-                {' '}
-                {/* Wrap the core app with the ModalProvider */}
                 <AppCore />
             </ModalProvider>
         </AuthProvider>
