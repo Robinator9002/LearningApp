@@ -1,0 +1,12 @@
+/* src/styles/pages/admin-dashboard.css */
+
+.admin-dashboard__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: calc(var(--spacing-unit) * 4);
+}
+
+.admin-dashboard__title {
+    font-size: 1.75rem;
+}
