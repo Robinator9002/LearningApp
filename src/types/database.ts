@@ -10,11 +10,7 @@ export interface IUser {
     id?: number; // Optional: The auto-incrementing primary key from Dexie.
     name: string; // The user's display name, which must be unique.
     type: 'admin' | 'learner'; // The user's role, determining their permissions.
-
-    // NEW: An optional password for the user account.
-    // This is optional to allow for password-less accounts, providing flexibility
-    // for different use cases (e.g., young children who don't need a password).
-    password?: string;
+    password?: string; // An optional password for the user account.
 }
 
 /**
@@ -47,13 +43,24 @@ export interface ICourse {
 }
 
 /**
- * Represents a log of a user's progress on a course.
+ * Represents a single, timestamped record of a user completing a course.
+ * This is the core data model for tracking learner progress.
  */
 export interface IProgressLog {
     id?: number; // Optional: The auto-incrementing primary key from Dexie.
-    userId: number; // The ID of the user who completed the course.
-    courseId: number; // The ID of the course that was completed.
-    score: number; // The user's score (e.g., number of correct answers).
-    totalQuestions: number; // The total number of questions in the course.
-    timestamp: Date; // The date and time when the course was completed.
+
+    // Foreign key linking this log to a specific user.
+    userId: number;
+
+    // Foreign key linking this log to a specific course.
+    courseId: number;
+
+    // The number of questions the user answered correctly.
+    score: number;
+
+    // The total number of questions that were in the course at the time of completion.
+    totalQuestions: number;
+
+    // The exact date and time when the course was finished.
+    timestamp: Date;
 }
