@@ -1,58 +1,59 @@
 // src/types/database.ts
 
-// --- USER & PROGRESS ---
+// This file defines the core data structures for the application's database.
+// By centralizing these types, we ensure consistency across the entire codebase.
 
 /**
- * Defines the structure for a User record in the database.
+ * Represents a user account in the database.
  */
 export interface IUser {
     id?: number; // Optional: The auto-incrementing primary key from Dexie.
-    name: string;
-    type: 'admin' | 'learner';
+    name: string; // The user's display name, which must be unique.
+    type: 'admin' | 'learner'; // The user's role, determining their permissions.
+
+    // NEW: An optional password for the user account.
+    // This is optional to allow for password-less accounts, providing flexibility
+    // for different use cases (e.g., young children who don't need a password).
+    password?: string;
 }
 
 /**
- * Defines the structure for a ProgressLog record in the database.
- * We will expand this later.
- */
-export interface IProgressLog {
-    id?: number;
-    userId: number;
-    courseId: number;
-    score: number; // e.g., 80 for 80%
-    timeSpent: number; // in seconds
-    timestamp: Date;
-}
-
-// --- COURSE & QUESTION STRUCTURES ---
-
-/**
- * Defines a single option for a Multiple Choice Question.
+ * Represents a single multiple-choice question option.
  */
 export interface IMCQOption {
-    id: string; // A unique identifier for the option (e.g., a UUID)
-    text: string;
-    isCorrect: boolean;
+    id: string; // A unique identifier for the option.
+    text: string; // The answer text to be displayed.
+    isCorrect: boolean; // Flag indicating if this is the correct answer.
 }
 
 /**
- * Defines the structure for a single question within a course.
- * This is designed to be extensible for future question types.
+ * Represents a single question within a course.
  */
 export interface IQuestion {
-    id: string; // A unique identifier for the question
-    type: 'mcq'; // For now, only 'mcq' is supported
-    questionText: string;
-    options: IMCQOption[];
+    id: string; // A unique identifier for the question.
+    type: 'mcq'; // The type of question (extensible for future types).
+    questionText: string; // The main text of the question.
+    options: IMCQOption[]; // The list of possible answers for the question.
 }
 
 /**
- * Defines the structure for a Course record in the database.
- * A course is a collection of questions.
+ * Represents a course, which is a collection of questions.
  */
 export interface ICourse {
-    id?: number;
-    title: string;
-    subject: 'Math' | 'Reading' | 'Writing';
-    questions: IQuestion[];
+    id?: number; // Optional: The auto-incrementing primary key from Dexie.
+    title: string; // The title of the course.
+    subject: 'Math' | 'Reading' | 'Writing'; // The subject category for the course.
+    questions: IQuestion[]; // The array of questions that make up the course.
+}
+
+/**
+ * Represents a log of a user's progress on a course.
+ */
+export interface IProgressLog {
+    id?: number; // Optional: The auto-incrementing primary key from Dexie.
+    userId: number; // The ID of the user who completed the course.
+    courseId: number; // The ID of the course that was completed.
+    score: number; // The user's score (e.g., number of correct answers).
+    totalQuestions: number; // The total number of questions in the course.
+    timestamp: Date; // The date and time when the course was completed.
 }
