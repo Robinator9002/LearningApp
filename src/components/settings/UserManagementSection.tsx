@@ -14,17 +14,14 @@ import Select from '../common/Form/Select/Select';
 
 /**
  * UserManagementSection is an admin-only component for managing all user accounts.
- * It provides a list of all users and controls for creating, editing,
- * and deleting learner accounts.
+ * It provides a list of all users and full CRUD controls for learner accounts.
  */
 const UserManagementSection: React.FC = () => {
     // --- STATE MANAGEMENT ---
-    // State for the "Create User" modal
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
     const [newUserName, setNewUserName] = useState('');
     const [newUserType, setNewUserType] = useState<'learner' | 'admin'>('learner');
 
-    // State for the "Edit User" modal
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [editingUser, setEditingUser] = useState<IUser | null>(null);
     const [editedUserName, setEditedUserName] = useState('');
@@ -37,7 +34,6 @@ const UserManagementSection: React.FC = () => {
         throw new Error('This component must be used within a ModalProvider.');
     }
 
-    // Effect to update the edited name when the editingUser changes
     useEffect(() => {
         if (editingUser) {
             setEditedUserName(editingUser.name);
@@ -76,13 +72,11 @@ const UserManagementSection: React.FC = () => {
 
     const handleUpdateUser = async () => {
         if (!editingUser) return;
-
         const trimmedName = editedUserName.trim();
         if (!trimmedName) {
             modal.showAlert({ title: 'Invalid Input', message: 'User name cannot be empty.' });
             return;
         }
-
         try {
             await db.users.update(editingUser.id!, { name: trimmedName });
             setIsEditModalOpen(false);
@@ -96,9 +90,26 @@ const UserManagementSection: React.FC = () => {
         }
     };
 
-    // Placeholder for delete
-    const handleDeleteUser = (user: IUser) =>
-        console.log('TODO: Implement deletion for', user.name);
+    /**
+     * Handles the deletion of a user after a confirmation dialog.
+     */
+    const handleDeleteUser = (user: IUser) => {
+        modal.showConfirm({
+            title: 'Delete User',
+            message: `Are you sure you want to delete the user "${user.name}"? This action cannot be undone.`,
+            onConfirm: async () => {
+                try {
+                    await db.users.delete(user.id!);
+                } catch (error) {
+                    console.error('Failed to delete user:', error);
+                    modal.showAlert({
+                        title: 'Delete Error',
+                        message: 'There was an error deleting the user.',
+                    });
+                }
+            },
+        });
+    };
 
     return (
         <>
