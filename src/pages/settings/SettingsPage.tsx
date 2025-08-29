@@ -3,41 +3,42 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
 
+// Import the new ProfileSection component
+import ProfileSection from '../../components/settings/ProfileSection';
+
 /**
  * SettingsPage serves as a central hub for all user-related configurations.
- * It will contain sections for profile management, appearance customization,
- * and, for admin users, user management tools.
+ * It is composed of modular sections for different settings categories.
  */
 const SettingsPage: React.FC = () => {
-    // Access the current user's data from the authentication context.
-    // This will be used to conditionally render components (like the admin-only
-    // user management panel) and to pass user info down to child components.
     const auth = useContext(AuthContext);
     const { currentUser } = auth ?? {};
 
-    // A simple guard to ensure that currentUser is available before rendering.
-    // In a real-world scenario, a more robust loading state might be preferable,
-    // but ProtectedRoute should prevent this page from being accessed without a user.
+    // Guard against rendering without a user. ProtectedRoute should handle this,
+    // but this prevents potential crashes.
     if (!currentUser) {
         return <div>Loading user data...</div>;
     }
 
     return (
         <div className="settings-page">
-            {/* Page header */}
             <header className="settings-page__header">
                 <h2 className="settings-page__title">Settings</h2>
             </header>
 
-            {/* Main content area where different settings sections will be rendered */}
             <div className="settings-page__content">
                 {/*
-                    The following sections will be built out as separate components:
-                    1. ProfileSection: For changing the user's own name. (Visible to all)
-                    2. AppearanceSection: For theme and style adjustments. (Visible to all)
-                    3. UserManagementSection: For admin users to manage other accounts. (Admin only)
+                  The ProfileSection is now rendered here. It receives the
+                  currentUser object to display the user's name and will
+                  eventually handle editing that specific user's profile.
                 */}
-                <p>Settings sections will be added here.</p>
+                <ProfileSection currentUser={currentUser} />
+
+                {/*
+                  Placeholder for future sections:
+                  - AppearanceSection
+                  - UserManagementSection (Admin only)
+                */}
             </div>
         </div>
     );
