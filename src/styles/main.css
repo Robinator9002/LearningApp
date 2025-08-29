@@ -25,8 +25,11 @@
 /* == MODALS == */
 @import './components/common/modals/modal.css';
 
-/* == SETTINGS (NEW) == */
+/* == SETTINGS == */
 @import './components/settings/settings-components.css';
+
+/* == AUTH == */
+@import './components/auth/add-profile-card.css';
 
 /* === PAGES === */
 @import './pages/user-selection.css';
