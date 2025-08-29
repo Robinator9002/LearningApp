@@ -3,8 +3,9 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
 
-// Import the new ProfileSection component
+// Import the section components
 import ProfileSection from '../../components/settings/ProfileSection';
+import AppearanceSection from '../../components/settings/AppearanceSection';
 
 /**
  * SettingsPage serves as a central hub for all user-related configurations.
@@ -14,8 +15,7 @@ const SettingsPage: React.FC = () => {
     const auth = useContext(AuthContext);
     const { currentUser } = auth ?? {};
 
-    // Guard against rendering without a user. ProtectedRoute should handle this,
-    // but this prevents potential crashes.
+    // Guard against rendering without a user.
     if (!currentUser) {
         return <div>Loading user data...</div>;
     }
@@ -27,16 +27,14 @@ const SettingsPage: React.FC = () => {
             </header>
 
             <div className="settings-page__content">
-                {/*
-                  The ProfileSection is now rendered here. It receives the
-                  currentUser object to display the user's name and will
-                  eventually handle editing that specific user's profile.
-                */}
+                {/* The ProfileSection allows users to edit their own name. */}
                 <ProfileSection currentUser={currentUser} />
 
+                {/* The AppearanceSection provides controls for the app's theme. */}
+                <AppearanceSection />
+
                 {/*
-                  Placeholder for future sections:
-                  - AppearanceSection
+                  Placeholder for the final section:
                   - UserManagementSection (Admin only)
                 */}
             </div>
