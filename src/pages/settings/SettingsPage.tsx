@@ -3,13 +3,15 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
 
-// Import the section components
+// Import all three section components
 import ProfileSection from '../../components/settings/ProfileSection';
 import AppearanceSection from '../../components/settings/AppearanceSection';
+import UserManagementSection from '../../components/settings/UserManagementSection';
 
 /**
  * SettingsPage serves as a central hub for all user-related configurations.
- * It is composed of modular sections for different settings categories.
+ * It is composed of modular sections, with some being conditionally rendered
+ * based on the current user's role.
  */
 const SettingsPage: React.FC = () => {
     const auth = useContext(AuthContext);
@@ -27,16 +29,18 @@ const SettingsPage: React.FC = () => {
             </header>
 
             <div className="settings-page__content">
-                {/* The ProfileSection allows users to edit their own name. */}
+                {/* This section is visible to all logged-in users. */}
                 <ProfileSection currentUser={currentUser} />
 
-                {/* The AppearanceSection provides controls for the app's theme. */}
+                {/* This section is also visible to all logged-in users. */}
                 <AppearanceSection />
 
                 {/*
-                  Placeholder for the final section:
-                  - UserManagementSection (Admin only)
+                  CONDITIONAL RENDERING:
+                  The UserManagementSection is only rendered if the current user's
+                  type is 'admin'. This is the core of our permission model for the UI.
                 */}
+                {currentUser.type === 'admin' && <UserManagementSection />}
             </div>
         </div>
     );
