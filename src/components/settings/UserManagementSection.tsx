@@ -1,6 +1,6 @@
 // src/components/settings/UserManagementSection.tsx
 
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../../lib/db';
 import type { IUser } from '../../types/database';
@@ -19,9 +19,15 @@ import Select from '../common/Form/Select/Select';
  */
 const UserManagementSection: React.FC = () => {
     // --- STATE MANAGEMENT ---
+    // State for the "Create User" modal
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
     const [newUserName, setNewUserName] = useState('');
     const [newUserType, setNewUserType] = useState<'learner' | 'admin'>('learner');
+
+    // State for the "Edit User" modal
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [editingUser, setEditingUser] = useState<IUser | null>(null);
+    const [editedUserName, setEditedUserName] = useState('');
 
     // --- CONTEXTS & DATA FETCHING ---
     const modal = useContext(ModalContext);
@@ -31,9 +37,15 @@ const UserManagementSection: React.FC = () => {
         throw new Error('This component must be used within a ModalProvider.');
     }
 
+    // Effect to update the edited name when the editingUser changes
+    useEffect(() => {
+        if (editingUser) {
+            setEditedUserName(editingUser.name);
+        }
+    }, [editingUser]);
+
     // --- EVENT HANDLERS ---
     const handleOpenCreateModal = () => {
-        // Reset form state when opening the modal
         setNewUserName('');
         setNewUserType('learner');
         setIsCreateModalOpen(true);
@@ -45,11 +57,9 @@ const UserManagementSection: React.FC = () => {
             modal.showAlert({ title: 'Invalid Input', message: 'User name cannot be empty.' });
             return;
         }
-
         try {
-            const newUser: IUser = { name: trimmedName, type: newUserType };
-            await db.users.add(newUser);
-            setIsCreateModalOpen(false); // Close modal on success
+            await db.users.add({ name: trimmedName, type: newUserType });
+            setIsCreateModalOpen(false);
         } catch (error) {
             console.error('Failed to create new user:', error);
             modal.showAlert({
@@ -59,8 +69,34 @@ const UserManagementSection: React.FC = () => {
         }
     };
 
-    // Placeholder handlers for edit/delete
-    const handleEditUser = (user: IUser) => console.log('TODO: Implement editing for', user.name);
+    const handleOpenEditModal = (user: IUser) => {
+        setEditingUser(user);
+        setIsEditModalOpen(true);
+    };
+
+    const handleUpdateUser = async () => {
+        if (!editingUser) return;
+
+        const trimmedName = editedUserName.trim();
+        if (!trimmedName) {
+            modal.showAlert({ title: 'Invalid Input', message: 'User name cannot be empty.' });
+            return;
+        }
+
+        try {
+            await db.users.update(editingUser.id!, { name: trimmedName });
+            setIsEditModalOpen(false);
+            setEditingUser(null);
+        } catch (error) {
+            console.error('Failed to update user:', error);
+            modal.showAlert({
+                title: 'Update Error',
+                message: 'Could not update the user. The name might already be in use.',
+            });
+        }
+    };
+
+    // Placeholder for delete
     const handleDeleteUser = (user: IUser) =>
         console.log('TODO: Implement deletion for', user.name);
 
@@ -90,7 +126,7 @@ const UserManagementSection: React.FC = () => {
                                     <div className="user-list__cell user-list__cell--actions">
                                         {user.type === 'learner' ? (
                                             <>
-                                                <Button onClick={() => handleEditUser(user)}>
+                                                <Button onClick={() => handleOpenEditModal(user)}>
                                                     Edit
                                                 </Button>
                                                 <Button onClick={() => handleDeleteUser(user)}>
@@ -143,6 +179,29 @@ const UserManagementSection: React.FC = () => {
                     <Button onClick={() => setIsCreateModalOpen(false)}>Cancel</Button>
                     <Button variant="primary" onClick={handleSaveNewUser}>
                         Create User
+                    </Button>
+                </div>
+            </Modal>
+
+            {/* Edit User Modal */}
+            <Modal
+                isOpen={isEditModalOpen}
+                onClose={() => setIsEditModalOpen(false)}
+                title={`Edit User: ${editingUser?.name}`}
+            >
+                <div className="form-group">
+                    <Label htmlFor="edit-user-name">New Name</Label>
+                    <Input
+                        id="edit-user-name"
+                        value={editedUserName}
+                        onChange={(e) => setEditedUserName(e.target.value)}
+                        autoFocus
+                    />
+                </div>
+                <div className="modal-footer">
+                    <Button onClick={() => setIsEditModalOpen(false)}>Cancel</Button>
+                    <Button variant="primary" onClick={handleUpdateUser}>
+                        Save Changes
                     </Button>
                 </div>
             </Modal>
