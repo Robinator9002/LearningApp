@@ -1,0 +1,17 @@
+/* src/styles/pages/settings/settings-page.css */
+
+.settings-page__header {
+    margin-bottom: calc(var(--spacing-unit) * 4);
+}
+
+.settings-page__title {
+    font-size: 1.75rem;
+    padding-bottom: var(--spacing-unit);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.settings-page__content {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing-unit) * 4);
+}

@@ -1,0 +1,95 @@
+/* src/styles/components/settings/settings-components.css */
+
+/* --- Generic Section Styling --- */
+.settings-section {
+    background-color: var(--color-background);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    padding: calc(var(--spacing-unit) * 2);
+}
+
+.settings-section__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: calc(var(--spacing-unit) * 2);
+}
+
+.settings-section__title {
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.settings-section__content {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing-unit) * 2);
+}
+
+/* --- Profile Section --- */
+.profile-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-unit);
+}
+
+.profile-info__label {
+    font-weight: 500;
+    color: var(--color-text-secondary);
+}
+
+/* --- Appearance Section --- */
+.settings-option-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-unit);
+}
+
+.settings-option-group__buttons {
+    display: flex;
+    gap: var(--spacing-unit);
+}
+
+/* --- User Management Section --- */
+.user-list {
+    width: 100%;
+}
+
+.user-list__header,
+.user-list__row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 2fr;
+    gap: var(--spacing-unit);
+    padding: var(--spacing-unit);
+    align-items: center;
+}
+
+.user-list__header {
+    font-weight: 700;
+    color: var(--color-text-secondary);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.user-list__row {
+    border-bottom: 1px solid var(--color-border);
+}
+.user-list__row:last-child {
+    border-bottom: none;
+}
+
+.user-list__cell--role {
+    text-transform: capitalize;
+}
+
+.user-list__cell--actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--spacing-unit);
+}
+
+.user-list__cell--no-actions {
+    color: var(--color-text-secondary);
+    font-style: italic;
+    text-align: right;
+}
