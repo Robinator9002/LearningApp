@@ -23,13 +23,22 @@ export interface IMCQOption {
 }
 
 /**
- * Represents a single question within a course.
+ * Represents a single question within a course. This model is now extensible
+ * to support multiple question formats.
  */
 export interface IQuestion {
     id: string; // A unique identifier for the question.
-    type: 'mcq'; // The type of question (extensible for future types).
+
+    // The type of question, determining how it's rendered and graded.
+    type: 'mcq' | 'fitb'; // 'mcq' = Multiple Choice, 'fitb' = Fill-in-the-blank
+
     questionText: string; // The main text of the question.
-    options: IMCQOption[]; // The list of possible answers for the question.
+
+    // Optional: An array of possible answers. Only used for 'mcq' type questions.
+    options?: IMCQOption[];
+
+    // Optional: The correct string answer. Only used for 'fitb' type questions.
+    correctAnswer?: string;
 }
 
 /**
@@ -44,23 +53,12 @@ export interface ICourse {
 
 /**
  * Represents a single, timestamped record of a user completing a course.
- * This is the core data model for tracking learner progress.
  */
 export interface IProgressLog {
     id?: number; // Optional: The auto-incrementing primary key from Dexie.
-
-    // Foreign key linking this log to a specific user.
     userId: number;
-
-    // Foreign key linking this log to a specific course.
     courseId: number;
-
-    // The number of questions the user answered correctly.
     score: number;
-
-    // The total number of questions that were in the course at the time of completion.
     totalQuestions: number;
-
-    // The exact date and time when the course was finished.
     timestamp: Date;
 }
