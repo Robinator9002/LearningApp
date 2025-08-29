@@ -1,39 +1,43 @@
 /* src/styles/main.css */
 
 /* === THEMES === */
-@import "./themes/themes.css";
-
+@import './themes/themes.css';
 
 /* === COMPONENTS === */
-@import "./components/common/buttons/button.css";
-@import "./components/common/forms/forms.css";
+@import './components/common/buttons/button.css';
+@import './components/common/forms/forms.css';
 
 /* == ADMIN == */
-@import "./components/admin/question-editor.css";
-@import "./components/admin/course-list.css";
+@import './components/admin/question-editor.css';
+@import './components/admin/course-list.css';
 
 /* == LEARNER == */
 /* = COURSE = */
-@import "./components/learner/course/course-card.css";
-@import "./components/learner/course/course-summary.css";
+@import './components/learner/course/course-card.css';
+@import './components/learner/course/course-summary.css';
 /* = QA = */
-@import "./components/learner/qa/answer-options.css";
-@import "./components/learner/qa/question-display.css";
+@import './components/learner/qa/answer-options.css';
+@import './components/learner/qa/question-display.css';
 
 /* == TOPBAR == */
-@import "./components/topbar/topbar.css";
+@import './components/topbar/topbar.css';
 
 /* == MODALS == */
-@import "./components/common/modals/modal.css";
+@import './components/common/modals/modal.css';
 
+/* == SETTINGS (NEW) == */
+@import './components/settings/settings-components.css';
 
 /* === PAGES === */
-@import "./pages/user-selection.css";
+@import './pages/user-selection.css';
 
 /* == ADMIN == */
-@import "./pages/admin/admin-dashboard.css";
-@import "./pages/admin/course-editor.css";
+@import './pages/admin/admin-dashboard.css';
+@import './pages/admin/course-editor.css';
 
 /* == LEARNER == */
-@import "./pages/learner/learner-dashboard.css";
-@import "./pages/learner/course-player.css";
+@import './pages/learner/learner-dashboard.css';
+@import './pages/learner/course-player.css';
+
+/* == SETTINGS (NEW) == */
+@import './pages/settings/settings-page.css';
