@@ -25,7 +25,7 @@
 /* == MODALS == */
 @import './components/common/modals/modal.css';
 
-/* == SETTINGS == */
+/* == SETTINGS (NEW) == */
 @import './components/settings/settings-components.css';
 
 /* === PAGES === */
@@ -39,5 +39,5 @@
 @import './pages/learner/learner-dashboard.css';
 @import './pages/learner/course-player.css';
 
-/* == SETTINGS == */
+/* == SETTINGS (NEW) == */
 @import './pages/settings/settings-page.css';
