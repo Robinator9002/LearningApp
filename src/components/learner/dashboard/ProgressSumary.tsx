@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useLiveQuery } from 'dexie-react-hooks';
-import { db } from '../../../../lib/db';
+import { db } from '../../../lib/db';
 
 // Define the props for the component, it needs the user's ID to fetch their data.
 interface ProgressSummaryProps {
