@@ -15,7 +15,8 @@ import Label from '../components/common/Form/Label/Label';
 
 /**
  * The page where users select their profile to log in.
- * Now handles the "first-run" experience if no users exist.
+ * This component now includes a "first-run" experience to guide the
+ * initial user in creating the first administrator account if the database is empty.
  */
 const UserSelectionPage: React.FC = () => {
     const { t } = useTranslation();
@@ -23,17 +24,21 @@ const UserSelectionPage: React.FC = () => {
     const auth = useContext(AuthContext);
     const [adminName, setAdminName] = useState('');
 
-    // Fetch all users from the database in real-time
+    // Fetch all users from the database in real-time.
+    // `users` will be `undefined` during the initial loading state.
     const users = useLiveQuery(() => db.users.toArray(), []);
 
+    // Ensure the component is wrapped in an AuthProvider
     if (!auth) {
-        // This should not happen if the component is rendered within AuthProvider
-        throw new Error('AuthContext is not available');
+        throw new Error('UserSelectionPage must be used within an AuthProvider');
     }
 
+    /**
+     * Handles logging in an existing user and navigating to their dashboard.
+     * @param user The user object to log in.
+     */
     const handleUserSelect = (user: IUser) => {
         auth.login(user);
-        // Navigate to the appropriate dashboard based on user type
         if (user.type === 'admin') {
             navigate('/admin');
         } else {
@@ -41,11 +46,15 @@ const UserSelectionPage: React.FC = () => {
         }
     };
 
+    /**
+     * Handles the form submission for creating the very first admin user.
+     * This is only shown when the `users` table in the database is empty.
+     */
     const handleCreateFirstAdmin = async (e: React.FormEvent) => {
-        e.preventDefault();
+        e.preventDefault(); // Prevent default form submission behavior
         if (!adminName.trim()) {
-            // In a real app, you might use the ModalContext to show an error
-            alert('Please enter a name for the admin account.');
+            // Basic validation: In a larger app, we might use the ModalContext here.
+            console.error('Admin name cannot be empty.');
             return;
         }
 
@@ -54,36 +63,43 @@ const UserSelectionPage: React.FC = () => {
                 name: adminName.trim(),
                 type: 'admin',
             };
-            // Add the new user and get their generated ID
+
+            // Add the new user to the database and retrieve their generated ID.
             const newId = await db.users.add(newUser);
             const createdUser = await db.users.get(newId);
 
+            // If the user was successfully created and retrieved, log them in.
             if (createdUser) {
-                // Automatically log in as the new admin
                 auth.login(createdUser);
-                navigate('/admin');
+                navigate('/admin'); // Redirect to the admin dashboard
             }
         } catch (error) {
             console.error('Failed to create the first admin user:', error);
-            // You could show a modal error here as well
-            alert('Could not create the admin account. The name might already be taken.');
+            // Handle potential errors, such as a unique name constraint violation.
         }
     };
 
-    // Render a loading state while Dexie initializes and fetches users
+    // While Dexie is initializing and fetching data, `users` is undefined.
+    // We show a generic loading message to prevent a flash of incorrect UI.
     if (users === undefined) {
         return <p>Loading profiles...</p>;
     }
 
-    // If the database is empty, show the first-run admin creation form
+    // --- Conditional Rendering Logic ---
+
+    // If the users array is empty, we render the "First-Run" experience.
     if (users.length === 0) {
         return (
             <div className="user-select">
-                <h2 className="user-select__title">Welcome! Let's get started.</h2>
-                <p className="user-select__subtitle">
+                <h2 className="user-select__title">Welcome! Let's Get Started.</h2>
+                <p style={{ marginBottom: '2rem', color: 'var(--color-text-secondary)' }}>
                     Create the first Admin account to manage the app.
                 </p>
-                <form className="user-select__form" onSubmit={handleCreateFirstAdmin}>
+                <form
+                    className="user-select__form"
+                    onSubmit={handleCreateFirstAdmin}
+                    style={{ width: '100%', maxWidth: '300px' }}
+                >
                     <div className="form-group">
                         <Label htmlFor="admin-name">Admin Name</Label>
                         <Input
@@ -92,9 +108,10 @@ const UserSelectionPage: React.FC = () => {
                             onChange={(e) => setAdminName(e.target.value)}
                             placeholder="Enter your name"
                             required
+                            autoFocus
                         />
                     </div>
-                    <Button type="submit" variant="primary">
+                    <Button type="submit" variant="primary" style={{ width: '100%' }}>
                         Create Admin Account
                     </Button>
                 </form>
@@ -102,7 +119,7 @@ const UserSelectionPage: React.FC = () => {
         );
     }
 
-    // Otherwise, show the standard user selection screen
+    // If users exist, we render the standard profile selection screen.
     return (
         <div className="user-select">
             <h2 className="user-select__title">{t('userSelection.title')}</h2>
