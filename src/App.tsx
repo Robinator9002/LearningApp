@@ -1,14 +1,13 @@
 // src/App.tsx
 
 import React, { useContext } from 'react';
-import { Routes, Route, Outlet } from 'react-router-dom';
+import { Routes, Route, Outlet, Navigate } from 'react-router-dom';
 import styles from './App.module.css';
 
 // --- CONTEXTS & HOOKS ---
 import { AuthContext, AuthProvider } from './contexts/AuthContext';
 import { ModalProvider } from './contexts/ModalContext';
 import { ThemeProvider } from './contexts/ThemeContext';
-import { useDatabaseSeed } from './hooks/useDatabaseSeed';
 
 // --- CORE COMPONENTS ---
 import Topbar from './components/topbar/Topbar';
@@ -16,6 +15,7 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 
 // --- PAGE COMPONENTS ---
 import UserSelectionPage from './pages/UserSelectionPage';
+import SettingsPage from './pages/settings/SettingsPage'; // New import
 // Learner Pages
 import LearnerDashboardPage from './pages/learner/LearnerDashboardPage';
 import CoursePlayerPage from './pages/learner/CoursePlayerPage';
@@ -24,9 +24,32 @@ import AdminDashboardPage from './pages/admin/AdminDashboardPage';
 import CourseEditorPage from './pages/admin/CourseEditorPage';
 
 /**
+ * A new route protection component.
+ * This wrapper ensures that a user is logged in to access its children routes,
+ * regardless of their type ('admin' or 'learner').
+ */
+const LoggedInUserRoute: React.FC = () => {
+    const auth = useContext(AuthContext);
+    if (!auth) throw new Error('Component must be used within an AuthProvider');
+
+    const { currentUser, isLoading } = auth;
+
+    if (isLoading) {
+        return <div>Loading...</div>; // Or a spinner component
+    }
+
+    // If there is no user, redirect to the login/selection page.
+    if (!currentUser) {
+        return <Navigate to="/" replace />;
+    }
+
+    // If a user is logged in, render the child routes.
+    return <Outlet />;
+};
+
+/**
  * AppLayout serves as the main visual shell for the application.
- * It conditionally renders the Topbar for logged-in users or a simple
- * header for the initial user selection screen.
+ * Its logic remains unchanged.
  */
 const AppLayout: React.FC = () => {
     const auth = useContext(AuthContext);
@@ -49,25 +72,19 @@ const AppLayout: React.FC = () => {
 };
 
 /**
- * AppCore contains the main routing logic. It ensures the database is seeded
- * before rendering any routes.
+ * AppCore contains the main routing logic, now including the new /settings route.
  */
 const AppCore: React.FC = () => {
-    const { isSeeding, error } = useDatabaseSeed();
-
-    if (isSeeding) {
-        return <div>Loading Database...</div>;
-    }
-
-    if (error) {
-        return <div>Error initializing database: {error.message}</div>;
-    }
-
     return (
         <Routes>
             <Route path="/" element={<AppLayout />}>
                 {/* Public Route */}
                 <Route index element={<UserSelectionPage />} />
+
+                {/* Routes for ANY Logged-in User */}
+                <Route element={<LoggedInUserRoute />}>
+                    <Route path="settings" element={<SettingsPage />} />
+                </Route>
 
                 {/* Learner-Only Routes */}
                 <Route element={<ProtectedRoute allowedType="learner" />}>
