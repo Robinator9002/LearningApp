@@ -1,7 +1,6 @@
 // src/components/admin/QuestionEditor/QuestionEditor.tsx
 
 import React from 'react';
-// By importing the specific question types, we can be more explicit.
 import type { IQuestion } from '../../../types/database';
 import Button from '../../common/Button/Button';
 import Input from '../../common/Form/Input/Input';
@@ -25,29 +24,31 @@ const QuestionEditor: React.FC<QuestionEditorProps> = ({
     onRemoveQuestion,
 }) => {
     // --- TYPE GUARD ---
-    // This is the critical fix. If the question is not a multiple-choice question,
-    // this component has no business rendering it. This prevents runtime errors
-    // and satisfies TypeScript's strict type checking.
+    // If the question is not a multiple-choice question, this component
+    // will not render, preventing type errors and ensuring component integrity.
     if (question.type !== 'mcq') {
         return null;
     }
 
     const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        // We spread the existing question and update only the relevant property.
         onQuestionChange(index, { ...question, questionText: e.target.value });
     };
 
+    /**
+     * Updates the text for a specific answer option.
+     */
     const handleOptionTextChange = (optIndex: number, text: string) => {
-        // Create a new array for immutability.
-        const newOptions = [...question.options];
-        // Update the text of the specific option.
-        newOptions[optIndex] = { ...newOptions[optIndex], text };
-        // Pass the entire updated question object back up.
+        // Create a new array with the updated option to maintain immutability.
+        const newOptions = question.options.map((opt, idx) =>
+            idx === optIndex ? { ...opt, text } : opt,
+        );
         onQuestionChange(index, { ...question, options: newOptions });
     };
 
+    /**
+     * Sets the selected option as the correct one and ensures all others are not.
+     */
     const handleCorrectOptionChange = (optIndex: number) => {
-        // Create a new array of options, updating the isCorrect flag for all of them.
         const newOptions = question.options.map((opt, idx) => ({
             ...opt,
             isCorrect: idx === optIndex,
@@ -75,7 +76,6 @@ const QuestionEditor: React.FC<QuestionEditorProps> = ({
             <div className="form-group">
                 <Label>Answer Options</Label>
                 <div className="question-editor__option-list">
-                    {/* Because of the type guard above, TypeScript now knows question.options exists. */}
                     {question.options.map((option, optIndex) => (
                         <div key={option.id} className="question-editor__option">
                             <Input
@@ -85,12 +85,26 @@ const QuestionEditor: React.FC<QuestionEditorProps> = ({
                             />
                             <input
                                 type="radio"
+                                id={`correct-option-${question.id}-${option.id}`}
                                 name={`correct-option-${question.id}`}
                                 checked={option.isCorrect}
                                 onChange={() => handleCorrectOptionChange(optIndex)}
                                 className="question-editor__option-radio"
                             />
-                            <Label>Correct</Label>
+                            {/* IMPROVEMENT: A conditional class is added to the Label.
+                              This allows us to visually style the label for the correct answer,
+                              making it much easier for admins to identify.
+                            */}
+                            <Label
+                                htmlFor={`correct-option-${question.id}-${option.id}`}
+                                className={
+                                    option.isCorrect
+                                        ? 'question-editor__option-label--correct'
+                                        : 'question-editor__option-label'
+                                }
+                            >
+                                Correct
+                            </Label>
                         </div>
                     ))}
                 </div>
