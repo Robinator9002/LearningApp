@@ -40,9 +40,8 @@ const createNewQuestion = (type: QuestionType = 'mcq'): IQuestion => {
         };
     }
     // Default fallback, though should not be reached with proper UI
-    return createNewQuestion('mcq'); 
+    return createNewQuestion('mcq');
 };
-
 
 const CourseEditorPage: React.FC = () => {
     const navigate = useNavigate();
@@ -164,8 +163,12 @@ const CourseEditorPage: React.FC = () => {
                 <div className="course-editor-page__questions-header">
                     <h3 className="course-editor-page__questions-title">Questions</h3>
                     <div className="add-question-controls">
-                        <Button onClick={() => handleAddQuestion('mcq')}>Add Multiple Choice</Button>
-                        <Button onClick={() => handleAddQuestion('fitb')}>Add Fill-in-the-blank</Button>
+                        <Button onClick={() => handleAddQuestion('mcq')}>
+                            Add Multiple Choice
+                        </Button>
+                        <Button onClick={() => handleAddQuestion('fitb')}>
+                            Add Fill-in-the-blank
+                        </Button>
                     </div>
                 </div>
                 {questions.map((q, index) => (
@@ -180,7 +183,7 @@ const CourseEditorPage: React.FC = () => {
             </div>
 
             <footer className="course-editor-page__footer">
-                 <Button variant="secondary" onClick={() => navigate('/admin')}>
+                <Button variant="secondary" onClick={() => navigate('/admin')}>
                     Cancel
                 </Button>
                 <Button variant="primary" onClick={handleSaveCourse}>

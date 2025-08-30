@@ -37,7 +37,7 @@ export interface ICourse {
     questions: IQuestion[];
 }
 
-// --- Question and Answer Models ---
+// --- Question and Answer Models (REFACTORED) ---
 
 /**
  * Represents a single option for a Multiple Choice Question.
@@ -49,18 +49,36 @@ export interface IMCQOption {
 }
 
 /**
- * Represents a single question within a course.
- * This is a flexible structure designed to support multiple question types.
+ * Base interface for all question types. The 'type' property is the discriminant.
  */
-export interface IQuestion {
+interface IQuestionBase {
     id: string; // UUID for React keys
-    type: 'mcq' | 'fill-in-the-blank';
     questionText: string;
-    // Options are only required for Multiple Choice Questions
-    options?: IMCQOption[];
-    // The correct answer for non-MCQ types (e.g., fill-in-the-blank)
-    correctAnswer?: string;
 }
+
+/**
+ * Stricter type for Multiple Choice Questions.
+ * It MUST have an 'options' array.
+ */
+export interface IMultipleChoiceQuestion extends IQuestionBase {
+    type: 'mcq';
+    options: IMCQOption[];
+}
+
+/**
+ * Stricter type for Fill-in-the-blank Questions.
+ * It MUST have a 'correctAnswer' string.
+ */
+export interface IFillInTheBlankQuestion extends IQuestionBase {
+    type: 'fitb';
+    correctAnswer: string;
+}
+
+/**
+ * A discriminated union of all possible question types.
+ * This allows TypeScript to intelligently narrow down the type based on the 'type' property.
+ */
+export type IQuestion = IMultipleChoiceQuestion | IFillInTheBlankQuestion;
 
 /**
  * Represents a log of a completed course attempt by a user.
