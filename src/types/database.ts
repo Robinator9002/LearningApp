@@ -1,64 +1,75 @@
 // src/types/database.ts
 
-// This file defines the core data structures for the application's database.
-// By centralizing these types, we ensure consistency across the entire codebase.
+// --- Theme and Settings Definitions ---
 
 /**
- * Represents a user account in the database.
+ * Defines the shape of a user's personalized theme settings.
+ * This object will be stored directly in the user's profile.
+ */
+export interface IThemeState {
+    theme: 'light' | 'dark';
+    accent: 'blue' | 'purple' | 'green';
+    contrast: 'normal' | 'high';
+    font: 'sans' | 'serif' | 'mono';
+    fontSize: number; // e.g., 0.9, 1.0, 1.1
+}
+
+// --- Core Data Models ---
+
+/**
+ * Represents a user account in the application.
  */
 export interface IUser {
-    id?: number; // Optional: The auto-incrementing primary key from Dexie.
-    name: string; // The user's display name, which must be unique.
-    type: 'admin' | 'learner'; // The user's role, determining their permissions.
-    password?: string; // An optional password for the user account.
+    id?: number; // Optional: Dexie will auto-increment
+    name: string;
+    type: 'admin' | 'learner';
+    password?: string; // Optional: for password-protected accounts
+    settings?: IThemeState; // Optional: for per-user theme settings
 }
 
 /**
- * Represents a single multiple-choice question option.
+ * Represents a single course.
+ */
+export interface ICourse {
+    id?: number;
+    title: string;
+    subject: 'Math' | 'Reading' | 'Writing';
+    questions: IQuestion[];
+}
+
+// --- Question and Answer Models ---
+
+/**
+ * Represents a single option for a Multiple Choice Question.
  */
 export interface IMCQOption {
-    id: string; // A unique identifier for the option.
-    text: string; // The answer text to be displayed.
-    isCorrect: boolean; // Flag indicating if this is the correct answer.
+    id: string; // UUID for React keys
+    text: string;
+    isCorrect: boolean;
 }
 
 /**
- * Represents a single question within a course. This model is now extensible
- * to support multiple question formats.
+ * Represents a single question within a course.
+ * This is a flexible structure designed to support multiple question types.
  */
 export interface IQuestion {
-    id: string; // A unique identifier for the question.
-
-    // The type of question, determining how it's rendered and graded.
-    type: 'mcq' | 'fitb'; // 'mcq' = Multiple Choice, 'fitb' = Fill-in-the-blank
-
-    questionText: string; // The main text of the question.
-
-    // Optional: An array of possible answers. Only used for 'mcq' type questions.
+    id: string; // UUID for React keys
+    type: 'mcq' | 'fill-in-the-blank';
+    questionText: string;
+    // Options are only required for Multiple Choice Questions
     options?: IMCQOption[];
-
-    // Optional: The correct string answer. Only used for 'fitb' type questions.
+    // The correct answer for non-MCQ types (e.g., fill-in-the-blank)
     correctAnswer?: string;
 }
 
 /**
- * Represents a course, which is a collection of questions.
- */
-export interface ICourse {
-    id?: number; // Optional: The auto-incrementing primary key from Dexie.
-    title: string; // The title of the course.
-    subject: 'Math' | 'Reading' | 'Writing'; // The subject category for the course.
-    questions: IQuestion[]; // The array of questions that make up the course.
-}
-
-/**
- * Represents a single, timestamped record of a user completing a course.
+ * Represents a log of a completed course attempt by a user.
  */
 export interface IProgressLog {
-    id?: number; // Optional: The auto-incrementing primary key from Dexie.
+    id?: number;
     userId: number;
     courseId: number;
-    score: number;
-    totalQuestions: number;
-    timestamp: Date;
+    score: number; // The number of questions answered correctly
+    totalQuestions: number; // The total number of questions in the course
+    timestamp: string; // ISO 8601 string of when the course was completed
 }
