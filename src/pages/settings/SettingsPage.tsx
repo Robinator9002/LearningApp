@@ -5,9 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { AuthContext } from '../../contexts/AuthContext';
 import Button from '../../components/common/Button/Button';
-// NOTE: We will create these tab components in the next steps
-// import AccountTab from './AccountTab';
-// import AppearanceTab from './AppearanceTab';
+import AccountTab from './tabs/AccountTab';
+import AppearanceTab from './tabs/AppearanceTab';
 
 type SettingsTab = 'account' | 'appearance';
 
@@ -25,11 +24,13 @@ const SettingsPage: React.FC = () => {
         return <div>Loading user information...</div>;
     }
 
+    const { currentUser } = auth;
+
     return (
         <div className="settings-page">
             <header className="settings-page__header">
                 <div className="settings-page__header-left">
-                    <Button onClick={() => navigate(-1)}>
+                    <Button onClick={() => navigate(-1)} title="Go back">
                         <ArrowLeft size={16} />
                     </Button>
                     <h2 className="settings-page__title">Settings</h2>
@@ -55,9 +56,8 @@ const SettingsPage: React.FC = () => {
             </header>
 
             <main className="settings-page__content">
-                {/* We will replace these placeholders with the actual tab components */}
-                {activeTab === 'account' && <div>ACCOUNT TAB CONTENT</div>}
-                {activeTab === 'appearance' && <div>APPEARANCE TAB CONTENT</div>}
+                {activeTab === 'account' && <AccountTab currentUser={currentUser} />}
+                {activeTab === 'appearance' && <AppearanceTab />}
             </main>
         </div>
     );
