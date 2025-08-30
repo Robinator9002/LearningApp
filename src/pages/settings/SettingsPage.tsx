@@ -1,47 +1,64 @@
 // src/pages/settings/SettingsPage.tsx
 
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 import { AuthContext } from '../../contexts/AuthContext';
+import Button from '../../components/common/Button/Button';
+// NOTE: We will create these tab components in the next steps
+// import AccountTab from './AccountTab';
+// import AppearanceTab from './AppearanceTab';
 
-// Import all three section components
-import ProfileSection from '../../components/settings/ProfileSection';
-import AppearanceSection from '../../components/settings/AppearanceSection';
-import UserManagementSection from '../../components/settings/UserManagementSection';
+type SettingsTab = 'account' | 'appearance';
 
 /**
- * SettingsPage serves as a central hub for all user-related configurations.
- * It is composed of modular sections, with some being conditionally rendered
- * based on the current user's role.
+ * The main container for all user and application settings.
+ * It uses a tabbed interface to separate concerns.
  */
 const SettingsPage: React.FC = () => {
+    const navigate = useNavigate();
     const auth = useContext(AuthContext);
-    const { currentUser } = auth ?? {};
+    const [activeTab, setActiveTab] = useState<SettingsTab>('account');
 
-    // Guard against rendering without a user.
-    if (!currentUser) {
-        return <div>Loading user data...</div>;
+    if (!auth?.currentUser) {
+        // This should be caught by the protected route, but it's a good safeguard.
+        return <div>Loading user information...</div>;
     }
 
     return (
         <div className="settings-page">
             <header className="settings-page__header">
-                <h2 className="settings-page__title">Settings</h2>
+                <div className="settings-page__header-left">
+                    <Button onClick={() => navigate(-1)}>
+                        <ArrowLeft size={16} />
+                    </Button>
+                    <h2 className="settings-page__title">Settings</h2>
+                </div>
+                <div className="settings-page__tabs">
+                    <button
+                        className={`settings-page__tab ${
+                            activeTab === 'account' ? 'settings-page__tab--active' : ''
+                        }`}
+                        onClick={() => setActiveTab('account')}
+                    >
+                        Account
+                    </button>
+                    <button
+                        className={`settings-page__tab ${
+                            activeTab === 'appearance' ? 'settings-page__tab--active' : ''
+                        }`}
+                        onClick={() => setActiveTab('appearance')}
+                    >
+                        Appearance
+                    </button>
+                </div>
             </header>
 
-            <div className="settings-page__content">
-                {/* This section is visible to all logged-in users. */}
-                <ProfileSection currentUser={currentUser} />
-
-                {/* This section is also visible to all logged-in users. */}
-                <AppearanceSection />
-
-                {/*
-                  CONDITIONAL RENDERING:
-                  The UserManagementSection is only rendered if the current user's
-                  type is 'admin'. This is the core of our permission model for the UI.
-                */}
-                {currentUser.type === 'admin' && <UserManagementSection />}
-            </div>
+            <main className="settings-page__content">
+                {/* We will replace these placeholders with the actual tab components */}
+                {activeTab === 'account' && <div>ACCOUNT TAB CONTENT</div>}
+                {activeTab === 'appearance' && <div>APPEARANCE TAB CONTENT</div>}
+            </main>
         </div>
     );
 };
