@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { db } from '../../lib/db';
 import { ModalContext } from '../../contexts/ModalContext';
-import type { ICourse, IQuestion } from '../../types/database';
+import type { ICourse, IQuestion, QuestionType } from '../../types/database';
 
 import Button from '../../components/common/Button/Button';
 import Input from '../../components/common/Form/Input/Input';
@@ -14,14 +14,18 @@ import Label from '../../components/common/Form/Label/Label';
 import Select from '../../components/common/Form/Select/Select';
 import QuestionEditor from '../../components/admin/QuestionEditor/QuestionEditor';
 
-// Updated helper to create different question types
-const createNewQuestion = (type: 'mcq' | 'fitb'): IQuestion => {
+// Updated factory function to handle different question types
+const createNewQuestion = (type: QuestionType = 'mcq'): IQuestion => {
+    const baseQuestion = {
+        id: uuidv4(),
+        type: type,
+        questionText: '',
+    };
+
     if (type === 'mcq') {
         const optionIds = [uuidv4(), uuidv4(), uuidv4(), uuidv4()];
         return {
-            id: uuidv4(),
-            type: 'mcq',
-            questionText: '',
+            ...baseQuestion,
             options: [
                 { id: optionIds[0], text: '', isCorrect: true },
                 { id: optionIds[1], text: '', isCorrect: false },
@@ -29,15 +33,14 @@ const createNewQuestion = (type: 'mcq' | 'fitb'): IQuestion => {
                 { id: optionIds[3], text: '', isCorrect: false },
             ],
         };
-    } else {
-        // 'fitb'
+    } else if (type === 'fitb') {
         return {
-            id: uuidv4(),
-            type: 'fitb',
-            questionText: '',
+            ...baseQuestion,
             correctAnswer: '',
         };
     }
+    // Default fallback, though should not be reached with proper UI
+    return createNewQuestion('mcq');
 };
 
 const CourseEditorPage: React.FC = () => {
@@ -55,6 +58,7 @@ const CourseEditorPage: React.FC = () => {
         throw new Error('CourseEditorPage must be used within a ModalProvider');
     }
 
+    // --- Data Fetching Effect ---
     useEffect(() => {
         if (isEditMode && courseId) {
             const fetchCourse = async () => {
@@ -66,6 +70,7 @@ const CourseEditorPage: React.FC = () => {
                         setSubject(courseToEdit.subject);
                         setQuestions(courseToEdit.questions);
                     } else {
+                        console.error('Course not found!');
                         navigate('/admin');
                     }
                 } catch (error) {
@@ -78,8 +83,8 @@ const CourseEditorPage: React.FC = () => {
         }
     }, [courseId, isEditMode, navigate]);
 
-    // Handlers for adding different question types
-    const handleAddQuestion = (type: 'mcq' | 'fitb') => {
+    // --- Question Management Handlers ---
+    const handleAddQuestion = (type: QuestionType) => {
         setQuestions([...questions, createNewQuestion(type)]);
     };
 
@@ -93,17 +98,20 @@ const CourseEditorPage: React.FC = () => {
         setQuestions(newQuestions);
     };
 
+    // --- Save Handler ---
     const handleSaveCourse = async () => {
         if (!title.trim()) {
             modal.showAlert({ title: 'Validation Error', message: 'Please enter a course title.' });
             return;
         }
+
         const courseData: Omit<ICourse, 'id'> = { title, subject, questions };
+
         try {
             if (isEditMode && courseId) {
                 await db.courses.put({ ...courseData, id: parseInt(courseId, 10) });
             } else {
-                await db.courses.add(courseData);
+                await db.courses.add(courseData as ICourse);
             }
             navigate('/admin');
         } catch (error) {
@@ -115,7 +123,9 @@ const CourseEditorPage: React.FC = () => {
         }
     };
 
-    if (isLoading) return <div>Loading course data...</div>;
+    if (isLoading) {
+        return <div>Loading course data...</div>;
+    }
 
     return (
         <div className="course-editor-page">
@@ -132,6 +142,7 @@ const CourseEditorPage: React.FC = () => {
                         id="course-title"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
+                        placeholder="e.g., Basic Addition"
                     />
                 </div>
                 <div className="form-group">
@@ -151,66 +162,32 @@ const CourseEditorPage: React.FC = () => {
             <div className="course-editor-page__questions">
                 <div className="course-editor-page__questions-header">
                     <h3 className="course-editor-page__questions-title">Questions</h3>
-                    <div className="add-question-buttons">
-                        <Button onClick={() => handleAddQuestion('mcq')}>+ Multiple Choice</Button>
+                    <div className="add-question-controls">
+                        <Button onClick={() => handleAddQuestion('mcq')}>
+                            Add Multiple Choice
+                        </Button>
                         <Button onClick={() => handleAddQuestion('fitb')}>
-                            + Fill-in-the-blank
+                            Add Fill-in-the-blank
                         </Button>
                     </div>
                 </div>
-                {questions.map((q, index) =>
-                    // Conditionally render the correct editor based on question type
-                    q.type === 'mcq' ? (
-                        <QuestionEditor
-                            key={q.id}
-                            index={index}
-                            question={q}
-                            onQuestionChange={handleQuestionChange}
-                            onRemoveQuestion={handleRemoveQuestion}
-                        />
-                    ) : (
-                        // This is a placeholder for the new Fill-in-the-blank editor component
-                        <div key={q.id} className="question-editor">
-                            <div className="question-editor__header">
-                                <h3 className="question-editor__title">
-                                    Question {index + 1} (Fill-in-the-blank)
-                                </h3>
-                                <Button onClick={() => handleRemoveQuestion(index)}>Remove</Button>
-                            </div>
-                            <div className="form-group">
-                                <Label htmlFor={`question-text-${q.id}`}>Question Text</Label>
-                                <Input
-                                    id={`question-text-${q.id}`}
-                                    value={q.questionText}
-                                    onChange={(e) =>
-                                        handleQuestionChange(index, {
-                                            ...q,
-                                            questionText: e.target.value,
-                                        })
-                                    }
-                                />
-                            </div>
-                            <div className="form-group">
-                                <Label htmlFor={`correct-answer-${q.id}`}>Correct Answer</Label>
-                                <Input
-                                    id={`correct-answer-${q.id}`}
-                                    value={q.correctAnswer}
-                                    onChange={(e) =>
-                                        handleQuestionChange(index, {
-                                            ...q,
-                                            correctAnswer: e.target.value,
-                                        })
-                                    }
-                                />
-                            </div>
-                        </div>
-                    ),
-                )}
+                {questions.map((q, index) => (
+                    <QuestionEditor
+                        key={q.id} // Use a stable unique key
+                        index={index}
+                        question={q}
+                        onQuestionChange={handleQuestionChange}
+                        onRemoveQuestion={handleRemoveQuestion}
+                    />
+                ))}
             </div>
 
             <footer className="course-editor-page__footer">
+                <Button variant="secondary" onClick={() => navigate('/admin')}>
+                    Cancel
+                </Button>
                 <Button variant="primary" onClick={handleSaveCourse}>
-                    Save Changes
+                    Save Course
                 </Button>
             </footer>
         </div>
