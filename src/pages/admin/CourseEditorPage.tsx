@@ -6,19 +6,24 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { db } from '../../lib/db';
 import { ModalContext } from '../../contexts/ModalContext';
-import type { ICourse, IQuestion, QuestionType } from '../../types/database';
+import type { ICourse, IQuestion } from '../../types/database';
 
 import Button from '../../components/common/Button/Button';
 import Input from '../../components/common/Form/Input/Input';
 import Label from '../../components/common/Form/Label/Label';
 import Select from '../../components/common/Form/Select/Select';
 import QuestionEditor from '../../components/admin/QuestionEditor/QuestionEditor';
+import FillInTheBlankEditor from '../../components/admin/QuestionEditor/FillInTheBlankEditor';
 
-// Updated factory function to handle different question types
-const createNewQuestion = (type: QuestionType = 'mcq'): IQuestion => {
+/**
+ * A helper function to create a new question object with default values.
+ * It now uses the IQuestion['type'] to be robust against future changes.
+ * @param type The type of question to create ('mcq' or 'fitb').
+ * @returns A new IQuestion object.
+ */
+const createNewQuestion = (type: IQuestion['type']): IQuestion => {
     const baseQuestion = {
         id: uuidv4(),
-        type: type,
         questionText: '',
     };
 
@@ -26,6 +31,7 @@ const createNewQuestion = (type: QuestionType = 'mcq'): IQuestion => {
         const optionIds = [uuidv4(), uuidv4(), uuidv4(), uuidv4()];
         return {
             ...baseQuestion,
+            type: 'mcq',
             options: [
                 { id: optionIds[0], text: '', isCorrect: true },
                 { id: optionIds[1], text: '', isCorrect: false },
@@ -33,14 +39,14 @@ const createNewQuestion = (type: QuestionType = 'mcq'): IQuestion => {
                 { id: optionIds[3], text: '', isCorrect: false },
             ],
         };
-    } else if (type === 'fitb') {
+    } else {
+        // This handles the 'fitb' case.
         return {
             ...baseQuestion,
+            type: 'fitb',
             correctAnswer: '',
         };
     }
-    // Default fallback, though should not be reached with proper UI
-    return createNewQuestion('mcq');
 };
 
 const CourseEditorPage: React.FC = () => {
@@ -50,7 +56,7 @@ const CourseEditorPage: React.FC = () => {
     const isEditMode = Boolean(courseId);
 
     const [title, setTitle] = useState('');
-    const [subject, setSubject] = useState<'Math' | 'Reading' | 'Writing'>('Math');
+    const [subject, setSubject] = useState<ICourse['subject']>('Math');
     const [questions, setQuestions] = useState<IQuestion[]>([]);
     const [isLoading, setIsLoading] = useState(isEditMode);
 
@@ -58,7 +64,6 @@ const CourseEditorPage: React.FC = () => {
         throw new Error('CourseEditorPage must be used within a ModalProvider');
     }
 
-    // --- Data Fetching Effect ---
     useEffect(() => {
         if (isEditMode && courseId) {
             const fetchCourse = async () => {
@@ -70,7 +75,7 @@ const CourseEditorPage: React.FC = () => {
                         setSubject(courseToEdit.subject);
                         setQuestions(courseToEdit.questions);
                     } else {
-                        console.error('Course not found!');
+                        // If course not found, redirect to admin dashboard
                         navigate('/admin');
                     }
                 } catch (error) {
@@ -83,8 +88,7 @@ const CourseEditorPage: React.FC = () => {
         }
     }, [courseId, isEditMode, navigate]);
 
-    // --- Question Management Handlers ---
-    const handleAddQuestion = (type: QuestionType) => {
+    const handleAddQuestion = (type: IQuestion['type']) => {
         setQuestions([...questions, createNewQuestion(type)]);
     };
 
@@ -98,11 +102,35 @@ const CourseEditorPage: React.FC = () => {
         setQuestions(newQuestions);
     };
 
-    // --- Save Handler ---
     const handleSaveCourse = async () => {
         if (!title.trim()) {
             modal.showAlert({ title: 'Validation Error', message: 'Please enter a course title.' });
             return;
+        }
+
+        // Validate that all questions and their fields are filled out.
+        for (const q of questions) {
+            if (!q.questionText.trim()) {
+                modal.showAlert({
+                    title: 'Validation Error',
+                    message: `A question is missing its text. Please review all questions.`,
+                });
+                return;
+            }
+            if (q.type === 'mcq' && q.options.some((opt) => !opt.text.trim())) {
+                modal.showAlert({
+                    title: 'Validation Error',
+                    message: `A multiple choice question is missing text in one of its options.`,
+                });
+                return;
+            }
+            if (q.type === 'fitb' && !q.correctAnswer.trim()) {
+                modal.showAlert({
+                    title: 'Validation Error',
+                    message: `A fill-in-the-blank question is missing its correct answer.`,
+                });
+                return;
+            }
         }
 
         const courseData: Omit<ICourse, 'id'> = { title, subject, questions };
@@ -123,9 +151,7 @@ const CourseEditorPage: React.FC = () => {
         }
     };
 
-    if (isLoading) {
-        return <div>Loading course data...</div>;
-    }
+    if (isLoading) return <div>Loading course data...</div>;
 
     return (
         <div className="course-editor-page">
@@ -142,7 +168,6 @@ const CourseEditorPage: React.FC = () => {
                         id="course-title"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
-                        placeholder="e.g., Basic Addition"
                     />
                 </div>
                 <div className="form-group">
@@ -162,30 +187,35 @@ const CourseEditorPage: React.FC = () => {
             <div className="course-editor-page__questions">
                 <div className="course-editor-page__questions-header">
                     <h3 className="course-editor-page__questions-title">Questions</h3>
-                    <div className="add-question-controls">
-                        <Button onClick={() => handleAddQuestion('mcq')}>
-                            Add Multiple Choice
-                        </Button>
+                    <div className="add-question-buttons">
+                        <Button onClick={() => handleAddQuestion('mcq')}>+ Multiple Choice</Button>
                         <Button onClick={() => handleAddQuestion('fitb')}>
-                            Add Fill-in-the-blank
+                            + Fill-in-the-blank
                         </Button>
                     </div>
                 </div>
-                {questions.map((q, index) => (
-                    <QuestionEditor
-                        key={q.id} // Use a stable unique key
-                        index={index}
-                        question={q}
-                        onQuestionChange={handleQuestionChange}
-                        onRemoveQuestion={handleRemoveQuestion}
-                    />
-                ))}
+                {questions.map((q, index) =>
+                    q.type === 'mcq' ? (
+                        <QuestionEditor
+                            key={q.id}
+                            index={index}
+                            question={q}
+                            onQuestionChange={handleQuestionChange}
+                            onRemoveQuestion={handleRemoveQuestion}
+                        />
+                    ) : (
+                        <FillInTheBlankEditor
+                            key={q.id}
+                            index={index}
+                            question={q}
+                            onQuestionChange={handleQuestionChange}
+                            onRemoveQuestion={handleRemoveQuestion}
+                        />
+                    ),
+                )}
             </div>
 
             <footer className="course-editor-page__footer">
-                <Button variant="secondary" onClick={() => navigate('/admin')}>
-                    Cancel
-                </Button>
                 <Button variant="primary" onClick={handleSaveCourse}>
                     Save Course
                 </Button>
