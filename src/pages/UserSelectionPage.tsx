@@ -144,18 +144,20 @@ const UserSelectionPage: React.FC = () => {
             <div className="user-select">
                 <h2 className="user-select__title">{t('userSelection.title')}</h2>
 
-                {/* Grid for existing user profiles */}
-                <div className="user-select__grid">
-                    {users?.map((user) => (
-                        <UserCard key={user.id} user={user} onSelect={handleUserSelect} />
-                    ))}
-                </div>
+                <div className="user-select__content">
+                    {/* Grid for existing user profiles */}
+                    <div className="user-select__grid">
+                        {users?.map((user) => (
+                            <UserCard key={user.id} user={user} onSelect={handleUserSelect} />
+                        ))}
+                    </div>
 
-                {/* Separate section for the create account button */}
-                <div className="user-select__actions">
-                    <Button variant="secondary" onClick={() => setCreateModalOpen(true)}>
-                        Create New Account
-                    </Button>
+                    {/* Separate section for the create account button */}
+                    <div className="user-select__actions">
+                        <Button variant="secondary" onClick={() => setCreateModalOpen(true)}>
+                            Create New Account
+                        </Button>
+                    </div>
                 </div>
             </div>
 

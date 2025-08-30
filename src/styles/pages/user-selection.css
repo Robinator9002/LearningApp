@@ -7,6 +7,15 @@
     padding: calc(var(--spacing-unit) * 2);
 }
 
+.user-select__content {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: calc(var(--spacing-unit) * 1);
+    margin-right: calc(var(--spacing-unit) * 4);
+    gap: calc(var(--spacing-unit) * 3);
+}
+
 /* New Header Styling */
 .user-select__header {
     display: flex;
