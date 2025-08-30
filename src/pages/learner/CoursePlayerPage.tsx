@@ -8,7 +8,7 @@ import Confetti from 'react-confetti';
 
 import { db } from '../../lib/db';
 import { AuthContext } from '../../contexts/AuthContext';
-import type { IQuestion, IProgressLog } from '../../types/database';
+import type { IProgressLog } from '../../types/database';
 
 import Button from '../../components/common/Button/Button';
 import CourseSummary from '../../components/learner/Course/CourseSummary';
@@ -62,7 +62,7 @@ const CoursePlayerPage: React.FC = () => {
         let correct = false;
         if (currentQuestion.type === 'mcq') {
             const selectedOption = currentQuestion.options.find(
-                (opt) => opt.id === selectedOptionId,
+                (opt: any) => opt.id === selectedOptionId,
             );
             correct = selectedOption?.isCorrect ?? false;
         } else if (currentQuestion.type === 'fitb') {
@@ -172,7 +172,7 @@ const CoursePlayerPage: React.FC = () => {
                 <div className="qa-card qa-card--answer">
                     {currentQuestion.type === 'mcq' && (
                         <div className="answer-options-grid">
-                            {currentQuestion.options.map((option) => (
+                            {currentQuestion.options.map((option: any) => (
                                 <AnswerOption
                                     key={option.id}
                                     text={option.text}
