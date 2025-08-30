@@ -1,157 +1,140 @@
 // src/pages/UserSelectionPage.tsx
 
-import React, { useContext, useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { User, Shield } from 'lucide-react';
 
 import { db } from '../lib/db';
 import { AuthContext } from '../contexts/AuthContext';
 import { ModalContext } from '../contexts/ModalContext';
 import type { IUser } from '../types/database';
 
+// Reusable components
 import Button from '../components/common/Button/Button';
 import Modal from '../components/common/Modal/Modal';
 import Input from '../components/common/Form/Input/Input';
 import Label from '../components/common/Form/Label/Label';
+import Select from '../components/common/Form/Select/Select';
 
-/**
- * The page where users select their profile to log in or create a new one.
- * Now handles password checks for protected accounts.
- */
+// A simple presentational component for displaying a user profile card.
+const UserCard: React.FC<{ user: IUser; onSelect: (user: IUser) => void }> = ({
+    user,
+    onSelect,
+}) => (
+    <div className="user-card" onClick={() => onSelect(user)}>
+        <div className="user-card__icon">
+            {user.type === 'admin' ? <Shield size={48} /> : <User size={48} />}
+        </div>
+        <span className="user-card__name">{user.name}</span>
+    </div>
+);
+
 const UserSelectionPage: React.FC = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const auth = useContext(AuthContext);
     const modal = useContext(ModalContext);
 
-    // --- STATE MANAGEMENT ---
-    const [adminName, setAdminName] = useState('');
-    const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-    const [newUserName, setNewUserName] = useState('');
-    const [newUserPassword, setNewUserPassword] = useState('');
-
-    // State for the password login modal
-    const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+    // --- State Management ---
+    const [isCreateModalOpen, setCreateModalOpen] = useState(false);
+    const [isLoginModalOpen, setLoginModalOpen] = useState(false);
     const [selectedUser, setSelectedUser] = useState<IUser | null>(null);
-    const [loginPassword, setLoginPassword] = useState('');
+    const [password, setPassword] = useState('');
+    const [newUserData, setNewUserData] = useState({ name: '', password: '', type: 'learner' });
 
+    // --- Data Fetching ---
     const users = useLiveQuery(() => db.users.toArray(), []);
+    const hasAdminAccount = useLiveQuery(
+        async () => (await db.users.where('type').equals('admin').count()) > 0,
+        [],
+    );
 
     if (!auth || !modal) {
-        throw new Error('This component must be used within AuthProvider and ModalProvider.');
+        throw new Error('AuthContext or ModalContext is not available');
     }
 
-    // --- EVENT HANDLERS ---
+    // --- Event Handlers ---
+
+    // Handles logic for when a user card is clicked
     const handleUserSelect = (user: IUser) => {
-        // If the selected user does not have a password, log them in directly.
-        if (!user.password) {
-            auth.login(user);
-            if (user.type === 'admin') navigate('/admin');
-            else navigate('/dashboard');
-        } else {
-            // If a password exists, open the login modal.
+        if (user.password) {
             setSelectedUser(user);
-            setLoginPassword('');
-            setIsLoginModalOpen(true);
-        }
-    };
-
-    const handlePasswordLogin = () => {
-        if (!selectedUser) return;
-
-        // Check if the entered password matches the user's stored password.
-        if (loginPassword === selectedUser.password) {
-            auth.login(selectedUser);
-            setIsLoginModalOpen(false);
-            if (selectedUser.type === 'admin') navigate('/admin');
-            else navigate('/dashboard');
+            setLoginModalOpen(true);
         } else {
-            // Show an error message if the password is incorrect.
-            modal.showAlert({
-                title: 'Login Failed',
-                message: 'The password you entered is incorrect.',
-            });
-            setLoginPassword(''); // Clear the input
+            auth.login(user);
+            navigate(user.type === 'admin' ? '/admin' : '/dashboard');
         }
     };
 
-    const handleCreateFirstAdmin = async (e: React.FormEvent) => {
-        e.preventDefault();
-        const trimmedName = adminName.trim();
-        if (!trimmedName) return;
-        try {
-            const newUser: IUser = { name: trimmedName, type: 'admin' };
-            const newId = await db.users.add(newUser);
-            const createdUser = await db.users.get(newId);
-            if (createdUser) {
-                auth.login(createdUser);
-                navigate('/admin');
-            }
-        } catch (error) {
-            console.error('Failed to create first admin:', error);
-            modal.showAlert({ title: 'Error', message: 'Could not create admin account.' });
+    // Handles the final login attempt from the password modal
+    const handleLogin = () => {
+        if (selectedUser && password === selectedUser.password) {
+            auth.login(selectedUser);
+            navigate(selectedUser.type === 'admin' ? '/admin' : '/dashboard');
+        } else {
+            modal.showAlert({ title: 'Login Failed', message: 'Incorrect password.' });
+            setPassword('');
         }
     };
 
-    const handleOpenCreateModal = () => {
-        setNewUserName('');
-        setNewUserPassword('');
-        setIsCreateModalOpen(true);
-    };
-
-    const handleSaveNewUser = async () => {
-        const trimmedName = newUserName.trim();
-        if (!trimmedName) {
-            modal.showAlert({ title: 'Invalid Input', message: 'Name cannot be empty.' });
+    // Handles the creation of a new user from the creation modal
+    const handleCreateUser = async () => {
+        if (!newUserData.name.trim()) {
+            modal.showAlert({ title: 'Validation Error', message: 'Please enter a name.' });
             return;
         }
+
         try {
-            const newUser: IUser = {
-                name: trimmedName,
-                type: 'learner',
-                ...(newUserPassword && { password: newUserPassword }),
+            const newUser: Omit<IUser, 'id'> = {
+                name: newUserData.name.trim(),
+                type: newUserData.type as IUser['type'],
+                // Only set password if one was provided
+                ...(newUserData.password && { password: newUserData.password }),
             };
-            await db.users.add(newUser);
-            setIsCreateModalOpen(false);
+            await db.users.add(newUser as IUser);
+            setCreateModalOpen(false);
+            setNewUserData({ name: '', password: '', type: 'learner' }); // Reset form
         } catch (error) {
-            console.error('Failed to create new user:', error);
+            console.error('Failed to create user:', error);
             modal.showAlert({
-                title: 'Creation Error',
-                message: 'Could not create user. The name might be taken.',
+                title: 'Creation Failed',
+                message: 'This name may already be in use.',
             });
         }
     };
 
-    // --- RENDER LOGIC ---
-    if (users === undefined) return <p>Loading profiles...</p>;
+    // --- Render Logic ---
 
-    if (users.length === 0) {
+    // The initial state when the database is empty
+    if (!users || (users.length === 0 && !hasAdminAccount)) {
         return (
             <div className="user-select">
-                <h2 className="user-select__title">Welcome! Let's Get Started.</h2>
-                <p style={{ marginBottom: '2rem', color: 'var(--color-text-secondary)' }}>
-                    Create the first Admin account to manage the app.
+                <h2 className="user-select__title">Welcome!</h2>
+                <p className="user-select__subtitle">
+                    Let's create the first Admin account to get started.
                 </p>
-                <form
-                    className="user-select__form"
-                    onSubmit={handleCreateFirstAdmin}
-                    style={{ width: '100%', maxWidth: '300px' }}
-                >
-                    <div className="form-group">
-                        <Label htmlFor="admin-name">Admin Name</Label>
-                        <Input
-                            id="admin-name"
-                            value={adminName}
-                            onChange={(e) => setAdminName(e.target.value)}
-                            required
-                            autoFocus
-                        />
-                    </div>
-                    <Button type="submit" variant="primary" style={{ width: '100%' }}>
+                <div className="user-select__first-run-form">
+                    <Input
+                        placeholder="Admin Name"
+                        value={newUserData.name}
+                        onChange={(e) =>
+                            setNewUserData({ ...newUserData, name: e.target.value, type: 'admin' })
+                        }
+                    />
+                    <Input
+                        type="password"
+                        placeholder="Optional Password"
+                        value={newUserData.password}
+                        onChange={(e) =>
+                            setNewUserData({ ...newUserData, password: e.target.value })
+                        }
+                    />
+                    <Button variant="primary" onClick={handleCreateUser}>
                         Create Admin Account
                     </Button>
-                </form>
+                </div>
             </div>
         );
     }
@@ -160,83 +143,100 @@ const UserSelectionPage: React.FC = () => {
         <>
             <div className="user-select">
                 <h2 className="user-select__title">{t('userSelection.title')}</h2>
-                <div className="user-select__actions">
-                    {users.map((user) => (
-                        <Button key={user.id} onClick={() => handleUserSelect(user)}>
-                            {user.name}
-                        </Button>
+
+                {/* Grid for existing user profiles */}
+                <div className="user-select__grid">
+                    {users?.map((user) => (
+                        <UserCard key={user.id} user={user} onSelect={handleUserSelect} />
                     ))}
                 </div>
-                <div className="user-select__footer">
-                    <Button onClick={handleOpenCreateModal}>Create New Account</Button>
+
+                {/* Separate section for the create account button */}
+                <div className="user-select__actions">
+                    <Button variant="secondary" onClick={() => setCreateModalOpen(true)}>
+                        Create New Account
+                    </Button>
                 </div>
             </div>
 
-            {/* Create User Modal */}
+            {/* Login Modal */}
             <Modal
-                isOpen={isCreateModalOpen}
-                onClose={() => setIsCreateModalOpen(false)}
-                title="Create a New Learner Account"
+                isOpen={isLoginModalOpen}
+                onClose={() => {
+                    setLoginModalOpen(false);
+                    setPassword(''); // Clear password on close
+                }}
+                title={`Enter password for ${selectedUser?.name}`}
             >
                 <div className="form-group">
-                    <Label htmlFor="new-user-name">Your Name</Label>
+                    <Label htmlFor="password-input">Password</Label>
                     <Input
-                        id="new-user-name"
-                        value={newUserName}
-                        onChange={(e) => setNewUserName(e.target.value)}
-                        required
+                        id="password-input"
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                         autoFocus
                     />
                 </div>
-                <div className="form-group">
-                    <Label htmlFor="new-user-password">Password (Optional)</Label>
-                    <Input
-                        id="new-user-password"
-                        type="password"
-                        value={newUserPassword}
-                        onChange={(e) => setNewUserPassword(e.target.value)}
-                    />
-                </div>
                 <div className="modal-footer">
-                    <Button onClick={() => setIsCreateModalOpen(false)}>Cancel</Button>
-                    <Button variant="primary" onClick={handleSaveNewUser}>
-                        Create Account
+                    <Button variant="secondary" onClick={() => setLoginModalOpen(false)}>
+                        Cancel
+                    </Button>
+                    <Button variant="primary" onClick={handleLogin}>
+                        Login
                     </Button>
                 </div>
             </Modal>
 
-            {/* Password Login Modal */}
+            {/* Create User Modal */}
             <Modal
-                isOpen={isLoginModalOpen}
-                onClose={() => setIsLoginModalOpen(false)}
-                title={`Enter Password for ${selectedUser?.name}`}
+                isOpen={isCreateModalOpen}
+                onClose={() => setCreateModalOpen(false)}
+                title="Create New Account"
             >
-                <form
-                    onSubmit={(e) => {
-                        e.preventDefault();
-                        handlePasswordLogin();
-                    }}
-                >
-                    <div className="form-group">
-                        <Label htmlFor="login-password">Password</Label>
-                        <Input
-                            id="login-password"
-                            type="password"
-                            value={loginPassword}
-                            onChange={(e) => setLoginPassword(e.target.value)}
-                            required
-                            autoFocus
-                        />
-                    </div>
-                    <div className="modal-footer">
-                        <Button type="button" onClick={() => setIsLoginModalOpen(false)}>
-                            Cancel
-                        </Button>
-                        <Button type="submit" variant="primary">
-                            Log In
-                        </Button>
-                    </div>
-                </form>
+                <div className="form-group">
+                    <Label htmlFor="new-name">Name</Label>
+                    <Input
+                        id="new-name"
+                        value={newUserData.name}
+                        onChange={(e) => setNewUserData({ ...newUserData, name: e.target.value })}
+                    />
+                </div>
+                <div className="form-group">
+                    <Label htmlFor="new-password">Password (Optional)</Label>
+                    <Input
+                        id="new-password"
+                        type="password"
+                        value={newUserData.password}
+                        onChange={(e) =>
+                            setNewUserData({ ...newUserData, password: e.target.value })
+                        }
+                    />
+                </div>
+                <div className="form-group">
+                    <Label htmlFor="user-type">Account Type</Label>
+                    <Select
+                        id="user-type"
+                        value={newUserData.type}
+                        onChange={(e) =>
+                            setNewUserData({
+                                ...newUserData,
+                                type: e.target.value as IUser['type'],
+                            })
+                        }
+                    >
+                        <option value="learner">Learner</option>
+                        <option value="admin">Admin</option>
+                    </Select>
+                </div>
+                <div className="modal-footer">
+                    <Button variant="secondary" onClick={() => setCreateModalOpen(false)}>
+                        Cancel
+                    </Button>
+                    <Button variant="primary" onClick={handleCreateUser}>
+                        Create
+                    </Button>
+                </div>
             </Modal>
         </>
     );
