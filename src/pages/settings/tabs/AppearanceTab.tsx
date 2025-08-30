@@ -1,133 +1,171 @@
 // src/pages/settings/tabs/AppearanceTab.tsx
 
 import React from 'react';
-import {
-    useTheme,
-    type Theme,
-    type Accent,
-    type Contrast,
-    type Font,
-    type FontSize,
-} from '../../../contexts/ThemeContext';
+import { useTheme, type FontSize } from '../../../contexts/ThemeContext';
 import Label from '../../../components/common/Form/Label/Label';
+import { Sun, Palette, Contrast, Type, CaseSensitive } from 'lucide-react';
 
-/**
- * A reusable component for a group of theme options.
- */
-const ThemeControlGroup: React.FC<{ title: string; children: React.ReactNode }> = ({
-    title,
-    children,
-}) => (
-    <div className="settings-group">
-        <Label as="h3" className="settings-group__title">
-            {title}
-        </Label>
-        <div className="settings-group__controls">{children}</div>
-    </div>
-);
-
-/**
- * A reusable component for a single theme option button.
- */
-const ThemeOptionButton: React.FC<{
+// --- TYPE DEFINITIONS ---
+interface ThemeOptionButtonProps {
     onClick: () => void;
     isActive: boolean;
-    children: React.ReactNode;
+    children?: React.ReactNode; // Made optional to support icon-only buttons
     className?: string;
-}> = ({ onClick, isActive, children, className = '' }) => (
-    <button
-        onClick={onClick}
-        className={`theme-option-btn ${isActive ? 'theme-option-btn--active' : ''} ${className}`}
-    >
-        {children}
-    </button>
-);
+}
+
+// --- SUB-COMPONENTS ---
 
 /**
- * The AppearanceTab component provides UI controls for all theme-related settings.
- * It consumes the ThemeContext to display and update the application's appearance.
+ * A generic, reusable button for selecting a theme option.
+ * It visually indicates whether it is the currently active option.
+ */
+const ThemeOptionButton: React.FC<ThemeOptionButtonProps> = ({
+    onClick,
+    isActive,
+    children,
+    className = '',
+}) => {
+    const activeClass = isActive ? 'theme-option-btn--active' : '';
+    const buttonClassName = `theme-option-btn ${activeClass} ${className}`.trim();
+    return (
+        <button className={buttonClassName} onClick={onClick}>
+            {children}
+        </button>
+    );
+};
+
+// --- MAIN COMPONENT ---
+
+/**
+ * A settings tab that provides UI controls for the application's
+ * entire theming system, allowing users to personalize their experience.
  */
 const AppearanceTab: React.FC = () => {
+    const theme = useTheme();
+
+    // Type guard to ensure theme context is loaded
+    if (!theme) {
+        return <div>Loading theme settings...</div>;
+    }
+
     const {
-        theme,
-        setTheme,
+        theme: currentTheme,
         accent,
-        setAccent,
         contrast,
-        setContrast,
         font,
-        setFont,
         fontSize,
+        setTheme,
+        setAccent,
+        setContrast,
+        setFont,
         setFontSize,
-    } = useTheme();
+    } = theme;
+
+    const fontSizes: FontSize[] = [0.8, 0.9, 1.0, 1.1, 1.2];
 
     return (
         <div className="appearance-settings">
-            <ThemeControlGroup title="Color Scheme">
-                <ThemeOptionButton onClick={() => setTheme('light')} isActive={theme === 'light'}>
-                    Light
-                </ThemeOptionButton>
-                <ThemeOptionButton onClick={() => setTheme('dark')} isActive={theme === 'dark'}>
-                    Dark
-                </ThemeOptionButton>
-            </ThemeControlGroup>
+            {/* --- Theme (Light/Dark) --- */}
+            <div className="settings-group">
+                <Label as="h4">
+                    <Sun size={16} className="settings-icon" /> Theme
+                </Label>
+                <div className="settings-group__controls">
+                    <ThemeOptionButton
+                        onClick={() => setTheme('light')}
+                        isActive={currentTheme === 'light'}
+                    >
+                        Light
+                    </ThemeOptionButton>
+                    <ThemeOptionButton
+                        onClick={() => setTheme('dark')}
+                        isActive={currentTheme === 'dark'}
+                    >
+                        Dark
+                    </ThemeOptionButton>
+                </div>
+            </div>
 
-            <ThemeControlGroup title="Accent Color">
-                <ThemeOptionButton
-                    onClick={() => setAccent('blue')}
-                    isActive={accent === 'blue'}
-                    className="theme-option-btn--blue"
-                />
-                <ThemeOptionButton
-                    onClick={() => setAccent('purple')}
-                    isActive={accent === 'purple'}
-                    className="theme-option-btn--purple"
-                />
-                <ThemeOptionButton
-                    onClick={() => setAccent('green')}
-                    isActive={accent === 'green'}
-                    className="theme-option-btn--green"
-                />
-            </ThemeControlGroup>
+            {/* --- Accent Color --- */}
+            <div className="settings-group">
+                <Label as="h4">
+                    <Palette size={16} className="settings-icon" /> Accent Color
+                </Label>
+                <div className="settings-group__controls">
+                    <ThemeOptionButton
+                        onClick={() => setAccent('blue')}
+                        isActive={accent === 'blue'}
+                        className="theme-option-btn--color-blue"
+                    />
+                    <ThemeOptionButton
+                        onClick={() => setAccent('purple')}
+                        isActive={accent === 'purple'}
+                        className="theme-option-btn--color-purple"
+                    />
+                    <ThemeOptionButton
+                        onClick={() => setAccent('green')}
+                        isActive={accent === 'green'}
+                        className="theme-option-btn--color-green"
+                    />
+                </div>
+            </div>
 
-            <ThemeControlGroup title="Contrast">
-                <ThemeOptionButton
-                    onClick={() => setContrast('normal')}
-                    isActive={contrast === 'normal'}
-                >
-                    Normal
-                </ThemeOptionButton>
-                <ThemeOptionButton
-                    onClick={() => setContrast('high')}
-                    isActive={contrast === 'high'}
-                >
-                    High
-                </ThemeOptionButton>
-            </ThemeControlGroup>
+            {/* --- Contrast --- */}
+            <div className="settings-group">
+                <Label as="h4">
+                    <Contrast size={16} className="settings-icon" /> Contrast
+                </Label>
+                <div className="settings-group__controls">
+                    <ThemeOptionButton
+                        onClick={() => setContrast('normal')}
+                        isActive={contrast === 'normal'}
+                    >
+                        Normal
+                    </ThemeOptionButton>
+                    <ThemeOptionButton
+                        onClick={() => setContrast('high')}
+                        isActive={contrast === 'high'}
+                    >
+                        High
+                    </ThemeOptionButton>
+                </div>
+            </div>
 
-            <ThemeControlGroup title="Font Style">
-                <ThemeOptionButton onClick={() => setFont('sans')} isActive={font === 'sans'}>
-                    Sans-Serif
-                </ThemeOptionButton>
-                <ThemeOptionButton onClick={() => setFont('serif')} isActive={font === 'serif'}>
-                    Serif
-                </ThemeOptionButton>
-                <ThemeOptionButton onClick={() => setFont('mono')} isActive={font === 'mono'}>
-                    Monospace
-                </ThemeOptionButton>
-            </ThemeControlGroup>
+            {/* --- Font Family --- */}
+            <div className="settings-group">
+                <Label as="h4">
+                    <Type size={16} className="settings-icon" /> Font
+                </Label>
+                <div className="settings-group__controls">
+                    <ThemeOptionButton onClick={() => setFont('sans')} isActive={font === 'sans'}>
+                        Sans-Serif
+                    </ThemeOptionButton>
+                    <ThemeOptionButton onClick={() => setFont('serif')} isActive={font === 'serif'}>
+                        Serif
+                    </ThemeOptionButton>
+                    <ThemeOptionButton onClick={() => setFont('mono')} isActive={font === 'mono'}>
+                        Monospace
+                    </ThemeOptionButton>
+                </div>
+            </div>
 
-            <ThemeControlGroup title="Font Size">
-                <input
-                    type="range"
-                    min="0.8"
-                    max="1.2"
-                    step="0.1"
-                    value={fontSize}
-                    onChange={(e) => setFontSize(parseFloat(e.target.value) as FontSize)}
-                    className="font-size-slider"
-                />
-            </ThemeControlGroup>
+            {/* --- Font Size --- */}
+            <div className="settings-group">
+                <Label as="h4">
+                    <CaseSensitive size={16} className="settings-icon" /> Font Size
+                </Label>
+                <div className="settings-group__controls">
+                    {fontSizes.map((size) => (
+                        <ThemeOptionButton
+                            key={size}
+                            onClick={() => setFontSize(size)}
+                            isActive={fontSize === size}
+                        >
+                            {size * 100}%
+                        </ThemeOptionButton>
+                    ))}
+                </div>
+            </div>
         </div>
     );
 };
