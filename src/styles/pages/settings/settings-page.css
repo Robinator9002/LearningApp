@@ -1,19 +1,52 @@
 /* src/styles/pages/settings/settings-page.css */
 
+.settings-page {
+    display: flex;
+    flex-direction: column;
+}
+
 .settings-page__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: calc(var(--spacing-unit) * 2);
+    border-bottom: 1px solid var(--color-border);
     margin-bottom: calc(var(--spacing-unit) * 4);
+}
+
+.settings-page__header-left {
+    display: flex;
+    align-items: center;
+    gap: calc(var(--spacing-unit) * 2);
 }
 
 .settings-page__title {
     font-size: 1.75rem;
-    padding-bottom: var(--spacing-unit);
-    border-bottom: 1px solid var(--color-border);
+    font-weight: 700;
 }
 
-.settings-page__content {
+.settings-page__tabs {
     display: flex;
-    flex-direction: column;
-    gap: calc(var(--spacing-unit) * 4);
-    max-width: 800px; /* Constrain width for readability */
-    margin: 0 auto; /* Center the content */
+    gap: var(--spacing-unit);
+}
+
+.settings-page__tab {
+    padding: var(--spacing-unit) calc(var(--spacing-unit) * 2);
+    border: none;
+    background-color: transparent;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    transition: color 0.2s, border-color 0.2s;
+}
+
+.settings-page__tab:hover {
+    color: var(--color-text-primary);
+}
+
+.settings-page__tab--active {
+    color: var(--color-accent);
+    border-bottom-color: var(--color-accent);
+    font-weight: 700;
 }

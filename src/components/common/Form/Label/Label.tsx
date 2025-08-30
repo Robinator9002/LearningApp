@@ -2,16 +2,32 @@
 
 import React from 'react';
 
+// Define the props for the Label component
 interface LabelProps extends React.LabelHTMLAttributes<HTMLLabelElement> {
     children: React.ReactNode;
+    /**
+     * Allows rendering the label as a different HTML element, e.g., 'h3'.
+     * Defaults to 'label'.
+     */
+    as?: React.ElementType;
 }
 
-const Label: React.FC<LabelProps> = ({ children, className = '', ...props }) => {
+/**
+ * A reusable, polymorphic label component.
+ */
+const Label: React.FC<LabelProps> = ({
+    children,
+    className = '',
+    as: Component = 'label',
+    ...props
+}) => {
     const labelClassName = `form-label ${className}`.trim();
+
+    // Render the component with the specified tag, passing along all props.
     return (
-        <label className={labelClassName} {...props}>
+        <Component className={labelClassName} {...props}>
             {children}
-        </label>
+        </Component>
     );
 };
 
