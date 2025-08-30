@@ -1,8 +1,11 @@
 /* src/styles/components/common/buttons/button.css */
 
 .btn {
-    display: inline-block;
-    padding: calc(var(--spacing-unit) * 1.5) calc(var(--spacing-unit) * 3);
+    display: inline-flex; /* Use inline-flex for better alignment */
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-unit);
+    padding: calc(var(--spacing-unit) * 1.25) calc(var(--spacing-unit) * 2.5);
     font-size: var(--font-size-base);
     font-weight: 500;
     text-align: center;
@@ -10,14 +13,15 @@
     cursor: pointer;
     border: 1px solid transparent;
     border-radius: var(--border-radius);
-    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out,
-        border-color 0.2s ease-in-out;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
     user-select: none;
+    white-space: nowrap; /* Prevent text wrapping */
 }
 
+/* --- Primary Variant (Default) --- */
 .btn--primary {
     background-color: var(--color-accent);
-    color: #ffffff; /* White text is usually best on accent colors */
+    color: var(--color-accent-text);
     border-color: var(--color-accent);
 }
 
@@ -31,4 +35,29 @@
     border-color: var(--color-text-secondary);
     cursor: not-allowed;
     opacity: 0.7;
+}
+
+/* --- Secondary Variant --- */
+.btn--secondary {
+    background-color: var(--color-surface);
+    color: var(--color-text-primary);
+    border-color: var(--color-border);
+}
+
+.btn--secondary:hover {
+    background-color: var(--color-background);
+    border-color: var(--color-border-strong);
+}
+
+/* --- Danger Variant --- */
+.btn--danger {
+    background-color: var(--color-feedback-negative-soft);
+    color: var(--color-feedback-negative);
+    border-color: var(--color-feedback-negative-soft);
+}
+
+.btn--danger:hover {
+    background-color: var(--color-feedback-negative);
+    color: #ffffff;
+    border-color: var(--color-feedback-negative);
 }

@@ -5,7 +5,11 @@ import React from 'react';
 // Define the props for the Button component
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     children: React.ReactNode;
-    variant?: 'primary'; // We can add more variants like 'secondary' later
+    /**
+     * The visual style of the button.
+     * Defaults to 'primary'.
+     */
+    variant?: 'primary' | 'secondary' | 'danger';
 }
 
 /**
@@ -19,7 +23,7 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
     // Construct the className string from our global CSS classes
     // Base class: 'btn'
-    // Modifier class: 'btn--primary'
+    // Modifier class: e.g., 'btn--primary'
     const buttonClassName = `btn btn--${variant} ${className}`.trim();
 
     return (
