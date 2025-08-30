@@ -1,33 +1,176 @@
 /* src/styles/pages/learner/course-player.css */
 
-.course-player {
+/* --- Main Container V2 --- */
+.course-player-v2 {
+    display: flex;
+    flex-direction: column;
     max-width: 800px;
     margin: 0 auto;
-    padding: var(--spacing-unit);
+    /* Use viewport height minus header/padding to fill space */
+    height: calc(100vh - 120px);
+    gap: calc(var(--spacing-unit) * 3);
 }
 
-.course-player__header {
+/* --- Header --- */
+.course-player-v2__header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: calc(var(--spacing-unit) * 4);
+    gap: calc(var(--spacing-unit) * 2);
+    width: 100%;
+    flex-shrink: 0; /* Prevent header from shrinking */
 }
 
-.course-player__title {
-    font-size: calc(var(--font-size-base) * 1.75);
+.course-player-v2__progress-bar {
+    flex-grow: 1;
+    height: 16px;
+    background-color: var(--color-background);
+    border-radius: 999px;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
 }
 
-.course-player__progress {
-    font-size: calc(var(--font-size-base) * 1.1);
-    color: var(--color-text-secondary);
+.course-player-v2__progress-fill {
+    height: 100%;
+    background-color: var(--color-accent);
+    transition: width 0.3s ease-in-out;
+    border-radius: 999px;
+}
+
+.course-player-v2__progress-text {
     font-weight: 500;
+    color: var(--color-text-secondary);
+    min-width: 50px; /* Prevents layout shift */
+    text-align: right;
 }
 
-.course-player__footer {
-    margin-top: calc(var(--spacing-unit) * 4);
+/* --- Main Content Area --- */
+.course-player-v2__main {
+    flex-grow: 1; /* Allow main to take up available space */
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing-unit) * 3);
+    overflow-y: auto; /* For questions with many options */
+}
+
+/* --- QA Card --- */
+.qa-card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: calc(var(--border-radius) * 2); /* Softer corners */
+    padding: calc(var(--spacing-unit) * 4);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.qa-card--question {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 150px;
+    flex-shrink: 0;
+}
+
+.qa-card__question-text {
+    font-size: calc(var(--font-size-base) * 1.75);
+    font-weight: 500;
+    text-align: center;
+    line-height: 1.4;
+}
+
+.qa-card--answer {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* --- Answer Area --- */
+.answer-options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2x2 grid */
+    gap: calc(var(--spacing-unit) * 2);
+    height: 100%;
+}
+
+/* Make answer options take up full grid cell height */
+.answer-option {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 1.1rem;
+    padding: calc(var(--spacing-unit) * 3);
+}
+
+/* --- NEW: Fill-in-the-blank Styles --- */
+.fitb-answer-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: calc(var(--spacing-unit) * 3);
+    height: 100%;
+}
+
+.fitb-input {
+    width: 100%;
+    max-width: 400px;
+    padding: calc(var(--spacing-unit) * 2);
+    font-size: 1.25rem;
+    text-align: center;
+}
+
+.fitb-correct-answer {
+    color: var(--color-text-secondary);
+    font-size: 1rem;
+}
+
+.fitb-correct-answer strong {
+    color: var(--color-feedback-positive);
+    font-weight: 700;
+}
+
+/* --- Footer --- */
+.course-player-v2__footer {
+    display: flex;
+    justify-content: center; /* Center the single "Check" button by default */
+    align-items: center;
     padding-top: calc(var(--spacing-unit) * 2);
     border-top: 1px solid var(--color-border);
+    min-height: 60px; /* Reserve space to avoid layout shift */
+    flex-shrink: 0;
+}
+
+.feedback-section {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
+}
+
+.feedback-text {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-unit);
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.feedback-text--correct {
+    color: var(--color-feedback-positive);
+}
+
+.feedback-text--incorrect {
+    color: var(--color-feedback-negative);
+}
+
+/* Canvas for confetti */
+canvas {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    pointer-events: none;
 }

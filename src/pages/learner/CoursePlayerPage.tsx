@@ -1,176 +1,235 @@
 // src/pages/learner/CoursePlayerPage.tsx
 
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Check, X } from 'lucide-react';
 import { useLiveQuery } from 'dexie-react-hooks';
+import Confetti from 'react-confetti';
 
 import { db } from '../../lib/db';
 import { AuthContext } from '../../contexts/AuthContext';
 import type { IMCQOption, IProgressLog } from '../../types/database';
 
 import Button from '../../components/common/Button/Button';
-import Input from '../../components/common/Form/Input/Input'; // Import Input for FITB
-import QuestionDisplay from '../../components/learner/QA/QuestionDisplay';
-import AnswerOption, { type AnswerStatus } from '../../components/learner/QA/AnswerOption';
 import CourseSummary from '../../components/learner/Course/CourseSummary';
+import AnswerOption, { type AnswerStatus } from '../../components/learner/QA/AnswerOption';
+import Input from '../../components/common/Form/Input/Input';
+
+// A simple hook to manage window dimensions for the confetti effect.
+const useWindowSize = () => {
+    const [size, setSize] = useState([window.innerWidth, window.innerHeight]);
+    useEffect(() => {
+        const handleResize = () => setSize([window.innerWidth, window.innerHeight]);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+    return size;
+};
 
 const CoursePlayerPage: React.FC = () => {
     const { courseId } = useParams<{ courseId: string }>();
     const navigate = useNavigate();
     const auth = useContext(AuthContext);
+    // Correctly destructure the array returned by the hook
+    const [width, height] = useWindowSize();
 
     // --- State Management ---
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
+    const [fitbAnswer, setFitbAnswer] = useState('');
     const [isAnswered, setIsAnswered] = useState(false);
+    const [isCorrect, setIsCorrect] = useState(false);
     const [score, setScore] = useState(0);
     const [isFinished, setIsFinished] = useState(false);
+    const [showConfetti, setShowConfetti] = useState(false);
 
-    // State for MCQ answers
-    const [selectedAnswerId, setSelectedAnswerId] = useState<string | null>(null);
-    // State for Fill-in-the-blank answers
-    const [fitbAnswer, setFitbAnswer] = useState('');
-    const [isFitbCorrect, setIsFitbCorrect] = useState<boolean | null>(null);
-
+    // --- Data Fetching ---
     const course = useLiveQuery(
         () => (courseId ? db.courses.get(parseInt(courseId, 10)) : undefined),
         [courseId],
     );
 
-    if (!auth) throw new Error('CoursePlayerPage must be used within an AuthProvider');
-    if (!course) return <div>Loading course...</div>;
-
-    const currentQuestion = course.questions[currentQuestionIndex];
-    const totalQuestions = course.questions.length;
+    const currentQuestion = course?.questions[currentQuestionIndex];
+    const totalQuestions = course?.questions.length ?? 0;
+    const progressPercentage =
+        totalQuestions > 0 ? ((currentQuestionIndex + 1) / totalQuestions) * 100 : 0;
 
     // --- Event Handlers ---
-    const handleMcqAnswer = (option: IMCQOption) => {
-        if (isAnswered) return;
-        setIsAnswered(true);
-        setSelectedAnswerId(option.id);
-        if (option.isCorrect) {
-            setScore((prev) => prev + 1);
+    const handleCheckAnswer = () => {
+        if (!currentQuestion) return;
+
+        let correct = false;
+        if (currentQuestion.type === 'mcq') {
+            // Add explicit type to 'opt' parameter
+            const selectedOption = currentQuestion.options?.find(
+                (opt: IMCQOption) => opt.id === selectedOptionId,
+            );
+            correct = selectedOption?.isCorrect ?? false;
+        } else if (currentQuestion.type === 'fitb') {
+            correct =
+                fitbAnswer.trim().toLowerCase() ===
+                currentQuestion.correctAnswer?.trim().toLowerCase();
         }
+
+        setIsCorrect(correct);
+        if (correct) {
+            setScore((prev) => prev + 1);
+            setShowConfetti(true);
+        }
+        setIsAnswered(true);
     };
 
-    const handleFitbSubmit = () => {
-        if (isAnswered || !currentQuestion.correctAnswer) return;
-        setIsAnswered(true);
-        const isCorrect =
-            fitbAnswer.trim().toLowerCase() === currentQuestion.correctAnswer.trim().toLowerCase();
-        setIsFitbCorrect(isCorrect);
-        if (isCorrect) {
-            setScore((prev) => prev + 1);
-        }
-    };
-
-    const handleNextQuestion = async () => {
+    const handleNextQuestion = () => {
         if (currentQuestionIndex < totalQuestions - 1) {
-            // Reset state for the next question
             setCurrentQuestionIndex((prev) => prev + 1);
+            // Reset state for the new question
             setIsAnswered(false);
-            setSelectedAnswerId(null);
+            setSelectedOptionId(null);
             setFitbAnswer('');
-            setIsFitbCorrect(null);
+            setIsCorrect(false);
         } else {
-            // Log progress and finish
-            const { currentUser } = auth;
-            if (currentUser?.id && course.id) {
-                const newLog: IProgressLog = {
-                    userId: currentUser.id,
-                    courseId: course.id,
-                    score,
-                    totalQuestions,
-                    timestamp: new Date(),
-                };
-                try {
-                    await db.progressLogs.add(newLog);
-                } catch (error) {
-                    console.error('Failed to log progress:', error);
-                }
-            }
-            setIsFinished(true);
+            handleCourseFinish();
         }
     };
 
-    // --- Render Logic ---
-    const getMcqStatus = (option: IMCQOption): AnswerStatus => {
-        if (!isAnswered) return 'default';
+    // Timer to turn off confetti so it can re-trigger on subsequent correct answers
+    useEffect(() => {
+        if (showConfetti) {
+            const timer = setTimeout(() => setShowConfetti(false), 5000); // Confetti lasts 5 seconds
+            return () => clearTimeout(timer);
+        }
+    }, [showConfetti]);
+
+    const handleCourseFinish = async () => {
+        if (auth?.currentUser && course?.id) {
+            const logEntry: Omit<IProgressLog, 'id'> = {
+                userId: auth.currentUser.id!,
+                courseId: course.id,
+                score: score,
+                totalQuestions,
+                // Convert Date object to ISO string to match the type definition
+                timestamp: new Date().toISOString(),
+            };
+            await db.progressLogs.add(logEntry as IProgressLog);
+        }
+        setIsFinished(true);
+    };
+
+    // Helper for MCQ answer status
+    const getMCQStatus = (option: IMCQOption): AnswerStatus => {
+        if (!isAnswered) {
+            return selectedOptionId === option.id ? 'selected' : 'default';
+        }
         if (option.isCorrect) return 'correct';
-        if (selectedAnswerId === option.id) return 'incorrect';
+        if (selectedOptionId === option.id) return 'incorrect';
         return 'default';
     };
 
-    const getFitbInputClass = () => {
-        if (!isAnswered) return '';
-        return isFitbCorrect ? 'form-input--correct' : 'form-input--incorrect';
-    };
+    // --- Render Logic ---
+    if (!course || !currentQuestion) {
+        return <div>Loading course...</div>;
+    }
 
     if (isFinished) {
         return <CourseSummary score={score} totalQuestions={totalQuestions} />;
     }
 
     return (
-        <div className="course-player">
-            <header className="course-player__header">
-                <h2 className="course-player__title">{course.title}</h2>
-                <div className="course-player__progress">
-                    Question {currentQuestionIndex + 1} / {totalQuestions}
+        <div className="course-player-v2">
+            {showConfetti && (
+                <Confetti width={width} height={height} recycle={false} numberOfPieces={200} />
+            )}
+
+            <header className="course-player-v2__header">
+                <Button
+                    variant="secondary"
+                    onClick={() => navigate('/dashboard')}
+                    title="Exit Course"
+                >
+                    <ArrowLeft size={20} />
+                </Button>
+                <div className="course-player-v2__progress-bar">
+                    <div
+                        className="course-player-v2__progress-fill"
+                        style={{ width: `${progressPercentage}%` }}
+                    />
+                </div>
+                <div className="course-player-v2__progress-text">
+                    {currentQuestionIndex + 1} / {totalQuestions}
                 </div>
             </header>
 
-            <div className="course-player__content">
-                <QuestionDisplay text={currentQuestion.questionText} />
+            <main className="course-player-v2__main">
+                <div className="qa-card qa-card--question">
+                    <p className="qa-card__question-text">{currentQuestion.questionText}</p>
+                </div>
 
-                {/* CONDITIONAL RENDERING FOR QUESTION TYPE */}
-                {currentQuestion.type === 'mcq' && (
-                    <div className="answer-options-list">
-                        {currentQuestion.options?.map((option: any) => (
-                            <AnswerOption
-                                key={option.id}
-                                text={option.text}
-                                status={getMcqStatus(option)}
-                                onClick={() => handleMcqAnswer(option)}
+                <div className="qa-card qa-card--answer">
+                    {/* RENDER LOGIC: Switch between question types */}
+                    {currentQuestion.type === 'mcq' && (
+                        <div className="answer-options-grid">
+                            {currentQuestion.options?.map((option: IMCQOption) => (
+                                <AnswerOption
+                                    key={option.id}
+                                    text={option.text}
+                                    status={getMCQStatus(option)}
+                                    onClick={() => !isAnswered && setSelectedOptionId(option.id)}
+                                    disabled={isAnswered}
+                                />
+                            ))}
+                        </div>
+                    )}
+
+                    {currentQuestion.type === 'fitb' && (
+                        <div className="fitb-answer-area">
+                            <Input
+                                type="text"
+                                placeholder="Type your answer here..."
+                                value={fitbAnswer}
+                                onChange={(e) => setFitbAnswer(e.target.value)}
                                 disabled={isAnswered}
+                                className="fitb-input"
+                                autoFocus
                             />
-                        ))}
-                    </div>
-                )}
+                            {isAnswered && !isCorrect && (
+                                <p className="fitb-correct-answer">
+                                    The correct answer was:{' '}
+                                    <strong>{currentQuestion.correctAnswer}</strong>
+                                </p>
+                            )}
+                        </div>
+                    )}
+                </div>
+            </main>
 
-                {currentQuestion.type === 'fitb' && (
-                    <div className="fitb-container">
-                        <Input
-                            className={getFitbInputClass()}
-                            value={fitbAnswer}
-                            onChange={(e) => setFitbAnswer(e.target.value)}
-                            disabled={isAnswered}
-                            placeholder="Type your answer here"
-                            onKeyDown={(e) =>
-                                e.key === 'Enter' && !isAnswered && handleFitbSubmit()
-                            }
-                        />
-                        {!isAnswered && (
-                            <Button onClick={handleFitbSubmit} disabled={!fitbAnswer.trim()}>
-                                Submit
-                            </Button>
+            <footer className="course-player-v2__footer">
+                {isAnswered ? (
+                    <div className="feedback-section">
+                        {isCorrect ? (
+                            <span className="feedback-text feedback-text--correct">
+                                <Check /> Correct!
+                            </span>
+                        ) : (
+                            <span className="feedback-text feedback-text--incorrect">
+                                <X /> Not quite...
+                            </span>
                         )}
-                        {isAnswered && !isFitbCorrect && (
-                            <p className="fitb-correct-answer">
-                                Correct Answer: {currentQuestion.correctAnswer}
-                            </p>
-                        )}
+                        <Button variant="primary" onClick={handleNextQuestion}>
+                            {currentQuestionIndex < totalQuestions - 1
+                                ? 'Next Question'
+                                : 'Finish Course'}
+                        </Button>
                     </div>
-                )}
-            </div>
-
-            <footer className="course-player__footer">
-                <Button onClick={() => navigate('/dashboard')}>
-                    <ArrowLeft size={16} style={{ marginRight: '8px' }} />
-                    Exit Course
-                </Button>
-                {isAnswered && (
-                    <Button variant="primary" onClick={handleNextQuestion}>
-                        {currentQuestionIndex < totalQuestions - 1 ? 'Next' : 'Finish'}
+                ) : (
+                    <Button
+                        variant="primary"
+                        onClick={handleCheckAnswer}
+                        disabled={
+                            (currentQuestion.type === 'mcq' && !selectedOptionId) ||
+                            (currentQuestion.type === 'fitb' && fitbAnswer.trim() === '')
+                        }
+                    >
+                        Check Answer
                     </Button>
                 )}
             </footer>
