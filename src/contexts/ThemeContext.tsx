@@ -8,24 +8,23 @@ import React, {
     useCallback,
     useContext,
 } from 'react';
+import { db } from '../lib/db';
+import type { IUser, IThemeState } from '../types/database';
 
-// --- Type Definitions for Theme Options ---
-export type Theme = 'light' | 'dark';
-export type Accent = 'blue' | 'purple' | 'green';
-export type Contrast = 'normal' | 'high';
-export type Font = 'sans' | 'serif' | 'mono';
-export type FontSize = 0.8 | 0.9 | 1.0 | 1.1 | 1.2;
+// --- Type Definitions ---
+// Re-exporting these types for easy access from other components
+export type { IThemeState };
+export type Theme = IThemeState['theme'];
+export type Accent = IThemeState['accent'];
+export type Contrast = IThemeState['contrast'];
+export type Font = IThemeState['font'];
+export type FontSize = IThemeState['fontSize'];
 
-// --- State and Context Shape ---
-interface ThemeState {
-    theme: Theme;
-    accent: Accent;
-    contrast: Contrast;
-    font: Font;
-    fontSize: FontSize;
-}
-
-interface ThemeContextType extends ThemeState {
+// --- Context Shape ---
+interface ThemeContextType extends IThemeState {
+    // This new function will be called by AuthContext on login/logout
+    loadUserTheme: (user: IUser | null) => void;
+    // Setter functions remain, but their internal logic will change
     setTheme: (theme: Theme) => void;
     setAccent: (accent: Accent) => void;
     setContrast: (contrast: Contrast) => void;
@@ -36,24 +35,17 @@ interface ThemeContextType extends ThemeState {
 // --- Context Creation ---
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-// --- Helper Functions ---
-const getInitialState = (): ThemeState => {
-    try {
-        const storedState = localStorage.getItem('themeState');
-        if (storedState) {
-            return JSON.parse(storedState);
-        }
-    } catch (error) {
-        console.error('Failed to parse theme state from localStorage', error);
-    }
-    // Default state if nothing is stored or parsing fails
-    return {
-        theme: 'light',
-        accent: 'blue',
-        contrast: 'normal',
-        font: 'sans',
-        fontSize: 1.0,
-    };
+// --- Default State ---
+/**
+ * The default theme state for new users or users who haven't set their preferences.
+ * This ensures a consistent starting point.
+ */
+const defaultThemeState: IThemeState = {
+    theme: 'light',
+    accent: 'blue',
+    contrast: 'normal',
+    font: 'sans',
+    fontSize: 1.0,
 };
 
 // --- Provider Component ---
@@ -62,46 +54,75 @@ interface ThemeProviderProps {
 }
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
-    const [themeState, setThemeState] = useState<ThemeState>(getInitialState);
+    const [themeState, setThemeState] = useState<IThemeState>(defaultThemeState);
+    const [currentUser, setCurrentUser] = useState<IUser | null>(null);
 
-    // Effect to apply data attributes and save to localStorage
+    // --- Core Logic ---
+
+    // 1. This effect applies the current theme state to the DOM whenever it changes.
     useEffect(() => {
         const body = document.body;
-        // Apply data attributes
         body.dataset.theme = themeState.theme;
         body.dataset.accent = themeState.accent;
         body.dataset.contrast = themeState.contrast;
         body.dataset.font = themeState.font;
-
-        // Apply font size variable
         document.documentElement.style.setProperty(
             '--font-scale-factor',
             themeState.fontSize.toString(),
         );
-
-        // Save to localStorage
-        try {
-            localStorage.setItem('themeState', JSON.stringify(themeState));
-        } catch (error) {
-            console.error('Failed to save theme state to localStorage', error);
-        }
     }, [themeState]);
 
-    // Memoized update functions
-    const setTheme = useCallback((theme: Theme) => setThemeState((s) => ({ ...s, theme })), []);
-    const setAccent = useCallback((accent: Accent) => setThemeState((s) => ({ ...s, accent })), []);
-    const setContrast = useCallback(
-        (contrast: Contrast) => setThemeState((s) => ({ ...s, contrast })),
-        [],
+    // 2. This function is the new entry point, called by AuthContext.
+    const loadUserTheme = useCallback((user: IUser | null) => {
+        setCurrentUser(user); // Keep track of the current user
+        if (user && user.settings) {
+            // If the user exists and has settings, apply them
+            setThemeState(user.settings);
+        } else {
+            // Otherwise, revert to the default theme (e.g., on logout)
+            setThemeState(defaultThemeState);
+        }
+    }, []);
+
+    // 3. The generic update function that handles saving changes to the database.
+    const updateThemeSetting = useCallback(
+        (newSettings: Partial<IThemeState>) => {
+            if (!currentUser || !currentUser.id) return; // Safety check
+
+            const updatedState = { ...themeState, ...newSettings };
+            setThemeState(updatedState); // Update the UI immediately
+
+            // Asynchronously update the database
+            db.users.update(currentUser.id, {
+                settings: updatedState,
+            });
+        },
+        [currentUser, themeState],
     );
-    const setFont = useCallback((font: Font) => setThemeState((s) => ({ ...s, font })), []);
+
+    // --- Memoized Setter Functions ---
+    // Each setter now calls the generic update function.
+    const setTheme = useCallback(
+        (theme: Theme) => updateThemeSetting({ theme }),
+        [updateThemeSetting],
+    );
+    const setAccent = useCallback(
+        (accent: Accent) => updateThemeSetting({ accent }),
+        [updateThemeSetting],
+    );
+    const setContrast = useCallback(
+        (contrast: Contrast) => updateThemeSetting({ contrast }),
+        [updateThemeSetting],
+    );
+    const setFont = useCallback((font: Font) => updateThemeSetting({ font }), [updateThemeSetting]);
     const setFontSize = useCallback(
-        (fontSize: FontSize) => setThemeState((s) => ({ ...s, fontSize })),
-        [],
+        (fontSize: FontSize) => updateThemeSetting({ fontSize }),
+        [updateThemeSetting],
     );
 
     const value = {
         ...themeState,
+        loadUserTheme,
         setTheme,
         setAccent,
         setContrast,
@@ -112,7 +133,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 };
 
-// --- Custom Hook for easy consumption ---
+// --- Custom Hook ---
 export const useTheme = (): ThemeContextType => {
     const context = useContext(ThemeContext);
     if (context === undefined) {
