@@ -9,37 +9,42 @@
     --light-text-primary: #212529;
     --light-text-secondary: #6c757d;
     --light-border: #dee2e6;
+    --light-muted-bg: #e9ecef; /* For subtle backgrounds */
 
     /* --- Dark Theme Palette --- */
     --dark-bg: #121212;
     --dark-surface: #1e1e1e;
-    --dark-text-primary: #e0e0e0;
-    --dark-text-secondary: #a0a0a0;
-    --dark-border: #333333;
+    --dark-text-primary: #e8e6e3;
+    --dark-text-secondary: #a8a29e; /* Lighter for better readability */
+    --dark-border: #3a3a3a;
+    --dark-muted-bg: #2a2a2a; /* For subtle backgrounds in dark mode */
 
     /* --- High Contrast Light Theme --- */
     --light-hc-bg: #ffffff;
     --light-hc-surface: #ffffff;
     --light-hc-text-primary: #000000;
-    --light-hc-text-secondary: #404040;
+    --light-hc-text-secondary: #212121;
     --light-hc-border: #000000;
 
     /* --- High Contrast Dark Theme --- */
     --dark-hc-bg: #000000;
     --dark-hc-surface: #000000;
     --dark-hc-text-primary: #ffffff;
-    --dark-hc-text-secondary: #cccccc;
+    --dark-hc-text-secondary: #f0f0f0;
     --dark-hc-border: #ffffff;
 
-    /* --- Accent Color Palette --- */
+    /* --- Accent Color Palette (Refined) --- */
     --accent-blue: #007bff;
     --accent-blue-dark: #0056b3;
+    --accent-blue-light: #cfe2ff; /* For backgrounds */
     --accent-purple: #6f42c1;
     --accent-purple-dark: #5a32a3;
-    --accent-green: #28a745;
-    --accent-green-dark: #1e7e34;
+    --accent-purple-light: #e6dff6;
+    --accent-green: #198754;
+    --accent-green-dark: #146c43;
+    --accent-green-light: #d1e7dd;
 
     /* --- Feedback Colors (Universal) --- */
-    --feedback-positive: #28a745;
+    --feedback-positive: #198754;
     --feedback-negative: #dc3545;
 }

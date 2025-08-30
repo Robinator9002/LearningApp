@@ -15,8 +15,14 @@
     --color-text-primary: var(--light-text-primary);
     --color-text-secondary: var(--light-text-secondary);
     --color-border: var(--light-border);
+    --color-muted-bg: var(--light-muted-bg);
+
+    /* Abstract Accent Variables */
     --color-accent: var(--accent-blue);
     --color-accent-dark: var(--accent-blue-dark);
+    --color-accent-light: var(--accent-blue-light);
+
+    /* Universal Feedback Colors */
     --color-feedback-positive: var(--feedback-positive);
     --color-feedback-negative: var(--feedback-negative);
 
@@ -26,22 +32,24 @@
 
 /* --- THEME LOGIC --- */
 
-/* Color Theme: Dark */
+/* 1. Dark Theme */
 [data-theme='dark'] {
     --color-background: var(--dark-bg);
     --color-surface: var(--dark-surface);
     --color-text-primary: var(--dark-text-primary);
     --color-text-secondary: var(--dark-text-secondary);
     --color-border: var(--dark-border);
+    --color-muted-bg: var(--dark-muted-bg);
 }
 
-/* Contrast: High */
+/* 2. High Contrast Theme */
 [data-contrast='high'][data-theme='light'] {
     --color-background: var(--light-hc-bg);
     --color-surface: var(--light-hc-surface);
     --color-text-primary: var(--light-hc-text-primary);
     --color-text-secondary: var(--light-hc-text-secondary);
     --color-border: var(--light-hc-border);
+    --color-muted-bg: var(--light-hc-bg); /* Muted is same as bg in HC */
 }
 
 [data-contrast='high'][data-theme='dark'] {
@@ -50,19 +58,22 @@
     --color-text-primary: var(--dark-hc-text-primary);
     --color-text-secondary: var(--dark-hc-text-secondary);
     --color-border: var(--dark-hc-border);
+    --color-muted-bg: var(--dark-hc-bg); /* Muted is same as bg in HC */
 }
 
-/* Accent Color Logic */
+/* 3. Accent Color Logic */
 [data-accent='purple'] {
     --color-accent: var(--accent-purple);
     --color-accent-dark: var(--accent-purple-dark);
+    --color-accent-light: var(--accent-purple-light);
 }
 [data-accent='green'] {
     --color-accent: var(--accent-green);
     --color-accent-dark: var(--accent-green-dark);
+    --color-accent-light: var(--accent-green-light);
 }
 
-/* Font Family Logic */
+/* 4. Font Family Logic */
 [data-font='serif'] {
     --font-family: var(--font-serif);
 }
