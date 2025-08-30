@@ -1,4 +1,4 @@
-// src/components/admin/FillInTheBlankEditor/FillInTheBlankEditor.tsx
+// src/components/admin/QuestionEditor/FillInTheBlankEditor.tsx
 
 import React from 'react';
 import type { IQuestion } from '../../../types/database';

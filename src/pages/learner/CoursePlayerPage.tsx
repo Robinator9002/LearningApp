@@ -8,7 +8,7 @@ import Confetti from 'react-confetti';
 
 import { db } from '../../lib/db';
 import { AuthContext } from '../../contexts/AuthContext';
-import type { IMCQOption, IProgressLog } from '../../types/database';
+import type { IQuestion, IProgressLog } from '../../types/database';
 
 import Button from '../../components/common/Button/Button';
 import CourseSummary from '../../components/learner/Course/CourseSummary';
@@ -30,7 +30,6 @@ const CoursePlayerPage: React.FC = () => {
     const { courseId } = useParams<{ courseId: string }>();
     const navigate = useNavigate();
     const auth = useContext(AuthContext);
-    // Correctly destructure the array returned by the hook
     const [width, height] = useWindowSize();
 
     // --- State Management ---
@@ -42,6 +41,8 @@ const CoursePlayerPage: React.FC = () => {
     const [score, setScore] = useState(0);
     const [isFinished, setIsFinished] = useState(false);
     const [showConfetti, setShowConfetti] = useState(false);
+    // NEW: State to control the visibility of the "Next" button after a delay.
+    const [showNextButton, setShowNextButton] = useState(false);
 
     // --- Data Fetching ---
     const course = useLiveQuery(
@@ -60,15 +61,14 @@ const CoursePlayerPage: React.FC = () => {
 
         let correct = false;
         if (currentQuestion.type === 'mcq') {
-            // Add explicit type to 'opt' parameter
-            const selectedOption = currentQuestion.options?.find(
-                (opt: IMCQOption) => opt.id === selectedOptionId,
+            const selectedOption = currentQuestion.options.find(
+                (opt) => opt.id === selectedOptionId,
             );
             correct = selectedOption?.isCorrect ?? false;
         } else if (currentQuestion.type === 'fitb') {
             correct =
                 fitbAnswer.trim().toLowerCase() ===
-                currentQuestion.correctAnswer?.trim().toLowerCase();
+                currentQuestion.correctAnswer.trim().toLowerCase();
         }
 
         setIsCorrect(correct);
@@ -77,6 +77,11 @@ const CoursePlayerPage: React.FC = () => {
             setShowConfetti(true);
         }
         setIsAnswered(true);
+
+        // IMPROVEMENT: After checking the answer, wait 2 seconds before showing the 'Next' button.
+        setTimeout(() => {
+            setShowNextButton(true);
+        }, 2000); // 2-second delay
     };
 
     const handleNextQuestion = () => {
@@ -87,6 +92,7 @@ const CoursePlayerPage: React.FC = () => {
             setSelectedOptionId(null);
             setFitbAnswer('');
             setIsCorrect(false);
+            setShowNextButton(false); // Hide the next button again
         } else {
             handleCourseFinish();
         }
@@ -95,19 +101,18 @@ const CoursePlayerPage: React.FC = () => {
     // Timer to turn off confetti so it can re-trigger on subsequent correct answers
     useEffect(() => {
         if (showConfetti) {
-            const timer = setTimeout(() => setShowConfetti(false), 5000); // Confetti lasts 5 seconds
+            const timer = setTimeout(() => setShowConfetti(false), 5000);
             return () => clearTimeout(timer);
         }
     }, [showConfetti]);
 
     const handleCourseFinish = async () => {
-        if (auth?.currentUser && course?.id) {
+        if (auth?.currentUser?.id && course?.id) {
             const logEntry: Omit<IProgressLog, 'id'> = {
-                userId: auth.currentUser.id!,
+                userId: auth.currentUser.id,
                 courseId: course.id,
                 score: score,
                 totalQuestions,
-                // Convert Date object to ISO string to match the type definition
                 timestamp: new Date().toISOString(),
             };
             await db.progressLogs.add(logEntry as IProgressLog);
@@ -116,12 +121,12 @@ const CoursePlayerPage: React.FC = () => {
     };
 
     // Helper for MCQ answer status
-    const getMCQStatus = (option: IMCQOption): AnswerStatus => {
+    const getMCQStatus = (optionId: string, isOptionCorrect: boolean): AnswerStatus => {
         if (!isAnswered) {
-            return selectedOptionId === option.id ? 'selected' : 'default';
+            return selectedOptionId === optionId ? 'selected' : 'default';
         }
-        if (option.isCorrect) return 'correct';
-        if (selectedOptionId === option.id) return 'incorrect';
+        if (isOptionCorrect) return 'correct';
+        if (selectedOptionId === optionId) return 'incorrect';
         return 'default';
     };
 
@@ -165,14 +170,13 @@ const CoursePlayerPage: React.FC = () => {
                 </div>
 
                 <div className="qa-card qa-card--answer">
-                    {/* RENDER LOGIC: Switch between question types */}
                     {currentQuestion.type === 'mcq' && (
                         <div className="answer-options-grid">
-                            {currentQuestion.options?.map((option: IMCQOption) => (
+                            {currentQuestion.options.map((option) => (
                                 <AnswerOption
                                     key={option.id}
                                     text={option.text}
-                                    status={getMCQStatus(option)}
+                                    status={getMCQStatus(option.id, option.isCorrect)}
                                     onClick={() => !isAnswered && setSelectedOptionId(option.id)}
                                     disabled={isAnswered}
                                 />
@@ -214,11 +218,14 @@ const CoursePlayerPage: React.FC = () => {
                                 <X /> Not quite...
                             </span>
                         )}
-                        <Button variant="primary" onClick={handleNextQuestion}>
-                            {currentQuestionIndex < totalQuestions - 1
-                                ? 'Next Question'
-                                : 'Finish Course'}
-                        </Button>
+                        {/* The "Next" button is now conditional on the 'showNextButton' state */}
+                        {showNextButton && (
+                            <Button variant="primary" onClick={handleNextQuestion}>
+                                {currentQuestionIndex < totalQuestions - 1
+                                    ? 'Next Question'
+                                    : 'Finish Course'}
+                            </Button>
+                        )}
                     </div>
                 ) : (
                     <Button
