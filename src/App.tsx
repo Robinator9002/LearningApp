@@ -15,41 +15,30 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 
 // --- PAGE COMPONENTS ---
 import UserSelectionPage from './pages/UserSelectionPage';
-import SettingsPage from './pages/settings/SettingsPage'; // New import
 // Learner Pages
 import LearnerDashboardPage from './pages/learner/LearnerDashboardPage';
 import CoursePlayerPage from './pages/learner/CoursePlayerPage';
 // Admin Pages
 import AdminDashboardPage from './pages/admin/AdminDashboardPage';
 import CourseEditorPage from './pages/admin/CourseEditorPage';
+// Settings Page
+import SettingsPage from './pages/settings/SettingsPage';
 
 /**
- * A new route protection component.
- * This wrapper ensures that a user is logged in to access its children routes,
- * regardless of their type ('admin' or 'learner').
+ * LoggedInUserRoute is a new guard that allows access to any user
+ * who is currently logged in, regardless of their type.
  */
 const LoggedInUserRoute: React.FC = () => {
     const auth = useContext(AuthContext);
     if (!auth) throw new Error('Component must be used within an AuthProvider');
-
-    const { currentUser, isLoading } = auth;
-
-    if (isLoading) {
-        return <div>Loading...</div>; // Or a spinner component
-    }
-
-    // If there is no user, redirect to the login/selection page.
-    if (!currentUser) {
-        return <Navigate to="/" replace />;
-    }
-
-    // If a user is logged in, render the child routes.
-    return <Outlet />;
+    if (auth.isLoading) return <div>Loading...</div>;
+    return auth.currentUser ? <Outlet /> : <Navigate to="/" replace />;
 };
 
 /**
  * AppLayout serves as the main visual shell for the application.
- * Its logic remains unchanged.
+ * It conditionally renders the Topbar for logged-in users or a simple
+ * header for the initial user selection screen.
  */
 const AppLayout: React.FC = () => {
     const auth = useContext(AuthContext);
@@ -72,7 +61,7 @@ const AppLayout: React.FC = () => {
 };
 
 /**
- * AppCore contains the main routing logic, now including the new /settings route.
+ * AppCore contains the main routing logic of the application.
  */
 const AppCore: React.FC = () => {
     return (
@@ -81,7 +70,7 @@ const AppCore: React.FC = () => {
                 {/* Public Route */}
                 <Route index element={<UserSelectionPage />} />
 
-                {/* Routes for ANY Logged-in User */}
+                {/* Routes for any logged in user */}
                 <Route element={<LoggedInUserRoute />}>
                     <Route path="settings" element={<SettingsPage />} />
                 </Route>
@@ -105,16 +94,19 @@ const AppCore: React.FC = () => {
 
 /**
  * The root App component wraps the entire application with necessary context providers.
+ * The order here is CRITICAL for dependency injection.
  */
 const App: React.FC = () => {
     return (
-        <AuthProvider>
-            <ThemeProvider>
+        // CRITICAL FIX: ThemeProvider MUST wrap AuthProvider because AuthProvider
+        // now depends on the useTheme hook to load user-specific themes.
+        <ThemeProvider>
+            <AuthProvider>
                 <ModalProvider>
                     <AppCore />
                 </ModalProvider>
-            </ThemeProvider>
-        </AuthProvider>
+            </AuthProvider>
+        </ThemeProvider>
     );
 };
 
