@@ -28,6 +28,9 @@
 
     /* Abstract Font Variable */
     --font-family: var(--font-sans-serif);
+
+    /* NEW: Abstract Shadow Variable */
+    --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 /* --- THEME LOGIC --- */
@@ -35,30 +38,33 @@
 /* 1. Dark Theme */
 [data-theme='dark'] {
     --color-background: var(--dark-bg);
-    --color-surface: var(--dark-surface);
-    --color-text-primary: var(--dark-text-primary);
+    /* ... existing code ... */
     --color-text-secondary: var(--dark-text-secondary);
     --color-border: var(--dark-border);
     --color-muted-bg: var(--dark-muted-bg);
+    /* A slightly more pronounced shadow for dark mode */
+    --shadow-card: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
 
 /* 2. High Contrast Theme */
 [data-contrast='high'][data-theme='light'] {
     --color-background: var(--light-hc-bg);
-    --color-surface: var(--light-hc-surface);
-    --color-text-primary: var(--light-hc-text-primary);
+    /* ... existing code ... */
     --color-text-secondary: var(--light-hc-text-secondary);
     --color-border: var(--light-hc-border);
     --color-muted-bg: var(--light-hc-bg); /* Muted is same as bg in HC */
+    /* Shadows removed for high contrast */
+    --shadow-card: none;
 }
 
 [data-contrast='high'][data-theme='dark'] {
     --color-background: var(--dark-hc-bg);
-    --color-surface: var(--dark-hc-surface);
-    --color-text-primary: var(--dark-hc-text-primary);
+    /* ... existing code ... */
     --color-text-secondary: var(--dark-hc-text-secondary);
     --color-border: var(--dark-hc-border);
     --color-muted-bg: var(--dark-hc-bg); /* Muted is same as bg in HC */
+    /* Shadows removed for high contrast */
+    --shadow-card: none;
 }
 
 /* 3. Accent Color Logic */
