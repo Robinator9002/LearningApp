@@ -1,5 +1,8 @@
 /* src/styles/main.css */
 
+/* === INDEX === */
+@import './index.css';
+
 /* === THEMES === */
 @import './themes/themes.css';
 
@@ -19,6 +22,8 @@
 @import './components/learner/qa/answer-options.css';
 @import './components/learner/qa/question-display.css';
 @import './components/learner/qa/equation-display.css';
+/* = DASHBOARD = */
+@import './components/learner/dashboard/progress-summary.css';
 
 /* == TOPBAR == */
 @import './components/topbar/topbar.css';
