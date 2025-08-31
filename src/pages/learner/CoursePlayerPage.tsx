@@ -8,7 +8,7 @@ import Confetti from 'react-confetti';
 
 import { db } from '../../lib/db';
 import { AuthContext } from '../../contexts/AuthContext';
-import type { IProgressLog } from '../../types/database';
+import type { IProgressLog, IMCQOption } from '../../types/database';
 
 import Button from '../../components/common/Button/Button';
 import CourseSummary from '../../components/learner/Course/CourseSummary';
@@ -35,14 +35,13 @@ const CoursePlayerPage: React.FC = () => {
     // --- State Management ---
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
-    const [fitbAnswer, setFitbAnswer] = useState('');
+    const [stiAnswer, setStiAnswer] = useState(''); // Renamed for clarity
     const [isAnswered, setIsAnswered] = useState(false);
     const [isCorrect, setIsCorrect] = useState(false);
     const [score, setScore] = useState(0);
     const [isFinished, setIsFinished] = useState(false);
     const [showConfetti, setShowConfetti] = useState(false);
-    // NEW: State to control the visibility of the "Next" button after a delay.
-    const [showNextButton, setShowNextButton] = useState(false);
+    const [canProceed, setCanProceed] = useState(false); // New state for delayed progression
 
     // --- Data Fetching ---
     const course = useLiveQuery(
@@ -60,15 +59,28 @@ const CoursePlayerPage: React.FC = () => {
         if (!currentQuestion) return;
 
         let correct = false;
+        // --- LOGIC UPGRADE: Discriminated Union Check ---
+        // By checking the 'type' property, TypeScript now understands the exact
+        // shape of the currentQuestion object within each block.
         if (currentQuestion.type === 'mcq') {
             const selectedOption = currentQuestion.options.find(
                 (opt: any) => opt.id === selectedOptionId,
             );
             correct = selectedOption?.isCorrect ?? false;
-        } else if (currentQuestion.type === 'fitb') {
-            correct =
-                fitbAnswer.trim().toLowerCase() ===
-                currentQuestion.correctAnswer.trim().toLowerCase();
+        } else if (currentQuestion.type === 'sti') {
+            // --- NEW: Smart Evaluation Logic ---
+            const userAnswer = stiAnswer.trim();
+            const possibleAnswers = currentQuestion.correctAnswers;
+
+            if (currentQuestion.evaluationMode === 'case-insensitive') {
+                // Compare lowercased versions for a case-insensitive match.
+                correct = possibleAnswers.some(
+                    (ans: any) => ans.trim().toLowerCase() === userAnswer.toLowerCase(),
+                );
+            } else {
+                // Default to an exact, case-sensitive match.
+                correct = possibleAnswers.some((ans: any) => ans.trim() === userAnswer);
+            }
         }
 
         setIsCorrect(correct);
@@ -78,9 +90,9 @@ const CoursePlayerPage: React.FC = () => {
         }
         setIsAnswered(true);
 
-        // IMPROVEMENT: After checking the answer, wait 2 seconds before showing the 'Next' button.
+        // Set a timer to allow the user to see the feedback before proceeding.
         setTimeout(() => {
-            setShowNextButton(true);
+            setCanProceed(true);
         }, 2000); // 2-second delay
     };
 
@@ -90,9 +102,9 @@ const CoursePlayerPage: React.FC = () => {
             // Reset state for the new question
             setIsAnswered(false);
             setSelectedOptionId(null);
-            setFitbAnswer('');
+            setStiAnswer('');
             setIsCorrect(false);
-            setShowNextButton(false); // Hide the next button again
+            setCanProceed(false); // Reset progression lock
         } else {
             handleCourseFinish();
         }
@@ -101,7 +113,7 @@ const CoursePlayerPage: React.FC = () => {
     // Timer to turn off confetti so it can re-trigger on subsequent correct answers
     useEffect(() => {
         if (showConfetti) {
-            const timer = setTimeout(() => setShowConfetti(false), 5000);
+            const timer = setTimeout(() => setShowConfetti(false), 5000); // Confetti lasts 5 seconds
             return () => clearTimeout(timer);
         }
     }, [showConfetti]);
@@ -121,12 +133,12 @@ const CoursePlayerPage: React.FC = () => {
     };
 
     // Helper for MCQ answer status
-    const getMCQStatus = (optionId: string, isOptionCorrect: boolean): AnswerStatus => {
+    const getMCQStatus = (option: IMCQOption): AnswerStatus => {
         if (!isAnswered) {
-            return selectedOptionId === optionId ? 'selected' : 'default';
+            return selectedOptionId === option.id ? 'selected' : 'default';
         }
-        if (isOptionCorrect) return 'correct';
-        if (selectedOptionId === optionId) return 'incorrect';
+        if (option.isCorrect) return 'correct';
+        if (selectedOptionId === option.id) return 'incorrect';
         return 'default';
     };
 
@@ -170,13 +182,14 @@ const CoursePlayerPage: React.FC = () => {
                 </div>
 
                 <div className="qa-card qa-card--answer">
+                    {/* RENDER LOGIC: Switch between question types */}
                     {currentQuestion.type === 'mcq' && (
                         <div className="answer-options-grid">
                             {currentQuestion.options.map((option: any) => (
                                 <AnswerOption
                                     key={option.id}
                                     text={option.text}
-                                    status={getMCQStatus(option.id, option.isCorrect)}
+                                    status={getMCQStatus(option)}
                                     onClick={() => !isAnswered && setSelectedOptionId(option.id)}
                                     disabled={isAnswered}
                                 />
@@ -184,21 +197,21 @@ const CoursePlayerPage: React.FC = () => {
                         </div>
                     )}
 
-                    {currentQuestion.type === 'fitb' && (
+                    {currentQuestion.type === 'sti' && (
                         <div className="fitb-answer-area">
                             <Input
                                 type="text"
                                 placeholder="Type your answer here..."
-                                value={fitbAnswer}
-                                onChange={(e) => setFitbAnswer(e.target.value)}
+                                value={stiAnswer}
+                                onChange={(e) => setStiAnswer(e.target.value)}
                                 disabled={isAnswered}
                                 className="fitb-input"
                                 autoFocus
                             />
                             {isAnswered && !isCorrect && (
                                 <p className="fitb-correct-answer">
-                                    The correct answer was:{' '}
-                                    <strong>{currentQuestion.correctAnswer}</strong>
+                                    Correct answer:{' '}
+                                    <strong>{currentQuestion.correctAnswers[0]}</strong>
                                 </p>
                             )}
                         </div>
@@ -218,8 +231,8 @@ const CoursePlayerPage: React.FC = () => {
                                 <X /> Not quite...
                             </span>
                         )}
-                        {/* The "Next" button is now conditional on the 'showNextButton' state */}
-                        {showNextButton && (
+                        {/* The "Next" button only appears after the delay */}
+                        {canProceed && (
                             <Button variant="primary" onClick={handleNextQuestion}>
                                 {currentQuestionIndex < totalQuestions - 1
                                     ? 'Next Question'
@@ -233,7 +246,7 @@ const CoursePlayerPage: React.FC = () => {
                         onClick={handleCheckAnswer}
                         disabled={
                             (currentQuestion.type === 'mcq' && !selectedOptionId) ||
-                            (currentQuestion.type === 'fitb' && fitbAnswer.trim() === '')
+                            (currentQuestion.type === 'sti' && stiAnswer.trim() === '')
                         }
                     >
                         Check Answer
