@@ -29,7 +29,6 @@
 }
 
 .settings-group:not(:last-child) {
-    /* FIX: Replaced non-existent variable with new --color-border-subtle */
     border-bottom: 1px dashed var(--color-border-subtle);
 }
 
@@ -68,6 +67,8 @@
     border: 2px solid var(--color-border);
     border-radius: var(--border-radius);
     background-color: var(--color-surface);
+    /* FIX: Ensure button text color is theme-aware */
+    color: var(--color-text-primary);
     cursor: pointer;
     transition: all 0.2s;
 }
@@ -78,15 +79,11 @@
 
 .theme-option-btn--active {
     border-color: var(--color-accent);
-    /* FIX: Replaced non-existent variable with new --color-accent-soft */
     background-color: var(--color-accent-soft);
     font-weight: 700;
     box-shadow: 0 0 0 2px var(--color-accent);
 }
 
-/* FIX: These buttons should only have their raw color defined once,
-   then use the abstract variable for active states. This makes them
-   part of the system, not just colored squares. */
 .theme-option-btn--accent-blue {
     width: 36px;
     height: 36px;
@@ -113,8 +110,46 @@
     width: 100%;
     max-width: 300px;
 }
+
+/* NEW: Styles for the font size slider */
 .font-size-slider {
-    flex-grow: 1;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 8px;
+    background: var(--color-muted-bg);
+    border-radius: 5px;
+    outline: none;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.font-size-slider:hover {
+    opacity: 1;
+}
+
+.font-size-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: var(--color-accent);
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.font-size-slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: var(--color-accent);
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.font-size-value {
+    font-weight: 500;
+    min-width: 40px; /* Prevent layout shift */
+    text-align: right;
 }
 
 /* User Management List */

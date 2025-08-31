@@ -1,7 +1,7 @@
 // src/pages/settings/tabs/AppearanceTab.tsx
 
 import React from 'react';
-import { useTheme, type FontSize } from '../../../contexts/ThemeContext';
+import { useTheme } from '../../../contexts/ThemeContext';
 import Label from '../../../components/common/Form/Label/Label';
 import { Sun, Palette, Contrast, Type, CaseSensitive } from 'lucide-react';
 
@@ -9,26 +9,24 @@ import { Sun, Palette, Contrast, Type, CaseSensitive } from 'lucide-react';
 interface ThemeOptionButtonProps {
     onClick: () => void;
     isActive: boolean;
-    children?: React.ReactNode; // Made optional to support icon-only buttons
+    children?: React.ReactNode;
     className?: string;
+    'aria-label'?: string;
 }
 
 // --- SUB-COMPONENTS ---
 
-/**
- * A generic, reusable button for selecting a theme option.
- * It visually indicates whether it is the currently active option.
- */
 const ThemeOptionButton: React.FC<ThemeOptionButtonProps> = ({
     onClick,
     isActive,
     children,
     className = '',
+    ...props
 }) => {
     const activeClass = isActive ? 'theme-option-btn--active' : '';
     const buttonClassName = `theme-option-btn ${activeClass} ${className}`.trim();
     return (
-        <button className={buttonClassName} onClick={onClick}>
+        <button className={buttonClassName} onClick={onClick} {...props}>
             {children}
         </button>
     );
@@ -36,14 +34,9 @@ const ThemeOptionButton: React.FC<ThemeOptionButtonProps> = ({
 
 // --- MAIN COMPONENT ---
 
-/**
- * A settings tab that provides UI controls for the application's
- * entire theming system, allowing users to personalize their experience.
- */
 const AppearanceTab: React.FC = () => {
     const theme = useTheme();
 
-    // Type guard to ensure theme context is loaded
     if (!theme) {
         return <div>Loading theme settings...</div>;
     }
@@ -61,14 +54,17 @@ const AppearanceTab: React.FC = () => {
         setFontSize,
     } = theme;
 
-    const fontSizes: FontSize[] = [0.8, 0.9, 1.0, 1.1, 1.2];
+    // Handler for the new slider input
+    const handleFontSizeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setFontSize(parseFloat(e.target.value));
+    };
 
     return (
         <div className="appearance-settings">
             {/* --- Theme (Light/Dark) --- */}
             <div className="settings-group">
                 <Label as="h4">
-                    <Sun size={16} className="settings-icon" /> Theme
+                    <Sun size={16} /> Theme
                 </Label>
                 <div className="settings-group__controls">
                     <ThemeOptionButton
@@ -89,23 +85,26 @@ const AppearanceTab: React.FC = () => {
             {/* --- Accent Color --- */}
             <div className="settings-group">
                 <Label as="h4">
-                    <Palette size={16} className="settings-icon" /> Accent Color
+                    <Palette size={16} /> Accent Color
                 </Label>
                 <div className="settings-group__controls">
                     <ThemeOptionButton
                         onClick={() => setAccent('blue')}
                         isActive={accent === 'blue'}
-                        className="theme-option-btn--color-blue"
+                        className="theme-option-btn--accent-blue"
+                        aria-label="Set accent color to blue"
                     />
                     <ThemeOptionButton
                         onClick={() => setAccent('purple')}
                         isActive={accent === 'purple'}
-                        className="theme-option-btn--color-purple"
+                        className="theme-option-btn--accent-purple"
+                        aria-label="Set accent color to purple"
                     />
                     <ThemeOptionButton
                         onClick={() => setAccent('green')}
                         isActive={accent === 'green'}
-                        className="theme-option-btn--color-green"
+                        className="theme-option-btn--accent-green"
+                        aria-label="Set accent color to green"
                     />
                 </div>
             </div>
@@ -113,7 +112,7 @@ const AppearanceTab: React.FC = () => {
             {/* --- Contrast --- */}
             <div className="settings-group">
                 <Label as="h4">
-                    <Contrast size={16} className="settings-icon" /> Contrast
+                    <Contrast size={16} /> Contrast
                 </Label>
                 <div className="settings-group__controls">
                     <ThemeOptionButton
@@ -134,7 +133,7 @@ const AppearanceTab: React.FC = () => {
             {/* --- Font Family --- */}
             <div className="settings-group">
                 <Label as="h4">
-                    <Type size={16} className="settings-icon" /> Font
+                    <Type size={16} /> Font
                 </Label>
                 <div className="settings-group__controls">
                     <ThemeOptionButton onClick={() => setFont('sans')} isActive={font === 'sans'}>
@@ -152,18 +151,21 @@ const AppearanceTab: React.FC = () => {
             {/* --- Font Size --- */}
             <div className="settings-group">
                 <Label as="h4">
-                    <CaseSensitive size={16} className="settings-icon" /> Font Size
+                    <CaseSensitive size={16} /> Font Size
                 </Label>
-                <div className="settings-group__controls">
-                    {fontSizes.map((size) => (
-                        <ThemeOptionButton
-                            key={size}
-                            onClick={() => setFontSize(size)}
-                            isActive={fontSize === size}
-                        >
-                            {size * 100}%
-                        </ThemeOptionButton>
-                    ))}
+                {/* REFACTOR: Replaced buttons with a range slider */}
+                <div className="settings-group__controls font-size-control">
+                    <input
+                        type="range"
+                        min="0.8"
+                        max="1.2"
+                        step="0.1"
+                        value={fontSize}
+                        onChange={handleFontSizeChange}
+                        className="font-size-slider"
+                        aria-label="Adjust font size"
+                    />
+                    <span className="font-size-value">{Math.round(fontSize * 100)}%</span>
                 </div>
             </div>
         </div>
