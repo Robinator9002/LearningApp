@@ -37,7 +37,7 @@ export interface ICourse {
     questions: IQuestion[];
 }
 
-// --- Question and Answer Models (REFACTORED) ---
+// --- Question and Answer Models ---
 
 /**
  * Represents a single option for a Multiple Choice Question.
@@ -48,8 +48,13 @@ export interface IMCQOption {
     isCorrect: boolean;
 }
 
+// --- Discriminated Union for Question Types ---
+// By creating specific types for each question format and uniting them,
+// we gain immense type safety. TypeScript can now understand that
+// an 'mcq' question MUST have 'options' and a 'sti' MUST have 'correctAnswers'.
+
 /**
- * Base interface for all question types. The 'type' property is the discriminant.
+ * A base interface that all question types will extend.
  */
 interface IQuestionBase {
     id: string; // UUID for React keys
@@ -57,8 +62,7 @@ interface IQuestionBase {
 }
 
 /**
- * Stricter type for Multiple Choice Questions.
- * It MUST have an 'options' array.
+ * Represents a Multiple Choice Question.
  */
 export interface IMultipleChoiceQuestion extends IQuestionBase {
     type: 'mcq';
@@ -66,19 +70,22 @@ export interface IMultipleChoiceQuestion extends IQuestionBase {
 }
 
 /**
- * Stricter type for Fill-in-the-blank Questions.
- * It MUST have a 'correctAnswer' string.
+ * NEW: Represents a Smart Text Input question (formerly Fill-in-the-Blank).
+ * This new structure is more flexible and powerful.
  */
-export interface IFillInTheBlankQuestion extends IQuestionBase {
-    type: 'fitb';
-    correctAnswer: string;
+export interface ISmartTextInputQuestion extends IQuestionBase {
+    type: 'sti';
+    // Allows for multiple acceptable answers (e.g., "Paris", "paris").
+    correctAnswers: string[];
+    // Defines how the learner's input should be evaluated.
+    evaluationMode: 'case-insensitive' | 'exact-match';
 }
 
 /**
- * A discriminated union of all possible question types.
- * This allows TypeScript to intelligently narrow down the type based on the 'type' property.
+ * The main IQuestion type is now a discriminated union of all possible question types.
+ * This is the cornerstone of our new, extensible question system.
  */
-export type IQuestion = IMultipleChoiceQuestion | IFillInTheBlankQuestion;
+export type IQuestion = IMultipleChoiceQuestion | ISmartTextInputQuestion;
 
 /**
  * Represents a log of a completed course attempt by a user.
