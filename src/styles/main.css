@@ -7,10 +7,10 @@
 @import './themes/themes.css';
 
 /* === COMPONENTS === */
-@import './components/buttons/button.css';
-@import './components/forms/forms.css';
+@import './components/common/button.css';
+@import './components/common/forms.css';
 @import './components/common/modal.css';
-@import './components/forms/scrollbars.css';
+@import './components/common/scrollbars.css';
 
 /* == ADMIN == */
 @import './components/admin/question-editor.css';

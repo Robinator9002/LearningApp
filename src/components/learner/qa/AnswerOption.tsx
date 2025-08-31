@@ -1,9 +1,8 @@
-// src/components/learner/qa/AnswerOption.tsx
+// src/components/learner/AnswerOption/AnswerOption.tsx
 
 import React from 'react';
 
-// FIX: Add 'revealed' state for post-answer feedback
-export type AnswerStatus = 'default' | 'selected' | 'correct' | 'incorrect' | 'revealed';
+export type AnswerStatus = 'default' | 'selected' | 'correct' | 'incorrect';
 
 interface AnswerOptionProps {
     text: string;
