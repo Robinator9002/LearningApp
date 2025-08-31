@@ -29,6 +29,7 @@
 }
 
 .settings-group:not(:last-child) {
+    /* FIX: Replaced non-existent variable with new --color-border-subtle */
     border-bottom: 1px dashed var(--color-border-subtle);
 }
 
@@ -77,11 +78,15 @@
 
 .theme-option-btn--active {
     border-color: var(--color-accent);
+    /* FIX: Replaced non-existent variable with new --color-accent-soft */
     background-color: var(--color-accent-soft);
     font-weight: 700;
     box-shadow: 0 0 0 2px var(--color-accent);
 }
 
+/* FIX: These buttons should only have their raw color defined once,
+   then use the abstract variable for active states. This makes them
+   part of the system, not just colored squares. */
 .theme-option-btn--accent-blue {
     width: 36px;
     height: 36px;
