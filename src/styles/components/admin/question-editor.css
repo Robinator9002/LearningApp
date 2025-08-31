@@ -20,10 +20,11 @@
     font-weight: 700;
 }
 
+/* --- MCQ Specific Styles --- */
 .question-editor__option-list {
     display: flex;
     flex-direction: column;
-    gap: calc(var(--spacing-unit) * 1.5); /* Slightly reduced gap */
+    gap: calc(var(--spacing-unit) * 1.5);
     margin-top: calc(var(--spacing-unit) * 2);
 }
 
@@ -33,29 +34,50 @@
     gap: var(--spacing-unit);
 }
 
-/* Making the input within an option take up remaining space */
 .question-editor__option .form-input {
     flex-grow: 1;
 }
 
 .question-editor__option-radio {
-    /* Custom styling for radio buttons can be added here if desired */
     margin-left: var(--spacing-unit);
-    cursor: pointer; /* Make it clear the radio button is clickable */
+    cursor: pointer;
 }
 
-/* Default label style */
 .question-editor__option-label {
-    cursor: pointer; /* Match the cursor of the radio button */
+    cursor: pointer;
     color: var(--color-text-secondary);
     transition: color 0.2s;
 }
 
-/* --- NEW STYLE --- */
-/* This is the new style for the label next to the selected correct answer.
-   It uses the theme's positive feedback color to make it stand out. */
 .question-editor__option-label--correct {
     cursor: pointer;
     font-weight: 700;
     color: var(--color-feedback-positive);
+}
+
+/* --- NEW: Smart Text Input (sti) Specific Styles --- */
+/* This container will hold the list of answer inputs. */
+.answer-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-unit);
+    margin-bottom: var(--spacing-unit);
+}
+
+/* Styles for each row (input + remove button). */
+.answer-list__item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-unit);
+}
+
+/* Ensure the input field takes up all available space. */
+.answer-list__item .form-input {
+    flex-grow: 1;
+}
+
+/* Style the 'Add' button to be less prominent and aligned left. */
+.answer-list__add-btn {
+    align-self: flex-start;
+    margin-top: var(--spacing-unit);
 }
