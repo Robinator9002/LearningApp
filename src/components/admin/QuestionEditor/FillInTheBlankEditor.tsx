@@ -1,10 +1,12 @@
 // src/components/admin/QuestionEditor/FillInTheBlankEditor.tsx
 
 import React from 'react';
+import { X } from 'lucide-react';
 import type { IQuestion } from '../../../types/database';
 import Button from '../../common/Button/Button';
 import Input from '../../common/Form/Input/Input';
 import Label from '../../common/Form/Label/Label';
+import Select from '../../common/Form/Select/Select';
 
 interface FillInTheBlankEditorProps {
     question: IQuestion;
@@ -14,8 +16,8 @@ interface FillInTheBlankEditorProps {
 }
 
 /**
- * A component specifically for editing Fill-in-the-blank (FITB) questions.
- * It ensures that only questions of type 'fitb' are handled here.
+ * A component for editing Smart Text Input (sti) questions.
+ * It allows for multiple correct answers and different evaluation modes.
  */
 const FillInTheBlankEditor: React.FC<FillInTheBlankEditorProps> = ({
     question,
@@ -24,24 +26,64 @@ const FillInTheBlankEditor: React.FC<FillInTheBlankEditorProps> = ({
     onRemoveQuestion,
 }) => {
     // --- TYPE GUARD ---
-    // This is the proactive fix. If the question is not a fill-in-the-blank question,
-    // this component will not render. This makes it robust and type-safe.
-    if (question.type !== 'fitb') {
+    // This component is only for 'sti' questions. If another type is passed,
+    // it will render nothing, preventing errors and ensuring component integrity.
+    if (question.type !== 'sti') {
         return null;
     }
 
+    /**
+     * Handles changes to the main question text.
+     */
     const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         onQuestionChange(index, { ...question, questionText: e.target.value });
     };
 
-    const handleAnswerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        onQuestionChange(index, { ...question, correctAnswer: e.target.value });
+    /**
+     * Handles changes to one of the correct answer inputs.
+     */
+    const handleAnswerChange = (ansIndex: number, value: string) => {
+        const newAnswers = [...question.correctAnswers];
+        newAnswers[ansIndex] = value;
+        onQuestionChange(index, { ...question, correctAnswers: newAnswers });
+    };
+
+    /**
+     * Adds a new, empty answer field to the list.
+     */
+    const handleAddAnswer = () => {
+        const newAnswers = [...question.correctAnswers, ''];
+        onQuestionChange(index, { ...question, correctAnswers: newAnswers });
+    };
+
+    /**
+     * Removes an answer from the list, ensuring at least one remains.
+     */
+    const handleRemoveAnswer = (ansIndex: number) => {
+        // Prevent the removal of the last answer to maintain data integrity.
+        if (question.correctAnswers.length <= 1) {
+            // In a real app, you might show a modal alert here.
+            console.warn('Cannot remove the last answer.');
+            return;
+        }
+        const newAnswers = question.correctAnswers.filter((_, i) => i !== ansIndex);
+        onQuestionChange(index, { ...question, correctAnswers: newAnswers });
+    };
+
+    /**
+     * Handles changes to the evaluation mode dropdown.
+     */
+    const handleModeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        onQuestionChange(index, {
+            ...question,
+            evaluationMode: e.target.value as 'case-insensitive' | 'exact-match',
+        });
     };
 
     return (
         <div className="question-editor">
             <div className="question-editor__header">
-                <h3 className="question-editor__title">Question {index + 1} (Fill-in-the-blank)</h3>
+                <h3 className="question-editor__title">Question {index + 1} (Smart Text Input)</h3>
                 <Button onClick={() => onRemoveQuestion(index)}>Remove</Button>
             </div>
             <div className="form-group">
@@ -54,13 +96,40 @@ const FillInTheBlankEditor: React.FC<FillInTheBlankEditorProps> = ({
                 />
             </div>
             <div className="form-group">
-                <Label htmlFor={`correct-answer-${question.id}`}>Correct Answer</Label>
-                <Input
-                    id={`correct-answer-${question.id}`}
-                    value={question.correctAnswer}
-                    onChange={handleAnswerChange}
-                    placeholder="e.g., Paris"
-                />
+                <Label>Evaluation Mode</Label>
+                <Select value={question.evaluationMode} onChange={handleModeChange}>
+                    <option value="case-insensitive">Case-insensitive</option>
+                    <option value="exact-match">Exact Match</option>
+                </Select>
+            </div>
+            <div className="form-group">
+                <Label>Accepted Answers (one or more)</Label>
+                <div className="answer-list">
+                    {question.correctAnswers.map((answer, ansIndex) => (
+                        <div key={ansIndex} className="answer-list__item">
+                            <Input
+                                value={answer}
+                                onChange={(e) => handleAnswerChange(ansIndex, e.target.value)}
+                                placeholder={`Answer ${ansIndex + 1}`}
+                            />
+                            <Button
+                                variant="secondary"
+                                onClick={() => handleRemoveAnswer(ansIndex)}
+                                disabled={question.correctAnswers.length <= 1}
+                                title="Remove Answer"
+                            >
+                                <X size={16} />
+                            </Button>
+                        </div>
+                    ))}
+                </div>
+                <Button
+                    variant="secondary"
+                    onClick={handleAddAnswer}
+                    className="answer-list__add-btn"
+                >
+                    + Add another answer
+                </Button>
             </div>
         </div>
     );
