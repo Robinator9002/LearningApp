@@ -12,7 +12,7 @@ import type { AnswerStatus } from '../../components/learner/qa/AnswerOption';
 
 import CourseSummary from '../../components/learner/course/CourseSummary';
 import CoursePlayerUI from '../../components/learner/course/CoursePlayerUI';
-import { useWindowSize, evaluateEquation } from './CoursePlayerUtils.tsx';
+import { useWindowSize, evaluateEquation } from './CoursePlayerUtils';
 
 /**
  * CoursePlayerPage serves as a "container" component.
@@ -90,7 +90,6 @@ const CoursePlayerPage: React.FC = () => {
         setIsCorrect(correct);
         if (correct) {
             setScore((prev) => prev + 1);
-            setShowConfetti(true); // Trigger confetti on correct answer
         }
         setIsAnswered(true);
 
@@ -112,6 +111,7 @@ const CoursePlayerPage: React.FC = () => {
             await db.progressLogs.add(logEntry as IProgressLog);
         }
         setIsFinished(true);
+        setShowConfetti(true); // Trigger confetti on course finish
     };
 
     // Effect to hide confetti after a few seconds
@@ -152,18 +152,21 @@ const CoursePlayerPage: React.FC = () => {
     }
 
     if (isFinished) {
-        return <CourseSummary score={score} totalQuestions={totalQuestions} />;
+        return (
+            <>
+                {showConfetti && (
+                    <Confetti width={width} height={height} recycle={false} numberOfPieces={200} />
+                )}
+                <CourseSummary score={score} totalQuestions={totalQuestions} />
+            </>
+        );
     }
 
     return (
-        <>
-            {showConfetti && (
-                <Confetti width={width} height={height} recycle={false} numberOfPieces={200} />
-            )}
-            <CoursePlayerUI
-                course={course}
-                currentQuestionIndex={currentQuestionIndex}
-                progressPercentage={progressPercentage}
+        <CoursePlayerUI
+            course={course}
+            currentQuestionIndex={currentQuestionIndex}
+            progressPercentage={progressPercentage}
                 isAnswered={isAnswered}
                 isCorrect={isCorrect}
                 selectedOptionId={selectedOptionId}
@@ -179,8 +182,8 @@ const CoursePlayerPage: React.FC = () => {
                 getMCQStatus={getMCQStatus}
                 isCheckButtonDisabled={isCheckButtonDisabled}
             />
-        </>
     );
 };
 
 export default CoursePlayerPage;
+
