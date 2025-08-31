@@ -1,5 +1,12 @@
 /* src/styles/pages/admin/admin-dashboard.css */
 
+/* NEW: Added a container rule to explicitly set the page's
+   background color using the theme variable. This makes the
+   component styling self-contained and not reliant on parent styles. */
+.admin-dashboard {
+    background-color: var(--color-background);
+}
+
 .admin-dashboard__header {
     display: flex;
     justify-content: space-between;
@@ -9,4 +16,7 @@
 
 .admin-dashboard__title {
     font-size: 1.75rem;
+    /* NEW: Explicitly set the title color. While this likely inherits
+       correctly, being explicit prevents future maintenance errors. */
+    color: var(--color-text-primary);
 }
