@@ -102,7 +102,7 @@
     padding: calc(var(--spacing-unit) * 3);
 }
 
-/* --- NEW: Fill-in-the-blank Styles --- */
+/* --- Smart Text Input (previously FITB) Styles --- */
 .fitb-answer-area {
     display: flex;
     flex-direction: column;
@@ -128,6 +128,36 @@
 .fitb-correct-answer strong {
     color: var(--color-feedback-positive);
     font-weight: 700;
+}
+
+/* --- NEW: Algebraic Equation Solver Styles --- */
+.alg-equation-solver {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: calc(var(--spacing-unit) * 3);
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto; /* Center the solver grid */
+}
+
+.alg-equation-solver__group {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-unit);
+}
+
+.alg-equation-solver__group .form-label {
+    font-size: 1.5rem; /* Make 'x =' larger */
+    font-weight: 700;
+    margin-bottom: 0; /* Remove default label margin */
+}
+
+.alg-equation-solver__input {
+    font-size: 1.25rem;
+    text-align: center;
+    flex-grow: 1;
 }
 
 /* --- Footer --- */
