@@ -12,7 +12,7 @@ import Button from '../../components/common/Button/Button';
 import Input from '../../components/common/Form/Input/Input';
 import Label from '../../components/common/Form/Label/Label';
 import Select from '../../components/common/Form/Select/Select';
-import QuestionEditor from '../../components/admin/QuestionEditor/QuestionEditor';
+import QuestionEditor from '../../components/admin/QuestionEditor/MultipleChoiceEditor';
 import FillInTheBlankEditor from '../../components/admin/QuestionEditor/FillInTheBlankEditor';
 // 1. Import the new component
 import AlgebraEquationEditor from '../../components/admin/QuestionEditor/AlgebraEquationEditor';

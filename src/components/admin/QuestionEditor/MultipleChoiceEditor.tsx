@@ -1,4 +1,4 @@
-// src/components/admin/QuestionEditor/QuestionEditor.tsx
+// src/components/admin/QuestionEditor/MultipleChoiceEditor.tsx
 
 import React from 'react';
 import type { IQuestion } from '../../../types/database';
