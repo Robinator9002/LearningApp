@@ -13,11 +13,11 @@ import { AuthContext } from '../../contexts/AuthContext';
 import type { IProgressLog, IMCQOption } from '../../types/database';
 
 import Button from '../../components/common/Button/Button';
-import CourseSummary from '../../components/learner/Course/CourseSummary';
-import AnswerOption, { type AnswerStatus } from '../../components/learner/QA/AnswerOption';
+import CourseSummary from '../../components/learner/course/CourseSummary';
+import AnswerOption, { type AnswerStatus } from '../../components/learner/qa/AnswerOption';
 import Input from '../../components/common/Form/Input/Input';
 // 1. Import the new AlgebraEquationSolver component
-import AlgebraEquationSolver from '../../components/learner/QA/AlgebraEquationSolver';
+import AlgebraEquationSolver from '../../components/learner/qa/AlgebraEquationSolver';
 
 // A simple hook to manage window dimensions for the confetti effect.
 const useWindowSize = () => {

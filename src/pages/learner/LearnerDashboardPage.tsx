@@ -8,7 +8,7 @@ import { AuthContext } from '../../contexts/AuthContext'; // Import AuthContext
 
 // Import the new ProgressSummary component
 import ProgressSummary from '../../components/learner/dashboard/ProgressSummary';
-import CourseCard from '../../components/learner/Course/CourseCard';
+import CourseCard from '../../components/learner/course/CourseCard';
 
 const LearnerDashboardPage: React.FC = () => {
     const navigate = useNavigate();
