@@ -1,4 +1,4 @@
-/* src/styles/components/learner/qa/answer-option.css */
+/* src/styles/components/learner/qa/answer-options.css */
 
 .answer-option {
     width: 100%;
@@ -10,30 +10,12 @@
     border-radius: var(--border-radius);
     background-color: var(--color-surface);
     cursor: pointer;
-    transition: transform 0.2s, border-color 0.2s, background-color 0.2s;
+    /* FIX: Add opacity to the transition for the new revealed state */
+    transition: transform 0.2s, border-color 0.2s, background-color 0.2s, opacity 0.2s;
 }
 
 .answer-option:not(:disabled):hover {
-    transform: scale(1.02);
-    border-color: var(--color-accent);
-}
-
-/* --- MODIFIERS --- */
-
-.answer-option--selected {
-    border-color: var(--color-accent);
-    background-color: color-mix(in srgb, var(--color-accent) 15%, transparent);
-}
-
-.answer-option--correct {
-    border-color: var(--color-feedback-positive);
-    background-color: color-mix(in srgb, var(--color-feedback-positive) 15%, transparent);
-    color: var(--color-feedback-positive);
-    font-weight: 700;
-}
-
-.answer-option--incorrect {
-    border-color: var(--color-feedback-negative);
+    /* ... existing code ... */
     background-color: color-mix(in srgb, var(--color-feedback-negative) 15%, transparent);
     color: var(--color-feedback-negative);
     opacity: 0.7;
@@ -43,7 +25,13 @@
     cursor: not-allowed;
 }
 
-/* When an answer is revealed, non-selected incorrect answers should be faded */
+/* FIX: New style for incorrect answers that weren't selected, to fade them out. */
+.answer-option--revealed {
+    opacity: 0.5;
+}
+
+/* REMOVED: The old, more complex selector is no longer needed with the new 'revealed' state.
 .answer-option--incorrect:not(.answer-option--selected) {
     opacity: 0.5;
 }
+*/
