@@ -20,8 +20,6 @@ const SettingsPage: React.FC = () => {
     const [activeTab, setActiveTab] = useState<SettingsTab>('account');
 
     if (!auth?.currentUser) {
-        // This should theoretically not be reachable due to the LoggedInUserRoute,
-        // but it's good practice for type safety and robustness.
         return <div>Loading...</div>;
     }
 
@@ -35,14 +33,20 @@ const SettingsPage: React.FC = () => {
             </header>
 
             <div className="settings-page__tabs">
+                {/* FIX: Corrected class names to match settings-page.css */}
                 <button
-                    className={`tab-btn ${activeTab === 'account' ? 'tab-btn--active' : ''}`}
+                    className={`settings-page__tab ${
+                        activeTab === 'account' ? 'settings-page__tab--active' : ''
+                    }`}
                     onClick={() => setActiveTab('account')}
                 >
                     Account
                 </button>
+                {/* FIX: Corrected class names to match settings-page.css */}
                 <button
-                    className={`tab-btn ${activeTab === 'appearance' ? 'tab-btn--active' : ''}`}
+                    className={`settings-page__tab ${
+                        activeTab === 'appearance' ? 'settings-page__tab--active' : ''
+                    }`}
                     onClick={() => setActiveTab('appearance')}
                 >
                     Appearance
