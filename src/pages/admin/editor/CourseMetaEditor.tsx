@@ -1,3 +1,5 @@
+// src/pages/admin/editor/CourseMetaEditor.tsx
+
 import React from 'react';
 import Input from '../../../components/common/Form/Input/Input';
 import Label from '../../../components/common/Form/Label/Label';

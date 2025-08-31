@@ -1,3 +1,5 @@
+// src/pages/admin/editor/QuestionList.tsx
+
 import React from 'react';
 import type { IQuestion } from '../../../types/database';
 import QuestionEditor from '../../../components/admin/QuestionEditor/MultipleChoiceEditor';

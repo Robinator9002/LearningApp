@@ -1,3 +1,5 @@
+// src/pages/admin/editor/CourseEditorHeader.tsx
+
 import React from 'react';
 import type { IQuestion } from '../../../types/database';
 import Button from '../../../components/common/Button/Button';
