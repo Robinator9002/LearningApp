@@ -34,6 +34,14 @@
     font-size: 1.25rem;
 }
 
+/* --- FIX: Styles for the button container --- */
+.add-question-buttons {
+    display: flex;
+    flex-wrap: wrap; /* Allows buttons to wrap on smaller screens */
+    gap: var(--spacing-unit);
+    justify-content: flex-end;
+}
+
 .course-editor-page__footer {
     margin-top: calc(var(--spacing-unit) * 4);
     padding-top: calc(var(--spacing-unit) * 2);
