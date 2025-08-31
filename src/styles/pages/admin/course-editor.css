@@ -1,3 +1,5 @@
+/* src/styles/pages/admin/course-editor.css */
+
 /*
  * Base layout for the editor page.
  * Flexbox creates the structure for the sticky footer. By setting height to 100vh
@@ -7,7 +9,10 @@
     display: flex;
     flex-direction: column;
     height: 90vh;
-    background-color: var(--color-background-light, #f9fafb);
+    /* FIX: Replaced invalid variable (--color-background-light) and hardcoded
+       fallback (#f9fafb) with the correct abstract variable. The theme engine
+       now controls the page's main background color. */
+    background-color: var(--color-background);
 }
 
 /*
@@ -18,7 +23,10 @@
 .course-editor-page__header,
 .course-editor-page__footer {
     flex-shrink: 0;
-    background-color: #fff;
+    /* FIX: Replaced hardcoded white background (#fff) with the abstract
+       surface color. This ensures the header and footer adapt to the
+       current theme (e.g., dark grey in dark mode). */
+    background-color: var(--color-surface);
     padding: calc(var(--spacing-unit) * 2) calc(var(--spacing-unit) * 4);
     width: 95%;
     z-index: 10; /* Ensures header/footer are above content */
