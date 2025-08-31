@@ -7,8 +7,10 @@
 @import './themes/themes.css';
 
 /* === COMPONENTS === */
-@import './components/common/buttons/button.css';
-@import './components/common/forms/forms.css';
+@import './components/buttons/button.css';
+@import './components/forms/forms.css';
+@import './components/common/modal.css';
+@import './components/forms/scrollbars.css';
 
 /* == ADMIN == */
 @import './components/admin/question-editor.css';
@@ -27,9 +29,6 @@
 
 /* == TOPBAR == */
 @import './components/topbar/topbar.css';
-
-/* == MODALS == */
-@import './components/common/modals/modal.css';
 
 /* == SETTINGS == */
 @import './components/settings/settings-components.css';
