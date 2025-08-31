@@ -6,7 +6,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.6);
+    /* FIX: Replaced hardcoded rgba with the new --shadow-overlay variable. */
+    background-color: var(--shadow-overlay);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,7 +20,8 @@
     background-color: var(--color-surface);
     padding: calc(var(--spacing-unit) * 4);
     border-radius: var(--border-radius);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    /* FIX: Replaced hardcoded rgba with the standard --shadow-card variable. */
+    box-shadow: var(--shadow-card);
     min-width: 400px;
     max-width: 90vw;
     transform: scale(0.9);
@@ -39,6 +41,8 @@
 .modal-title {
     font-size: 1.5rem;
     font-weight: 700;
+    /* NEW: Explicitly set the title color for robustness. */
+    color: var(--color-text-primary);
 }
 
 .modal-close-btn {

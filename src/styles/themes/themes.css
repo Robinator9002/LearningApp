@@ -16,21 +16,31 @@
     --color-text-secondary: var(--light-text-secondary);
     --color-border: var(--light-border);
     --color-muted-bg: var(--light-muted-bg);
+    /* NEW: A slightly stronger border color for hover states */
+    --color-border-strong: #adb5bd;
 
     /* Abstract Accent Variables */
     --color-accent: var(--accent-blue);
     --color-accent-dark: var(--accent-blue-dark);
     --color-accent-light: var(--accent-blue-light);
+    /* NEW: A dedicated text color for use on accent backgrounds */
+    --color-accent-text: #ffffff;
 
     /* Universal Feedback Colors */
     --color-feedback-positive: var(--feedback-positive);
     --color-feedback-negative: var(--feedback-negative);
+    /* NEW: A softer, background-oriented version of the negative feedback color */
+    --color-feedback-negative-soft: #f8d7da;
 
     /* Abstract Font Variable */
     --font-family: var(--font-sans-serif);
 
-    /* NEW: Abstract Shadow Variable */
+    /* Abstract Shadow Variables */
     --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.05);
+    /* NEW: A stronger shadow for hover/active states */
+    --shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.1);
+    /* NEW: A variable for the modal overlay effect */
+    --shadow-overlay: rgba(0, 0, 0, 0.6);
 }
 
 /* --- THEME LOGIC --- */
@@ -38,33 +48,63 @@
 /* 1. Dark Theme */
 [data-theme='dark'] {
     --color-background: var(--dark-bg);
-    /* ... existing code ... */
+    --color-surface: var(--dark-surface);
+    --color-text-primary: var(--dark-text-primary);
     --color-text-secondary: var(--dark-text-secondary);
     --color-border: var(--dark-border);
     --color-muted-bg: var(--dark-muted-bg);
-    /* A slightly more pronounced shadow for dark mode */
+    --color-border-strong: #6c757d;
+
+    /* Accent text remains white, which is correct for dark themes */
+
+    /* A different soft negative color for dark mode */
+    --color-feedback-negative-soft: #2c1a1d;
+
+    /* Shadows need to be more pronounced in dark mode */
     --shadow-card: 0 6px 16px rgba(0, 0, 0, 0.2);
+    --shadow-hover: 0 10px 20px rgba(0, 0, 0, 0.25);
+    --shadow-overlay: rgba(0, 0, 0, 0.7);
 }
 
 /* 2. High Contrast Theme */
 [data-contrast='high'][data-theme='light'] {
     --color-background: var(--light-hc-bg);
-    /* ... existing code ... */
+    --color-surface: var(--light-hc-surface);
+    --color-text-primary: var(--light-hc-text-primary);
     --color-text-secondary: var(--light-hc-text-secondary);
     --color-border: var(--light-hc-border);
-    --color-muted-bg: var(--light-hc-bg); /* Muted is same as bg in HC */
-    /* Shadows removed for high contrast */
+    --color-muted-bg: var(--light-hc-bg);
+    --color-border-strong: var(--light-hc-border);
+
+    /* Text on accent buttons should be black for high contrast */
+    --color-accent-text: #000000;
+
+    --color-feedback-negative-soft: var(--light-hc-bg);
+
+    /* Shadows are removed for high contrast for better readability */
     --shadow-card: none;
+    --shadow-hover: none;
+    --shadow-overlay: rgba(0, 0, 0, 0.9);
 }
 
 [data-contrast='high'][data-theme='dark'] {
     --color-background: var(--dark-hc-bg);
-    /* ... existing code ... */
+    --color-surface: var(--dark-hc-surface);
+    --color-text-primary: var(--dark-hc-text-primary);
     --color-text-secondary: var(--dark-hc-text-secondary);
     --color-border: var(--dark-hc-border);
-    --color-muted-bg: var(--dark-hc-bg); /* Muted is same as bg in HC */
-    /* Shadows removed for high contrast */
+    --color-muted-bg: var(--dark-hc-bg);
+    --color-border-strong: var(--dark-hc-border);
+
+    /* Text on accent buttons should be white for high contrast dark */
+    --color-accent-text: #ffffff;
+
+    --color-feedback-negative-soft: var(--dark-hc-bg);
+
+    /* Shadows are removed for high contrast */
     --shadow-card: none;
+    --shadow-hover: none;
+    --shadow-overlay: rgba(255, 255, 255, 0.8);
 }
 
 /* 3. Accent Color Logic */
