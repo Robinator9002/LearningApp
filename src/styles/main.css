@@ -18,6 +18,7 @@
 /* = QA = */
 @import './components/learner/qa/answer-options.css';
 @import './components/learner/qa/question-display.css';
+@import './components/learner/qa/equation-display.css';
 
 /* == TOPBAR == */
 @import './components/topbar/topbar.css';

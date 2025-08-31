@@ -1,0 +1,21 @@
+/* src/styles/components/learner/qa/equation-display.css */
+
+.equation-display {
+    padding: calc(var(--spacing-unit) * 2);
+    margin-block: calc(var(--spacing-unit) * 2); /* Vertical margin */
+    background-color: var(--color-background);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--color-border);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.equation-display__text {
+    font-family: var(--font-mono); /* Use monospaced font for math */
+    font-size: calc(var(--font-size-base) * 1.5);
+    font-weight: 500;
+    color: var(--color-accent); /* Use accent color to make it stand out */
+    text-align: center;
+    letter-spacing: 0.05em; /* Add some spacing for readability */
+}
