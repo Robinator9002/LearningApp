@@ -48,13 +48,8 @@ export interface IMCQOption {
     isCorrect: boolean;
 }
 
-// --- Discriminated Union for Question Types ---
-// By creating specific types for each question format and uniting them,
-// we gain immense type safety. TypeScript can now understand that
-// an 'mcq' question MUST have 'options' and a 'sti' MUST have 'correctAnswers'.
-
 /**
- * A base interface that all question types will extend.
+ * A base interface for all question types, containing common properties.
  */
 interface IQuestionBase {
     id: string; // UUID for React keys
@@ -70,22 +65,31 @@ export interface IMultipleChoiceQuestion extends IQuestionBase {
 }
 
 /**
- * NEW: Represents a Smart Text Input question (formerly Fill-in-the-Blank).
- * This new structure is more flexible and powerful.
+ * Represents a Smart Text Input question with flexible evaluation.
  */
 export interface ISmartTextInputQuestion extends IQuestionBase {
     type: 'sti';
-    // Allows for multiple acceptable answers (e.g., "Paris", "paris").
     correctAnswers: string[];
-    // Defines how the learner's input should be evaluated.
     evaluationMode: 'case-insensitive' | 'exact-match';
 }
 
 /**
- * The main IQuestion type is now a discriminated union of all possible question types.
- * This is the cornerstone of our new, extensible question system.
+ * NEW: Represents an Algebraic Equation question that requires solving for variables.
  */
-export type IQuestion = IMultipleChoiceQuestion | ISmartTextInputQuestion;
+export interface IAlgebraEquationQuestion extends IQuestionBase {
+    type: 'alg-equation';
+    equation: string; // e.g., "2*x + 5 = 15"
+    variables: string[]; // e.g., ["x"] or ["x", "y"]
+}
+
+/**
+ * A discriminated union of all possible question types.
+ * This allows for strong type checking based on the 'type' property.
+ */
+export type IQuestion =
+    | IMultipleChoiceQuestion
+    | ISmartTextInputQuestion
+    | IAlgebraEquationQuestion; // Added the new type here
 
 /**
  * Represents a log of a completed course attempt by a user.
