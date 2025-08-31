@@ -5,6 +5,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Check, X } from 'lucide-react';
 import { useLiveQuery } from 'dexie-react-hooks';
 import Confetti from 'react-confetti';
+// We will simulate the math.js library. In a real project, you would install it.
+// import * as math from 'mathjs';
 
 import { db } from '../../lib/db';
 import { AuthContext } from '../../contexts/AuthContext';
@@ -14,6 +16,8 @@ import Button from '../../components/common/Button/Button';
 import CourseSummary from '../../components/learner/Course/CourseSummary';
 import AnswerOption, { type AnswerStatus } from '../../components/learner/QA/AnswerOption';
 import Input from '../../components/common/Form/Input/Input';
+// 1. Import the new AlgebraEquationSolver component
+import AlgebraEquationSolver from '../../components/learner/QA/AlgebraEquationSolver';
 
 // A simple hook to manage window dimensions for the confetti effect.
 const useWindowSize = () => {
@@ -26,6 +30,54 @@ const useWindowSize = () => {
     return size;
 };
 
+/**
+ * A mock evaluation function to simulate using a real math library like math.js.
+ * This is the core of the intelligent evaluation.
+ * @param equation The equation string, e.g., "2*x + 5 = 3*y - 12"
+ * @param answers A record of variable values, e.g., { x: '8.5', y: '10' }
+ * @returns True if the equation holds, false otherwise.
+ */
+const evaluateEquation = (equation: string, answers: Record<string, string>): boolean => {
+    try {
+        // Step 1: Split the equation into left and right sides.
+        const sides = equation.split('=');
+        if (sides.length !== 2) return false; // Invalid equation format
+        const leftSide = sides[0].trim();
+        const rightSide = sides[1].trim();
+
+        // Step 2: Create a scope object for the math parser by converting
+        // the answer strings to numbers.
+        const scope: Record<string, number> = {};
+        for (const variable in answers) {
+            const value = parseFloat(answers[variable]);
+            if (isNaN(value)) return false; // A variable is not a valid number
+            scope[variable] = value;
+        }
+
+        // Step 3: Use the (simulated) math library to parse and evaluate each side.
+        // In a real app, this would be:
+        // const leftResult = math.evaluate(leftSide, scope);
+        // const rightResult = math.evaluate(rightSide, scope);
+
+        // For this simulation, we'll use a safer, limited evaluation.
+        // This is a simplified stand-in for a real math parser.
+        const evalWithScope = (expr: string, localScope: Record<string, number>) => {
+            const func = new Function(...Object.keys(localScope), `return ${expr}`);
+            return func(...Object.values(localScope));
+        };
+
+        const leftResult = evalWithScope(leftSide, scope);
+        const rightResult = evalWithScope(rightSide, scope);
+
+        // Step 4: Compare the results with a small tolerance for floating point issues.
+        return Math.abs(leftResult - rightResult) < 1e-9;
+    } catch (error) {
+        // If the equation is malformed or evaluation fails, it's incorrect.
+        console.error('Equation evaluation failed:', error);
+        return false;
+    }
+};
+
 const CoursePlayerPage: React.FC = () => {
     const { courseId } = useParams<{ courseId: string }>();
     const navigate = useNavigate();
@@ -35,13 +87,15 @@ const CoursePlayerPage: React.FC = () => {
     // --- State Management ---
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
-    const [stiAnswer, setStiAnswer] = useState(''); // Renamed for clarity
+    const [stiAnswer, setStiAnswer] = useState('');
+    // 2. Add new state for the algebra answers
+    const [algAnswers, setAlgAnswers] = useState<Record<string, string>>({});
     const [isAnswered, setIsAnswered] = useState(false);
     const [isCorrect, setIsCorrect] = useState(false);
     const [score, setScore] = useState(0);
     const [isFinished, setIsFinished] = useState(false);
     const [showConfetti, setShowConfetti] = useState(false);
-    const [canProceed, setCanProceed] = useState(false); // New state for delayed progression
+    const [autoProceedTimeout, setAutoProceedTimeout] = useState<NodeJS.Timeout | null>(null);
 
     // --- Data Fetching ---
     const course = useLiveQuery(
@@ -59,28 +113,28 @@ const CoursePlayerPage: React.FC = () => {
         if (!currentQuestion) return;
 
         let correct = false;
-        // --- LOGIC UPGRADE: Discriminated Union Check ---
-        // By checking the 'type' property, TypeScript now understands the exact
-        // shape of the currentQuestion object within each block.
-        if (currentQuestion.type === 'mcq') {
-            const selectedOption = currentQuestion.options.find(
-                (opt: any) => opt.id === selectedOptionId,
-            );
-            correct = selectedOption?.isCorrect ?? false;
-        } else if (currentQuestion.type === 'sti') {
-            // --- NEW: Smart Evaluation Logic ---
-            const userAnswer = stiAnswer.trim();
-            const possibleAnswers = currentQuestion.correctAnswers;
-
-            if (currentQuestion.evaluationMode === 'case-insensitive') {
-                // Compare lowercased versions for a case-insensitive match.
-                correct = possibleAnswers.some(
-                    (ans: any) => ans.trim().toLowerCase() === userAnswer.toLowerCase(),
+        // 3. Implement the new evaluation logic
+        switch (currentQuestion.type) {
+            case 'mcq':
+                const selectedOption = currentQuestion.options.find(
+                    (opt: IMCQOption) => opt.id === selectedOptionId,
                 );
-            } else {
-                // Default to an exact, case-sensitive match.
-                correct = possibleAnswers.some((ans: any) => ans.trim() === userAnswer);
-            }
+                correct = selectedOption?.isCorrect ?? false;
+                break;
+            case 'sti':
+                const learnerAnswer = stiAnswer.trim();
+                if (currentQuestion.evaluationMode === 'case-insensitive') {
+                    correct = currentQuestion.correctAnswers.some(
+                        (ans: any) => ans.toLowerCase() === learnerAnswer.toLowerCase(),
+                    );
+                } else {
+                    correct = currentQuestion.correctAnswers.includes(learnerAnswer);
+                }
+                break;
+            case 'alg-equation':
+                // Use our powerful new evaluation function
+                correct = evaluateEquation(currentQuestion.equation, algAnswers);
+                break;
         }
 
         setIsCorrect(correct);
@@ -90,24 +144,32 @@ const CoursePlayerPage: React.FC = () => {
         }
         setIsAnswered(true);
 
-        // Set a timer to allow the user to see the feedback before proceeding.
-        setTimeout(() => {
-            setCanProceed(true);
-        }, 2000); // 2-second delay
+        const timeout = setTimeout(() => {
+            handleNextQuestion();
+        }, 2000); // Wait 2 seconds before moving on
+        setAutoProceedTimeout(timeout);
     };
 
     const handleNextQuestion = () => {
+        if (autoProceedTimeout) {
+            clearTimeout(autoProceedTimeout);
+            setAutoProceedTimeout(null);
+        }
+
         if (currentQuestionIndex < totalQuestions - 1) {
             setCurrentQuestionIndex((prev) => prev + 1);
-            // Reset state for the new question
             setIsAnswered(false);
             setSelectedOptionId(null);
             setStiAnswer('');
+            setAlgAnswers({}); // Reset algebra answers for the next question
             setIsCorrect(false);
-            setCanProceed(false); // Reset progression lock
         } else {
             handleCourseFinish();
         }
+    };
+
+    const handleAlgAnswerChange = (variable: string, value: string) => {
+        setAlgAnswers((prev) => ({ ...prev, [variable]: value }));
     };
 
     // Timer to turn off confetti so it can re-trigger on subsequent correct answers
@@ -140,6 +202,22 @@ const CoursePlayerPage: React.FC = () => {
         if (option.isCorrect) return 'correct';
         if (selectedOptionId === option.id) return 'incorrect';
         return 'default';
+    };
+
+    // Helper to determine if the check answer button should be disabled
+    const isCheckDisabled = () => {
+        if (!currentQuestion) return true;
+        switch (currentQuestion.type) {
+            case 'mcq':
+                return !selectedOptionId;
+            case 'sti':
+                return stiAnswer.trim() === '';
+            case 'alg-equation':
+                // Check if every required variable has an answer
+                return currentQuestion.variables.some((v: any) => !algAnswers[v]?.trim());
+            default:
+                return true;
+        }
     };
 
     // --- Render Logic ---
@@ -185,7 +263,7 @@ const CoursePlayerPage: React.FC = () => {
                     {/* RENDER LOGIC: Switch between question types */}
                     {currentQuestion.type === 'mcq' && (
                         <div className="answer-options-grid">
-                            {currentQuestion.options.map((option: any) => (
+                            {currentQuestion.options.map((option: IMCQOption) => (
                                 <AnswerOption
                                     key={option.id}
                                     text={option.text}
@@ -210,11 +288,21 @@ const CoursePlayerPage: React.FC = () => {
                             />
                             {isAnswered && !isCorrect && (
                                 <p className="fitb-correct-answer">
-                                    Correct answer:{' '}
+                                    The correct answer was:{' '}
                                     <strong>{currentQuestion.correctAnswers[0]}</strong>
                                 </p>
                             )}
                         </div>
+                    )}
+
+                    {/* 4. Render the new solver component */}
+                    {currentQuestion.type === 'alg-equation' && (
+                        <AlgebraEquationSolver
+                            variables={currentQuestion.variables}
+                            answers={algAnswers}
+                            onAnswerChange={handleAlgAnswerChange}
+                            disabled={isAnswered}
+                        />
                     )}
                 </div>
             </main>
@@ -229,25 +317,20 @@ const CoursePlayerPage: React.FC = () => {
                         ) : (
                             <span className="feedback-text feedback-text--incorrect">
                                 <X /> Not quite...
+                                {currentQuestion.type === 'alg-equation' && ' Check your work.'}
                             </span>
                         )}
-                        {/* The "Next" button only appears after the delay */}
-                        {canProceed && (
-                            <Button variant="primary" onClick={handleNextQuestion}>
-                                {currentQuestionIndex < totalQuestions - 1
-                                    ? 'Next Question'
-                                    : 'Finish Course'}
-                            </Button>
-                        )}
+                        <Button variant="primary" onClick={handleNextQuestion}>
+                            {currentQuestionIndex < totalQuestions - 1
+                                ? 'Next Question'
+                                : 'Finish Course'}
+                        </Button>
                     </div>
                 ) : (
                     <Button
                         variant="primary"
                         onClick={handleCheckAnswer}
-                        disabled={
-                            (currentQuestion.type === 'mcq' && !selectedOptionId) ||
-                            (currentQuestion.type === 'sti' && stiAnswer.trim() === '')
-                        }
+                        disabled={isCheckDisabled()}
                     >
                         Check Answer
                     </Button>
