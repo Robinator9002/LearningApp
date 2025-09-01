@@ -1,133 +1,92 @@
 // src/types/database.ts
 
 /**
- * ============================================================================
- * BASE TYPES
- * ============================================================================
+ * --- BASE INTERFACES ---
+ * These interfaces define the fundamental shapes of our data models.
+ * They are extended by more specific interfaces below.
  */
 
-/**
- * Defines the basic structure that all question types will share.
- * This includes a unique ID and the main text/prompt for the question.
- */
-interface IBaseQuestion {
-    id: string; // A unique identifier (UUID) for the question.
-    questionText: string; // The main prompt or question text.
+// A base for any question, containing universal properties.
+interface IQuestionBase {
+    id: string; // Using UUID for unique identification.
+    questionText: string;
 }
 
 /**
- * ============================================================================
- * EXISTING QUESTION TYPES
- * ============================================================================
+ * --- QUESTION TYPE INTERFACES ---
+ * Each interface here represents a specific type of question,
+ * extending the base to add its unique properties.
  */
 
-/**
- * Represents a single answer option within a Multiple Choice Question.
- */
+// For Multiple Choice Questions (MCQ)
 export interface IMCQOption {
     id: string;
     text: string;
     isCorrect: boolean;
 }
-
-/**
- * A Multiple Choice Question (MCQ).
- * It consists of the question text and a list of options, one of which is correct.
- */
-export interface IMCQQuestion extends IBaseQuestion {
+export interface IQuestionMCQ extends IQuestionBase {
     type: 'mcq';
     options: IMCQOption[];
 }
 
-/**
- * A "Smart Text Input" (sti) or Fill-in-the-Blank question.
- * It allows for multiple possible correct answers and can be graded
- * in a case-insensitive or exact-match manner.
- */
-export interface ISTIQuestion extends IBaseQuestion {
+// For Smart Text Input (sti) / Fill-in-the-Blank
+export interface IQuestionSTI extends IQuestionBase {
     type: 'sti';
     correctAnswers: string[];
     evaluationMode: 'case-insensitive' | 'exact-match';
 }
 
-/**
- * An Algebraic Equation question.
- * Requires the student to solve for one or more variables in a given equation.
- */
-export interface IAlgEquationQuestion extends IBaseQuestion {
+// For Algebraic Equations
+export interface IQuestionAlgEquation extends IQuestionBase {
     type: 'alg-equation';
     equation: string;
-    variables: string[]; // e.g., ['x', 'y']
+    variables: string[];
 }
 
-/**
- * ============================================================================
- * NEW QUESTION TYPES
- * ============================================================================
- */
+// --- NEW QUESTION TYPES ---
 
-/**
- * A "Highlight Text" question for Reading/English subjects.
- * The student is presented with a block of text and must select the
- * correct sentences or phrases.
- */
-export interface IHighlightTextQuestion extends IBaseQuestion {
+// For "Highlight the correct part of the text" questions
+export interface IQuestionHighlightText extends IQuestionBase {
     type: 'highlight-text';
-    passage: string; // The full block of text to be displayed.
-    // An array of strings, where each string is an exact match for a correct sentence/phrase.
-    correctHighlights: string[];
+    passage: string; // The full block of text for the student to read.
+    correctHighlights: string[]; // An array of substrings that are correct answers.
 }
 
-/**
- * A "Free Response" or essay-style question.
- * This type is not auto-graded and is intended for manual review.
- */
-export interface IFreeResponseQuestion extends IBaseQuestion {
+// For "Free Response" / essay questions that require manual grading.
+export interface IQuestionFreeResponse extends IQuestionBase {
     type: 'free-response';
-    // No extra fields are needed initially, but this could be extended later
-    // with properties like min/max word count.
+    // This type is simple; it primarily relies on the questionText.
+    // Grading will be manual, so no correct answer is stored here.
+}
+
+// For "Correct the sentence" questions.
+export interface IQuestionSentenceCorrection extends IQuestionBase {
+    type: 'sentence-correction';
+    sentenceWithMistake: string; // The incorrect sentence shown to the student.
+    correctedSentence: string; // The correct version for auto-grading.
 }
 
 /**
- * A "Passage" question, which acts as a container.
- * It holds a large reading passage and an array of sub-questions
- * that relate to that passage.
- */
-export interface IPassageQuestion extends IBaseQuestion {
-    type: 'passage';
-    passage: string; // The long-form reading passage.
-    // Sub-questions can be any other question type EXCEPT another passage question.
-    subQuestions: Exclude<IQuestion, IPassageQuestion>[];
-}
-
-/**
- * ============================================================================
- * MASTER TYPES
- * ============================================================================
- */
-
-/**
- * A discriminated union of all possible question types.
- * The 'type' property is the discriminator, allowing TypeScript to know
- * which other properties are available for a given question.
+ * --- UNION TYPE ---
+ * The IQuestion type is a union of all possible question interfaces.
+ * This allows us to have a single array of questions of different types
+ * while maintaining strict type safety.
  */
 export type IQuestion =
-    | IMCQQuestion
-    | ISTIQuestion
-    | IAlgEquationQuestion
-    | IHighlightTextQuestion
-    | IFreeResponseQuestion
-    | IPassageQuestion;
+    | IQuestionMCQ
+    | IQuestionSTI
+    | IQuestionAlgEquation
+    | IQuestionHighlightText
+    | IQuestionFreeResponse
+    | IQuestionSentenceCorrection; // <-- The missing piece of the puzzle.
 
 /**
- * Defines the structure for a Course.
- * It includes metadata like title and subject, and contains an array
- * of questions that make up the course content.
+ * --- COURSE INTERFACE ---
+ * Defines the structure for a course, which is a collection of questions.
  */
 export interface ICourse {
-    id?: number; // Optional because it's auto-incremented by the database.
+    id?: number; // Optional because it's auto-generated by the database.
     title: string;
-    // The subject of the course. The new 'English' subject has been added.
-    subject: 'Math' | 'Reading' | 'Writing' | 'English';
+    subject: 'Math' | 'Reading' | 'Writing' | 'English'; // Subject expanded.
     questions: IQuestion[];
 }
