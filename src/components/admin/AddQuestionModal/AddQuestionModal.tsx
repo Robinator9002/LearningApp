@@ -46,11 +46,7 @@ const questionCategories: QuestionCategory[] = [
                 label: 'Smart Text Input',
                 description: 'User types an answer (case-insensitive or exact).',
             },
-            {
-                type: 'free-response',
-                label: 'Free Response / Essay',
-                description: 'User provides a long-form text answer (manual grading).',
-            },
+            // --- REMOVED: The 'free-response' option has been purged from this list. ---
         ],
     },
     {
