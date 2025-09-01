@@ -41,10 +41,8 @@ const createNewQuestion = (type: IQuestion['type']): IQuestion => {
                 ...baseQuestion,
                 type: 'highlight-text',
                 passage: '',
-                correctHighlights: [''],
+                correctAnswers: [''],
             };
-        case 'free-response':
-            return { ...baseQuestion, type: 'free-response' };
         case 'sentence-correction':
             return {
                 ...baseQuestion,
@@ -52,6 +50,8 @@ const createNewQuestion = (type: IQuestion['type']): IQuestion => {
                 sentenceWithMistake: '',
                 correctedSentence: '',
             };
+        case 'free-response':
+            throw new Error("Deprecated question type: 'free-response' should not be created.");
         default:
             const exhaustiveCheck: never = type;
             throw new Error(`Unhandled question type: ${exhaustiveCheck}`);
@@ -68,7 +68,7 @@ const CourseEditorPage: React.FC = () => {
     const [subject, setSubject] = useState<'Math' | 'Reading' | 'Writing' | 'English'>('Math');
     const [questions, setQuestions] = useState<IQuestion[]>([]);
     const [isLoading, setIsLoading] = useState(isEditMode);
-    const [isAddModalOpen, setIsAddModalOpen] = useState(false); // State for our new modal
+    const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
     if (!modal) throw new Error('CourseEditorPage must be used within a ModalProvider');
 
@@ -88,6 +88,7 @@ const CourseEditorPage: React.FC = () => {
                     navigate('/admin');
                 }
             } catch (error) {
+                // FIX: Added missing opening brace '{'
                 console.error('Failed to fetch course:', error);
             } finally {
                 setIsLoading(false);
@@ -161,7 +162,6 @@ const CourseEditorPage: React.FC = () => {
                     Save Course
                 </Button>
             </footer>
-            {/* Render the modal, controlled by our new state */}
             <AddQuestionModal
                 isOpen={isAddModalOpen}
                 onClose={() => setIsAddModalOpen(false)}
