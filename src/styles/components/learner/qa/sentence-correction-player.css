@@ -1,0 +1,39 @@
+/* src/styles/components/learner/qa/sentence-correction-player.css */
+
+.sentence-correction-player {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing-unit) * 3);
+    padding: var(--spacing-unit);
+    align-items: center;
+}
+
+.sentence-correction-player__prompt {
+    width: 100%;
+    max-width: 700px;
+    padding: var(--spacing-unit) * 2;
+    background-color: var(--color-background);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    text-align: center;
+}
+
+.sentence-correction-player__prompt-label {
+    margin: 0 0 var(--spacing-unit) 0;
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+}
+
+.sentence-correction-player__prompt-text {
+    margin: 0;
+    font-size: 1.2rem;
+    font-style: italic;
+    line-height: 1.5;
+}
+
+.sentence-correction-player__textarea {
+    width: 100%;
+    max-width: 700px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
