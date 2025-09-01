@@ -5,11 +5,13 @@ import Input from '../../../components/common/Form/Input';
 import Label from '../../../components/common/Form/Label';
 import Select from '../../../components/common/Form/Select';
 
+// The props interface is the source of the type error.
+// We must expand the 'subject' type to match the parent component's state.
 interface CourseMetaEditorProps {
     title: string;
     setTitle: (title: string) => void;
-    subject: 'Math' | 'Reading' | 'Writing';
-    setSubject: (subject: 'Math' | 'Reading' | 'Writing') => void;
+    subject: 'Math' | 'Reading' | 'Writing' | 'English';
+    setSubject: (subject: 'Math' | 'Reading' | 'Writing' | 'English') => void;
 }
 
 const CourseMetaEditor: React.FC<CourseMetaEditorProps> = ({
@@ -34,6 +36,8 @@ const CourseMetaEditor: React.FC<CourseMetaEditorProps> = ({
                     <option value="Math">Math</option>
                     <option value="Reading">Reading</option>
                     <option value="Writing">Writing</option>
+                    {/* --- NEW: Add English to the dropdown --- */}
+                    <option value="English">English</option>
                 </Select>
             </div>
         </div>
