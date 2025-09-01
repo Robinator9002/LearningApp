@@ -7,7 +7,8 @@ import { useWindowSize } from 'react-use';
 
 import { db } from '../../lib/db';
 import { ModalContext } from '../../contexts/ModalContext';
-import type { ICourse, IQuestion } from '../../types/database';
+// FIX: IQuestion is no longer needed, ICourse is sufficient.
+import type { ICourse } from '../../types/database';
 import type { AnswerStatus } from '../../components/learner/qa/AnswerOption';
 import CoursePlayerUI from '../../components/learner/course/CoursePlayerUI';
 import CourseSummary from '../../components/learner/course/CourseSummary';
@@ -105,10 +106,17 @@ const CoursePlayerPage: React.FC = () => {
     };
 
     const getMCQStatus = (optionId: string): AnswerStatus => {
+        // --- TYPE GUARD ---
+        // We must check the question type before accessing type-specific properties.
+        if (currentQuestion?.type !== 'mcq') {
+            return 'default'; // Should not happen in MCQ context, but a safe fallback.
+        }
+
         if (!isAnswered) {
             return selectedOptionId === optionId ? 'selected' : 'default';
         }
-        const correctOption = currentQuestion?.options?.find((o) => o.isCorrect);
+        // Inside this block, TypeScript now knows currentQuestion is an IQuestionMCQ.
+        const correctOption = currentQuestion.options.find((o) => o.isCorrect);
         if (correctOption?.id === optionId) {
             return 'correct';
         }
