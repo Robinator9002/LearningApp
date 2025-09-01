@@ -3,53 +3,49 @@
 import React from 'react';
 import { ArrowLeft, Check, X } from 'lucide-react';
 
-import type { IQuestion } from '../../../types/database';
+import type { ICourse, IMCQOption } from '../../../types/database';
 import type { AnswerStatus } from '../qa/AnswerOption';
 import Button from '../../common/Button/Button';
 import AnswerOption from '../qa/AnswerOption';
-import Input from '../../common/Form/Input';
+import Input from '../../common/Form/Input/Input';
 import AlgebraEquationSolver from '../qa/AlgebraEquationSolver';
 import EquationDisplay from '../qa/EquationDisplay';
+// --- START: Import new player components ---
 import HighlightTextPlayer from '../qa/HighlightTextPlayer';
 import FreeResponsePlayer from '../qa/FreeResponsePlayer';
 import SentenceCorrectionPlayer from '../qa/SentenceCorrectionPlayer';
+// --- END: Import new player components ---
 
 // Define the shape of the course and question objects for props
 interface CoursePlayerUIProps {
-    course: {
-        questions: IQuestion[]; // Use the master IQuestion type
-    };
+    course: ICourse;
     currentQuestionIndex: number;
     progressPercentage: number;
     isAnswered: boolean;
     isCorrect: boolean;
-
-    // State for different question types
+    // States for each answer type
     selectedOptionId: string | null;
     stiAnswer: string;
     algAnswers: Record<string, string>;
-    highlightedWords: string[];
+    highlightedSentences: string[]; // REFACTOR: Changed from words to sentences
     freeResponseAnswer: string;
     sentenceCorrectionAnswer: string;
-
-    // Callbacks
+    // Handlers for each answer type
     onExitCourse: () => void;
     onCheckAnswer: () => void;
     onSelectOption: (id: string) => void;
     onStiAnswerChange: (value: string) => void;
     onAlgAnswerChange: (variable: string, value: string) => void;
-    onToggleHighlightWord: (word: string) => void;
+    onToggleHighlightSentence: (sentence: string) => void; // REFACTOR: New handler
     onFreeResponseChange: (value: string) => void;
     onSentenceCorrectionChange: (value: string) => void;
-
-    // Helper functions
-    getMCQStatus: (optionId: string) => AnswerStatus;
+    // Helpers
+    getMCQStatus: (option: IMCQOption) => AnswerStatus;
     isCheckButtonDisabled: () => boolean;
 }
 
 /**
  * CoursePlayerUI is a presentational component responsible for rendering the course player interface.
- * It is stateless and receives all data and callbacks via props from a container component.
  */
 const CoursePlayerUI: React.FC<CoursePlayerUIProps> = ({
     course,
@@ -57,28 +53,108 @@ const CoursePlayerUI: React.FC<CoursePlayerUIProps> = ({
     progressPercentage,
     isAnswered,
     isCorrect,
+    // Answer states
+    selectedOptionId,
     stiAnswer,
     algAnswers,
-    highlightedWords,
+    highlightedSentences,
     freeResponseAnswer,
     sentenceCorrectionAnswer,
+    // Answer handlers
     onExitCourse,
     onCheckAnswer,
     onSelectOption,
     onStiAnswerChange,
     onAlgAnswerChange,
-    onToggleHighlightWord,
+    onToggleHighlightSentence,
     onFreeResponseChange,
     onSentenceCorrectionChange,
+    // Helpers
     getMCQStatus,
     isCheckButtonDisabled,
 }) => {
     const currentQuestion = course.questions[currentQuestionIndex];
     const totalQuestions = course.questions.length;
 
+    // A helper function to avoid rendering null.
+    const renderQuestionContent = () => {
+        switch (currentQuestion.type) {
+            case 'mcq':
+                return (
+                    <div className="answer-options-grid">
+                        {currentQuestion.options.map((option) => (
+                            <AnswerOption
+                                key={option.id}
+                                text={option.text}
+                                status={getMCQStatus(option)}
+                                onClick={() => !isAnswered && onSelectOption(option.id)}
+                                disabled={isAnswered}
+                            />
+                        ))}
+                    </div>
+                );
+            case 'sti':
+                return (
+                    <div className="fitb-answer-area">
+                        <Input
+                            type="text"
+                            placeholder="Type your answer here..."
+                            value={stiAnswer}
+                            onChange={(e) => onStiAnswerChange(e.target.value)}
+                            disabled={isAnswered}
+                            className="fitb-input"
+                            autoFocus
+                        />
+                        {isAnswered && !isCorrect && (
+                            <p className="fitb-correct-answer">
+                                The correct answer was:{' '}
+                                <strong>{currentQuestion.correctAnswers[0]}</strong>
+                            </p>
+                        )}
+                    </div>
+                );
+            case 'alg-equation':
+                return (
+                    <AlgebraEquationSolver
+                        variables={currentQuestion.variables}
+                        answers={algAnswers}
+                        onAnswerChange={onAlgAnswerChange}
+                        disabled={isAnswered}
+                    />
+                );
+            case 'highlight-text':
+                return (
+                    <HighlightTextPlayer
+                        passage={currentQuestion.passage}
+                        selectedSentences={highlightedSentences}
+                        onToggleHighlightSentence={onToggleHighlightSentence}
+                        isAnswered={isAnswered}
+                    />
+                );
+            case 'free-response':
+                return (
+                    <FreeResponsePlayer
+                        answer={freeResponseAnswer}
+                        onAnswerChange={onFreeResponseChange}
+                        isAnswered={isAnswered}
+                    />
+                );
+            case 'sentence-correction':
+                return (
+                    <SentenceCorrectionPlayer
+                        sentenceWithMistake={currentQuestion.sentenceWithMistake}
+                        answer={sentenceCorrectionAnswer}
+                        onAnswerChange={onSentenceCorrectionChange}
+                        isAnswered={isAnswered}
+                    />
+                );
+            default:
+                return null;
+        }
+    };
+
     return (
         <div className="course-player-v2">
-            {/* --- HEADER: Navigation and Progress --- */}
             <header className="course-player-v2__header">
                 <Button variant="secondary" onClick={onExitCourse} title="Exit Course">
                     <ArrowLeft size={20} />
@@ -94,7 +170,6 @@ const CoursePlayerUI: React.FC<CoursePlayerUIProps> = ({
                 </div>
             </header>
 
-            {/* --- MAIN CONTENT: Question and Answer areas --- */}
             <main className="course-player-v2__main">
                 <div className="qa-card qa-card--question">
                     <p className="qa-card__question-text">{currentQuestion.questionText}</p>
@@ -103,87 +178,9 @@ const CoursePlayerUI: React.FC<CoursePlayerUIProps> = ({
                     )}
                 </div>
 
-                <div className="qa-card qa-card--answer">
-                    {/* --- DYNAMIC QUESTION TYPE RENDERING --- */}
-
-                    {/* Multiple Choice */}
-                    {currentQuestion.type === 'mcq' && (
-                        <div className="answer-options-grid">
-                            {currentQuestion.options.map((option) => (
-                                <AnswerOption
-                                    key={option.id}
-                                    text={option.text}
-                                    status={getMCQStatus(option.id)}
-                                    onClick={() => !isAnswered && onSelectOption(option.id)}
-                                    disabled={isAnswered}
-                                />
-                            ))}
-                        </div>
-                    )}
-
-                    {/* Smart Text Input */}
-                    {currentQuestion.type === 'sti' && (
-                        <div className="fitb-answer-area">
-                            <Input
-                                type="text"
-                                placeholder="Type your answer here..."
-                                value={stiAnswer}
-                                onChange={(e) => onStiAnswerChange(e.target.value)}
-                                disabled={isAnswered}
-                                className="fitb-input"
-                                autoFocus
-                            />
-                            {isAnswered && !isCorrect && (
-                                <p className="fitb-correct-answer">
-                                    The correct answer was:{' '}
-                                    <strong>{currentQuestion.correctAnswers[0]}</strong>
-                                </p>
-                            )}
-                        </div>
-                    )}
-
-                    {/* Algebraic Equation */}
-                    {currentQuestion.type === 'alg-equation' && (
-                        <AlgebraEquationSolver
-                            variables={currentQuestion.variables}
-                            answers={algAnswers}
-                            onAnswerChange={onAlgAnswerChange}
-                            disabled={isAnswered}
-                        />
-                    )}
-
-                    {/* Highlight Text */}
-                    {currentQuestion.type === 'highlight-text' && (
-                        <HighlightTextPlayer
-                            passage={currentQuestion.passage}
-                            selectedWords={highlightedWords}
-                            onToggleWord={onToggleHighlightWord}
-                            disabled={isAnswered}
-                        />
-                    )}
-
-                    {/* Free Response */}
-                    {currentQuestion.type === 'free-response' && (
-                        <FreeResponsePlayer
-                            answer={freeResponseAnswer}
-                            onAnswerChange={onFreeResponseChange}
-                            disabled={isAnswered}
-                        />
-                    )}
-
-                    {/* Sentence Correction */}
-                    {currentQuestion.type === 'sentence-correction' && (
-                        <SentenceCorrectionPlayer
-                            sentenceWithMistake={currentQuestion.sentenceWithMistake}
-                            answer={sentenceCorrectionAnswer}
-                            onAnswerChange={onSentenceCorrectionChange}
-                            disabled={isAnswered}
-                        />
-                    )}
-                </div>
+                <div className="qa-card qa-card--answer">{renderQuestionContent()}</div>
             </main>
 
-            {/* --- FOOTER: Feedback and Actions --- */}
             <footer className="course-player-v2__footer">
                 {isAnswered ? (
                     <div className="feedback-section">
