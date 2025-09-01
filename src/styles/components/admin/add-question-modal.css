@@ -17,6 +17,11 @@
     display: flex;
     flex-direction: column;
     gap: calc(var(--spacing-unit) * 3);
+    /* NEW: Constrain the height and enable scrolling for tall content. */
+    max-height: 70vh;
+    overflow-y: auto;
+    /* NEW: Add some padding to the right to make space for the scrollbar. */
+    padding-right: var(--spacing-unit);
 }
 
 /* --- Category Block --- */
