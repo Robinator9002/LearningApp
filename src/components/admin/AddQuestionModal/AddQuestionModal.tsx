@@ -22,7 +22,7 @@ interface AddQuestionModalProps {
  * question types into categories for a better user experience, replacing the
  * long, disorganized row of buttons in the header.
  */
-const AddQuestionModal: React.FC<AddQuestionModalProps> = ({ isOpen, onClose, onAddQuestion }) => {
+const AddQuestionModal: React.FC<AddQuestionModalProps> = ({ isOpen, onClose }) => {
     // This component renders nothing if it's not open.
     // The actual modal logic (like the overlay) is handled by the generic Modal component.
     if (!isOpen) {
@@ -30,10 +30,10 @@ const AddQuestionModal: React.FC<AddQuestionModalProps> = ({ isOpen, onClose, on
     }
 
     return (
-        <Modal isOpen={isOpen} onClose={onClose}>
+        <Modal isOpen={isOpen} onClose={onClose} title="Add a New Question">
             <div className="add-question-modal">
                 <div className="add-question-modal__header">
-                    <h2>Add a New Question</h2>
+                    {/* The title is now passed to the generic Modal, so this h2 is redundant */}
                     <p>Select a question type from the categories below.</p>
                 </div>
                 <div className="add-question-modal__content">
