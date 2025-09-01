@@ -1,22 +1,28 @@
 /* src/styles/pages/admin/admin-dashboard.css */
 
-/* NEW: Added a container rule to explicitly set the page's
-   background color using the theme variable. This makes the
-   component styling self-contained and not reliant on parent styles. */
+/*
+   MODIFICATION: Added padding to the main container to give the
+   entire page some breathing room from the window edges.
+*/
 .admin-dashboard {
     background-color: var(--color-background);
+    padding: calc(var(--spacing-unit) * 3);
 }
 
 .admin-dashboard__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: calc(var(--spacing-unit) * 4);
+    /* MODIFICATION: Adjusted vertical spacing and added a border.
+       This creates a clear, visually distinct header section,
+       improving structure and breaking up the solid background color.
+    */
+    margin-bottom: calc(var(--spacing-unit) * 3);
+    padding-bottom: calc(var(--spacing-unit) * 3);
+    border-bottom: 1px solid var(--color-border);
 }
 
 .admin-dashboard__title {
     font-size: 1.75rem;
-    /* NEW: Explicitly set the title color. While this likely inherits
-       correctly, being explicit prevents future maintenance errors. */
     color: var(--color-text-primary);
 }
