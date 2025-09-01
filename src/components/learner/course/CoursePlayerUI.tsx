@@ -1,5 +1,3 @@
-// src/components/learner/course/CoursePlayerUI.tsx
-
 import React from 'react';
 import { ArrowLeft, Check, X } from 'lucide-react';
 
@@ -10,71 +8,53 @@ import AnswerOption from '../qa/AnswerOption';
 import Input from '../../common/Form/Input';
 import AlgebraEquationSolver from '../qa/AlgebraEquationSolver';
 import EquationDisplay from '../qa/EquationDisplay';
-// --- START: Import new player components ---
 import HighlightTextPlayer from '../qa/HighlightTextPlayer';
-import FreeResponsePlayer from '../qa/FreeResponsePlayer';
 import SentenceCorrectionPlayer from '../qa/SentenceCorrectionPlayer';
-// --- END: Import new player components ---
 
-// Define the shape of the course and question objects for props
 interface CoursePlayerUIProps {
     course: ICourse;
     currentQuestionIndex: number;
     progressPercentage: number;
     isAnswered: boolean;
     isCorrect: boolean;
-    // States for each answer type
     stiAnswer: string;
     algAnswers: Record<string, string>;
     highlightedSentences: string[];
-    freeResponseAnswer: string;
     sentenceCorrectionAnswer: string;
-    // Handlers for each answer type
     onExitCourse: () => void;
     onCheckAnswer: () => void;
     onSelectOption: (id: string) => void;
     onStiAnswerChange: (value: string) => void;
     onAlgAnswerChange: (variable: string, value: string) => void;
     onToggleHighlightSentence: (sentence: string) => void;
-    onFreeResponseChange: (value: string) => void;
     onSentenceCorrectionChange: (value: string) => void;
-    // Helpers
     getMCQStatus: (optionId: string) => AnswerStatus;
     isCheckButtonDisabled: () => boolean;
 }
 
-/**
- * CoursePlayerUI is a presentational component responsible for rendering the course player interface.
- */
 const CoursePlayerUI: React.FC<CoursePlayerUIProps> = ({
     course,
     currentQuestionIndex,
     progressPercentage,
     isAnswered,
     isCorrect,
-    // Answer states
     stiAnswer,
     algAnswers,
     highlightedSentences,
-    freeResponseAnswer,
     sentenceCorrectionAnswer,
-    // Answer handlers
     onExitCourse,
     onCheckAnswer,
     onSelectOption,
     onStiAnswerChange,
     onAlgAnswerChange,
     onToggleHighlightSentence,
-    onFreeResponseChange,
     onSentenceCorrectionChange,
-    // Helpers
     getMCQStatus,
     isCheckButtonDisabled,
 }) => {
     const currentQuestion = course.questions[currentQuestionIndex];
     const totalQuestions = course.questions.length;
 
-    // A helper function to avoid rendering null.
     const renderQuestionContent = () => {
         switch (currentQuestion.type) {
             case 'mcq':
@@ -126,14 +106,6 @@ const CoursePlayerUI: React.FC<CoursePlayerUIProps> = ({
                         passage={currentQuestion.passage}
                         selectedSentences={highlightedSentences}
                         onToggleHighlightSentence={onToggleHighlightSentence}
-                        isAnswered={isAnswered}
-                    />
-                );
-            case 'free-response':
-                return (
-                    <FreeResponsePlayer
-                        answer={freeResponseAnswer}
-                        onAnswerChange={onFreeResponseChange}
                         isAnswered={isAnswered}
                     />
                 );
