@@ -39,9 +39,6 @@ interface CoursePlayerUIProps {
     onFreeResponseChange: (value: string) => void;
     onSentenceCorrectionChange: (value: string) => void;
     // Helpers
-    // FIX: The parent component (CoursePlayerPage) provides a function that
-    // accepts the option's ID (a string), not the full object. This updates
-    // the contract to match the implementation.
     getMCQStatus: (optionId: string) => AnswerStatus;
     isCheckButtonDisabled: () => boolean;
 }
@@ -56,7 +53,6 @@ const CoursePlayerUI: React.FC<CoursePlayerUIProps> = ({
     isAnswered,
     isCorrect,
     // Answer states
-    // FIX: selectedOptionId was unused within this component and has been removed.
     stiAnswer,
     algAnswers,
     highlightedSentences,
@@ -88,7 +84,6 @@ const CoursePlayerUI: React.FC<CoursePlayerUIProps> = ({
                             <AnswerOption
                                 key={option.id}
                                 text={option.text}
-                                // FIX: Pass the option's ID to match the updated contract.
                                 status={getMCQStatus(option.id)}
                                 onClick={() => !isAnswered && onSelectOption(option.id)}
                                 disabled={isAnswered}
@@ -135,26 +130,20 @@ const CoursePlayerUI: React.FC<CoursePlayerUIProps> = ({
                     />
                 );
             case 'free-response':
-                // FIX: The FreeResponsePlayer component is missing the `isAnswered` prop.
-                // This prop is removed here to resolve the TypeScript error.
-                // TODO: Update FreeResponsePlayer to accept `isAnswered` to disable input post-answer.
                 return (
                     <FreeResponsePlayer
                         answer={freeResponseAnswer}
                         onAnswerChange={onFreeResponseChange}
-                        // isAnswered={isAnswered}
+                        isAnswered={isAnswered}
                     />
                 );
             case 'sentence-correction':
-                // FIX: The SentenceCorrectionPlayer component is missing the `isAnswered` prop.
-                // This prop is removed here to resolve the TypeScript error.
-                // TODO: Update SentenceCorrectionPlayer to accept `isAnswered` to disable input post-answer.
                 return (
                     <SentenceCorrectionPlayer
                         sentenceWithMistake={currentQuestion.sentenceWithMistake}
                         answer={sentenceCorrectionAnswer}
                         onAnswerChange={onSentenceCorrectionChange}
-                        // isAnswered={isAnswered}
+                        isAnswered={isAnswered}
                     />
                 );
             default:
