@@ -8,9 +8,11 @@
 
 /* === COMPONENTS === */
 @import './components/common/button.css';
-@import './components/common/forms.css';
 @import './components/common/modal.css';
 @import './components/common/scrollbars.css';
+ 
+@import './components/common/form/forms.css';
+@import './components/common/form/textarea.css';
 
 /* == ADMIN == */
 @import './components/admin/question-editor.css';
