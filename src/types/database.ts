@@ -1,104 +1,133 @@
 // src/types/database.ts
 
-// --- Theme and Settings Definitions ---
+/**
+ * ============================================================================
+ * BASE TYPES
+ * ============================================================================
+ */
 
 /**
- * Defines the shape of a user's personalized theme settings.
- * This object will be stored directly in the user's profile.
+ * Defines the basic structure that all question types will share.
+ * This includes a unique ID and the main text/prompt for the question.
  */
-export interface IThemeState {
-    theme: 'light' | 'dark';
-    accent: 'blue' | 'purple' | 'green';
-    contrast: 'normal' | 'high';
-    font: 'sans' | 'serif' | 'mono';
-    fontSize: number; // e.g., 0.9, 1.0, 1.1
-}
-
-// --- Core Data Models ---
-
-/**
- * Represents a user account in the application.
- */
-export interface IUser {
-    id?: number; // Optional: Dexie will auto-increment
-    name: string;
-    type: 'admin' | 'learner';
-    password?: string; // Optional: for password-protected accounts
-    settings?: IThemeState; // Optional: for per-user theme settings
+interface IBaseQuestion {
+    id: string; // A unique identifier (UUID) for the question.
+    questionText: string; // The main prompt or question text.
 }
 
 /**
- * Represents a single course.
+ * ============================================================================
+ * EXISTING QUESTION TYPES
+ * ============================================================================
  */
-export interface ICourse {
-    id?: number;
-    title: string;
-    subject: 'Math' | 'Reading' | 'Writing';
-    questions: IQuestion[];
-}
-
-// --- Question and Answer Models ---
 
 /**
- * Represents a single option for a Multiple Choice Question.
+ * Represents a single answer option within a Multiple Choice Question.
  */
 export interface IMCQOption {
-    id: string; // UUID for React keys
+    id: string;
     text: string;
     isCorrect: boolean;
 }
 
 /**
- * A base interface for all question types, containing common properties.
+ * A Multiple Choice Question (MCQ).
+ * It consists of the question text and a list of options, one of which is correct.
  */
-interface IQuestionBase {
-    id: string; // UUID for React keys
-    questionText: string;
-}
-
-/**
- * Represents a Multiple Choice Question.
- */
-export interface IMultipleChoiceQuestion extends IQuestionBase {
+export interface IMCQQuestion extends IBaseQuestion {
     type: 'mcq';
     options: IMCQOption[];
 }
 
 /**
- * Represents a Smart Text Input question with flexible evaluation.
+ * A "Smart Text Input" (sti) or Fill-in-the-Blank question.
+ * It allows for multiple possible correct answers and can be graded
+ * in a case-insensitive or exact-match manner.
  */
-export interface ISmartTextInputQuestion extends IQuestionBase {
+export interface ISTIQuestion extends IBaseQuestion {
     type: 'sti';
     correctAnswers: string[];
     evaluationMode: 'case-insensitive' | 'exact-match';
 }
 
 /**
- * NEW: Represents an Algebraic Equation question that requires solving for variables.
+ * An Algebraic Equation question.
+ * Requires the student to solve for one or more variables in a given equation.
  */
-export interface IAlgebraEquationQuestion extends IQuestionBase {
+export interface IAlgEquationQuestion extends IBaseQuestion {
     type: 'alg-equation';
-    equation: string; // e.g., "2*x + 5 = 15"
-    variables: string[]; // e.g., ["x"] or ["x", "y"]
+    equation: string;
+    variables: string[]; // e.g., ['x', 'y']
 }
 
 /**
- * A discriminated union of all possible question types.
- * This allows for strong type checking based on the 'type' property.
+ * ============================================================================
+ * NEW QUESTION TYPES
+ * ============================================================================
  */
-export type IQuestion =
-    | IMultipleChoiceQuestion
-    | ISmartTextInputQuestion
-    | IAlgebraEquationQuestion; // Added the new type here
 
 /**
- * Represents a log of a completed course attempt by a user.
+ * A "Highlight Text" question for Reading/English subjects.
+ * The student is presented with a block of text and must select the
+ * correct sentences or phrases.
  */
-export interface IProgressLog {
-    id?: number;
-    userId: number;
-    courseId: number;
-    score: number; // The number of questions answered correctly
-    totalQuestions: number; // The total number of questions in the course
-    timestamp: string; // ISO 8601 string of when the course was completed
+export interface IHighlightTextQuestion extends IBaseQuestion {
+    type: 'highlight-text';
+    passage: string; // The full block of text to be displayed.
+    // An array of strings, where each string is an exact match for a correct sentence/phrase.
+    correctHighlights: string[];
+}
+
+/**
+ * A "Free Response" or essay-style question.
+ * This type is not auto-graded and is intended for manual review.
+ */
+export interface IFreeResponseQuestion extends IBaseQuestion {
+    type: 'free-response';
+    // No extra fields are needed initially, but this could be extended later
+    // with properties like min/max word count.
+}
+
+/**
+ * A "Passage" question, which acts as a container.
+ * It holds a large reading passage and an array of sub-questions
+ * that relate to that passage.
+ */
+export interface IPassageQuestion extends IBaseQuestion {
+    type: 'passage';
+    passage: string; // The long-form reading passage.
+    // Sub-questions can be any other question type EXCEPT another passage question.
+    subQuestions: Exclude<IQuestion, IPassageQuestion>[];
+}
+
+/**
+ * ============================================================================
+ * MASTER TYPES
+ * ============================================================================
+ */
+
+/**
+ * A discriminated union of all possible question types.
+ * The 'type' property is the discriminator, allowing TypeScript to know
+ * which other properties are available for a given question.
+ */
+export type IQuestion =
+    | IMCQQuestion
+    | ISTIQuestion
+    | IAlgEquationQuestion
+    | IHighlightTextQuestion
+    | IFreeResponseQuestion
+    | IPassageQuestion;
+
+/**
+ * Defines the structure for a Course.
+ * It includes metadata like title and subject, and contains an array
+ * of questions that make up the course content.
+ */
+export interface ICourse {
+    id?: number; // Optional because it's auto-incremented by the database.
+    title: string;
+    // The subject of the course. The new 'English' subject has been added.
+    subject: 'Math' | 'Reading' | 'Writing' | 'English';
+    questions: IQuestion[];
 }
