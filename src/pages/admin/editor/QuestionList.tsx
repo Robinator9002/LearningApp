@@ -1,5 +1,3 @@
-// src/pages/admin/editor/QuestionList.tsx
-
 import React from 'react';
 import type { IQuestion } from '../../../types/database';
 
@@ -10,7 +8,7 @@ import AlgebraEquationEditor from '../../../components/admin/QuestionEditor/Alge
 
 // --- NEW: Importing the new editor components ---
 import HighlightTextEditor from '../../../components/admin/QuestionEditor/HighlightTextEditor';
-import FreeResponseEditor from '../../../components/admin/QuestionEditor/FreeResponseEditor';
+// --- REMOVED: The import for FreeResponseEditor has been deleted. ---
 import SentenceCorrectionEditor from '../../../components/admin/QuestionEditor/SentenceCorrectionEditor';
 
 interface QuestionListProps {
@@ -71,16 +69,7 @@ const QuestionList: React.FC<QuestionListProps> = ({
                                 onRemoveQuestion={onRemoveQuestion}
                             />
                         );
-                    case 'free-response':
-                        return (
-                            <FreeResponseEditor
-                                key={q.id}
-                                index={index}
-                                question={q}
-                                onQuestionChange={onQuestionChange}
-                                onRemoveQuestion={onRemoveQuestion}
-                            />
-                        );
+                    // --- REMOVED: The case for 'free-response' has been excised. ---
                     case 'sentence-correction':
                         return (
                             <SentenceCorrectionEditor
