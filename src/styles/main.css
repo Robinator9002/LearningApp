@@ -17,6 +17,7 @@
 /* == ADMIN == */
 @import './components/admin/question-editor.css';
 @import './components/admin/course-list.css';
+@import './components/admin/add-question-modal.css';
 
 /* == LEARNER == */
 /* = COURSE = */
@@ -44,7 +45,6 @@
 /* == ADMIN == */
 @import './pages/admin/admin-dashboard.css';
 @import './pages/admin/course-editor.css';
-@import './pages/admin/add-question-modal.css';
 
 /* == LEARNER == */
 @import './pages/learner/learner-dashboard.css';
