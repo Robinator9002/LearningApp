@@ -11,8 +11,16 @@ import CourseEditorHeader from './editor/CourseEditorHeader';
 import CourseMetaEditor from './editor/CourseMetaEditor';
 import QuestionList from './editor/QuestionList';
 
+/**
+ * A factory function to create new question objects with default values.
+ * This is crucial for initializing state when an admin adds a question.
+ * @param type The type of question to create.
+ * @returns A new IQuestion object with default boilerplate.
+ */
 const createNewQuestion = (type: IQuestion['type']): IQuestion => {
+    // A base object with properties common to all question types.
     const baseQuestion = { id: uuidv4(), questionText: '' };
+
     switch (type) {
         case 'mcq':
             const optionIds = [uuidv4(), uuidv4(), uuidv4(), uuidv4()];
@@ -35,7 +43,31 @@ const createNewQuestion = (type: IQuestion['type']): IQuestion => {
             };
         case 'alg-equation':
             return { ...baseQuestion, type: 'alg-equation', equation: '', variables: ['x'] };
+
+        // --- NEW: Cases for the new question types ---
+        case 'highlight-text':
+            return {
+                ...baseQuestion,
+                type: 'highlight-text',
+                passage: '',
+                correctHighlights: [''], // Start with one empty highlight field.
+            };
+        case 'free-response':
+            return {
+                ...baseQuestion,
+                type: 'free-response',
+            };
+        case 'sentence-correction':
+            return {
+                ...baseQuestion,
+                type: 'sentence-correction',
+                sentenceWithMistake: '',
+                correctedSentence: '',
+            };
         default:
+            // This is a powerful TypeScript feature. If we ever add a new question
+            // type to the IQuestion union but forget to add a case for it here,
+            // TypeScript will throw an error because the 'type' is not 'never'.
             const exhaustiveCheck: never = type;
             throw new Error(`Unhandled question type: ${exhaustiveCheck}`);
     }
@@ -48,7 +80,7 @@ const CourseEditorPage: React.FC = () => {
     const isEditMode = Boolean(courseId);
 
     const [title, setTitle] = useState('');
-    const [subject, setSubject] = useState<'Math' | 'Reading' | 'Writing'>('Math');
+    const [subject, setSubject] = useState<'Math' | 'Reading' | 'Writing' | 'English'>('Math');
     const [questions, setQuestions] = useState<IQuestion[]>([]);
     const [isLoading, setIsLoading] = useState(isEditMode);
 
