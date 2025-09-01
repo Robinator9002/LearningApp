@@ -3,45 +3,53 @@
 import React from 'react';
 import { ArrowLeft, Check, X } from 'lucide-react';
 
-import type { IMCQOption } from '../../../types/database';
+import type { IQuestion } from '../../../types/database';
 import type { AnswerStatus } from '../qa/AnswerOption';
 import Button from '../../common/Button/Button';
 import AnswerOption from '../qa/AnswerOption';
 import Input from '../../common/Form/Input';
 import AlgebraEquationSolver from '../qa/AlgebraEquationSolver';
 import EquationDisplay from '../qa/EquationDisplay';
+import HighlightTextPlayer from '../qa/HighlightTextPlayer';
+import FreeResponsePlayer from '../qa/FreeResponsePlayer';
+import SentenceCorrectionPlayer from '../qa/SentenceCorrectionPlayer';
 
 // Define the shape of the course and question objects for props
 interface CoursePlayerUIProps {
     course: {
-        questions: {
-            questionText: string;
-            type: 'mcq' | 'sti' | 'alg-equation';
-            equation?: string;
-            options?: IMCQOption[];
-            correctAnswers?: string[];
-            variables?: string[];
-        }[];
+        questions: IQuestion[]; // Use the master IQuestion type
     };
     currentQuestionIndex: number;
     progressPercentage: number;
     isAnswered: boolean;
     isCorrect: boolean;
+
+    // State for different question types
     selectedOptionId: string | null;
     stiAnswer: string;
     algAnswers: Record<string, string>;
+    highlightedWords: string[];
+    freeResponseAnswer: string;
+    sentenceCorrectionAnswer: string;
+
+    // Callbacks
     onExitCourse: () => void;
     onCheckAnswer: () => void;
     onSelectOption: (id: string) => void;
     onStiAnswerChange: (value: string) => void;
     onAlgAnswerChange: (variable: string, value: string) => void;
-    getMCQStatus: (option: IMCQOption) => AnswerStatus;
+    onToggleHighlightWord: (word: string) => void;
+    onFreeResponseChange: (value: string) => void;
+    onSentenceCorrectionChange: (value: string) => void;
+
+    // Helper functions
+    getMCQStatus: (optionId: string) => AnswerStatus;
     isCheckButtonDisabled: () => boolean;
 }
 
 /**
  * CoursePlayerUI is a presentational component responsible for rendering the course player interface.
- * # It is stateless and receives all data and callbacks via props from a container component.
+ * It is stateless and receives all data and callbacks via props from a container component.
  */
 const CoursePlayerUI: React.FC<CoursePlayerUIProps> = ({
     course,
@@ -51,11 +59,17 @@ const CoursePlayerUI: React.FC<CoursePlayerUIProps> = ({
     isCorrect,
     stiAnswer,
     algAnswers,
+    highlightedWords,
+    freeResponseAnswer,
+    sentenceCorrectionAnswer,
     onExitCourse,
     onCheckAnswer,
     onSelectOption,
     onStiAnswerChange,
     onAlgAnswerChange,
+    onToggleHighlightWord,
+    onFreeResponseChange,
+    onSentenceCorrectionChange,
     getMCQStatus,
     isCheckButtonDisabled,
 }) => {
@@ -90,14 +104,16 @@ const CoursePlayerUI: React.FC<CoursePlayerUIProps> = ({
                 </div>
 
                 <div className="qa-card qa-card--answer">
-                    {/* Multiple Choice Question */}
-                    {currentQuestion.type === 'mcq' && currentQuestion.options && (
+                    {/* --- DYNAMIC QUESTION TYPE RENDERING --- */}
+
+                    {/* Multiple Choice */}
+                    {currentQuestion.type === 'mcq' && (
                         <div className="answer-options-grid">
                             {currentQuestion.options.map((option) => (
                                 <AnswerOption
                                     key={option.id}
                                     text={option.text}
-                                    status={getMCQStatus(option)}
+                                    status={getMCQStatus(option.id)}
                                     onClick={() => !isAnswered && onSelectOption(option.id)}
                                     disabled={isAnswered}
                                 />
@@ -105,7 +121,7 @@ const CoursePlayerUI: React.FC<CoursePlayerUIProps> = ({
                         </div>
                     )}
 
-                    {/* Short Text Input */}
+                    {/* Smart Text Input */}
                     {currentQuestion.type === 'sti' && (
                         <div className="fitb-answer-area">
                             <Input
@@ -117,7 +133,7 @@ const CoursePlayerUI: React.FC<CoursePlayerUIProps> = ({
                                 className="fitb-input"
                                 autoFocus
                             />
-                            {isAnswered && !isCorrect && currentQuestion.correctAnswers && (
+                            {isAnswered && !isCorrect && (
                                 <p className="fitb-correct-answer">
                                     The correct answer was:{' '}
                                     <strong>{currentQuestion.correctAnswers[0]}</strong>
@@ -127,11 +143,40 @@ const CoursePlayerUI: React.FC<CoursePlayerUIProps> = ({
                     )}
 
                     {/* Algebraic Equation */}
-                    {currentQuestion.type === 'alg-equation' && currentQuestion.variables && (
+                    {currentQuestion.type === 'alg-equation' && (
                         <AlgebraEquationSolver
                             variables={currentQuestion.variables}
                             answers={algAnswers}
                             onAnswerChange={onAlgAnswerChange}
+                            disabled={isAnswered}
+                        />
+                    )}
+
+                    {/* Highlight Text */}
+                    {currentQuestion.type === 'highlight-text' && (
+                        <HighlightTextPlayer
+                            passage={currentQuestion.passage}
+                            selectedWords={highlightedWords}
+                            onToggleWord={onToggleHighlightWord}
+                            disabled={isAnswered}
+                        />
+                    )}
+
+                    {/* Free Response */}
+                    {currentQuestion.type === 'free-response' && (
+                        <FreeResponsePlayer
+                            answer={freeResponseAnswer}
+                            onAnswerChange={onFreeResponseChange}
+                            disabled={isAnswered}
+                        />
+                    )}
+
+                    {/* Sentence Correction */}
+                    {currentQuestion.type === 'sentence-correction' && (
+                        <SentenceCorrectionPlayer
+                            sentenceWithMistake={currentQuestion.sentenceWithMistake}
+                            answer={sentenceCorrectionAnswer}
+                            onAnswerChange={onSentenceCorrectionChange}
                             disabled={isAnswered}
                         />
                     )}
