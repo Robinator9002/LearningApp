@@ -1,0 +1,40 @@
+/* src/styles/components/learner/qa/highlight-text-player.css */
+
+.highlight-text-player {
+    padding: var(--spacing-unit);
+}
+
+.highlight-text-player__passage {
+    font-size: 1.2rem;
+    line-height: 2; /* Increased line-height for easier clicking */
+    text-align: left;
+    user-select: none; /* Prevents text selection on click/drag */
+}
+
+.highlight-text-player__token {
+    display: inline; /* Keep tokens flowing naturally */
+}
+
+.highlight-text-player__token--word {
+    padding: 2px 4px;
+    border-radius: var(--border-radius-sm);
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.highlight-text-player__token--word:not(.highlight-text-player__token--disabled) {
+    cursor: pointer;
+}
+
+.highlight-text-player__token--word:not(.highlight-text-player__token--selected):hover {
+    background-color: color-mix(in srgb, var(--color-accent) 20%, transparent);
+}
+
+.highlight-text-player__token--selected {
+    background-color: var(--color-accent);
+    color: var(--color-surface);
+    font-weight: 700;
+}
+
+.highlight-text-player__token--disabled {
+    cursor: not-allowed;
+}
