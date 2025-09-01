@@ -8,7 +8,7 @@
 .course-editor-page {
     display: flex;
     flex-direction: column;
-    height: 90vh;
+    height: 85vh;
     /* FIX: Replaced invalid variable (--color-background-light) and hardcoded
        fallback (#f9fafb) with the correct abstract variable. The theme engine
        now controls the page's main background color. */
@@ -93,6 +93,7 @@
 .course-editor-page__footer {
     border-top: 1px solid var(--color-border);
     display: flex;
+    width: 100%;
     justify-content: flex-end;
     gap: calc(var(--spacing-unit) * 2); /* Adds space between the buttons */
 }
