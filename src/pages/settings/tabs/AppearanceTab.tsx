@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useTheme } from '../../../contexts/ThemeContext';
-import Label from '../../../components/common/Form/Label/Label';
+import Label from '../../../components/common/Form/Label';
 import { Sun, Palette, Contrast, Type, CaseSensitive } from 'lucide-react';
 
 // --- TYPE DEFINITIONS ---

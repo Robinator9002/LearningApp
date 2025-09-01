@@ -8,8 +8,8 @@ import { ModalContext } from '../../contexts/ModalContext';
 import type { IUser } from '../../types/database';
 import Button from '../common/Button/Button';
 import Modal from '../common/Modal/Modal';
-import Input from '../common/Form/Input/Input';
-import Label from '../common/Form/Label/Label';
+import Input from '../common/Form/Input';
+import Label from '../common/Form/Label';
 
 interface ProfileSectionProps {
     /**

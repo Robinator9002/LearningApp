@@ -8,9 +8,9 @@ import { ModalContext } from '../../contexts/ModalContext';
 
 import Button from '../common/Button/Button';
 import Modal from '../common/Modal/Modal';
-import Input from '../common/Form/Input/Input';
-import Label from '../common/Form/Label/Label';
-import Select from '../common/Form/Select/Select';
+import Input from '../common/Form/Input';
+import Label from '../common/Form/Label';
+import Select from '../common/Form/Select';
 
 /**
  * UserManagementSection is an admin-only component for managing all user accounts.

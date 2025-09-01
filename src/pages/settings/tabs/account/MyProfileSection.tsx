@@ -9,8 +9,8 @@ import { ModalContext } from '../../../../contexts/ModalContext';
 
 import Button from '../../../../components/common/Button/Button';
 import Modal from '../../../../components/common/Modal/Modal';
-import Input from '../../../../components/common/Form/Input/Input';
-import Label from '../../../../components/common/Form/Label/Label';
+import Input from '../../../../components/common/Form/Input';
+import Label from '../../../../components/common/Form/Label';
 
 /**
  * A dedicated section for the current user to manage their own profile.

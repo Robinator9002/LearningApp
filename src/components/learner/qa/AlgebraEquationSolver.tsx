@@ -1,8 +1,8 @@
 // src/components/learner/QA/AlgebraEquationSolver.tsx
 
 import React from 'react';
-import Input from '../../common/Form/Input/Input';
-import Label from '../../common/Form/Label/Label';
+import Input from '../../common/Form/Input';
+import Label from '../../common/Form/Label';
 
 interface AlgebraEquationSolverProps {
     variables: string[];

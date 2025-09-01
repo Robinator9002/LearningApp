@@ -14,9 +14,9 @@ import type { IUser } from '../types/database';
 // Reusable components
 import Button from '../components/common/Button/Button';
 import Modal from '../components/common/Modal/Modal';
-import Input from '../components/common/Form/Input/Input';
-import Label from '../components/common/Form/Label/Label';
-import Select from '../components/common/Form/Select/Select';
+import Input from '../components/common/Form/Input';
+import Label from '../components/common/Form/Label';
+import Select from '../components/common/Form/Select';
 
 // A simple presentational component for displaying a user profile card.
 const UserCard: React.FC<{ user: IUser; onSelect: (user: IUser) => void }> = ({

@@ -7,7 +7,7 @@ import type { IMCQOption } from '../../../types/database';
 import type { AnswerStatus } from '../qa/AnswerOption';
 import Button from '../../common/Button/Button';
 import AnswerOption from '../qa/AnswerOption';
-import Input from '../../common/Form/Input/Input';
+import Input from '../../common/Form/Input';
 import AlgebraEquationSolver from '../qa/AlgebraEquationSolver';
 import EquationDisplay from '../qa/EquationDisplay';
 

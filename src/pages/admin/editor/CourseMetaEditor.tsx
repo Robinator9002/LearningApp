@@ -1,9 +1,9 @@
 // src/pages/admin/editor/CourseMetaEditor.tsx
 
 import React from 'react';
-import Input from '../../../components/common/Form/Input/Input';
-import Label from '../../../components/common/Form/Label/Label';
-import Select from '../../../components/common/Form/Select/Select';
+import Input from '../../../components/common/Form/Input';
+import Label from '../../../components/common/Form/Label';
+import Select from '../../../components/common/Form/Select';
 
 interface CourseMetaEditorProps {
     title: string;

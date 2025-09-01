@@ -3,7 +3,7 @@
 import React from 'react';
 import { useTheme, type Theme, type Accent } from '../../contexts/ThemeContext';
 import Button from '../common/Button/Button';
-import Label from '../common/Form/Label/Label';
+import Label from '../common/Form/Label';
 
 /**
  * A helper component to render a group of options for a specific theme setting.

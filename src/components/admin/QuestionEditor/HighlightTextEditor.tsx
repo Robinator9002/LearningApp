@@ -4,9 +4,9 @@ import React from 'react';
 import { X } from 'lucide-react';
 import type { IQuestion } from '../../../types/database';
 import Button from '../../common/Button/Button';
-import Input from '../../common/Form/Input/Input';
-import Label from '../../common/Form/Label/Label';
-import Textarea from '../../common/Form/Textarea/Textarea';
+import Input from '../../common/Form/Input';
+import Label from '../../common/Form/Label';
+import Textarea from '../../common/Form/Textarea';
 
 interface HighlightTextEditorProps {
     question: IQuestion;
