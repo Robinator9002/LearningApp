@@ -1,15 +1,22 @@
 // src/pages/admin/editor/CourseEditorHeader.tsx
 
 import React from 'react';
-import type { IQuestion } from '../../../types/database';
 import Button from '../../../components/common/Button/Button';
 
+/**
+ * Defines the properties for the CourseEditorHeader component.
+ * The onAddQuestion prop has been replaced with a single function
+ * to open the new, much more organized question selection modal.
+ */
 interface CourseEditorHeaderProps {
     isEditMode: boolean;
-    onAddQuestion: (type: IQuestion['type']) => void;
+    onOpenAddQuestionModal: () => void;
 }
 
-const CourseEditorHeader: React.FC<CourseEditorHeaderProps> = ({ isEditMode, onAddQuestion }) => {
+const CourseEditorHeader: React.FC<CourseEditorHeaderProps> = ({
+    isEditMode,
+    onOpenAddQuestionModal,
+}) => {
     return (
         <header className="course-editor-page__header">
             <h2 className="course-editor-page__title">
@@ -18,19 +25,9 @@ const CourseEditorHeader: React.FC<CourseEditorHeaderProps> = ({ isEditMode, onA
             <div className="course-editor-page__questions-header">
                 <h3 className="course-editor-page__questions-title">Questions</h3>
                 <div className="add-question-buttons">
-                    {/* --- Existing Buttons --- */}
-                    <Button onClick={() => onAddQuestion('mcq')}>+ Multiple Choice</Button>
-                    <Button onClick={() => onAddQuestion('sti')}>+ Smart Text</Button>
-                    <Button onClick={() => onAddQuestion('alg-equation')}>
-                        + Algebra Equation
-                    </Button>
-                    {/* --- NEW Buttons --- */}
-                    <Button onClick={() => onAddQuestion('highlight-text')}>
-                        + Highlight Text
-                    </Button>
-                    <Button onClick={() => onAddQuestion('free-response')}>+ Free Response</Button>
-                    <Button onClick={() => onAddQuestion('sentence-correction')}>
-                        + Sentence Correction
+                    {/* The chaotic mess of buttons has been vanquished, replaced by a single, elegant button. */}
+                    <Button variant="primary" onClick={onOpenAddQuestionModal}>
+                        + Add Question
                     </Button>
                 </div>
             </div>
