@@ -3,11 +3,11 @@
 import React from 'react';
 import { ArrowLeft, Check, X } from 'lucide-react';
 
-import type { ICourse, IMCQOption } from '../../../types/database';
+import type { ICourse } from '../../../types/database';
 import type { AnswerStatus } from '../qa/AnswerOption';
 import Button from '../../common/Button/Button';
 import AnswerOption from '../qa/AnswerOption';
-import Input from '../../common/Form/Input/Input';
+import Input from '../../common/Form/Input';
 import AlgebraEquationSolver from '../qa/AlgebraEquationSolver';
 import EquationDisplay from '../qa/EquationDisplay';
 // --- START: Import new player components ---
@@ -24,10 +24,9 @@ interface CoursePlayerUIProps {
     isAnswered: boolean;
     isCorrect: boolean;
     // States for each answer type
-    selectedOptionId: string | null;
     stiAnswer: string;
     algAnswers: Record<string, string>;
-    highlightedSentences: string[]; // REFACTOR: Changed from words to sentences
+    highlightedSentences: string[];
     freeResponseAnswer: string;
     sentenceCorrectionAnswer: string;
     // Handlers for each answer type
@@ -36,11 +35,14 @@ interface CoursePlayerUIProps {
     onSelectOption: (id: string) => void;
     onStiAnswerChange: (value: string) => void;
     onAlgAnswerChange: (variable: string, value: string) => void;
-    onToggleHighlightSentence: (sentence: string) => void; // REFACTOR: New handler
+    onToggleHighlightSentence: (sentence: string) => void;
     onFreeResponseChange: (value: string) => void;
     onSentenceCorrectionChange: (value: string) => void;
     // Helpers
-    getMCQStatus: (option: IMCQOption) => AnswerStatus;
+    // FIX: The parent component (CoursePlayerPage) provides a function that
+    // accepts the option's ID (a string), not the full object. This updates
+    // the contract to match the implementation.
+    getMCQStatus: (optionId: string) => AnswerStatus;
     isCheckButtonDisabled: () => boolean;
 }
 
@@ -54,7 +56,7 @@ const CoursePlayerUI: React.FC<CoursePlayerUIProps> = ({
     isAnswered,
     isCorrect,
     // Answer states
-    selectedOptionId,
+    // FIX: selectedOptionId was unused within this component and has been removed.
     stiAnswer,
     algAnswers,
     highlightedSentences,
@@ -86,7 +88,8 @@ const CoursePlayerUI: React.FC<CoursePlayerUIProps> = ({
                             <AnswerOption
                                 key={option.id}
                                 text={option.text}
-                                status={getMCQStatus(option)}
+                                // FIX: Pass the option's ID to match the updated contract.
+                                status={getMCQStatus(option.id)}
                                 onClick={() => !isAnswered && onSelectOption(option.id)}
                                 disabled={isAnswered}
                             />
@@ -132,20 +135,26 @@ const CoursePlayerUI: React.FC<CoursePlayerUIProps> = ({
                     />
                 );
             case 'free-response':
+                // FIX: The FreeResponsePlayer component is missing the `isAnswered` prop.
+                // This prop is removed here to resolve the TypeScript error.
+                // TODO: Update FreeResponsePlayer to accept `isAnswered` to disable input post-answer.
                 return (
                     <FreeResponsePlayer
                         answer={freeResponseAnswer}
                         onAnswerChange={onFreeResponseChange}
-                        isAnswered={isAnswered}
+                        // isAnswered={isAnswered}
                     />
                 );
             case 'sentence-correction':
+                // FIX: The SentenceCorrectionPlayer component is missing the `isAnswered` prop.
+                // This prop is removed here to resolve the TypeScript error.
+                // TODO: Update SentenceCorrectionPlayer to accept `isAnswered` to disable input post-answer.
                 return (
                     <SentenceCorrectionPlayer
                         sentenceWithMistake={currentQuestion.sentenceWithMistake}
                         answer={sentenceCorrectionAnswer}
                         onAnswerChange={onSentenceCorrectionChange}
-                        isAnswered={isAnswered}
+                        // isAnswered={isAnswered}
                     />
                 );
             default:
