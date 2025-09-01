@@ -9,6 +9,8 @@
     border: 2px solid var(--color-border);
     border-radius: var(--border-radius);
     background-color: var(--color-surface);
+    /* FIX: Explicitly set the text color to the primary theme text color. */
+    color: var(--color-text-primary);
     cursor: pointer;
     transition: transform 0.2s, border-color 0.2s, background-color 0.2s;
 }
@@ -35,8 +37,8 @@
 .answer-option--incorrect {
     border-color: var(--color-feedback-negative);
     background-color: color-mix(in srgb, var(--color-feedback-negative) 15%, transparent);
-    color: var(--color-feedback-negative);
-    opacity: 0.7;
+    /* NOTE: We don't set a color here because the selected incorrect answer should still be readable.
+       The default incorrect state is handled by the opacity modifier below. */
 }
 
 .answer-option:disabled {
