@@ -10,17 +10,10 @@ import Button from '../../components/common/Button/Button';
 import CourseEditorHeader from './editor/CourseEditorHeader';
 import CourseMetaEditor from './editor/CourseMetaEditor';
 import QuestionList from './editor/QuestionList';
+import AddQuestionModal from '../../components/admin/AddQuestionModal/AddQuestionModal';
 
-/**
- * A factory function to create new question objects with default values.
- * This is crucial for initializing state when an admin adds a question.
- * @param type The type of question to create.
- * @returns A new IQuestion object with default boilerplate.
- */
 const createNewQuestion = (type: IQuestion['type']): IQuestion => {
-    // A base object with properties common to all question types.
     const baseQuestion = { id: uuidv4(), questionText: '' };
-
     switch (type) {
         case 'mcq':
             const optionIds = [uuidv4(), uuidv4(), uuidv4(), uuidv4()];
@@ -43,20 +36,15 @@ const createNewQuestion = (type: IQuestion['type']): IQuestion => {
             };
         case 'alg-equation':
             return { ...baseQuestion, type: 'alg-equation', equation: '', variables: ['x'] };
-
-        // --- NEW: Cases for the new question types ---
         case 'highlight-text':
             return {
                 ...baseQuestion,
                 type: 'highlight-text',
                 passage: '',
-                correctHighlights: [''], // Start with one empty highlight field.
+                correctHighlights: [''],
             };
         case 'free-response':
-            return {
-                ...baseQuestion,
-                type: 'free-response',
-            };
+            return { ...baseQuestion, type: 'free-response' };
         case 'sentence-correction':
             return {
                 ...baseQuestion,
@@ -65,9 +53,6 @@ const createNewQuestion = (type: IQuestion['type']): IQuestion => {
                 correctedSentence: '',
             };
         default:
-            // This is a powerful TypeScript feature. If we ever add a new question
-            // type to the IQuestion union but forget to add a case for it here,
-            // TypeScript will throw an error because the 'type' is not 'never'.
             const exhaustiveCheck: never = type;
             throw new Error(`Unhandled question type: ${exhaustiveCheck}`);
     }
@@ -83,6 +68,7 @@ const CourseEditorPage: React.FC = () => {
     const [subject, setSubject] = useState<'Math' | 'Reading' | 'Writing' | 'English'>('Math');
     const [questions, setQuestions] = useState<IQuestion[]>([]);
     const [isLoading, setIsLoading] = useState(isEditMode);
+    const [isAddModalOpen, setIsAddModalOpen] = useState(false); // State for our new modal
 
     if (!modal) throw new Error('CourseEditorPage must be used within a ModalProvider');
 
@@ -129,7 +115,6 @@ const CourseEditorPage: React.FC = () => {
                 message: 'Please enter a course title.',
             });
         }
-        // Simplified validation for brevity, full validation would remain
         const courseData: Omit<ICourse, 'id'> = { title, subject, questions };
         try {
             if (isEditMode && courseId) {
@@ -151,7 +136,10 @@ const CourseEditorPage: React.FC = () => {
 
     return (
         <div className="course-editor-page">
-            <CourseEditorHeader isEditMode={isEditMode} onAddQuestion={handleAddQuestion} />
+            <CourseEditorHeader
+                isEditMode={isEditMode}
+                onOpenAddQuestionModal={() => setIsAddModalOpen(true)}
+            />
             <main className="course-editor-page__content">
                 <CourseMetaEditor
                     title={title}
@@ -173,6 +161,12 @@ const CourseEditorPage: React.FC = () => {
                     Save Course
                 </Button>
             </footer>
+            {/* Render the modal, controlled by our new state */}
+            <AddQuestionModal
+                isOpen={isAddModalOpen}
+                onClose={() => setIsAddModalOpen(false)}
+                onAddQuestion={handleAddQuestion}
+            />
         </div>
     );
 };
