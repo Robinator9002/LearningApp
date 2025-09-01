@@ -55,7 +55,7 @@
     color: var(--color-feedback-positive);
 }
 
-/* --- NEW: Smart Text Input (sti) Specific Styles --- */
+/* --- Smart Text Input (sti) Specific Styles --- */
 /* This container will hold the list of answer inputs. */
 .answer-list {
     display: flex;
@@ -80,4 +80,20 @@
 .answer-list__add-btn {
     align-self: flex-start;
     margin-top: var(--spacing-unit);
+}
+
+/* --- Info Box Styling --- */
+/* Used for notes and warnings within an editor, like for manual grading. */
+.form-group-info {
+    margin-top: calc(var(--spacing-unit) * 2);
+    padding: var(--spacing-unit);
+    background-color: color-mix(in srgb, var(--color-accent) 10%, transparent);
+    border-left: 4px solid var(--color-accent);
+    border-radius: var(--border-radius);
+}
+
+.form-group-info p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
 }
