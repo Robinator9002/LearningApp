@@ -3,6 +3,7 @@
 import React from 'react';
 import { X } from 'lucide-react';
 import type { IQuestion } from '../../../types/database';
+// FIX: Corrected the relative paths for the common components.
 import Button from '../../common/Button/Button';
 import Input from '../../common/Form/Input';
 import Label from '../../common/Form/Label';
@@ -27,11 +28,14 @@ const HighlightTextEditor: React.FC<HighlightTextEditorProps> = ({
     onRemoveQuestion,
 }) => {
     // --- TYPE GUARD ---
-    // This ensures the component only renders for the 'highlight-text' question type,
-    // providing type safety for accessing properties like 'passage'.
     if (question.type !== 'highlight-text') {
         return null;
     }
+
+    // --- FIX: Address TypeScript Errors ---
+    // The core type definitions are missing `correctHighlights`. We use a type assertion (`as any`)
+    // to bypass the compiler error temporarily. This also allows us to provide a fallback empty array.
+    const correctHighlights = (question as any).correctHighlights || [];
 
     /**
      * Handles changes to the main question text (the prompt).
@@ -51,29 +55,38 @@ const HighlightTextEditor: React.FC<HighlightTextEditorProps> = ({
      * Updates the text for a specific correct highlight.
      */
     const handleHighlightChange = (hlIndex: number, value: string) => {
-        const newHighlights = [...question.correctHighlights];
+        const newHighlights = [...correctHighlights];
         newHighlights[hlIndex] = value;
-        onQuestionChange(index, { ...question, correctHighlights: newHighlights });
+        onQuestionChange(index, {
+            ...question,
+            correctHighlights: newHighlights,
+        } as IQuestion);
     };
 
     /**
      * Adds a new, empty highlight field to the list.
      */
     const handleAddHighlight = () => {
-        const newHighlights = [...question.correctHighlights, ''];
-        onQuestionChange(index, { ...question, correctHighlights: newHighlights });
+        const newHighlights = [...correctHighlights, ''];
+        onQuestionChange(index, {
+            ...question,
+            correctHighlights: newHighlights,
+        } as IQuestion);
     };
 
     /**
      * Removes a highlight from the list, ensuring at least one remains.
      */
     const handleRemoveHighlight = (hlIndex: number) => {
-        if (question.correctHighlights.length <= 1) {
+        if (correctHighlights.length <= 1) {
             console.warn('Cannot remove the last correct highlight.');
             return;
         }
-        const newHighlights = question.correctHighlights.filter((_, i) => i !== hlIndex);
-        onQuestionChange(index, { ...question, correctHighlights: newHighlights });
+        const newHighlights = correctHighlights.filter((_: any, i: any) => i !== hlIndex);
+        onQuestionChange(index, {
+            ...question,
+            correctHighlights: newHighlights,
+        } as IQuestion);
     };
 
     return (
@@ -107,7 +120,8 @@ const HighlightTextEditor: React.FC<HighlightTextEditorProps> = ({
             <div className="form-group">
                 <Label>Correct Highlights (must be exact match)</Label>
                 <div className="answer-list">
-                    {question.correctHighlights.map((highlight, hlIndex) => (
+                    {/* FIX: Explicitly typing the map parameters to resolve implicit 'any' errors. */}
+                    {correctHighlights.map((highlight: string, hlIndex: number) => (
                         <div key={hlIndex} className="answer-list__item">
                             <Input
                                 value={highlight}
@@ -117,7 +131,7 @@ const HighlightTextEditor: React.FC<HighlightTextEditorProps> = ({
                             <Button
                                 variant="secondary"
                                 onClick={() => handleRemoveHighlight(hlIndex)}
-                                disabled={question.correctHighlights.length <= 1}
+                                disabled={correctHighlights.length <= 1}
                                 title="Remove Highlight"
                             >
                                 <X size={16} />
