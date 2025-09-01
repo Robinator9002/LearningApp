@@ -1,53 +1,60 @@
 // src/components/learner/qa/HighlightTextPlayer.tsx
 
-import React from 'react';
+import React, { useMemo } from 'react';
 
 interface HighlightTextPlayerProps {
     passage: string;
-    selectedWords: string[];
-    onToggleWord: (word: string) => void;
-    disabled: boolean;
+    // The state now tracks full sentences, not individual words.
+    selectedSentences: string[];
+    // The handler now toggles sentences in the parent state.
+    onToggleHighlightSentence: (sentence: string) => void;
+    isAnswered: boolean;
 }
 
 /**
- * A player for 'highlight-text' questions. It tokenizes a passage
- * and allows the learner to select individual words.
+ * A player component for "Highlight Text" questions.
+ * It tokenizes a passage into sentences and allows the learner to select them.
  */
 const HighlightTextPlayer: React.FC<HighlightTextPlayerProps> = ({
     passage,
-    selectedWords = [], // FIX: Add a default empty array to prevent crashes
-    onToggleWord,
-    disabled,
+    selectedSentences = [], // Default to an empty array to prevent crashes
+    onToggleHighlightSentence,
+    isAnswered,
 }) => {
-    // A simple regex to split the passage into words and punctuation.
-    const words = passage.split(/(\s+|[.,!?;:"])/);
+    // useMemo ensures we only split the passage into sentences when the text actually changes.
+    // This is a performance optimization for a potentially expensive operation.
+    // The regex splits the string by looking for a period, question mark, or
+    // exclamation point, followed by a space, but it keeps the delimiter.
+    const sentences = useMemo(() => {
+        if (!passage) return [];
+        // This regex splits the passage into sentences, preserving punctuation.
+        // It looks for a punctuation mark followed by a space or the end of the string.
+        return passage.match(/[^.!?]+[.!?]*/g) || [];
+    }, [passage]);
 
     return (
         <div className="highlight-text-player">
-            <p className="highlight-text-player__passage">
-                {words.map((word, index) => {
-                    // We only want to make actual words clickable.
-                    const isWord = /[a-zA-Z0-9]/.test(word);
-                    if (!isWord) {
-                        return <span key={index}>{word}</span>;
-                    }
-
-                    const isSelected = selectedWords.includes(word);
-                    const className = `highlight-text-player__word ${
-                        isSelected ? 'highlight-text-player__word--selected' : ''
-                    }`;
+            <p className="highlight-text-player__instructions">
+                Select the sentence or sentences that correctly answer the question.
+            </p>
+            <div className="highlight-text-player__passage">
+                {sentences.map((sentence, index) => {
+                    const trimmedSentence = sentence.trim();
+                    const isSelected = selectedSentences.includes(trimmedSentence);
 
                     return (
-                        <span
+                        <span // Using <span> allows sentences to flow naturally in the paragraph.
                             key={index}
-                            className={className}
-                            onClick={() => !disabled && onToggleWord(word)}
+                            className={`sentence ${isSelected ? 'sentence--selected' : ''}`}
+                            onClick={() =>
+                                !isAnswered && onToggleHighlightSentence(trimmedSentence)
+                            }
                         >
-                            {word}
+                            {sentence}
                         </span>
                     );
                 })}
-            </p>
+            </div>
         </div>
     );
 };
