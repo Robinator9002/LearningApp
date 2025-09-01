@@ -10,41 +10,40 @@ interface HighlightTextPlayerProps {
 }
 
 /**
- * A component for learners to answer 'highlight-text' questions.
- * It tokenizes a passage of text into clickable words/spans.
+ * A player for 'highlight-text' questions. It tokenizes a passage
+ * and allows the learner to select individual words.
  */
 const HighlightTextPlayer: React.FC<HighlightTextPlayerProps> = ({
     passage,
-    selectedWords,
+    selectedWords = [], // FIX: Add a default empty array to prevent crashes
     onToggleWord,
     disabled,
 }) => {
-    // A simple tokenizer that splits the passage by spaces and punctuation,
-    // but keeps the punctuation as separate tokens to be rendered.
-    const tokens = passage.split(/(\s+|[.,!?;"'])/).filter(Boolean);
+    // A simple regex to split the passage into words and punctuation.
+    const words = passage.split(/(\s+|[.,!?;:"])/);
 
     return (
         <div className="highlight-text-player">
             <p className="highlight-text-player__passage">
-                {tokens.map((token, index) => {
-                    // We only want actual words to be selectable, not whitespace or punctuation.
-                    const isWord = /[a-zA-Z0-9]/.test(token);
-                    const isSelected = isWord && selectedWords.includes(token);
+                {words.map((word, index) => {
+                    // We only want to make actual words clickable.
+                    const isWord = /[a-zA-Z0-9]/.test(word);
+                    if (!isWord) {
+                        return <span key={index}>{word}</span>;
+                    }
 
-                    const className = `
-                        highlight-text-player__token
-                        ${isWord ? 'highlight-text-player__token--word' : ''}
-                        ${isSelected ? 'highlight-text-player__token--selected' : ''}
-                        ${disabled ? 'highlight-text-player__token--disabled' : ''}
-                    `;
+                    const isSelected = selectedWords.includes(word);
+                    const className = `highlight-text-player__word ${
+                        isSelected ? 'highlight-text-player__word--selected' : ''
+                    }`;
 
                     return (
                         <span
                             key={index}
-                            className={className.trim()}
-                            onClick={() => !disabled && isWord && onToggleWord(token)}
+                            className={className}
+                            onClick={() => !disabled && onToggleWord(word)}
                         >
-                            {token}
+                            {word}
                         </span>
                     );
                 })}
