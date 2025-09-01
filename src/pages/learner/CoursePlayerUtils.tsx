@@ -2,17 +2,17 @@
 
 import type { IQuestion } from '../../types/database';
 
-// A type to represent the payload of answers from the UI
+// The AnswerPayload type now reflects the removal of the 'free-response' question type.
 type AnswerPayload = {
     mcq: string | null;
     sti: string;
     'alg-equation': Record<string, string>;
     'highlight-text': string[];
-    'free-response': string;
+    // 'free-response': string; // This line has been purged.
     'sentence-correction': string;
 };
 
-// --- START: NEW FUZZY STRING MATCHING LOGIC ---
+// --- START: FUZZY STRING MATCHING LOGIC ---
 
 /**
  * Calculates the Levenshtein distance between two strings (the number of edits
@@ -62,17 +62,22 @@ const calculateSimilarity = (s1: string, s2: string): number => {
     if (longer.length === 0) {
         return 100.0;
     }
-    return (longer.length - calculateLevenshteinDistance(longer, shorter)) / longer.length;
+    const similarity =
+        (longer.length - calculateLevenshteinDistance(longer, shorter)) / longer.length;
+    return similarity * 100; // Return as a percentage
 };
 
-// --- END: NEW FUZZY STRING MATCHING LOGIC ---
+// --- END: FUZZY STRING MATCHING LOGIC ---
 
 /**
  * A robust evaluation function to simulate a real math library.
  * This version handles implicit multiplication (e.g., '2x') to prevent SyntaxErrors.
  */
 const evalWithScope = (expression: string, scope: Record<string, number>): number => {
+    // Sanitize to prevent implicit multiplication errors, e.g., '2x' becomes '2*x'
     let sanitizedExpression = expression.replace(/(\d+)([a-zA-Z]+)/g, '$1*$2');
+
+    // Create a safe evaluation scope
     const functionBody = `
         "use strict";
         ${Object.keys(scope)
@@ -88,7 +93,7 @@ const evalWithScope = (expression: string, scope: Record<string, number>): numbe
         return result;
     } catch (error) {
         console.error('Evaluation error:', error);
-        return NaN;
+        return NaN; // Return NaN to indicate failure
     }
 };
 
@@ -98,16 +103,21 @@ const evalWithScope = (expression: string, scope: Record<string, number>): numbe
 export const evaluateEquation = (equation: string, answers: Record<string, string>): boolean => {
     const parts = equation.split('=');
     if (parts.length !== 2) return false;
+
     const [leftSide, rightSide] = parts.map((p) => p.trim());
+
+    // Create a scope of variables for the evaluation
     const scope: Record<string, number> = {};
     for (const key in answers) {
         const numValue = parseFloat(answers[key]);
-        if (isNaN(numValue)) return false;
+        if (isNaN(numValue)) return false; // Incomplete/invalid answer
         scope[key] = numValue;
     }
+
     try {
         const leftResult = evalWithScope(leftSide, scope);
         const rightResult = evalWithScope(rightSide, scope);
+        // Compare results with a small tolerance for floating point inaccuracies
         return Math.abs(leftResult - rightResult) < 1e-9;
     } catch (error) {
         console.error('Equation evaluation failed:', error);
@@ -135,8 +145,7 @@ export const isAnswerValid = (question: IQuestion, answers: AnswerPayload): bool
             );
         case 'highlight-text':
             return answers['highlight-text'].length > 0;
-        case 'free-response':
-            return answers['free-response'].trim() !== '';
+        // --- REMOVED: The case for 'free-response' has been deleted. ---
         case 'sentence-correction':
             return answers['sentence-correction'].trim() !== '';
         default:
@@ -175,11 +184,10 @@ export const checkAnswer = (question: IQuestion, answers: AnswerPayload): boolea
             return normalizedCorrect.every((correctSentence) =>
                 normalizedSelected.some(
                     (selectedSentence) =>
-                        calculateSimilarity(selectedSentence, correctSentence) >= 0.9,
+                        calculateSimilarity(selectedSentence, correctSentence) >= 90,
                 ),
             );
-        case 'free-response':
-            return true; // Manual grading
+        // --- REMOVED: The case for 'free-response' has been deleted. ---
         case 'sentence-correction':
             const corrected = answers['sentence-correction'].trim();
             const expected = question.correctedSentence.trim();
