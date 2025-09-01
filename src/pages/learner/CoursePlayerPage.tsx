@@ -2,8 +2,7 @@
 
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import Confetti from 'react-confetti';
-import { useWindowSize } from 'react-use';
+// --- REMOVED: Confetti and useWindowSize temporarily to resolve build issues ---
 
 import { db } from '../../lib/db';
 import { ModalContext } from '../../contexts/ModalContext';
@@ -17,7 +16,7 @@ const CoursePlayerPage: React.FC = () => {
     const { courseId } = useParams<{ courseId: string }>();
     const navigate = useNavigate();
     const modal = useContext(ModalContext);
-    const { width, height } = useWindowSize();
+    // --- REMOVED: useWindowSize hook ---
 
     const [course, setCourse] = useState<ICourse | null>(null);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -25,14 +24,13 @@ const CoursePlayerPage: React.FC = () => {
     const [isAnswered, setIsAnswered] = useState(false);
     const [isCorrect, setIsCorrect] = useState(false);
     const [showSummary, setShowSummary] = useState(false);
-    const [showConfetti, setShowConfetti] = useState(false);
+    // --- REMOVED: showConfetti state ---
 
     // --- State for different answer types ---
     const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
     const [stiAnswer, setStiAnswer] = useState('');
     const [algAnswers, setAlgAnswers] = useState<Record<string, string>>({});
     const [highlightedSentences, setHighlightedSentences] = useState<string[]>([]);
-    const [freeResponseAnswer, setFreeResponseAnswer] = useState('');
     const [sentenceCorrectionAnswer, setSentenceCorrectionAnswer] = useState('');
     // -----------------------------------------
 
@@ -62,7 +60,6 @@ const CoursePlayerPage: React.FC = () => {
         setStiAnswer('');
         setAlgAnswers({});
         setHighlightedSentences([]);
-        setFreeResponseAnswer('');
         setSentenceCorrectionAnswer('');
     };
 
@@ -74,7 +71,6 @@ const CoursePlayerPage: React.FC = () => {
             sti: stiAnswer,
             'alg-equation': algAnswers,
             'highlight-text': highlightedSentences,
-            'free-response': freeResponseAnswer,
             'sentence-correction': sentenceCorrectionAnswer,
         };
 
@@ -84,12 +80,10 @@ const CoursePlayerPage: React.FC = () => {
 
         if (result) {
             setScore((s) => s + 1);
-            setShowConfetti(true);
         }
 
         setTimeout(() => {
             goToNextQuestion();
-            setShowConfetti(false);
         }, 2000);
     };
 
@@ -109,7 +103,6 @@ const CoursePlayerPage: React.FC = () => {
             return selectedOptionId === optionId ? 'selected' : 'default';
         }
 
-        // Add a type guard to ensure we only access .options on MCQ questions
         if (currentQuestion?.type !== 'mcq') return 'default';
 
         const correctOption = currentQuestion.options.find((o) => o.isCorrect);
@@ -122,7 +115,6 @@ const CoursePlayerPage: React.FC = () => {
         return 'default';
     };
 
-    // --- Answer change handlers ---
     const handleToggleHighlightSentence = (sentence: string) => {
         setHighlightedSentences((prev) =>
             prev.includes(sentence) ? prev.filter((s) => s !== sentence) : [...prev, sentence],
@@ -136,7 +128,6 @@ const CoursePlayerPage: React.FC = () => {
             sti: stiAnswer,
             'alg-equation': algAnswers,
             'highlight-text': highlightedSentences,
-            'free-response': freeResponseAnswer,
             'sentence-correction': sentenceCorrectionAnswer,
         };
         return !isAnswerValid(currentQuestion, answerPayload);
@@ -151,20 +142,17 @@ const CoursePlayerPage: React.FC = () => {
 
     return (
         <>
-            {showConfetti && <Confetti width={width} height={height} />}
+            {/* --- REMOVED: Confetti component --- */}
             <CoursePlayerUI
                 course={course}
                 currentQuestionIndex={currentQuestionIndex}
                 progressPercentage={progressPercentage}
                 isAnswered={isAnswered}
                 isCorrect={isCorrect}
-                // Pass states
                 stiAnswer={stiAnswer}
                 algAnswers={algAnswers}
                 highlightedSentences={highlightedSentences}
-                freeResponseAnswer={freeResponseAnswer}
                 sentenceCorrectionAnswer={sentenceCorrectionAnswer}
-                // Pass handlers
                 onExitCourse={() => navigate('/dashboard')}
                 onCheckAnswer={handleCheckAnswer}
                 onSelectOption={setSelectedOptionId}
@@ -173,9 +161,7 @@ const CoursePlayerPage: React.FC = () => {
                     setAlgAnswers((prev) => ({ ...prev, [variable]: value }))
                 }
                 onToggleHighlightSentence={handleToggleHighlightSentence}
-                onFreeResponseChange={setFreeResponseAnswer}
                 onSentenceCorrectionChange={setSentenceCorrectionAnswer}
-                // Pass helpers
                 getMCQStatus={getMCQStatus}
                 isCheckButtonDisabled={isCheckButtonDisabled}
             />
