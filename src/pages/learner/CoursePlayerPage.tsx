@@ -31,7 +31,6 @@ const CoursePlayerPage: React.FC = () => {
     const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
     const [stiAnswer, setStiAnswer] = useState('');
     const [algAnswers, setAlgAnswers] = useState<Record<string, string>>({});
-    // REFACTOR: State is now for sentences, not words.
     const [highlightedSentences, setHighlightedSentences] = useState<string[]>([]);
     const [freeResponseAnswer, setFreeResponseAnswer] = useState('');
     const [sentenceCorrectionAnswer, setSentenceCorrectionAnswer] = useState('');
@@ -62,7 +61,7 @@ const CoursePlayerPage: React.FC = () => {
         setSelectedOptionId(null);
         setStiAnswer('');
         setAlgAnswers({});
-        setHighlightedSentences([]); // REFACTOR: Reset sentence state
+        setHighlightedSentences([]);
         setFreeResponseAnswer('');
         setSentenceCorrectionAnswer('');
     };
@@ -74,7 +73,7 @@ const CoursePlayerPage: React.FC = () => {
             mcq: selectedOptionId,
             sti: stiAnswer,
             'alg-equation': algAnswers,
-            'highlight-text': highlightedSentences, // REFACTOR: Use sentence state
+            'highlight-text': highlightedSentences,
             'free-response': freeResponseAnswer,
             'sentence-correction': sentenceCorrectionAnswer,
         };
@@ -106,12 +105,13 @@ const CoursePlayerPage: React.FC = () => {
     };
 
     const getMCQStatus = (optionId: string): AnswerStatus => {
-        if (currentQuestion?.type !== 'mcq') {
-            return 'default';
-        }
         if (!isAnswered) {
             return selectedOptionId === optionId ? 'selected' : 'default';
         }
+
+        // Add a type guard to ensure we only access .options on MCQ questions
+        if (currentQuestion?.type !== 'mcq') return 'default';
+
         const correctOption = currentQuestion.options.find((o) => o.isCorrect);
         if (correctOption?.id === optionId) {
             return 'correct';
@@ -123,7 +123,6 @@ const CoursePlayerPage: React.FC = () => {
     };
 
     // --- Answer change handlers ---
-    // REFACTOR: New handler for toggling sentences.
     const handleToggleHighlightSentence = (sentence: string) => {
         setHighlightedSentences((prev) =>
             prev.includes(sentence) ? prev.filter((s) => s !== sentence) : [...prev, sentence],
@@ -136,7 +135,7 @@ const CoursePlayerPage: React.FC = () => {
             mcq: selectedOptionId,
             sti: stiAnswer,
             'alg-equation': algAnswers,
-            'highlight-text': highlightedSentences, // REFACTOR: Use sentence state
+            'highlight-text': highlightedSentences,
             'free-response': freeResponseAnswer,
             'sentence-correction': sentenceCorrectionAnswer,
         };
@@ -160,10 +159,9 @@ const CoursePlayerPage: React.FC = () => {
                 isAnswered={isAnswered}
                 isCorrect={isCorrect}
                 // Pass states
-                selectedOptionId={selectedOptionId}
                 stiAnswer={stiAnswer}
                 algAnswers={algAnswers}
-                highlightedSentences={highlightedSentences} // REFACTOR: Pass new state
+                highlightedSentences={highlightedSentences}
                 freeResponseAnswer={freeResponseAnswer}
                 sentenceCorrectionAnswer={sentenceCorrectionAnswer}
                 // Pass handlers
@@ -174,7 +172,7 @@ const CoursePlayerPage: React.FC = () => {
                 onAlgAnswerChange={(variable, value) =>
                     setAlgAnswers((prev) => ({ ...prev, [variable]: value }))
                 }
-                onToggleHighlightSentence={handleToggleHighlightSentence} // REFACTOR: Pass new handler
+                onToggleHighlightSentence={handleToggleHighlightSentence}
                 onFreeResponseChange={setFreeResponseAnswer}
                 onSentenceCorrectionChange={setSentenceCorrectionAnswer}
                 // Pass helpers
