@@ -44,6 +44,7 @@
 /* == ADMIN == */
 @import './pages/admin/admin-dashboard.css';
 @import './pages/admin/course-editor.css';
+@import './pages/admin/add-question-modal.css';
 
 /* == LEARNER == */
 @import './pages/learner/learner-dashboard.css';

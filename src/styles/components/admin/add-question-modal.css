@@ -1,0 +1,74 @@
+/* src/styles/components/admin/add-question-modal.css */
+
+/* --- Main Modal Container --- */
+.add-question-modal {
+    padding: var(--spacing-unit);
+}
+
+.add-question-modal__header p {
+    color: var(--color-text-secondary);
+    margin: 0 0 calc(var(--spacing-unit) * 2) 0;
+    padding-bottom: var(--spacing-unit);
+    border-bottom: 1px solid var(--color-border);
+}
+
+/* --- Content Area --- */
+.add-question-modal__content {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing-unit) * 3);
+}
+
+/* --- Category Block --- */
+.question-category {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-unit);
+}
+
+.question-category__title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0;
+}
+
+/* --- Options Grid --- */
+.question-category__options {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--spacing-unit);
+}
+
+/* --- Individual Option Button --- */
+.question-option-button {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    padding: var(--spacing-unit);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    background-color: var(--color-surface);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+
+.question-option-button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card);
+    border-color: var(--color-accent);
+}
+
+.question-option-button__label {
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: calc(var(--spacing-unit) / 2);
+}
+
+.question-option-button__description {
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+    line-height: 1.4;
+}
