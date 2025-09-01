@@ -1,177 +1,167 @@
 // src/pages/learner/CoursePlayerPage.tsx
 
-import React, { useState, useContext, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { useLiveQuery } from 'dexie-react-hooks';
+import React, { useState, useEffect, useContext } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import Confetti from 'react-confetti';
+import { useWindowSize } from 'react-use';
 
 import { db } from '../../lib/db';
-import { AuthContext } from '../../contexts/AuthContext';
-import type { IProgressLog, IMCQOption } from '../../types/database';
+import { ModalContext } from '../../contexts/ModalContext';
+import type { ICourse, IQuestion } from '../../types/database';
 import type { AnswerStatus } from '../../components/learner/qa/AnswerOption';
-
-import CourseSummary from '../../components/learner/course/CourseSummary';
 import CoursePlayerUI from '../../components/learner/course/CoursePlayerUI';
-import { useWindowSize, evaluateEquation } from './CoursePlayerUtils';
+import CourseSummary from '../../components/learner/course/CourseSummary';
+import { checkAnswer, isAnswerValid } from './CoursePlayerUtils';
 
-/**
- * CoursePlayerPage serves as a "container" component.
- * # Its primary role is to manage state, data fetching, and business logic for the course player.
- * # It passes all necessary data and handlers down to the CoursePlayerUI component for rendering.
- */
 const CoursePlayerPage: React.FC = () => {
     const { courseId } = useParams<{ courseId: string }>();
     const navigate = useNavigate();
-    const auth = useContext(AuthContext);
-    const [width, height] = useWindowSize();
+    const modal = useContext(ModalContext);
+    const { width, height } = useWindowSize();
 
-    // --- State Management ---
+    const [course, setCourse] = useState<ICourse | null>(null);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [score, setScore] = useState(0);
+    const [isAnswered, setIsAnswered] = useState(false);
+    const [isCorrect, setIsCorrect] = useState(false);
+    const [showSummary, setShowSummary] = useState(false);
+    const [showConfetti, setShowConfetti] = useState(false);
+
+    // --- State for different answer types ---
     const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
     const [stiAnswer, setStiAnswer] = useState('');
     const [algAnswers, setAlgAnswers] = useState<Record<string, string>>({});
-    const [isAnswered, setIsAnswered] = useState(false);
-    const [isCorrect, setIsCorrect] = useState(false);
-    const [score, setScore] = useState(0);
-    const [isFinished, setIsFinished] = useState(false);
-    const [showConfetti, setShowConfetti] = useState(false);
+    const [highlightedWords, setHighlightedWords] = useState<string[]>([]);
+    const [freeResponseAnswer, setFreeResponseAnswer] = useState('');
+    const [sentenceCorrectionAnswer, setSentenceCorrectionAnswer] = useState('');
+    // -----------------------------------------
 
-    // --- Data Fetching ---
-    const course = useLiveQuery(
-        () => (courseId ? db.courses.get(parseInt(courseId, 10)) : undefined),
-        [courseId],
-    );
+    if (!modal) throw new Error('CoursePlayerPage must be used within a ModalProvider');
+
+    useEffect(() => {
+        const fetchCourse = async () => {
+            if (!courseId) return;
+            try {
+                const courseData = await db.courses.get(parseInt(courseId, 10));
+                if (courseData) {
+                    setCourse(courseData);
+                } else {
+                    navigate('/dashboard');
+                }
+            } catch (error) {
+                console.error('Failed to fetch course:', error);
+            }
+        };
+        fetchCourse();
+    }, [courseId, navigate]);
 
     const currentQuestion = course?.questions[currentQuestionIndex];
-    const totalQuestions = course?.questions.length ?? 0;
-    const progressPercentage =
-        totalQuestions > 0 ? ((currentQuestionIndex + 1) / totalQuestions) * 100 : 0;
 
-    // --- Core Logic and Event Handlers ---
-
-    const handleNextQuestion = () => {
-        if (currentQuestionIndex < totalQuestions - 1) {
-            setCurrentQuestionIndex((prev) => prev + 1);
-            // Reset state for the next question
-            setIsAnswered(false);
-            setSelectedOptionId(null);
-            setStiAnswer('');
-            setAlgAnswers({});
-            setIsCorrect(false);
-        } else {
-            handleCourseFinish();
-        }
+    const resetAnswerStates = () => {
+        setSelectedOptionId(null);
+        setStiAnswer('');
+        setAlgAnswers({});
+        setHighlightedWords([]);
+        setFreeResponseAnswer('');
+        setSentenceCorrectionAnswer('');
     };
 
     const handleCheckAnswer = () => {
         if (!currentQuestion) return;
 
-        let correct = false;
-        // Determine correctness based on question type
-        if (currentQuestion.type === 'mcq') {
-            const selectedOption = currentQuestion.options.find(
-                (opt: IMCQOption) => opt.id === selectedOptionId,
-            );
-            correct = selectedOption?.isCorrect ?? false;
-        } else if (currentQuestion.type === 'sti') {
-            const userAnswer = stiAnswer.trim();
-            const correctAnswers = currentQuestion.correctAnswers;
-            if (currentQuestion.evaluationMode === 'case-insensitive') {
-                correct = correctAnswers.some(
-                    (ans: any) => ans.toLowerCase() === userAnswer.toLowerCase(),
-                );
-            } else {
-                correct = correctAnswers.includes(userAnswer);
-            }
-        } else if (currentQuestion.type === 'alg-equation') {
-            correct = evaluateEquation(currentQuestion.equation, algAnswers);
-        }
+        const answerPayload = {
+            mcq: selectedOptionId,
+            sti: stiAnswer,
+            'alg-equation': algAnswers,
+            'highlight-text': highlightedWords,
+            'free-response': freeResponseAnswer,
+            'sentence-correction': sentenceCorrectionAnswer,
+        };
 
-        setIsCorrect(correct);
-        if (correct) {
-            setScore((prev) => prev + 1);
-        }
+        const result = checkAnswer(currentQuestion, answerPayload);
+        setIsCorrect(result);
         setIsAnswered(true);
 
-        // Automatically move to the next question after a delay
+        if (result) {
+            setScore((s) => s + 1);
+            setShowConfetti(true);
+        }
+
         setTimeout(() => {
-            handleNextQuestion();
+            goToNextQuestion();
+            setShowConfetti(false);
         }, 2000);
     };
 
-    const handleCourseFinish = async () => {
-        if (auth?.currentUser?.id && course?.id) {
-            const logEntry: Omit<IProgressLog, 'id'> = {
-                userId: auth.currentUser.id,
-                courseId: course.id,
-                score: score,
-                totalQuestions,
-                timestamp: new Date().toISOString(),
-            };
-            await db.progressLogs.add(logEntry as IProgressLog);
+    const goToNextQuestion = () => {
+        if (course && currentQuestionIndex < course.questions.length - 1) {
+            setCurrentQuestionIndex((prev) => prev + 1);
+            setIsAnswered(false);
+            setIsCorrect(false);
+            resetAnswerStates();
+        } else {
+            setShowSummary(true);
         }
-        setIsFinished(true);
-        setShowConfetti(true); // Trigger confetti on course finish
     };
 
-    // Effect to hide confetti after a few seconds
-    useEffect(() => {
-        if (showConfetti) {
-            const timer = setTimeout(() => setShowConfetti(false), 5000);
-            return () => clearTimeout(timer);
-        }
-    }, [showConfetti]);
-
-    // --- Prop Calculation for UI Component ---
-
-    const getMCQStatus = (option: IMCQOption): AnswerStatus => {
+    const getMCQStatus = (optionId: string): AnswerStatus => {
         if (!isAnswered) {
-            return selectedOptionId === option.id ? 'selected' : 'default';
+            return selectedOptionId === optionId ? 'selected' : 'default';
         }
-        if (option.isCorrect) return 'correct';
-        if (selectedOptionId === option.id) return 'incorrect';
+        const correctOption = currentQuestion?.options?.find((o) => o.isCorrect);
+        if (correctOption?.id === optionId) {
+            return 'correct';
+        }
+        if (selectedOptionId === optionId) {
+            return 'incorrect';
+        }
         return 'default';
+    };
+
+    // --- Answer change handlers ---
+    const handleToggleHighlightWord = (word: string) => {
+        setHighlightedWords((prev) =>
+            prev.includes(word) ? prev.filter((w) => w !== word) : [...prev, word],
+        );
     };
 
     const isCheckButtonDisabled = () => {
         if (!currentQuestion) return true;
-        if (currentQuestion.type === 'mcq') return !selectedOptionId;
-        if (currentQuestion.type === 'sti') return stiAnswer.trim() === '';
-        if (currentQuestion.type === 'alg-equation' && currentQuestion.variables) {
-            return currentQuestion.variables.some(
-                (v: any) => !algAnswers[v] || algAnswers[v].trim() === '',
-            );
-        }
-        return true;
+        const answerPayload = {
+            mcq: selectedOptionId,
+            sti: stiAnswer,
+            'alg-equation': algAnswers,
+            'highlight-text': highlightedWords,
+            'free-response': freeResponseAnswer,
+            'sentence-correction': sentenceCorrectionAnswer,
+        };
+        return !isAnswerValid(currentQuestion, answerPayload);
     };
 
-    // --- Render Logic ---
-
-    if (!course || !currentQuestion) {
-        return <div>Loading course...</div>;
+    if (!course) return <div>Loading...</div>;
+    if (showSummary) {
+        return <CourseSummary score={score} totalQuestions={course.questions.length} />;
     }
 
-    if (isFinished) {
-        return (
-            <>
-                {showConfetti && (
-                    <Confetti width={width} height={height} recycle={false} numberOfPieces={200} />
-                )}
-                <CourseSummary score={score} totalQuestions={totalQuestions} />
-            </>
-        );
-    }
+    const progressPercentage = ((currentQuestionIndex + 1) / course.questions.length) * 100;
 
     return (
-        <CoursePlayerUI
-            course={course}
-            currentQuestionIndex={currentQuestionIndex}
-            progressPercentage={progressPercentage}
+        <>
+            {showConfetti && <Confetti width={width} height={height} />}
+            <CoursePlayerUI
+                course={course}
+                currentQuestionIndex={currentQuestionIndex}
+                progressPercentage={progressPercentage}
                 isAnswered={isAnswered}
                 isCorrect={isCorrect}
+                // Pass states
                 selectedOptionId={selectedOptionId}
                 stiAnswer={stiAnswer}
                 algAnswers={algAnswers}
+                highlightedWords={highlightedWords}
+                freeResponseAnswer={freeResponseAnswer}
+                sentenceCorrectionAnswer={sentenceCorrectionAnswer}
+                // Pass handlers
                 onExitCourse={() => navigate('/dashboard')}
                 onCheckAnswer={handleCheckAnswer}
                 onSelectOption={setSelectedOptionId}
@@ -179,11 +169,15 @@ const CoursePlayerPage: React.FC = () => {
                 onAlgAnswerChange={(variable, value) =>
                     setAlgAnswers((prev) => ({ ...prev, [variable]: value }))
                 }
+                onToggleHighlightWord={handleToggleHighlightWord}
+                onFreeResponseChange={setFreeResponseAnswer}
+                onSentenceCorrectionChange={setSentenceCorrectionAnswer}
+                // Pass helpers
                 getMCQStatus={getMCQStatus}
                 isCheckButtonDisabled={isCheckButtonDisabled}
             />
+        </>
     );
 };
 
 export default CoursePlayerPage;
-
