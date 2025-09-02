@@ -2,82 +2,25 @@
 
 import type { IQuestion } from '../../types/database';
 
-// The AnswerPayload type now reflects the removal of the 'free-response' question type.
+// A type to represent the payload of answers from the UI
 type AnswerPayload = {
     mcq: string | null;
     sti: string;
     'alg-equation': Record<string, string>;
     'highlight-text': string[];
-    // 'free-response': string; // This line has been purged.
     'sentence-correction': string;
 };
-
-// --- START: FUZZY STRING MATCHING LOGIC ---
-
-/**
- * Calculates the Levenshtein distance between two strings (the number of edits
- * required to change one string into the other). This is a classic algorithm
- * for determining string similarity.
- * @param s1 The first string.
- * @param s2 The second string.
- * @returns The edit distance between the two strings.
- */
-const calculateLevenshteinDistance = (s1: string, s2: string): number => {
-    const track = Array(s2.length + 1)
-        .fill(null)
-        .map(() => Array(s1.length + 1).fill(null));
-    for (let i = 0; i <= s1.length; i += 1) {
-        track[0][i] = i;
-    }
-    for (let j = 0; j <= s2.length; j += 1) {
-        track[j][0] = j;
-    }
-    for (let j = 1; j <= s2.length; j += 1) {
-        for (let i = 1; i <= s1.length; i += 1) {
-            const indicator = s1[i - 1] === s2[j - 1] ? 0 : 1;
-            track[j][i] = Math.min(
-                track[j][i - 1] + 1, // deletion
-                track[j - 1][i] + 1, // insertion
-                track[j - 1][i - 1] + indicator, // substitution
-            );
-        }
-    }
-    return track[s2.length][s1.length];
-};
-
-/**
- * Calculates the similarity percentage between two strings.
- * A result of 100 means the strings are identical.
- * @param s1 The first string.
- * @param s2 The second string.
- * @returns The similarity percentage.
- */
-const calculateSimilarity = (s1: string, s2: string): number => {
-    let longer = s1;
-    let shorter = s2;
-    if (s1.length < s2.length) {
-        longer = s2;
-        shorter = s1;
-    }
-    if (longer.length === 0) {
-        return 100.0;
-    }
-    const similarity =
-        (longer.length - calculateLevenshteinDistance(longer, shorter)) / longer.length;
-    return similarity * 100; // Return as a percentage
-};
-
-// --- END: FUZZY STRING MATCHING LOGIC ---
 
 /**
  * A robust evaluation function to simulate a real math library.
  * This version handles implicit multiplication (e.g., '2x') to prevent SyntaxErrors.
  */
 const evalWithScope = (expression: string, scope: Record<string, number>): number => {
-    // Sanitize to prevent implicit multiplication errors, e.g., '2x' becomes '2*x'
-    let sanitizedExpression = expression.replace(/(\d+)([a-zA-Z]+)/g, '$1*$2');
+    // Sanitize to handle implicit multiplication like '2x' or '3(x+1)'
+    let sanitizedExpression = expression
+        .replace(/(\d+)([a-zA-Z(])/g, '$1*$2') // 2x -> 2*x or 3( -> 3*(
+        .replace(/(\))([a-zA-Z(])/g, '$1*$2'); // )( -> )*(
 
-    // Create a safe evaluation scope
     const functionBody = `
         "use strict";
         ${Object.keys(scope)
@@ -93,7 +36,7 @@ const evalWithScope = (expression: string, scope: Record<string, number>): numbe
         return result;
     } catch (error) {
         console.error('Evaluation error:', error);
-        return NaN; // Return NaN to indicate failure
+        return NaN;
     }
 };
 
@@ -103,21 +46,17 @@ const evalWithScope = (expression: string, scope: Record<string, number>): numbe
 export const evaluateEquation = (equation: string, answers: Record<string, string>): boolean => {
     const parts = equation.split('=');
     if (parts.length !== 2) return false;
-
     const [leftSide, rightSide] = parts.map((p) => p.trim());
-
-    // Create a scope of variables for the evaluation
     const scope: Record<string, number> = {};
     for (const key in answers) {
         const numValue = parseFloat(answers[key]);
-        if (isNaN(numValue)) return false; // Incomplete/invalid answer
+        if (isNaN(numValue)) return false;
         scope[key] = numValue;
     }
-
     try {
         const leftResult = evalWithScope(leftSide, scope);
         const rightResult = evalWithScope(rightSide, scope);
-        // Compare results with a small tolerance for floating point inaccuracies
+        // Use a small epsilon for floating-point comparison
         return Math.abs(leftResult - rightResult) < 1e-9;
     } catch (error) {
         console.error('Equation evaluation failed:', error);
@@ -135,6 +74,7 @@ export const isAnswerValid = (question: IQuestion, answers: AnswerPayload): bool
         case 'sti':
             return answers.sti.trim() !== '';
         case 'alg-equation':
+            // Ensure all variables defined in the question have a valid numeric answer.
             return (
                 question.variables.length > 0 &&
                 question.variables.every(
@@ -145,7 +85,6 @@ export const isAnswerValid = (question: IQuestion, answers: AnswerPayload): bool
             );
         case 'highlight-text':
             return answers['highlight-text'].length > 0;
-        // --- REMOVED: The case for 'free-response' has been deleted. ---
         case 'sentence-correction':
             return answers['sentence-correction'].trim() !== '';
         default:
@@ -171,26 +110,27 @@ export const checkAnswer = (question: IQuestion, answers: AnswerPayload): boolea
         case 'alg-equation':
             return evaluateEquation(question.equation, answers['alg-equation']);
         case 'highlight-text':
-            // The user must select the exact number of correct sentences.
-            if (answers['highlight-text'].length !== question.correctAnswers.length) {
+            // --- REWORKED: The old, fuzzy logic is replaced with a precise, set-based comparison. ---
+            const correctAnswersSet = new Set(question.correctHighlights);
+            const userAnswersSet = new Set(answers['highlight-text']);
+
+            // The answer is correct if and only if the sets are of the same size
+            // and every correct answer is present in the user's selection.
+            if (correctAnswersSet.size !== userAnswersSet.size) {
                 return false;
             }
 
-            // Normalize strings by removing all whitespace for comparison.
-            const normalizedSelected = answers['highlight-text'].map((s) => s.replace(/\s/g, ''));
-            const normalizedCorrect = question.correctAnswers.map((s) => s.replace(/\s/g, ''));
+            for (const answer of correctAnswersSet) {
+                if (!userAnswersSet.has(answer)) {
+                    return false;
+                }
+            }
 
-            // Check if every correct answer has a matching selected answer with >= 90% similarity.
-            return normalizedCorrect.every((correctSentence) =>
-                normalizedSelected.some(
-                    (selectedSentence) =>
-                        calculateSimilarity(selectedSentence, correctSentence) >= 90,
-                ),
-            );
-        // --- REMOVED: The case for 'free-response' has been deleted. ---
+            return true;
         case 'sentence-correction':
             const corrected = answers['sentence-correction'].trim();
             const expected = question.correctedSentence.trim();
+            // Simple strict equality check
             return corrected === expected;
         default:
             return false;
