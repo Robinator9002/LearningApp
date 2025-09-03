@@ -1,6 +1,7 @@
 // src/components/admin/QuestionEditor/MultipleChoiceEditor.tsx
 
 import React from 'react';
+import { useTranslation } from 'react-i18next'; // MODIFICATION: Imported useTranslation
 import type { IQuestion } from '../../../types/database';
 import Button from '../../common/Button/Button';
 import Input from '../../common/Form/Input';
@@ -15,17 +16,16 @@ interface QuestionEditorProps {
 
 /**
  * A component specifically for editing Multiple Choice Questions (MCQ).
- * It ensures that only questions of type 'mcq' are handled here.
  */
-const QuestionEditor: React.FC<QuestionEditorProps> = ({
+const MultipleChoiceEditor: React.FC<QuestionEditorProps> = ({
     question,
     index,
     onQuestionChange,
     onRemoveQuestion,
 }) => {
+    const { t } = useTranslation(); // MODIFICATION: Initialized useTranslation
+
     // --- TYPE GUARD ---
-    // If the question is not a multiple-choice question, this component
-    // will not render, preventing type errors and ensuring component integrity.
     if (question.type !== 'mcq') {
         return null;
     }
@@ -34,20 +34,13 @@ const QuestionEditor: React.FC<QuestionEditorProps> = ({
         onQuestionChange(index, { ...question, questionText: e.target.value });
     };
 
-    /**
-     * Updates the text for a specific answer option.
-     */
     const handleOptionTextChange = (optIndex: number, text: string) => {
-        // Create a new array with the updated option to maintain immutability.
         const newOptions = question.options.map((opt, idx) =>
             idx === optIndex ? { ...opt, text } : opt,
         );
         onQuestionChange(index, { ...question, options: newOptions });
     };
 
-    /**
-     * Sets the selected option as the correct one and ensures all others are not.
-     */
     const handleCorrectOptionChange = (optIndex: number) => {
         const newOptions = question.options.map((opt, idx) => ({
             ...opt,
@@ -59,29 +52,42 @@ const QuestionEditor: React.FC<QuestionEditorProps> = ({
     return (
         <div className="question-editor">
             <div className="question-editor__header">
-                <h3 className="question-editor__title">Question {index + 1} (Multiple Choice)</h3>
-                <Button onClick={() => onRemoveQuestion(index)}>Remove</Button>
+                {/* MODIFICATION: Title is now dynamically translated. */}
+                <h3 className="question-editor__title">
+                    {t('editor.questionTitle', {
+                        index: index + 1,
+                        type: t('questionTypes.mcq'),
+                    })}
+                </h3>
+                {/* MODIFICATION: Replaced hardcoded button text. */}
+                <Button onClick={() => onRemoveQuestion(index)}>{t('buttons.remove')}</Button>
             </div>
 
             <div className="form-group">
-                <Label htmlFor={`question-text-${question.id}`}>Question Text</Label>
+                {/* MODIFICATION: Replaced hardcoded label. */}
+                <Label htmlFor={`question-text-${question.id}`}>{t('labels.questionText')}</Label>
                 <Input
                     id={`question-text-${question.id}`}
                     value={question.questionText}
                     onChange={handleTextChange}
-                    placeholder="e.g., What is 2 + 2?"
+                    // MODIFICATION: Replaced hardcoded placeholder.
+                    placeholder={t('placeholders.mcq.questionText')}
                 />
             </div>
 
             <div className="form-group">
-                <Label>Answer Options</Label>
+                {/* MODIFICATION: Replaced hardcoded label. */}
+                <Label>{t('labels.answerOptions')}</Label>
                 <div className="question-editor__option-list">
                     {question.options.map((option, optIndex) => (
                         <div key={option.id} className="question-editor__option">
                             <Input
                                 value={option.text}
                                 onChange={(e) => handleOptionTextChange(optIndex, e.target.value)}
-                                placeholder={`Option ${optIndex + 1}`}
+                                // MODIFICATION: Replaced hardcoded placeholder.
+                                placeholder={t('placeholders.mcq.option', {
+                                    index: optIndex + 1,
+                                })}
                             />
                             <input
                                 type="radio"
@@ -91,10 +97,6 @@ const QuestionEditor: React.FC<QuestionEditorProps> = ({
                                 onChange={() => handleCorrectOptionChange(optIndex)}
                                 className="question-editor__option-radio"
                             />
-                            {/* IMPROVEMENT: A conditional class is added to the Label.
-                              This allows us to visually style the label for the correct answer,
-                              making it much easier for admins to identify.
-                            */}
                             <Label
                                 htmlFor={`correct-option-${question.id}-${option.id}`}
                                 className={
@@ -103,7 +105,8 @@ const QuestionEditor: React.FC<QuestionEditorProps> = ({
                                         : 'question-editor__option-label'
                                 }
                             >
-                                Correct
+                                {/* MODIFICATION: Replaced hardcoded label. */}
+                                {t('labels.correct')}
                             </Label>
                         </div>
                     ))}
@@ -113,4 +116,5 @@ const QuestionEditor: React.FC<QuestionEditorProps> = ({
     );
 };
 
-export default QuestionEditor;
+// MODIFICATION: Changed the component's export name for clarity.
+export default MultipleChoiceEditor;
