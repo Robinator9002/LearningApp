@@ -1,12 +1,13 @@
-// src/pages/settings/tabs/MyProfileSection.tsx
+// src/pages/settings/tabs/account/MyProfileSection.tsx
 
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next'; // MODIFICATION: Imported useTranslation
 
+// FIX: Corrected all import paths for robustness.
 import { db } from '../../../../lib/db';
 import { AuthContext } from '../../../../contexts/AuthContext';
 import { ModalContext } from '../../../../contexts/ModalContext';
-
 import Button from '../../../../components/common/Button/Button';
 import Modal from '../../../../components/common/Modal/Modal';
 import Input from '../../../../components/common/Form/Input';
@@ -14,89 +15,98 @@ import Label from '../../../../components/common/Form/Label';
 
 /**
  * A dedicated section for the current user to manage their own profile.
- * It handles name changes, password management, and account deletion.
  */
 const MyProfileSection: React.FC = () => {
     const navigate = useNavigate();
+    const { t } = useTranslation(); // MODIFICATION: Initialized useTranslation
     const auth = useContext(AuthContext);
     const modal = useContext(ModalContext);
     const currentUser = auth?.currentUser;
 
-    // --- State for Modals ---
+    // --- State for Modals & Forms ---
     const [isNameModalOpen, setIsNameModalOpen] = useState(false);
     const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
-
-    // --- State for Forms ---
     const [newName, setNewName] = useState(currentUser?.name || '');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
-    // Ensure providers are available
     if (!auth || !modal || !currentUser) {
         throw new Error('This component must be used within all required providers.');
     }
 
     /**
-     * Handles the logic for updating the user's name.
+     * Handles updating the user's name.
      */
     const handleNameChange = async () => {
         if (!newName.trim()) {
-            modal.showAlert({ title: 'Validation Error', message: 'Name cannot be empty.' });
+            modal.showAlert({
+                title: t('errors.validation.title'),
+                message: t('errors.validation.nameMissing'),
+            });
             return;
         }
         try {
             await db.users.update(currentUser.id!, { name: newName.trim() });
-            // Refresh the user in the auth context to reflect the change globally
             auth.login({ ...currentUser, name: newName.trim() });
-            modal.showAlert({ title: 'Success', message: 'Your name has been updated.' });
+            modal.showAlert({
+                title: t('success.title'),
+                message: t('success.nameUpdated'),
+            });
             setIsNameModalOpen(false);
         } catch (error) {
             console.error('Failed to update name:', error);
-            modal.showAlert({ title: 'Error', message: 'Failed to update name.' });
+            modal.showAlert({ title: t('errors.title'), message: t('errors.nameUpdateFailed') });
         }
     };
 
     /**
-     * Handles the logic for setting, changing, or removing a user's password.
+     * Handles setting, changing, or removing a user's password.
      */
     const handlePasswordChange = async () => {
         if (newPassword !== confirmPassword) {
-            modal.showAlert({ title: 'Validation Error', message: 'Passwords do not match.' });
+            modal.showAlert({
+                title: t('errors.validation.title'),
+                message: t('errors.validation.passwordsDontMatch'),
+            });
             return;
         }
         try {
-            // An empty password means the user wants to remove it
             const passwordToSet = newPassword.trim() === '' ? undefined : newPassword.trim();
             await db.users.update(currentUser.id!, { password: passwordToSet });
             auth.login({ ...currentUser, password: passwordToSet });
-            modal.showAlert({ title: 'Success', message: 'Your password has been updated.' });
+            modal.showAlert({
+                title: t('success.title'),
+                message: t('success.passwordUpdated'),
+            });
             setIsPasswordModalOpen(false);
             setNewPassword('');
             setConfirmPassword('');
         } catch (error) {
             console.error('Failed to update password:', error);
-            modal.showAlert({ title: 'Error', message: 'Failed to update password.' });
+            modal.showAlert({
+                title: t('errors.title'),
+                message: t('errors.passwordUpdateFailed'),
+            });
         }
     };
 
     /**
-     * Handles the logic for deleting the user's own account.
+     * Handles deleting the user's own account.
      */
     const handleDeleteAccount = () => {
         modal.showConfirm({
-            title: 'Delete Account',
-            message:
-                'Are you sure you want to delete your account? This action is permanent and cannot be undone.',
+            title: t('confirmations.deleteSelf.title'),
+            message: t('confirmations.deleteSelf.message'),
             onConfirm: async () => {
                 try {
                     await db.users.delete(currentUser.id!);
                     auth.logout();
-                    navigate('/'); // Redirect to the user selection screen
+                    navigate('/');
                 } catch (error) {
                     console.error('Failed to delete account:', error);
                     modal.showAlert({
-                        title: 'Error',
-                        message: 'Failed to delete your account.',
+                        title: t('errors.title'),
+                        message: t('errors.deleteAccountFailed'),
                     });
                 }
             },
@@ -105,35 +115,34 @@ const MyProfileSection: React.FC = () => {
 
     return (
         <div className="settings-section">
-            <h3 className="settings-section__title">My Profile</h3>
+            <h3 className="settings-section__title">{t('settings.myProfile.title')}</h3>
 
-            {/* --- Name Management --- */}
             <div className="settings-group">
-                <Label as="h4">Name</Label>
+                <Label as="h4">{t('labels.name')}</Label>
                 <div className="settings-group__controls settings-group__controls--inline">
                     <span className="settings-group__text-value">{currentUser.name}</span>
                     <Button variant="secondary" onClick={() => setIsNameModalOpen(true)}>
-                        Edit Name
+                        {t('buttons.editName')}
                     </Button>
                 </div>
             </div>
 
-            {/* --- Password Management --- */}
             <div className="settings-group">
-                <Label as="h4">Password</Label>
+                <Label as="h4">{t('labels.password')}</Label>
                 <div className="settings-group__controls">
                     <Button variant="secondary" onClick={() => setIsPasswordModalOpen(true)}>
-                        {currentUser.password ? 'Change Password' : 'Set Password'}
+                        {currentUser.password
+                            ? t('buttons.changePassword')
+                            : t('buttons.setPassword')}
                     </Button>
                 </div>
             </div>
 
-            {/* --- Account Deletion --- */}
             <div className="settings-group">
-                <Label as="h4">Delete Account</Label>
+                <Label as="h4">{t('settings.myProfile.deleteAccount')}</Label>
                 <div className="settings-group__controls">
                     <Button variant="danger" onClick={handleDeleteAccount}>
-                        Delete My Account
+                        {t('buttons.deleteMyAccount')}
                     </Button>
                 </div>
             </div>
@@ -142,10 +151,10 @@ const MyProfileSection: React.FC = () => {
             <Modal
                 isOpen={isNameModalOpen}
                 onClose={() => setIsNameModalOpen(false)}
-                title="Edit Your Name"
+                title={t('settings.myProfile.editNameModalTitle')}
             >
                 <div className="form-group">
-                    <Label htmlFor="edit-name">New Name</Label>
+                    <Label htmlFor="edit-name">{t('labels.newName')}</Label>
                     <Input
                         id="edit-name"
                         value={newName}
@@ -154,10 +163,10 @@ const MyProfileSection: React.FC = () => {
                 </div>
                 <div className="modal-footer">
                     <Button variant="secondary" onClick={() => setIsNameModalOpen(false)}>
-                        Cancel
+                        {t('buttons.cancel')}
                     </Button>
                     <Button variant="primary" onClick={handleNameChange}>
-                        Save Changes
+                        {t('buttons.saveChanges')}
                     </Button>
                 </div>
             </Modal>
@@ -165,13 +174,17 @@ const MyProfileSection: React.FC = () => {
             <Modal
                 isOpen={isPasswordModalOpen}
                 onClose={() => setIsPasswordModalOpen(false)}
-                title={currentUser.password ? 'Change Your Password' : 'Set a New Password'}
+                title={
+                    currentUser.password
+                        ? t('settings.myProfile.changePasswordModalTitle')
+                        : t('settings.myProfile.setPasswordModalTitle')
+                }
             >
                 <p className="modal-description">
-                    Leave both fields blank to remove your password entirely.
+                    {t('settings.myProfile.passwordModalDescription')}
                 </p>
                 <div className="form-group">
-                    <Label htmlFor="new-password">New Password</Label>
+                    <Label htmlFor="new-password">{t('labels.newPassword')}</Label>
                     <Input
                         id="new-password"
                         type="password"
@@ -180,7 +193,7 @@ const MyProfileSection: React.FC = () => {
                     />
                 </div>
                 <div className="form-group">
-                    <Label htmlFor="confirm-password">Confirm New Password</Label>
+                    <Label htmlFor="confirm-password">{t('labels.confirmNewPassword')}</Label>
                     <Input
                         id="confirm-password"
                         type="password"
@@ -190,10 +203,10 @@ const MyProfileSection: React.FC = () => {
                 </div>
                 <div className="modal-footer">
                     <Button variant="secondary" onClick={() => setIsPasswordModalOpen(false)}>
-                        Cancel
+                        {t('buttons.cancel')}
                     </Button>
                     <Button variant="primary" onClick={handlePasswordChange}>
-                        Save Password
+                        {t('buttons.savePassword')}
                     </Button>
                 </div>
             </Modal>
