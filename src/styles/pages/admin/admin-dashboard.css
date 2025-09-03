@@ -1,9 +1,5 @@
 /* src/styles/pages/admin/admin-dashboard.css */
 
-/*
-   MODIFICATION: Added padding to the main container to give the
-   entire page some breathing room from the window edges.
-*/
 .admin-dashboard {
     background-color: var(--color-background);
     padding: calc(var(--spacing-unit) * 3);
@@ -13,16 +9,51 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* MODIFICATION: Adjusted vertical spacing and added a border.
-       This creates a clear, visually distinct header section,
-       improving structure and breaking up the solid background color.
-    */
     margin-bottom: calc(var(--spacing-unit) * 3);
     padding-bottom: calc(var(--spacing-unit) * 3);
     border-bottom: 1px solid var(--color-border);
+    /* MODIFICATION: Added a gap to create space between child elements (the title and the buttons wrapper). */
+    gap: calc(var(--spacing-unit) * 2);
+}
+
+/* NEW: Created a wrapper for the buttons to control their layout specifically. */
+.admin-dashboard__header-actions {
+    display: flex;
+    gap: calc(var(--spacing-unit) * 2); /* This adds space between the buttons */
+    flex-shrink: 0; /* Prevents buttons from wrapping on smaller screens */
 }
 
 .admin-dashboard__title {
     font-size: 1.75rem;
     color: var(--color-text-primary);
+}
+
+/* --- Course Group Styling --- */
+.course-group {
+    margin-bottom: calc(var(--spacing-unit) * 4);
+}
+
+.course-group__subject-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: calc(var(--spacing-unit) * 2);
+    padding-bottom: var(--spacing-unit);
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-accent);
+}
+
+.course-group__grade-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-text-secondary);
+    margin-bottom: calc(var(--spacing-unit) * 2);
+    margin-top: calc(var(--spacing-unit) * 2);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.course-group__empty {
+    color: var(--color-text-secondary);
+    font-style: italic;
+    padding-left: var(--spacing-unit);
 }
