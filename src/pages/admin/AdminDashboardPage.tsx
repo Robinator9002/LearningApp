@@ -29,18 +29,20 @@ const AdminDashboardPage: React.FC = () => {
     };
 
     const handleDeleteCourse = (courseId: number) => {
+        // MODIFICATION: Replaced hardcoded strings with i18n keys for the confirmation modal.
         modal.showConfirm({
-            title: 'Delete Course',
-            message: 'Are you sure you want to delete this course? This action cannot be undone.',
+            title: t('confirmations.deleteCourse.title'),
+            message: t('confirmations.deleteCourse.message'),
             onConfirm: async () => {
                 try {
                     await db.courses.delete(courseId);
                     console.log(`Course with id ${courseId} deleted successfully.`);
                 } catch (error) {
                     console.error('Failed to delete course:', error);
+                    // MODIFICATION: Replaced hardcoded strings for the error alert.
                     modal.showAlert({
-                        title: 'Delete Error',
-                        message: 'There was an error deleting the course.',
+                        title: t('errors.deleteCourse.title'),
+                        message: t('errors.deleteCourse.message'),
                     });
                 }
             },
@@ -51,8 +53,9 @@ const AdminDashboardPage: React.FC = () => {
         <div className="admin-dashboard">
             <div className="admin-dashboard__header">
                 <h2 className="admin-dashboard__title">{t('dashboard.adminTitle')}</h2>
+                {/* MODIFICATION: Replaced hardcoded button text. */}
                 <Button variant="primary" onClick={handleCreateCourse}>
-                    Create New Course
+                    {t('buttons.createNewCourse')}
                 </Button>
             </div>
 
@@ -63,7 +66,8 @@ const AdminDashboardPage: React.FC = () => {
                     onDeleteCourse={handleDeleteCourse}
                 />
             ) : (
-                <p>Loading courses...</p>
+                // MODIFICATION: Replaced hardcoded loading text.
+                <p>{t('labels.loadingCourses')}</p>
             )}
         </div>
     );
