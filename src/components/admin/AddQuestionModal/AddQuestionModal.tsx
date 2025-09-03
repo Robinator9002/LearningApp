@@ -1,6 +1,7 @@
 // src/components/admin/AddQuestionModal/AddQuestionModal.tsx
 
 import React from 'react';
+import { useTranslation } from 'react-i18next'; // MODIFICATION: Imported useTranslation
 import type { IQuestion } from '../../../types/database';
 import Modal from '../../common/Modal/Modal';
 
@@ -30,60 +31,59 @@ type QuestionCategory = {
     questions: QuestionOption[];
 };
 
-// A structured list of all available question types, organized by category.
-// This makes the UI scalable and easy to update.
-const questionCategories: QuestionCategory[] = [
-    {
-        category: 'General Purpose',
-        questions: [
-            {
-                type: 'mcq',
-                label: 'Multiple Choice',
-                description: 'Present several options, one is correct.',
-            },
-            {
-                type: 'sti',
-                label: 'Smart Text Input',
-                description: 'User types an answer (case-insensitive or exact).',
-            },
-            // --- REMOVED: The 'free-response' option has been purged from this list. ---
-        ],
-    },
-    {
-        category: 'Reading & Writing',
-        questions: [
-            {
-                type: 'sentence-correction',
-                label: 'Sentence Correction',
-                description: 'User rewrites an incorrect sentence correctly.',
-            },
-        ],
-    },
-    {
-        category: 'Math',
-        questions: [
-            {
-                type: 'alg-equation',
-                label: 'Algebraic Equation',
-                description: 'User solves for one or more variables in an equation.',
-            },
-        ],
-    },
-];
-
 /**
  * A modal dialog for adding new questions to a course. It organizes
  * question types into categories for a much-improved user experience.
  */
 const AddQuestionModal: React.FC<AddQuestionModalProps> = ({ isOpen, onClose, onAddQuestion }) => {
+    const { t } = useTranslation(); // MODIFICATION: Initialized useTranslation
+
+    // MODIFICATION: The question categories are now dynamically generated using
+    // the translation keys, making the component fully data-driven and scalable.
+    const questionCategories: QuestionCategory[] = [
+        {
+            category: t('addQuestionModal.categories.general'),
+            questions: [
+                {
+                    type: 'mcq',
+                    label: t('addQuestionModal.mcq.label'),
+                    description: t('addQuestionModal.mcq.description'),
+                },
+                {
+                    type: 'sti',
+                    label: t('addQuestionModal.sti.label'),
+                    description: t('addQuestionModal.sti.description'),
+                },
+            ],
+        },
+        {
+            category: t('addQuestionModal.categories.readingWriting'),
+            questions: [
+                {
+                    type: 'sentence-correction',
+                    label: t('addQuestionModal.sentenceCorrection.label'),
+                    description: t('addQuestionModal.sentenceCorrection.description'),
+                },
+            ],
+        },
+        {
+            category: t('addQuestionModal.categories.math'),
+            questions: [
+                {
+                    type: 'alg-equation',
+                    label: t('addQuestionModal.algEquation.label'),
+                    description: t('addQuestionModal.algEquation.description'),
+                },
+            ],
+        },
+    ];
+
     if (!isOpen) {
         return null;
     }
 
     /**
      * Handles the selection of a question type.
-     * It calls the parent's onAddQuestion callback and then closes the modal.
-     * @param type - The type of question to be added (e.g., 'mcq', 'sti').
      */
     const handleSelectQuestion = (type: IQuestion['type']) => {
         onAddQuestion(type);
@@ -91,10 +91,12 @@ const AddQuestionModal: React.FC<AddQuestionModalProps> = ({ isOpen, onClose, on
     };
 
     return (
-        <Modal isOpen={isOpen} onClose={onClose} title="Add a New Question">
+        // MODIFICATION: Replaced hardcoded title.
+        <Modal isOpen={isOpen} onClose={onClose} title={t('addQuestionModal.title')}>
             <div className="add-question-modal">
                 <div className="add-question-modal__header">
-                    <p>Select a question type from the categories below.</p>
+                    {/* MODIFICATION: Replaced hardcoded description. */}
+                    <p>{t('addQuestionModal.description')}</p>
                 </div>
                 <div className="add-question-modal__content">
                     {questionCategories.map((cat) => (
