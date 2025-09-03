@@ -1,22 +1,31 @@
 // src/lib/db.ts
 
 import Dexie, { type Table } from 'dexie';
-
-// We will define these interfaces in the /types folder later
-// import { IUser, ICourse, IProgressLog } from '../types';
+import type { IUser, ICourse, IProgressLog } from '../types/database';
 
 export class LocalDatabase extends Dexie {
     // These tables will hold our application data.
     // The '!' asserts that Dexie will initialize them for us.
-    users!: Table<any>; // Replace 'any' with IUser
-    courses!: Table<any>; // Replace 'any' with ICourse
-    progressLogs!: Table<any>; // Replace 'any' with IProgressLog
+    users!: Table<IUser>;
+    courses!: Table<ICourse>;
+    progressLogs!: Table<IProgressLog>;
 
     constructor() {
-        super('learningAppDatabase'); // The name of our database
+        super('learningAppDatabase');
+        // Bumping the version number is crucial when changing the schema.
+        // Dexie uses this to manage migrations automatically.
+        this.version(2).stores({
+            users: '++id, &name, type',
+            // MODIFICATION: Added 'gradeRange' to the index.
+            // This allows for efficient querying of courses by their grade level.
+            courses: '++id, subject, gradeRange, title',
+            progressLogs: '++id, userId, courseId, timestamp',
+        });
+
+        // This is the previous version of the schema. It is kept here
+        // to allow Dexie to correctly migrate from version 1 to version 2
+        // for users who already have the database.
         this.version(1).stores({
-            // Schema definition. '++id' creates an auto-incrementing primary key.
-            // '&name' creates a unique index on the 'name' property for users.
             users: '++id, &name, type',
             courses: '++id, subject, title',
             progressLogs: '++id, userId, courseId, timestamp',
