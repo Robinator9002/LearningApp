@@ -57,7 +57,6 @@ const UserSelectionPage: React.FC = () => {
 
     // --- Event Handlers ---
 
-    // Handles logic for when a user card is clicked
     const handleUserSelect = (user: IUser) => {
         if (user.password) {
             setSelectedUser(user);
@@ -68,21 +67,25 @@ const UserSelectionPage: React.FC = () => {
         }
     };
 
-    // Handles the final login attempt from the password modal
     const handleLogin = () => {
         if (selectedUser && password === selectedUser.password) {
             auth.login(selectedUser);
             navigate(selectedUser.type === 'admin' ? '/admin' : '/dashboard');
         } else {
-            modal.showAlert({ title: 'Login Failed', message: 'Incorrect password.' });
+            modal.showAlert({
+                title: t('errors.loginFailed.title'),
+                message: t('errors.loginFailed.message'),
+            });
             setPassword('');
         }
     };
 
-    // Handles the creation of a new user from the creation modal
     const handleCreateUser = async () => {
         if (!newUserData.name.trim()) {
-            modal.showAlert({ title: 'Validation Error', message: 'Please enter a name.' });
+            modal.showAlert({
+                title: t('errors.validation.title'),
+                message: t('errors.validation.nameMissing'),
+            });
             return;
         }
 
@@ -90,7 +93,6 @@ const UserSelectionPage: React.FC = () => {
             const newUser: Omit<IUser, 'id'> = {
                 name: newUserData.name.trim(),
                 type: newUserData.type as IUser['type'],
-                // Only set password if one was provided
                 ...(newUserData.password && { password: newUserData.password }),
             };
             await db.users.add(newUser as IUser);
@@ -99,25 +101,22 @@ const UserSelectionPage: React.FC = () => {
         } catch (error) {
             console.error('Failed to create user:', error);
             modal.showAlert({
-                title: 'Creation Failed',
-                message: 'This name may already be in use.',
+                title: t('errors.createUserFailed.title'),
+                message: t('errors.createUserFailed.message'),
             });
         }
     };
 
     // --- Render Logic ---
 
-    // The initial state when the database is empty
     if (!users || (users.length === 0 && !hasAdminAccount)) {
         return (
             <div className="user-select">
-                <h2 className="user-select__title">Welcome!</h2>
-                <p className="user-select__subtitle">
-                    Let's create the first Admin account to get started.
-                </p>
+                <h2 className="user-select__title">{t('firstRun.title')}</h2>
+                <p className="user-select__subtitle">{t('firstRun.description')}</p>
                 <div className="user-select__first-run-form">
                     <Input
-                        placeholder="Admin Name"
+                        placeholder={t('placeholders.adminName')}
                         value={newUserData.name}
                         onChange={(e) =>
                             setNewUserData({ ...newUserData, name: e.target.value, type: 'admin' })
@@ -125,14 +124,14 @@ const UserSelectionPage: React.FC = () => {
                     />
                     <Input
                         type="password"
-                        placeholder="Optional Password"
+                        placeholder={t('placeholders.optionalPassword')}
                         value={newUserData.password}
                         onChange={(e) =>
                             setNewUserData({ ...newUserData, password: e.target.value })
                         }
                     />
                     <Button variant="primary" onClick={handleCreateUser}>
-                        Create Admin Account
+                        {t('buttons.createAdminAccount')}
                     </Button>
                 </div>
             </div>
@@ -145,17 +144,15 @@ const UserSelectionPage: React.FC = () => {
                 <h2 className="user-select__title">{t('userSelection.title')}</h2>
 
                 <div className="user-select__content">
-                    {/* Grid for existing user profiles */}
                     <div className="user-select__grid">
                         {users?.map((user) => (
                             <UserCard key={user.id} user={user} onSelect={handleUserSelect} />
                         ))}
                     </div>
 
-                    {/* Separate section for the create account button */}
                     <div className="user-select__actions">
                         <Button variant="secondary" onClick={() => setCreateModalOpen(true)}>
-                            Create New Account
+                            {t('buttons.createNewAccount')}
                         </Button>
                     </div>
                 </div>
@@ -166,12 +163,12 @@ const UserSelectionPage: React.FC = () => {
                 isOpen={isLoginModalOpen}
                 onClose={() => {
                     setLoginModalOpen(false);
-                    setPassword(''); // Clear password on close
+                    setPassword('');
                 }}
-                title={`Enter password for ${selectedUser?.name}`}
+                title={t('loginModal.title', { name: selectedUser?.name })}
             >
                 <div className="form-group">
-                    <Label htmlFor="password-input">Password</Label>
+                    <Label htmlFor="password-input">{t('labels.password')}</Label>
                     <Input
                         id="password-input"
                         type="password"
@@ -182,10 +179,10 @@ const UserSelectionPage: React.FC = () => {
                 </div>
                 <div className="modal-footer">
                     <Button variant="secondary" onClick={() => setLoginModalOpen(false)}>
-                        Cancel
+                        {t('buttons.cancel')}
                     </Button>
                     <Button variant="primary" onClick={handleLogin}>
-                        Login
+                        {t('buttons.login')}
                     </Button>
                 </div>
             </Modal>
@@ -194,10 +191,10 @@ const UserSelectionPage: React.FC = () => {
             <Modal
                 isOpen={isCreateModalOpen}
                 onClose={() => setCreateModalOpen(false)}
-                title="Create New Account"
+                title={t('createUserModal.title')}
             >
                 <div className="form-group">
-                    <Label htmlFor="new-name">Name</Label>
+                    <Label htmlFor="new-name">{t('labels.name')}</Label>
                     <Input
                         id="new-name"
                         value={newUserData.name}
@@ -205,7 +202,7 @@ const UserSelectionPage: React.FC = () => {
                     />
                 </div>
                 <div className="form-group">
-                    <Label htmlFor="new-password">Password (Optional)</Label>
+                    <Label htmlFor="new-password">{t('labels.passwordOptional')}</Label>
                     <Input
                         id="new-password"
                         type="password"
@@ -216,7 +213,7 @@ const UserSelectionPage: React.FC = () => {
                     />
                 </div>
                 <div className="form-group">
-                    <Label htmlFor="user-type">Account Type</Label>
+                    <Label htmlFor="user-type">{t('labels.accountType')}</Label>
                     <Select
                         id="user-type"
                         value={newUserData.type}
@@ -227,16 +224,16 @@ const UserSelectionPage: React.FC = () => {
                             })
                         }
                     >
-                        <option value="learner">Learner</option>
-                        <option value="admin">Admin</option>
+                        <option value="learner">{t('userTypes.learner')}</option>
+                        <option value="admin">{t('userTypes.admin')}</option>
                     </Select>
                 </div>
                 <div className="modal-footer">
                     <Button variant="secondary" onClick={() => setCreateModalOpen(false)}>
-                        Cancel
+                        {t('buttons.cancel')}
                     </Button>
                     <Button variant="primary" onClick={handleCreateUser}>
-                        Create
+                        {t('buttons.create')}
                     </Button>
                 </div>
             </Modal>
