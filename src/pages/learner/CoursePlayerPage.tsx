@@ -1,9 +1,9 @@
 // src/pages/learner/CoursePlayerPage.tsx
 
-import React, { useEffect, useContext, useReducer } from 'react';
+import React, { useEffect, useContext, useReducer, useState, useLayoutEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import Confetti from 'react-confetti'; // MODIFICATION: Re-imported the confetti library
 
-// MODIFICATION: All state management logic is now consolidated here.
 import { db } from '../../lib/db';
 import { ModalContext } from '../../contexts/ModalContext';
 import type { ICourse } from '../../types/database';
@@ -12,9 +12,22 @@ import CoursePlayerUI from '../../components/learner/course/CoursePlayerUI';
 import CourseSummary from '../../components/learner/course/CourseSummary';
 import { checkAnswer, isAnswerValid } from './CoursePlayerUtils';
 
+// --- A simple, self-contained window size hook to avoid external dependencies ---
+const useWindowSize = () => {
+    const [size, setSize] = useState([0, 0]);
+    useLayoutEffect(() => {
+        function updateSize() {
+            setSize([window.innerWidth, window.innerHeight]);
+        }
+        window.addEventListener('resize', updateSize);
+        updateSize();
+        return () => window.removeEventListener('resize', updateSize);
+    }, []);
+    return size;
+};
+
 // --- STATE MANAGEMENT (useReducer) ---
 
-// 1. Define the shape of our state
 interface PlayerState {
     course: ICourse | null;
     currentQuestionIndex: number;
@@ -22,6 +35,7 @@ interface PlayerState {
     isAnswered: boolean;
     isCorrect: boolean;
     showSummary: boolean;
+    showConfetti: boolean; // MODIFICATION: Added state for confetti
     // Answer-specific state
     selectedOptionId: string | null;
     stiAnswer: string;
@@ -29,7 +43,6 @@ interface PlayerState {
     sentenceCorrectionAnswer: string;
 }
 
-// 2. Define the initial state
 const initialState: PlayerState = {
     course: null,
     currentQuestionIndex: 0,
@@ -37,13 +50,13 @@ const initialState: PlayerState = {
     isAnswered: false,
     isCorrect: false,
     showSummary: false,
+    showConfetti: false, // MODIFICATION: Initialized confetti state
     selectedOptionId: null,
     stiAnswer: '',
     algAnswers: {},
     sentenceCorrectionAnswer: '',
 };
 
-// 3. Define the possible actions that can change our state
 type PlayerAction =
     | { type: 'SET_COURSE'; payload: ICourse }
     | { type: 'SELECT_OPTION'; payload: string }
@@ -53,7 +66,6 @@ type PlayerAction =
     | { type: 'CHECK_ANSWER' }
     | { type: 'NEXT_QUESTION' };
 
-// 4. Create the reducer function, which is the heart of our state machine
 function playerReducer(state: PlayerState, action: PlayerAction): PlayerState {
     switch (action.type) {
         case 'SET_COURSE':
@@ -87,20 +99,22 @@ function playerReducer(state: PlayerState, action: PlayerAction): PlayerState {
                 isAnswered: true,
                 isCorrect,
                 score: isCorrect ? state.score + 1 : state.score,
+                // MODIFICATION: Trigger confetti if the answer is correct
+                showConfetti: isCorrect,
             };
         }
         case 'NEXT_QUESTION': {
             if (!state.course) return state;
             const isLastQuestion = state.currentQuestionIndex >= state.course.questions.length - 1;
             if (isLastQuestion) {
-                return { ...state, showSummary: true };
+                return { ...state, showSummary: true, showConfetti: false };
             }
             return {
                 ...state,
                 currentQuestionIndex: state.currentQuestionIndex + 1,
                 isAnswered: false,
                 isCorrect: false,
-                // Reset all answer types for the new question
+                showConfetti: false, // MODIFICATION: Turn off confetti for the next question
                 selectedOptionId: null,
                 stiAnswer: '',
                 algAnswers: {},
@@ -118,8 +132,8 @@ const CoursePlayerPage: React.FC = () => {
     const { courseId } = useParams<{ courseId: string }>();
     const navigate = useNavigate();
     const modal = useContext(ModalContext);
+    const [width, height] = useWindowSize(); // MODIFICATION: Re-added window size hook
 
-    // MODIFICATION: All useState calls have been replaced by a single useReducer.
     const [state, dispatch] = useReducer(playerReducer, initialState);
     const {
         course,
@@ -128,6 +142,7 @@ const CoursePlayerPage: React.FC = () => {
         isAnswered,
         isCorrect,
         showSummary,
+        showConfetti, // MODIFICATION: Destructured confetti state
         selectedOptionId,
         stiAnswer,
         algAnswers,
@@ -153,7 +168,6 @@ const CoursePlayerPage: React.FC = () => {
         fetchCourse();
     }, [courseId, navigate]);
 
-    // MODIFICATION: The check answer logic now dispatches an action.
     const handleCheckAnswer = () => {
         dispatch({ type: 'CHECK_ANSWER' });
         setTimeout(() => {
@@ -196,30 +210,33 @@ const CoursePlayerPage: React.FC = () => {
 
     const progressPercentage = ((currentQuestionIndex + 1) / course.questions.length) * 100;
 
-    // MODIFICATION: All event handlers now dispatch actions.
     return (
-        <CoursePlayerUI
-            course={course}
-            currentQuestionIndex={currentQuestionIndex}
-            progressPercentage={progressPercentage}
-            isAnswered={isAnswered}
-            isCorrect={isCorrect}
-            stiAnswer={stiAnswer}
-            algAnswers={algAnswers}
-            sentenceCorrectionAnswer={sentenceCorrectionAnswer}
-            onExitCourse={() => navigate('/dashboard')}
-            onCheckAnswer={handleCheckAnswer}
-            onSelectOption={(id) => dispatch({ type: 'SELECT_OPTION', payload: id })}
-            onStiAnswerChange={(value) => dispatch({ type: 'SET_STI_ANSWER', payload: value })}
-            onAlgAnswerChange={(variable, value) =>
-                dispatch({ type: 'SET_ALG_ANSWER', payload: { variable, value } })
-            }
-            onSentenceCorrectionChange={(value) =>
-                dispatch({ type: 'SET_SENTENCE_CORRECTION', payload: value })
-            }
-            getMCQStatus={getMCQStatus}
-            isCheckButtonDisabled={isCheckButtonDisabled}
-        />
+        <>
+            {/* MODIFICATION: Re-added the confetti component with a one-shot burst effect */}
+            {showConfetti && <Confetti width={width} height={height} recycle={false} />}
+            <CoursePlayerUI
+                course={course}
+                currentQuestionIndex={currentQuestionIndex}
+                progressPercentage={progressPercentage}
+                isAnswered={isAnswered}
+                isCorrect={isCorrect}
+                stiAnswer={stiAnswer}
+                algAnswers={algAnswers}
+                sentenceCorrectionAnswer={sentenceCorrectionAnswer}
+                onExitCourse={() => navigate('/dashboard')}
+                onCheckAnswer={handleCheckAnswer}
+                onSelectOption={(id) => dispatch({ type: 'SELECT_OPTION', payload: id })}
+                onStiAnswerChange={(value) => dispatch({ type: 'SET_STI_ANSWER', payload: value })}
+                onAlgAnswerChange={(variable, value) =>
+                    dispatch({ type: 'SET_ALG_ANSWER', payload: { variable, value } })
+                }
+                onSentenceCorrectionChange={(value) =>
+                    dispatch({ type: 'SET_SENTENCE_CORRECTION', payload: value })
+                }
+                getMCQStatus={getMCQStatus}
+                isCheckButtonDisabled={isCheckButtonDisabled}
+            />
+        </>
     );
 };
 
