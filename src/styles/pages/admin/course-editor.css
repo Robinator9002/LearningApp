@@ -1,35 +1,18 @@
 /* src/styles/pages/admin/course-editor.css */
 
-/*
- * Base layout for the editor page.
- * Flexbox creates the structure for the sticky footer. By setting height to 100vh
- * (viewport height), we ensure the container fills the screen.
- */
 .course-editor-page {
     display: flex;
     flex-direction: column;
     height: 85vh;
-    /* FIX: Replaced invalid variable (--color-background-light) and hardcoded
-       fallback (#f9fafb) with the correct abstract variable. The theme engine
-       now controls the page's main background color. */
     background-color: var(--color-background);
 }
 
-/*
- * The header and footer are direct children of the flex container.
- * 'flex-shrink: 0' prevents them from shrinking. A solid background
- * is necessary so scrolling content doesn't show through.
- */
 .course-editor-page__header,
 .course-editor-page__footer {
     flex-shrink: 0;
-    /* FIX: Replaced hardcoded white background (#fff) with the abstract
-       surface color. This ensures the header and footer adapt to the
-       current theme (e.g., dark grey in dark mode). */
     background-color: var(--color-surface);
     padding: calc(var(--spacing-unit) * 2) calc(var(--spacing-unit) * 4);
-    width: 95%;
-    z-index: 10; /* Ensures header/footer are above content */
+    z-index: 10;
 }
 
 .course-editor-page__header {
@@ -41,31 +24,23 @@
     margin: 0;
 }
 
-/*
- * The main content area.
- * 'flex-grow: 1' tells this element to take up all available vertical space.
- * 'overflow-y: auto' makes ONLY this container scrollable if its content is too tall.
- */
 .course-editor-page__content {
     flex-grow: 1;
     overflow-y: auto;
     padding: calc(var(--spacing-unit) * 4);
 }
 
-/*
- * This is a wrapper to constrain the width of the content inside
- * the scrollable area, keeping it centered and readable.
- */
 .course-editor-page__meta,
 .course-editor-page__questions {
-    max-width: 800px;
+    max-width: 900px; /* MODIFICATION: Increased max-width to better suit 3 columns */
     margin-left: auto;
     margin-right: auto;
 }
 
 .course-editor-page__meta {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    /* MODIFICATION: Changed grid from 2 columns to 3 to accommodate the new field. */
+    grid-template-columns: 2fr 1fr 1fr;
     gap: calc(var(--spacing-unit) * 3);
     margin-bottom: calc(var(--spacing-unit) * 4);
 }
@@ -93,7 +68,6 @@
 .course-editor-page__footer {
     border-top: 1px solid var(--color-border);
     display: flex;
-    width: 100%;
     justify-content: flex-end;
-    gap: calc(var(--spacing-unit) * 2); /* Adds space between the buttons */
+    gap: calc(var(--spacing-unit) * 2);
 }
