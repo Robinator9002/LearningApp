@@ -1,12 +1,11 @@
 // src/pages/admin/editor/CourseEditorHeader.tsx
 
 import React from 'react';
+import { useTranslation } from 'react-i18next'; // MODIFICATION: Imported useTranslation
 import Button from '../../../components/common/Button/Button';
 
 /**
  * Defines the properties for the CourseEditorHeader component.
- * The onAddQuestion prop has been replaced with a single function
- * to open the new, much more organized question selection modal.
  */
 interface CourseEditorHeaderProps {
     isEditMode: boolean;
@@ -17,17 +16,21 @@ const CourseEditorHeader: React.FC<CourseEditorHeaderProps> = ({
     isEditMode,
     onOpenAddQuestionModal,
 }) => {
+    const { t } = useTranslation(); // MODIFICATION: Initialized useTranslation
+
     return (
         <header className="course-editor-page__header">
             <h2 className="course-editor-page__title">
-                {isEditMode ? 'Edit Course' : 'Create New Course'}
+                {/* MODIFICATION: Replaced ternary with i18n keys. */}
+                {isEditMode ? t('courseEditor.editTitle') : t('courseEditor.createTitle')}
             </h2>
             <div className="course-editor-page__questions-header">
-                <h3 className="course-editor-page__questions-title">Questions</h3>
+                {/* MODIFICATION: Replaced hardcoded text. */}
+                <h3 className="course-editor-page__questions-title">{t('labels.questions')}</h3>
                 <div className="add-question-buttons">
-                    {/* The chaotic mess of buttons has been vanquished, replaced by a single, elegant button. */}
+                    {/* MODIFICATION: Replaced hardcoded button text. */}
                     <Button variant="primary" onClick={onOpenAddQuestionModal}>
-                        + Add Question
+                        {t('buttons.addQuestion')}
                     </Button>
                 </div>
             </div>
