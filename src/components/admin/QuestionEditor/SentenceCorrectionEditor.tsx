@@ -1,6 +1,7 @@
 // src/components/admin/QuestionEditor/SentenceCorrectionEditor.tsx
 
 import React from 'react';
+import { useTranslation } from 'react-i18next'; // MODIFICATION: Imported useTranslation
 import type { IQuestion } from '../../../types/database';
 import Button from '../../common/Button/Button';
 import Label from '../../common/Form/Label';
@@ -15,8 +16,6 @@ interface SentenceCorrectionEditorProps {
 
 /**
  * An editor component for the 'sentence-correction' question type.
- * It provides two text areas: one for the incorrect sentence to be shown
- * to the student, and one for the corrected version for auto-grading.
  */
 const SentenceCorrectionEditor: React.FC<SentenceCorrectionEditorProps> = ({
     question,
@@ -24,22 +23,17 @@ const SentenceCorrectionEditor: React.FC<SentenceCorrectionEditorProps> = ({
     onQuestionChange,
     onRemoveQuestion,
 }) => {
+    const { t } = useTranslation(); // MODIFICATION: Initialized useTranslation
+
     // --- TYPE GUARD ---
-    // Ensures this component only renders for 'sentence-correction' questions.
     if (question.type !== 'sentence-correction') {
         return null;
     }
 
-    /**
-     * Updates the sentence that contains the mistake.
-     */
     const handleMistakeChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         onQuestionChange(index, { ...question, sentenceWithMistake: e.target.value });
     };
 
-    /**
-     * Updates the corrected version of the sentence.
-     */
     const handleCorrectionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         onQuestionChange(index, { ...question, correctedSentence: e.target.value });
     };
@@ -47,30 +41,43 @@ const SentenceCorrectionEditor: React.FC<SentenceCorrectionEditorProps> = ({
     return (
         <div className="question-editor">
             <div className="question-editor__header">
+                {/* MODIFICATION: Title is now dynamically translated. */}
                 <h3 className="question-editor__title">
-                    Question {index + 1} (Sentence Correction)
+                    {t('editor.questionTitle', {
+                        index: index + 1,
+                        type: t('questionTypes.sentenceCorrection'),
+                    })}
                 </h3>
-                <Button onClick={() => onRemoveQuestion(index)}>Remove</Button>
+                {/* MODIFICATION: Replaced hardcoded button text. */}
+                <Button onClick={() => onRemoveQuestion(index)}>{t('buttons.remove')}</Button>
             </div>
 
             <div className="form-group">
-                <Label htmlFor={`mistake-sentence-${question.id}`}>Incorrect Sentence</Label>
+                {/* MODIFICATION: Replaced hardcoded label. */}
+                <Label htmlFor={`mistake-sentence-${question.id}`}>
+                    {t('labels.incorrectSentence')}
+                </Label>
                 <Textarea
                     id={`mistake-sentence-${question.id}`}
                     value={question.sentenceWithMistake}
                     onChange={handleMistakeChange}
-                    placeholder="e.g., He don't like vegetables."
+                    // MODIFICATION: Replaced hardcoded placeholder.
+                    placeholder={t('placeholders.sentenceCorrection.incorrect')}
                     rows={3}
                 />
             </div>
 
             <div className="form-group">
-                <Label htmlFor={`correct-sentence-${question.id}`}>Corrected Sentence</Label>
+                {/* MODIFICATION: Replaced hardcoded label. */}
+                <Label htmlFor={`correct-sentence-${question.id}`}>
+                    {t('labels.correctedSentence')}
+                </Label>
                 <Textarea
                     id={`correct-sentence-${question.id}`}
                     value={question.correctedSentence}
                     onChange={handleCorrectionChange}
-                    placeholder="e.g., He doesn't like vegetables."
+                    // MODIFICATION: Replaced hardcoded placeholder.
+                    placeholder={t('placeholders.sentenceCorrection.correct')}
                     rows={3}
                 />
             </div>
