@@ -1,8 +1,11 @@
 // src/components/admin/QuestionEditor/FillInTheBlankEditor.tsx
 
-import React from 'react';
+import React, { useContext } from 'react'; // MODIFICATION: Imported useContext
 import { X } from 'lucide-react';
 import type { IQuestion } from '../../../types/database';
+import { ModalContext } from '../../../contexts/ModalContext'; // MODIFICATION: Imported ModalContext
+
+// --- Component Imports ---
 import Button from '../../common/Button/Button';
 import Input from '../../common/Form/Input';
 import Label from '../../common/Form/Label';
@@ -25,11 +28,18 @@ const FillInTheBlankEditor: React.FC<FillInTheBlankEditorProps> = ({
     onQuestionChange,
     onRemoveQuestion,
 }) => {
+    // MODIFICATION: Get the modal context to show alerts.
+    const modal = useContext(ModalContext);
+
     // --- TYPE GUARD ---
     // This component is only for 'sti' questions. If another type is passed,
     // it will render nothing, preventing errors and ensuring component integrity.
     if (question.type !== 'sti') {
         return null;
+    }
+
+    if (!modal) {
+        throw new Error('This component must be used within a ModalProvider');
     }
 
     /**
@@ -62,8 +72,11 @@ const FillInTheBlankEditor: React.FC<FillInTheBlankEditorProps> = ({
     const handleRemoveAnswer = (ansIndex: number) => {
         // Prevent the removal of the last answer to maintain data integrity.
         if (question.correctAnswers.length <= 1) {
-            // In a real app, you might show a modal alert here.
-            console.warn('Cannot remove the last answer.');
+            // MODIFICATION: Replaced console.warn with a user-facing alert modal.
+            modal.showAlert({
+                title: 'Action Prohibited',
+                message: 'A Smart Text Input question must have at least one accepted answer.',
+            });
             return;
         }
         const newAnswers = question.correctAnswers.filter((_, i) => i !== ansIndex);
