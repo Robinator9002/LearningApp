@@ -1,7 +1,8 @@
-// src/components/learner/CourseSummary/CourseSummary.tsx
+// src/components/learner/course/CourseSummary.tsx
 
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next'; // MODIFICATION: Imported useTranslation
 import Button from '../../common/Button/Button';
 
 interface CourseSummaryProps {
@@ -11,17 +12,21 @@ interface CourseSummaryProps {
 
 const CourseSummary: React.FC<CourseSummaryProps> = ({ score, totalQuestions }) => {
     const navigate = useNavigate();
+    const { t } = useTranslation(); // MODIFICATION: Initialized useTranslation
 
     return (
         <div className="course-summary">
-            <h2 className="course-summary__title">Course Complete!</h2>
-            <p className="course-summary__message">Great job making it to the end.</p>
+            {/* MODIFICATION: Replaced hardcoded text */}
+            <h2 className="course-summary__title">{t('summary.title')}</h2>
+            <p className="course-summary__message">{t('summary.message')}</p>
             <p className="course-summary__score">
-                Your Score: {score} / {totalQuestions}
+                {/* MODIFICATION: Replaced hardcoded text and used interpolation */}
+                {t('summary.score', { score, total: totalQuestions })}
             </p>
             <div className="course-summary__actions">
+                {/* MODIFICATION: Replaced hardcoded text */}
                 <Button variant="primary" onClick={() => navigate('/dashboard')}>
-                    Back to Dashboard
+                    {t('buttons.backToDashboard')}
                 </Button>
             </div>
         </div>
