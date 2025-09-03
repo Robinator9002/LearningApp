@@ -1,119 +1,123 @@
 // src/lib/courseUtils.ts
 
-import { db } from './db';
-import type { ICourse } from '../types/database';
+// FIX: Added explicit file extensions to resolve potential import path errors.
+import { db } from './db.ts';
+import type { ICourse } from '../types/database.ts';
+
+// --- TYPE DEFINITIONS ---
 
 /**
- * Validates the structure and content of a parsed JSON object to ensure
- * it conforms to the ICourse interface. This is a critical security and
- * data integrity measure before attempting to import a course.
- *
- * @param data The unknown data object parsed from JSON.
- * @returns A tuple where the first element is a boolean indicating validity,
- * and the second is an error message if invalid.
+ * Defines the structured, nested object that our grouping function will produce.
+ * It's a dictionary where keys are subjects, and values are another dictionary
+ * where keys are grade ranges and values are the list of courses.
+ * e.g., { "Math": { "2-4": [course1, course2] } }
  */
-const validateCourseData = (data: unknown): [boolean, string] => {
-    // My foresight tells me that if a user *can* upload a file, they will
-    // eventually upload the wrong file. We must be skeptical and validate everything.
-    if (typeof data !== 'object' || data === null) {
-        return [false, 'Imported data is not a valid object.'];
-    }
+export type GroupedCourses = Record<string, Record<string, ICourse[]>>;
 
-    const course = data as Partial<ICourse>;
+// --- IMPORT / EXPORT UTILITIES ---
 
-    // 1. Check for the existence and correct type of 'title' and 'subject'.
-    if (typeof course.title !== 'string' || !course.title.trim()) {
-        return [false, 'Course must have a non-empty title.'];
-    }
-    const validSubjects: ICourse['subject'][] = ['Math', 'Reading', 'Writing', 'English'];
-    if (typeof course.subject !== 'string' || !validSubjects.includes(course.subject)) {
-        return [false, `Course subject must be one of: ${validSubjects.join(', ')}.`];
-    }
-
-    // 2. Check that 'questions' is a valid array.
-    if (!Array.isArray(course.questions)) {
-        return [false, 'Course must have a valid array of questions.'];
-    }
-
-    // 3. (Optional but recommended) A deep validation of each question object
-    // could be implemented here for maximum security, checking question types,
-    // options, correct answers, etc. For now, we trust the structure within the array.
-
-    return [true, '']; // If all checks pass, the data is valid.
+/**
+ * Validates that an imported object conforms to the ICourse interface.
+ * This is a critical security and data integrity measure.
+ * @param data - The unknown object to validate.
+ * @returns True if the data is a valid ICourse, false otherwise.
+ */
+const validateCourseData = (data: any): data is Omit<ICourse, 'id'> => {
+    if (typeof data !== 'object' || data === null) return false;
+    if (typeof data.title !== 'string' || !data.title) return false;
+    if (!['Math', 'Reading', 'Writing', 'English'].includes(data.subject)) return false;
+    if (!['2-4', '6-8'].includes(data.gradeRange)) return false; // Added gradeRange validation
+    if (!Array.isArray(data.questions)) return false;
+    // We could add deeper validation for each question here if needed.
+    return true;
 };
 
 /**
- * Exports a given course object to a JSON file and triggers a download in the browser.
- *
- * @param course The course object to be exported.
+ * Takes a course object, converts it to JSON, and triggers a download.
+ * @param course - The course object to export.
  */
-export const exportCourseToJson = (course: ICourse) => {
-    // We remove the database-specific 'id' before exporting. This makes the file
-    // more portable and prevents potential ID conflicts on import.
-    const { id, ...exportableCourse } = course;
-    const jsonString = JSON.stringify(exportableCourse, null, 2); // Pretty-print the JSON
+export const exportCourseToJson = (course: ICourse): void => {
+    // Create a clean version of the course, removing the database ID.
+    const exportData = {
+        ...course,
+        id: undefined,
+    };
+    delete exportData.id;
+
+    const jsonString = JSON.stringify(exportData, null, 2);
     const blob = new Blob([jsonString], { type: 'application/json' });
-
-    // Sanitize the course title to create a safe filename.
-    const fileName = `${course.title.replace(/[^a-z0-9]/gi, '_').toLowerCase()}_export.json`;
-
-    // Create a temporary link element to trigger the download.
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = fileName;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    // Create a clean filename from the course title.
+    a.download = `${course.title.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
 };
 
 /**
- * Imports a course from a user-selected JSON file, validates it, and adds it to the database.
- *
- * @returns A promise that resolves to a success message or rejects with an error message.
+ * Reads a user-provided JSON file, validates its structure, and adds it to the database.
+ * @param file - The JSON file to import.
+ * @returns A promise that resolves when the course is successfully imported.
+ * @throws An error if the file is invalid or the import fails.
  */
-export const importCourseFromJson = (): Promise<string> => {
+export const importCourseFromJson = async (file: File): Promise<void> => {
     return new Promise((resolve, reject) => {
-        // Create a hidden file input element.
-        const input = document.createElement('input');
-        input.type = 'file';
-        input.accept = '.json,application/json';
-
-        input.onchange = (event) => {
-            const file = (event.target as HTMLInputElement).files?.[0];
-            if (!file) {
-                return reject('No file selected.');
-            }
-
-            const reader = new FileReader();
-            reader.onload = async (e) => {
-                try {
-                    const content = e.target?.result;
-                    if (typeof content !== 'string') {
-                        throw new Error('File content could not be read as text.');
-                    }
-                    const parsedData = JSON.parse(content);
-
-                    // CRITICAL: Validate the data before proceeding.
-                    const [isValid, errorMessage] = validateCourseData(parsedData);
-                    if (!isValid) {
-                        throw new Error(`Invalid course file: ${errorMessage}`);
-                    }
-
-                    // If valid, add the new course to the database.
-                    // Dexie will automatically assign a new auto-incrementing ID.
-                    await db.courses.add(parsedData as Omit<ICourse, 'id'>);
-                    resolve(`Course "${parsedData.title}" imported successfully!`);
-                } catch (error) {
-                    console.error('Import failed:', error);
-                    const message =
-                        error instanceof Error ? error.message : 'An unknown error occurred.';
-                    reject(`Failed to import course. ${message}`);
+        const reader = new FileReader();
+        reader.onload = async (event) => {
+            try {
+                const content = event.target?.result;
+                if (typeof content !== 'string') {
+                    return reject(new Error('File content is not valid text.'));
                 }
-            };
-            reader.onerror = () => reject('Error reading the file.');
-            reader.readAsText(file);
-        };
+                const data = JSON.parse(content);
 
-        input.click(); // Programmatically open the file dialog.
+                // CRITICAL: Validate the data before adding it to the database.
+                if (!validateCourseData(data)) {
+                    return reject(new Error('Invalid course file format.'));
+                }
+
+                // The data is valid, so we can add it.
+                await db.courses.add(data as ICourse);
+                resolve();
+            } catch (error) {
+                console.error('Import failed:', error);
+                reject(new Error('Failed to parse or import the JSON file.'));
+            }
+        };
+        reader.onerror = () => reject(new Error('Failed to read the file.'));
+        reader.readAsText(file);
     });
+};
+
+// --- COURSE ORGANIZATION UTILITIES ---
+
+/**
+ * Takes a flat array of courses and groups them into a nested object
+ * organized by subject, then by grade range.
+ * @param courses - The array of course objects from the database.
+ * @returns A GroupedCourses object.
+ */
+export const groupCourses = (courses: ICourse[]): GroupedCourses => {
+    // We use the reduce function to transform the array into an object.
+    return courses.reduce((acc, course) => {
+        const { subject, gradeRange } = course;
+
+        // If the subject key (e.g., "Math") doesn't exist yet, create it.
+        if (!acc[subject]) {
+            acc[subject] = {};
+        }
+
+        // If the gradeRange key (e.g., "2-4") doesn't exist for this subject, create it.
+        if (!acc[subject][gradeRange]) {
+            acc[subject][gradeRange] = [];
+        }
+
+        // Push the current course into the correct nested array.
+        acc[subject][gradeRange].push(course);
+
+        return acc;
+    }, {} as GroupedCourses); // Start with an empty object of the correct type.
 };
