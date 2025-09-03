@@ -14,9 +14,6 @@
 @import './components/common/form/forms.css';
 @import './components/common/form/textarea.css';
 
-/* == SHARED == */
-@import './components/shared/interactive-passage.css';
-
 /* == ADMIN == */
 @import './components/admin/question-editor.css';
 @import './components/admin/course-list.css';
@@ -30,7 +27,6 @@
 @import './components/learner/qa/answer-options.css';
 @import './components/learner/qa/question-display.css';
 @import './components/learner/qa/equation-display.css';
-@import './components/learner/qa/highlight-text-player.css';
 @import './components/learner/qa/sentence-correction-player.css';
 /* = DASHBOARD = */
 @import './components/learner/dashboard/progress-summary.css';

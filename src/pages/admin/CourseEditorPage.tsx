@@ -36,13 +36,6 @@ const createNewQuestion = (type: IQuestion['type']): IQuestion => {
             };
         case 'alg-equation':
             return { ...baseQuestion, type: 'alg-equation', equation: '', variables: ['x'] };
-        case 'highlight-text':
-            return {
-                ...baseQuestion,
-                type: 'highlight-text',
-                passage: '',
-                correctAnswers: [''],
-            };
         case 'sentence-correction':
             return {
                 ...baseQuestion,

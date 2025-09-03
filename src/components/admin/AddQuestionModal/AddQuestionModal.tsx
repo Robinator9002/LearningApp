@@ -53,11 +53,6 @@ const questionCategories: QuestionCategory[] = [
         category: 'Reading & Writing',
         questions: [
             {
-                type: 'highlight-text',
-                label: 'Highlight Text',
-                description: 'User must identify and select correct phrases in a passage.',
-            },
-            {
                 type: 'sentence-correction',
                 label: 'Sentence Correction',
                 description: 'User rewrites an incorrect sentence correctly.',

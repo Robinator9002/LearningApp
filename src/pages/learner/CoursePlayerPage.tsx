@@ -30,7 +30,6 @@ const CoursePlayerPage: React.FC = () => {
     const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
     const [stiAnswer, setStiAnswer] = useState('');
     const [algAnswers, setAlgAnswers] = useState<Record<string, string>>({});
-    const [highlightedSentences, setHighlightedSentences] = useState<string[]>([]);
     const [sentenceCorrectionAnswer, setSentenceCorrectionAnswer] = useState('');
     // -----------------------------------------
 
@@ -59,7 +58,6 @@ const CoursePlayerPage: React.FC = () => {
         setSelectedOptionId(null);
         setStiAnswer('');
         setAlgAnswers({});
-        setHighlightedSentences([]);
         setSentenceCorrectionAnswer('');
     };
 
@@ -70,7 +68,6 @@ const CoursePlayerPage: React.FC = () => {
             mcq: selectedOptionId,
             sti: stiAnswer,
             'alg-equation': algAnswers,
-            'highlight-text': highlightedSentences,
             'sentence-correction': sentenceCorrectionAnswer,
         };
 
@@ -115,19 +112,12 @@ const CoursePlayerPage: React.FC = () => {
         return 'default';
     };
 
-    const handleToggleHighlightSentence = (sentence: string) => {
-        setHighlightedSentences((prev) =>
-            prev.includes(sentence) ? prev.filter((s) => s !== sentence) : [...prev, sentence],
-        );
-    };
-
     const isCheckButtonDisabled = () => {
         if (!currentQuestion) return true;
         const answerPayload = {
             mcq: selectedOptionId,
             sti: stiAnswer,
             'alg-equation': algAnswers,
-            'highlight-text': highlightedSentences,
             'sentence-correction': sentenceCorrectionAnswer,
         };
         return !isAnswerValid(currentQuestion, answerPayload);
@@ -151,7 +141,6 @@ const CoursePlayerPage: React.FC = () => {
                 isCorrect={isCorrect}
                 stiAnswer={stiAnswer}
                 algAnswers={algAnswers}
-                highlightedSentences={highlightedSentences}
                 sentenceCorrectionAnswer={sentenceCorrectionAnswer}
                 onExitCourse={() => navigate('/dashboard')}
                 onCheckAnswer={handleCheckAnswer}
@@ -160,7 +149,6 @@ const CoursePlayerPage: React.FC = () => {
                 onAlgAnswerChange={(variable, value) =>
                     setAlgAnswers((prev) => ({ ...prev, [variable]: value }))
                 }
-                onToggleHighlightSentence={handleToggleHighlightSentence}
                 onSentenceCorrectionChange={setSentenceCorrectionAnswer}
                 getMCQStatus={getMCQStatus}
                 isCheckButtonDisabled={isCheckButtonDisabled}

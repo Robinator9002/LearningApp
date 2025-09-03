@@ -7,67 +7,8 @@ type AnswerPayload = {
     mcq: string | null;
     sti: string;
     'alg-equation': Record<string, string>;
-    'highlight-text': string[];
-    // 'free-response': string; // This line has been purged.
     'sentence-correction': string;
 };
-
-// --- START: FUZZY STRING MATCHING LOGIC ---
-
-/**
- * Calculates the Levenshtein distance between two strings (the number of edits
- * required to change one string into the other). This is a classic algorithm
- * for determining string similarity.
- * @param s1 The first string.
- * @param s2 The second string.
- * @returns The edit distance between the two strings.
- */
-const calculateLevenshteinDistance = (s1: string, s2: string): number => {
-    const track = Array(s2.length + 1)
-        .fill(null)
-        .map(() => Array(s1.length + 1).fill(null));
-    for (let i = 0; i <= s1.length; i += 1) {
-        track[0][i] = i;
-    }
-    for (let j = 0; j <= s2.length; j += 1) {
-        track[j][0] = j;
-    }
-    for (let j = 1; j <= s2.length; j += 1) {
-        for (let i = 1; i <= s1.length; i += 1) {
-            const indicator = s1[i - 1] === s2[j - 1] ? 0 : 1;
-            track[j][i] = Math.min(
-                track[j][i - 1] + 1, // deletion
-                track[j - 1][i] + 1, // insertion
-                track[j - 1][i - 1] + indicator, // substitution
-            );
-        }
-    }
-    return track[s2.length][s1.length];
-};
-
-/**
- * Calculates the similarity percentage between two strings.
- * A result of 100 means the strings are identical.
- * @param s1 The first string.
- * @param s2 The second string.
- * @returns The similarity percentage.
- */
-const calculateSimilarity = (s1: string, s2: string): number => {
-    let longer = s1;
-    let shorter = s2;
-    if (s1.length < s2.length) {
-        longer = s2;
-        shorter = s1;
-    }
-    if (longer.length === 0) {
-        return 100.0;
-    }
-    const similarity =
-        (longer.length - calculateLevenshteinDistance(longer, shorter)) / longer.length;
-    return similarity * 100; // Return as a percentage
-};
-
-// --- END: FUZZY STRING MATCHING LOGIC ---
 
 /**
  * A robust evaluation function to simulate a real math library.
@@ -143,8 +84,6 @@ export const isAnswerValid = (question: IQuestion, answers: AnswerPayload): bool
                         !isNaN(parseFloat(answers['alg-equation'][v])),
                 )
             );
-        case 'highlight-text':
-            return answers['highlight-text'].length > 0;
         // --- REMOVED: The case for 'free-response' has been deleted. ---
         case 'sentence-correction':
             return answers['sentence-correction'].trim() !== '';
@@ -170,23 +109,6 @@ export const checkAnswer = (question: IQuestion, answers: AnswerPayload): boolea
             );
         case 'alg-equation':
             return evaluateEquation(question.equation, answers['alg-equation']);
-        case 'highlight-text':
-            // The user must select the exact number of correct sentences.
-            if (answers['highlight-text'].length !== question.correctAnswers.length) {
-                return false;
-            }
-
-            // Normalize strings by removing all whitespace for comparison.
-            const normalizedSelected = answers['highlight-text'].map((s) => s.replace(/\s/g, ''));
-            const normalizedCorrect = question.correctAnswers.map((s) => s.replace(/\s/g, ''));
-
-            // Check if every correct answer has a matching selected answer with >= 90% similarity.
-            return normalizedCorrect.every((correctSentence) =>
-                normalizedSelected.some(
-                    (selectedSentence) =>
-                        calculateSimilarity(selectedSentence, correctSentence) >= 90,
-                ),
-            );
         // --- REMOVED: The case for 'free-response' has been deleted. ---
         case 'sentence-correction':
             const corrected = answers['sentence-correction'].trim();

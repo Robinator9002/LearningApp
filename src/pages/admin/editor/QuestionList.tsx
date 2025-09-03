@@ -6,8 +6,6 @@ import MultipleChoiceEditor from '../../../components/admin/QuestionEditor/Multi
 import FillInTheBlankEditor from '../../../components/admin/QuestionEditor/FillInTheBlankEditor';
 import AlgebraEquationEditor from '../../../components/admin/QuestionEditor/AlgebraEquationEditor';
 
-// --- NEW: Importing the new editor components ---
-import HighlightTextEditor from '../../../components/admin/QuestionEditor/HighlightTextEditor';
 // --- REMOVED: The import for FreeResponseEditor has been deleted. ---
 import SentenceCorrectionEditor from '../../../components/admin/QuestionEditor/SentenceCorrectionEditor';
 
@@ -51,17 +49,6 @@ const QuestionList: React.FC<QuestionListProps> = ({
                     case 'alg-equation':
                         return (
                             <AlgebraEquationEditor
-                                key={q.id}
-                                index={index}
-                                question={q}
-                                onQuestionChange={onQuestionChange}
-                                onRemoveQuestion={onRemoveQuestion}
-                            />
-                        );
-                    // --- NEW: Adding cases for the new question types ---
-                    case 'highlight-text':
-                        return (
-                            <HighlightTextEditor
                                 key={q.id}
                                 index={index}
                                 question={q}

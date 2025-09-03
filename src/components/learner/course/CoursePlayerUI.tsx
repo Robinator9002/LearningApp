@@ -8,7 +8,6 @@ import AnswerOption from '../qa/AnswerOption';
 import Input from '../../common/Form/Input';
 import AlgebraEquationSolver from '../qa/AlgebraEquationSolver';
 import EquationDisplay from '../qa/EquationDisplay';
-import HighlightTextPlayer from '../qa/HighlightTextPlayer';
 import SentenceCorrectionPlayer from '../qa/SentenceCorrectionPlayer';
 
 interface CoursePlayerUIProps {
@@ -19,14 +18,12 @@ interface CoursePlayerUIProps {
     isCorrect: boolean;
     stiAnswer: string;
     algAnswers: Record<string, string>;
-    highlightedSentences: string[];
     sentenceCorrectionAnswer: string;
     onExitCourse: () => void;
     onCheckAnswer: () => void;
     onSelectOption: (id: string) => void;
     onStiAnswerChange: (value: string) => void;
     onAlgAnswerChange: (variable: string, value: string) => void;
-    onToggleHighlightSentence: (sentence: string) => void;
     onSentenceCorrectionChange: (value: string) => void;
     getMCQStatus: (optionId: string) => AnswerStatus;
     isCheckButtonDisabled: () => boolean;
@@ -40,14 +37,12 @@ const CoursePlayerUI: React.FC<CoursePlayerUIProps> = ({
     isCorrect,
     stiAnswer,
     algAnswers,
-    highlightedSentences,
     sentenceCorrectionAnswer,
     onExitCourse,
     onCheckAnswer,
     onSelectOption,
     onStiAnswerChange,
     onAlgAnswerChange,
-    onToggleHighlightSentence,
     onSentenceCorrectionChange,
     getMCQStatus,
     isCheckButtonDisabled,
@@ -98,15 +93,6 @@ const CoursePlayerUI: React.FC<CoursePlayerUIProps> = ({
                         answers={algAnswers}
                         onAnswerChange={onAlgAnswerChange}
                         disabled={isAnswered}
-                    />
-                );
-            case 'highlight-text':
-                return (
-                    <HighlightTextPlayer
-                        passage={currentQuestion.passage}
-                        selectedSentences={highlightedSentences}
-                        onToggleHighlightSentence={onToggleHighlightSentence}
-                        isAnswered={isAnswered}
                     />
                 );
             case 'sentence-correction':

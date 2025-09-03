@@ -31,15 +31,6 @@ export interface IQuestionAlgEquation extends IQuestionBase {
     variables: string[];
 }
 
-// --- QUESTION TYPE: Highlight Text ---
-export interface IQuestionHighlightText extends IQuestionBase {
-    type: 'highlight-text';
-    passage: string;
-    // FIX: The property was 'correctAnswers' but used as 'correctPhrases' in the logic.
-    // Standardizing to 'correctAnswers' for consistency with other types.
-    correctAnswers: string[];
-}
-
 // --- QUESTION TYPE: Free Response (Essay) ---
 export interface IQuestionFreeResponse extends IQuestionBase {
     type: 'free-response';
@@ -58,7 +49,6 @@ export type IQuestion =
     | IQuestionMCQ
     | IQuestionSTI
     | IQuestionAlgEquation
-    | IQuestionHighlightText
     | IQuestionFreeResponse
     | IQuestionSentenceCorrection;
 
