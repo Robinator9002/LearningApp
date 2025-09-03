@@ -1,10 +1,10 @@
 // src/pages/settings/tabs/AppearanceTab.tsx
 
 import React from 'react';
-import { useTranslation } from 'react-i18next'; // MODIFICATION: Imported useTranslation
 import { useTheme } from '../../../contexts/ThemeContext';
 import Label from '../../../components/common/Form/Label';
 import { Sun, Palette, Contrast, Type, CaseSensitive } from 'lucide-react';
+import { useTranslation } from 'react-i18next'; // MODIFICATION: Added i18n
 
 // --- TYPE DEFINITIONS ---
 interface ThemeOptionButtonProps {
@@ -36,15 +36,11 @@ const ThemeOptionButton: React.FC<ThemeOptionButtonProps> = ({
 // --- MAIN COMPONENT ---
 
 const AppearanceTab: React.FC = () => {
-    const { t } = useTranslation(); // MODIFICATION: Initialized useTranslation
-    const theme = useTheme();
-
-    if (!theme) {
-        return <div>{t('loading.theme')}</div>; // MODIFICATION: Translated loading text
-    }
-
+    // MODIFICATION: No longer using a separate `theme` variable.
+    // We are now destructuring all required values directly from the `useTheme` hook.
+    // This is the fix for the previously identified TypeScript errors.
     const {
-        theme: currentTheme,
+        theme,
         accent,
         contrast,
         font,
@@ -54,7 +50,12 @@ const AppearanceTab: React.FC = () => {
         setContrast,
         setFont,
         setFontSize,
-    } = theme;
+    } = useTheme();
+    const { t } = useTranslation(); // MODIFICATION: Added i18n
+
+    if (!theme) {
+        return <div>{t('loading.theme')}</div>;
+    }
 
     const handleFontSizeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFontSize(parseFloat(e.target.value));
@@ -70,14 +71,11 @@ const AppearanceTab: React.FC = () => {
                 <div className="settings-group__controls">
                     <ThemeOptionButton
                         onClick={() => setTheme('light')}
-                        isActive={currentTheme === 'light'}
+                        isActive={theme === 'light'}
                     >
                         {t('settings.appearance.light')}
                     </ThemeOptionButton>
-                    <ThemeOptionButton
-                        onClick={() => setTheme('dark')}
-                        isActive={currentTheme === 'dark'}
-                    >
+                    <ThemeOptionButton onClick={() => setTheme('dark')} isActive={theme === 'dark'}>
                         {t('settings.appearance.dark')}
                     </ThemeOptionButton>
                 </div>
