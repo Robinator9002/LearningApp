@@ -1,12 +1,11 @@
 // src/pages/admin/editor/CourseMetaEditor.tsx
 
 import React from 'react';
+import { useTranslation } from 'react-i18next'; // MODIFICATION: Imported useTranslation
 import Input from '../../../components/common/Form/Input';
 import Label from '../../../components/common/Form/Label';
 import Select from '../../../components/common/Form/Select';
 
-// The props interface is the source of the type error.
-// We must expand the 'subject' type to match the parent component's state.
 interface CourseMetaEditorProps {
     title: string;
     setTitle: (title: string) => void;
@@ -20,14 +19,18 @@ const CourseMetaEditor: React.FC<CourseMetaEditorProps> = ({
     subject,
     setSubject,
 }) => {
+    const { t } = useTranslation(); // MODIFICATION: Initialized useTranslation
+
     return (
         <div className="course-editor-page__meta">
             <div className="form-group">
-                <Label htmlFor="course-title">Course Title</Label>
+                {/* MODIFICATION: Replaced hardcoded label. */}
+                <Label htmlFor="course-title">{t('labels.courseTitle')}</Label>
                 <Input id="course-title" value={title} onChange={(e) => setTitle(e.target.value)} />
             </div>
             <div className="form-group">
-                <Label htmlFor="course-subject">Subject</Label>
+                {/* MODIFICATION: Replaced hardcoded label. */}
+                <Label htmlFor="course-subject">{t('labels.subject')}</Label>
                 <Select
                     id="course-subject"
                     value={subject}
@@ -36,7 +39,6 @@ const CourseMetaEditor: React.FC<CourseMetaEditorProps> = ({
                     <option value="Math">Math</option>
                     <option value="Reading">Reading</option>
                     <option value="Writing">Writing</option>
-                    {/* --- NEW: Add English to the dropdown --- */}
                     <option value="English">English</option>
                 </Select>
             </div>
