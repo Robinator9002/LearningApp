@@ -1,73 +1,71 @@
-// src/components/shared/InteractivePassage/InteractivePassage.tsx
+import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
+// --- MODIFIED: Corrected the import path for the stylesheet ---
+import '../../../styles/components/InteractivePassage.css';
 
-import React, { useMemo } from 'react';
+// A utility to split text into sentences. It's not perfect but handles
+// common cases like periods, question marks, and exclamation points.
+const splitIntoSentences = (text: string): string[] => {
+    if (!text) return [];
+    // This regex splits the text by looking for sentence-ending punctuation
+    // followed by a space or the end of the string. The filter removes empty strings.
+    return text.match(/[^.!?]+[.!?]\s*|[^.!?]+$/g)?.filter(Boolean) || [];
+};
 
 interface InteractivePassageProps {
     passageText: string;
     selectedSentences: string[];
-    onSelectionChange: (newSelection: string[]) => void;
+    onSelectionChange: (sentences: string[]) => void;
     disabled?: boolean;
 }
 
-/**
- * A reusable component that displays a passage of text, tokenizes it into
- * selectable sentences, and manages the selection state via callbacks.
- * This is the cornerstone of the 'Highlight Text' question type.
- */
 const InteractivePassage: React.FC<InteractivePassageProps> = ({
     passageText,
-    selectedSentences,
+    selectedSentences = [],
     onSelectionChange,
     disabled = false,
 }) => {
-    // useMemo ensures we only split the passage into sentences when the text actually changes.
-    // This is a performance optimization for a potentially expensive operation.
-    const sentences = useMemo(() => {
-        if (!passageText) return [];
-        // NOTE: This regex is a significant improvement but may not be perfect. It splits
-        // the passage into sentences while trying to preserve punctuation. It looks for
-        // a punctuation mark followed by a space or the end of the string.
-        // It does not handle all edge cases (e.g., "Mr. Smith"). A more robust
-        // solution would require a dedicated NLP library.
-        return passageText.match(/[^.!?]+[.!?]*/g) || [];
-    }, [passageText]);
+    const sentences = splitIntoSentences(passageText);
 
     const handleSentenceClick = (sentence: string) => {
         if (disabled) return;
 
-        const trimmedSentence = sentence.trim();
-        const isSelected = selectedSentences.includes(trimmedSentence);
+        // Check if the sentence is already selected
+        const isSelected = selectedSentences.includes(sentence);
 
         let newSelection;
         if (isSelected) {
-            newSelection = selectedSentences.filter((s) => s !== trimmedSentence);
+            // If it's already selected, remove it
+            newSelection = selectedSentences.filter((s) => s !== sentence);
         } else {
-            newSelection = [...selectedSentences, trimmedSentence];
+            // Otherwise, add it to the selection
+            newSelection = [...selectedSentences, sentence];
         }
         onSelectionChange(newSelection);
     };
 
+    const passageClassName = `interactive-passage ${disabled ? 'disabled' : ''}`;
+
     return (
-        <div className="interactive-passage">
-            {sentences.map((sentence, index) => {
-                const trimmedSentence = sentence.trim();
-                const isSelected = selectedSentences.includes(trimmedSentence);
-                const sentenceClasses = [
-                    'interactive-passage__sentence',
-                    isSelected ? 'interactive-passage__sentence--selected' : '',
-                    disabled ? 'interactive-passage__sentence--disabled' : '',
-                ]
-                    .join(' ')
-                    .trim();
+        <div className={passageClassName}>
+            {sentences.map((sentence) => {
+                const isSelected = selectedSentences.includes(sentence.trim());
+                const sentenceClassName = `sentence ${isSelected ? 'selected' : ''}`;
 
                 return (
                     <span
-                        key={index}
-                        className={sentenceClasses}
-                        onClick={() => handleSentenceClick(sentence)}
+                        key={uuidv4()} // Using uuid for a stable key
+                        className={sentenceClassName}
+                        onClick={() => handleSentenceClick(sentence.trim())}
+                        role="button"
+                        tabIndex={0}
+                        onKeyPress={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                                handleSentenceClick(sentence.trim());
+                            }
+                        }}
                     >
-                        {/* Add a space after each sentence for natural wrapping */}
-                        {sentence}{' '}
+                        {sentence}
                     </span>
                 );
             })}
