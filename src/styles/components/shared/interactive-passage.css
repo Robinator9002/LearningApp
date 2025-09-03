@@ -1,50 +1,69 @@
-/* src/styles/components/shared/interactive-passage.css */
+/*
+  src/components/shared/InteractivePassage.css
 
+  This file provides the dedicated styling for the InteractivePassage
+  component, creating a professional and intuitive user experience for
+  highlighting text that is vastly superior to the default browser selection.
+*/
+
+/*
+  --- The Main Passage Container ---
+  This is the box that holds all the selectable sentences. It provides a
+  clear visual boundary for the interactive area.
+*/
 .interactive-passage {
-    font-size: 1.2rem;
-    line-height: 2; /* Increased line-height for easier clicking/tapping */
-    text-align: left;
-    user-select: none; /* Prevents text selection on click/drag */
-    padding: var(--spacing-unit);
-    background-color: var(--color-surface);
-    border: 1px solid var(--color-border);
+    background-color: var(--light-muted-bg); /* A subtle background to stand out */
+    border: 1px solid var(--light-border);
     border-radius: var(--border-radius);
+    padding: calc(var(--spacing-unit) * 2);
+    line-height: 1.8; /* Generous line spacing for readability and easy clicking */
+    transition: all 0.2s ease-in-out;
 }
 
-.interactive-passage__sentence {
-    display: inline; /* Keep sentences flowing naturally */
-    padding: 2px 4px;
-    border-radius: 4px;
-    transition: background-color 0.2s, color 0.2s;
-}
-
-/* Add a pointer cursor only when the sentence is NOT disabled */
-.interactive-passage__sentence:not(.interactive-passage__sentence--disabled) {
+/* --- Individual Sentences --- */
+.sentence {
+    /* Base styling for each sentence span */
     cursor: pointer;
+    padding: 2px 4px;
+    border-radius: var(--border-radius);
+    transition: background-color 0.15s ease-in-out;
 }
 
-/* Hover effect for selectable sentences */
-.interactive-passage__sentence:not(.interactive-passage__sentence--selected):not(
-        .interactive-passage__sentence--disabled
-    ):hover {
-    background-color: color-mix(in srgb, var(--color-accent) 20%, transparent);
+/*
+  --- Hover State ---
+  Provides immediate feedback when the user's mouse is over a
+  selectable sentence, inviting interaction.
+*/
+.sentence:hover {
+    background-color: var(--accent-blue-light);
 }
 
-/* Styling for the selected state */
-.interactive-passage__sentence--selected {
-    background-color: var(--color-accent);
-    color: var(--color-accent-text);
+/*
+  --- Selected State ---
+  This is the core of the custom UX. A clear, vibrant highlight that
+  replaces the inconsistent browser default.
+*/
+.sentence.selected {
+    background-color: var(--accent-blue);
+    color: var(--light-surface);
     font-weight: 500;
 }
 
-/* Styling for the disabled state */
-.interactive-passage__sentence--disabled {
-    cursor: not-allowed;
-    color: var(--color-text-secondary);
+/*
+  --- Disabled State ---
+  When the question has been answered, we remove the interactivity cues
+  to prevent confusion. The user can see the selection, but can't change it.
+*/
+.interactive-passage.disabled .sentence {
+    cursor: default;
 }
 
-/* A selected sentence in a disabled passage should retain its color but not be interactive */
-.interactive-passage__sentence--selected.interactive-passage__sentence--disabled {
-    color: var(--color-accent-text);
-    opacity: 0.7;
+.interactive-passage.disabled .sentence:hover {
+    background-color: transparent; /* No hover effect when disabled */
+}
+
+/* Keep the selected style visible even when disabled */
+.interactive-passage.disabled .sentence.selected {
+    background-color: var(--accent-blue);
+    color: var(--light-surface);
 }
