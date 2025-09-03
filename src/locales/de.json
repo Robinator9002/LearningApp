@@ -3,11 +3,103 @@
         "appTitle": "Lern-App",
         "userSelection": {
             "title": "Wähle dein Profil",
-            "selectUser": "Profil auswählen"
+            "selectUser": "Profil auswählen",
+            "welcomeTitle": "Willkommen!",
+            "firstAdminPrompt": "Lassen Sie uns das erste Administratorkonto erstellen, um loszulegen.",
+            "createAdminAccount": "Administratorkonto erstellen",
+            "createNewAccount": "Neues Konto erstellen",
+            "passwordPromptTitle": "Passwort für {{name}} eingeben",
+            "loginFailedTitle": "Anmeldung fehlgeschlagen",
+            "incorrectPassword": "Falsches Passwort."
         },
         "dashboard": {
             "learnerTitle": "Lern-Dashboard",
             "adminTitle": "Admin-Dashboard"
+        },
+        "courseEditor": {
+            "editTitle": "Kurs bearbeiten",
+            "createTitle": "Neuen Kurs erstellen",
+            "questions": "Fragen",
+            "stiTitle": "Frage {{index}} (Intelligente Texteingabe)",
+            "mcqTitle": "Frage {{index}} (Multiple-Choice)",
+            "algEquationTitle": "Frage {{index}} (Algebraische Gleichung)",
+            "sentenceCorrectionTitle": "Frage {{index}} (Satzkorrektur)"
+        },
+        "courseSummary": {
+            "title": "Kurs abgeschlossen!",
+            "message": "Gut gemacht, du hast es bis zum Ende geschafft.",
+            "score": "Deine Punktzahl: {{score}} / {{totalQuestions}}",
+            "backToDashboard": "Zurück zum Dashboard"
+        },
+        "labels": {
+            "title": "Titel",
+            "subject": "Fach",
+            "loading": "Laden...",
+            "loadingCourses": "Kurse werden geladen...",
+            "loadingUser": "Benutzer wird geladen...",
+            "noCoursesFound": "Keine Kurse gefunden. Bitten Sie einen Administrator, einen zu erstellen!",
+            "questionText": "Fragetext",
+            "evaluationMode": "Auswertungsmodus",
+            "acceptedAnswers": "Akzeptierte Antworten (eine oder mehrere)",
+            "name": "Name",
+            "password": "Passwort (optional)",
+            "passwordMinChars": "Passwort (min. 4 Zeichen)",
+            "confirmPassword": "Neues Passwort bestätigen",
+            "accountType": "Kontotyp",
+            "admin": "Administrator",
+            "learner": "Lernender"
+        },
+        "buttons": {
+            "edit": "Bearbeiten",
+            "delete": "Löschen",
+            "remove": "Entfernen",
+            "save": "Speichern",
+            "cancel": "Abbrechen",
+            "confirm": "Bestätigen",
+            "login": "Anmelden",
+            "logout": "Abmelden",
+            "settings": "Einstellungen",
+            "close": "Schließen",
+            "create": "Erstellen",
+            "createNewCourse": "Neuen Kurs erstellen",
+            "addQuestion": "+ Frage hinzufügen",
+            "addAnotherAnswer": "+ Weitere Antwort hinzufügen",
+            "checkAnswer": "Antwort überprüfen",
+            "discardChanges": "Änderungen verwerfen",
+            "saveCourse": "Kurs speichern"
+        },
+        "options": {
+            "caseInsensitive": "Groß-/Kleinschreibung ignorieren",
+            "exactMatch": "Exakte Übereinstimmung"
+        },
+        "placeholders": {
+            "adminName": "Admin-Name"
+        },
+        "modals": {
+            "actionProhibited": {
+                "title": "Aktion verboten",
+                "stiMessage": "Eine Frage mit intelligenter Texteingabe muss mindestens eine akzeptierte Antwort haben."
+            }
+        },
+        "confirmations": {
+            "deleteCourse": {
+                "title": "Kurs löschen",
+                "message": "Sind Sie sicher, dass Sie diesen Kurs löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden."
+            }
+        },
+        "errors": {
+            "deleteCourse": {
+                "title": "Fehler beim Löschen",
+                "message": "Beim Löschen des Kurses ist ein Fehler aufgetreten."
+            },
+            "saveCourse": {
+                "title": "Fehler beim Speichern",
+                "message": "Beim Speichern des Kurses ist ein Fehler aufgetreten."
+            },
+            "validation": {
+                "title": "Validierungsfehler",
+                "titleMissing": "Bitte geben Sie einen Kurstitel ein."
+            }
         }
     }
 }
