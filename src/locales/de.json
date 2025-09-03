@@ -2,11 +2,14 @@
     "translation": {
         "appTitle": "Lern-App",
         "buttons": {
+            "addAnotherAnswer": "+ Weitere Antwort hinzufügen",
             "addQuestion": "+ Frage hinzufügen",
             "backToDashboard": "Zurück zum Dashboard",
             "cancel": "Abbrechen",
+            "changePassword": "Passwort ändern",
             "checkAnswer": "Antwort prüfen",
             "close": "Schließen",
+            "create": "Erstellen",
             "createAccount": "Konto erstellen",
             "createCourse": "Neuen Kurs erstellen",
             "createNewAccount": "Neues Konto erstellen",
@@ -15,7 +18,7 @@
             "discardChanges": "Änderungen verwerfen",
             "edit": "Bearbeiten",
             "editName": "Namen bearbeiten",
-            "exportCourse": "Kurs exportieren",
+            "export": "Exportieren",
             "importCourse": "Kurs importieren",
             "login": "Anmelden",
             "remove": "Entfernen",
@@ -23,21 +26,22 @@
             "saveCourse": "Kurs speichern",
             "savePassword": "Passwort speichern",
             "setPassword": "Passwort festlegen",
-            "changePassword": "Passwort ändern",
             "startCourse": "Kurs starten"
         },
         "dashboard": {
             "adminTitle": "Admin-Dashboard",
             "averageScore": "Ø Punktzahl",
             "coursesCompleted": "Kurse abgeschlossen",
+            "importHint": "Tipp: Sie können das Starter-Paket importieren unter ",
             "learnerTitle": "Lern-Dashboard",
-            "noCoursesAdmin": "Keine Kurse gefunden. Erstellen Sie einen, um loszulegen!",
+            "noCoursesAdmin": "Keine Kurse gefunden. Erstellen Sie einen oder importieren Sie eine Datei, um loszulegen.",
             "noCoursesLearner": "Noch keine Kurse verfügbar. Bitten Sie einen Admin, einen zu erstellen!",
             "progressTitle": "Dein Fortschritt",
             "welcomeMessage": "Schließe deinen ersten Kurs ab, um deinen Fortschritt hier zu sehen.",
             "welcomeTitle": "Willkommen!"
         },
         "editor": {
+            "questionTitle": "Frage {{index}} ({{type}})",
             "questionsTitle": "Fragen",
             "titleCreate": "Neuen Kurs erstellen",
             "titleEdit": "Kurs bearbeiten"
@@ -47,6 +51,7 @@
             "incorrect": "Nicht ganz..."
         },
         "labels": {
+            "acceptedAnswers": "Akzeptierte Antworten (eine oder mehrere)",
             "accountType": "Kontotyp",
             "answerOptions": "Antwortmöglichkeiten",
             "correctedSentence": "Korrigierter Satz",
@@ -55,7 +60,6 @@
             "equation": "Gleichung",
             "evaluationMode": "Bewertungsmodus",
             "gradeRange": "Klassenstufe",
-            "gradeRangeLabel": "Klasse {{range}}",
             "incorrectSentence": "Fehlerhafter Satz",
             "loading": "Wird geladen...",
             "loadingProgress": "Lade Fortschritt...",
@@ -64,10 +68,15 @@
             "newPassword": "Neues Passwort",
             "confirmNewPassword": "Neues Passwort bestätigen",
             "password": "Passwort",
-
+            "passwordOptional": "Passwort (Optional)",
             "questionText": "Fragentext",
             "subject": "Fach",
+            "title": "Titel",
             "variables": "Variablen (durch Komma getrennt)"
+        },
+        "options": {
+            "caseInsensitive": "Groß-/Kleinschreibung ignorieren",
+            "exactMatch": "Exakte Übereinstimmung"
         },
         "placeholders": {
             "algEquation": {
@@ -85,6 +94,7 @@
             },
             "sti": {
                 "answer": "Gib deine Antwort hier ein...",
+                "answerOption": "Antwort {{index}}",
                 "questionText": "z.B. Die Hauptstadt von Frankreich ist ____."
             }
         },
@@ -104,7 +114,10 @@
             "learner": "Lernender"
         },
         "settings": {
-            "account": "Konto",
+            "tabs": {
+                "account": "Konto",
+                "appearance": "Erscheinungsbild"
+            },
             "appearance": {
                 "title": "Erscheinungsbild",
                 "theme": "Thema",
@@ -144,12 +157,12 @@
             "title": "Kurs abgeschlossen!"
         },
         "userSelection": {
-            "createAccount": "Neues Konto erstellen",
             "createAdminAccount": "Admin-Konto erstellen",
             "enterPasswordFor": "Passwort für {{name}} eingeben",
             "firstRunSubtitle": "Lass uns das erste Admin-Konto erstellen, um loszulegen.",
             "firstRunTitle": "Willkommen!",
-            "title": "Wähle dein Profil"
+            "title": "Wähle dein Profil",
+            "createUserModalTitle": "Neues Konto erstellen"
         },
         "addQuestionModal": {
             "title": "Neue Frage hinzufügen",
