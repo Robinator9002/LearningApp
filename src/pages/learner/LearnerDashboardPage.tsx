@@ -3,21 +3,21 @@
 import React, { useContext } from 'react';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next'; // MODIFICATION: Imported useTranslation
 import { db } from '../../lib/db';
-import { AuthContext } from '../../contexts/AuthContext'; // Import AuthContext
+import { AuthContext } from '../../contexts/AuthContext';
 
-// Import the new ProgressSummary component
 import ProgressSummary from '../../components/learner/dashboard/ProgressSummary';
 import CourseCard from '../../components/learner/course/CourseCard';
 
 const LearnerDashboardPage: React.FC = () => {
     const navigate = useNavigate();
-    const auth = useContext(AuthContext); // Get auth context
+    const { t } = useTranslation(); // MODIFICATION: Initialized useTranslation
+    const auth = useContext(AuthContext);
     const courses = useLiveQuery(() => db.courses.toArray(), []);
 
     if (!auth || !auth.currentUser) {
-        // This should be handled by ProtectedRoute, but it's a good safeguard.
-        return <div>Loading user...</div>;
+        return <div>{t('labels.loadingUser')}</div>;
     }
 
     const { currentUser } = auth;
@@ -28,12 +28,8 @@ const LearnerDashboardPage: React.FC = () => {
 
     return (
         <div className="learner-dashboard">
-            {/* The ProgressSummary component is rendered here, receiving the
-              current user's ID to fetch and display their specific progress.
-            */}
             <ProgressSummary currentUserId={currentUser.id!} />
 
-            {/* The existing course selection grid */}
             {courses && courses.length > 0 ? (
                 <div className="learner-dashboard__grid">
                     {courses.map((course: any) => (
@@ -42,7 +38,8 @@ const LearnerDashboardPage: React.FC = () => {
                 </div>
             ) : (
                 <div className="learner-dashboard__empty">
-                    <p>No courses available yet. Ask an admin to create one!</p>
+                    {/* MODIFICATION: Replaced hardcoded text with i18n key */}
+                    <p>{t('dashboard.noCourses')}</p>
                 </div>
             )}
         </div>
