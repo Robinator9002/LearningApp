@@ -4,11 +4,13 @@ import React, { useContext } from 'react';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { db } from '../../lib/db';
-import { ModalContext } from '../../contexts/ModalContext';
+import { db } from '../../lib/db.ts';
+import { ModalContext } from '../../contexts/ModalContext.tsx';
+// NEW: Import our new utility function.
+import { importCourseFromJson } from '../../lib/courseUtils.ts';
 
-import CourseList from '../../components/admin/CourseList/CourseList';
-import Button from '../../components/common/Button/Button';
+import CourseList from '../../components/admin/CourseList/CourseList.tsx';
+import Button from '../../components/common/Button/Button.tsx';
 
 const AdminDashboardPage: React.FC = () => {
     const { t } = useTranslation();
@@ -20,6 +22,24 @@ const AdminDashboardPage: React.FC = () => {
         throw new Error('AdminDashboardPage must be used within a ModalProvider');
     }
 
+    // NEW: Handler function for the import process.
+    // It calls our utility and uses the modal context to show success or error messages.
+    const handleImportCourse = async () => {
+        try {
+            const successMessage = await importCourseFromJson();
+            modal.showAlert({
+                title: t('success.title'),
+                message: successMessage,
+            });
+        } catch (error) {
+            const message = error instanceof Error ? error.message : String(error);
+            modal.showAlert({
+                title: t('errors.importCourse.title'),
+                message: message,
+            });
+        }
+    };
+
     const handleCreateCourse = () => {
         navigate('/admin/create-course');
     };
@@ -29,17 +49,14 @@ const AdminDashboardPage: React.FC = () => {
     };
 
     const handleDeleteCourse = (courseId: number) => {
-        // MODIFICATION: Replaced hardcoded strings with i18n keys for the confirmation modal.
         modal.showConfirm({
             title: t('confirmations.deleteCourse.title'),
             message: t('confirmations.deleteCourse.message'),
             onConfirm: async () => {
                 try {
                     await db.courses.delete(courseId);
-                    console.log(`Course with id ${courseId} deleted successfully.`);
                 } catch (error) {
                     console.error('Failed to delete course:', error);
-                    // MODIFICATION: Replaced hardcoded strings for the error alert.
                     modal.showAlert({
                         title: t('errors.deleteCourse.title'),
                         message: t('errors.deleteCourse.message'),
@@ -53,10 +70,15 @@ const AdminDashboardPage: React.FC = () => {
         <div className="admin-dashboard">
             <div className="admin-dashboard__header">
                 <h2 className="admin-dashboard__title">{t('dashboard.adminTitle')}</h2>
-                {/* MODIFICATION: Replaced hardcoded button text. */}
-                <Button variant="primary" onClick={handleCreateCourse}>
-                    {t('buttons.createNewCourse')}
-                </Button>
+                {/* NEW: A wrapper for the action buttons. */}
+                <div className="admin-dashboard__actions">
+                    <Button variant="secondary" onClick={handleImportCourse}>
+                        {t('buttons.importCourse')}
+                    </Button>
+                    <Button variant="primary" onClick={handleCreateCourse}>
+                        {t('buttons.createNewCourse')}
+                    </Button>
+                </div>
             </div>
 
             {courses ? (
@@ -66,7 +88,6 @@ const AdminDashboardPage: React.FC = () => {
                     onDeleteCourse={handleDeleteCourse}
                 />
             ) : (
-                // MODIFICATION: Replaced hardcoded loading text.
                 <p>{t('labels.loadingCourses')}</p>
             )}
         </div>
