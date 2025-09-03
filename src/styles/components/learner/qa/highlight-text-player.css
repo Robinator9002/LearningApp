@@ -1,7 +1,19 @@
 /* src/styles/components/learner/qa/highlight-text-player.css */
 
 .highlight-text-player {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing-unit) * 2);
+    height: 100%;
+}
+
+.highlight-text-player__instructions {
+    font-size: 1.1rem;
+    color: var(--color-text-secondary);
+    text-align: center;
     padding: var(--spacing-unit);
+    margin: 0;
+    border-bottom: 1px solid var(--light-border);
 }
 
 .highlight-text-player__passage {
