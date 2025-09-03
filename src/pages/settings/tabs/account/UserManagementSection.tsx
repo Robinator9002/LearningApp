@@ -1,12 +1,13 @@
-// src/pages/settings/tabs/UserManagementSection.tsx
+// src/pages/settings/tabs/account/UserManagementSection.tsx
 
 import React, { useState, useContext, useEffect } from 'react';
 import { useLiveQuery } from 'dexie-react-hooks';
+import { useTranslation } from 'react-i18next'; // MODIFICATION: Imported useTranslation
 
+// FIX: Corrected all import paths for robustness.
 import { db } from '../../../../lib/db';
 import { ModalContext } from '../../../../contexts/ModalContext';
 import type { IUser } from '../../../../types/database';
-
 import Button from '../../../../components/common/Button/Button';
 import Modal from '../../../../components/common/Modal/Modal';
 import Input from '../../../../components/common/Form/Input';
@@ -14,17 +15,16 @@ import Label from '../../../../components/common/Form/Label';
 import Select from '../../../../components/common/Form/Select';
 
 /**
- * A section visible only to admins for managing all learner accounts.
+ * A section visible only to admins for managing all user accounts.
  */
 const UserManagementSection: React.FC = () => {
     const modal = useContext(ModalContext);
+    const { t } = useTranslation(); // MODIFICATION: Initialized useTranslation
 
-    // --- State for Modals ---
+    // --- State for Modals & Forms ---
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [editingUser, setEditingUser] = useState<IUser | null>(null);
-
-    // --- State for Forms ---
     const [newUserName, setNewUserName] = useState('');
     const [newUserType, setNewUserType] = useState<'learner' | 'admin'>('learner');
 
@@ -48,31 +48,37 @@ const UserManagementSection: React.FC = () => {
     }
 
     /**
-     * Handles the logic for creating a new user.
+     * Handles creating a new user.
      */
     const handleCreateUser = async () => {
         if (!newUserName.trim()) {
-            modal.showAlert({ title: 'Validation Error', message: 'Name cannot be empty.' });
+            modal.showAlert({
+                title: t('errors.validation.title'),
+                message: t('errors.validation.nameMissing'),
+            });
             return;
         }
         try {
-            await db.users.add({
-                name: newUserName.trim(),
-                type: newUserType,
-            });
+            await db.users.add({ name: newUserName.trim(), type: newUserType });
             setIsCreateModalOpen(false);
         } catch (error) {
             console.error('Failed to create user:', error);
-            modal.showAlert({ title: 'Error', message: 'A user with this name already exists.' });
+            modal.showAlert({
+                title: t('errors.title'),
+                message: t('errors.createUserFailed'),
+            });
         }
     };
 
     /**
-     * Handles the logic for updating a learner's name.
+     * Handles updating a learner's name.
      */
     const handleUpdateUser = async () => {
         if (!editingUser || !newUserName.trim()) {
-            modal.showAlert({ title: 'Validation Error', message: 'Name cannot be empty.' });
+            modal.showAlert({
+                title: t('errors.validation.title'),
+                message: t('errors.validation.nameMissing'),
+            });
             return;
         }
         try {
@@ -83,12 +89,12 @@ const UserManagementSection: React.FC = () => {
             setIsEditModalOpen(false);
         } catch (error) {
             console.error('Failed to update user:', error);
-            modal.showAlert({ title: 'Error', message: 'Failed to update user.' });
+            modal.showAlert({ title: t('errors.title'), message: t('errors.updateUserFailed') });
         }
     };
 
     /**
-     * Opens the edit modal and pre-populates it with the selected user's data.
+     * Opens the edit modal and pre-populates it with data.
      */
     const openEditModal = (user: IUser) => {
         setEditingUser(user);
@@ -98,25 +104,23 @@ const UserManagementSection: React.FC = () => {
     };
 
     /**
-     * Handles the logic for deleting a learner account.
+     * Handles deleting a learner account.
      */
     const handleDeleteUser = (userToDelete: IUser) => {
         modal.showConfirm({
-            title: `Delete User: ${userToDelete.name}`,
-            message: 'Are you sure? All progress data for this user will be lost permanently.',
+            title: t('confirmations.deleteUser.title', { name: userToDelete.name }),
+            message: t('confirmations.deleteUser.message'),
             onConfirm: async () => {
                 try {
                     await db.transaction('rw', db.users, db.progressLogs, async () => {
-                        // Delete the user
                         await db.users.delete(userToDelete.id!);
-                        // Delete all associated progress logs
                         await db.progressLogs.where('userId').equals(userToDelete.id!).delete();
                     });
                 } catch (error) {
                     console.error('Failed to delete user and their progress:', error);
                     modal.showAlert({
-                        title: 'Error',
-                        message: 'Failed to delete user.',
+                        title: t('errors.title'),
+                        message: t('errors.deleteUserFailed'),
                     });
                 }
             },
@@ -126,9 +130,9 @@ const UserManagementSection: React.FC = () => {
     return (
         <div className="settings-section">
             <div className="settings-section__header">
-                <h3 className="settings-section__title">Manage Accounts</h3>
+                <h3 className="settings-section__title">{t('settings.manageAccounts.title')}</h3>
                 <Button variant="primary" onClick={() => setIsCreateModalOpen(true)}>
-                    Create New Account
+                    {t('buttons.createNewAccount')}
                 </Button>
             </div>
             <div className="user-list">
@@ -138,27 +142,27 @@ const UserManagementSection: React.FC = () => {
                             <span className="user-list-item__name">{user.name}</span>
                             <div className="user-list-item__actions">
                                 <Button variant="secondary" onClick={() => openEditModal(user)}>
-                                    Edit
+                                    {t('buttons.edit')}
                                 </Button>
                                 <Button variant="danger" onClick={() => handleDeleteUser(user)}>
-                                    Delete
+                                    {t('buttons.delete')}
                                 </Button>
                             </div>
                         </div>
                     ))
                 ) : (
-                    <p>No other learner accounts found.</p>
+                    <p>{t('settings.manageAccounts.noLearners')}</p>
                 )}
             </div>
 
-            {/* --- Modals for Admin Actions --- */}
+            {/* --- Modals --- */}
             <Modal
                 isOpen={isCreateModalOpen}
                 onClose={() => setIsCreateModalOpen(false)}
-                title="Create New Account"
+                title={t('settings.manageAccounts.createModalTitle')}
             >
                 <div className="form-group">
-                    <Label htmlFor="new-user-name">Name</Label>
+                    <Label htmlFor="new-user-name">{t('labels.name')}</Label>
                     <Input
                         id="new-user-name"
                         value={newUserName}
@@ -166,22 +170,22 @@ const UserManagementSection: React.FC = () => {
                     />
                 </div>
                 <div className="form-group">
-                    <Label htmlFor="new-user-type">Account Type</Label>
+                    <Label htmlFor="new-user-type">{t('labels.accountType')}</Label>
                     <Select
                         id="new-user-type"
                         value={newUserType}
                         onChange={(e) => setNewUserType(e.target.value as typeof newUserType)}
                     >
-                        <option value="learner">Learner</option>
-                        <option value="admin">Admin</option>
+                        <option value="learner">{t('userTypes.learner')}</option>
+                        <option value="admin">{t('userTypes.admin')}</option>
                     </Select>
                 </div>
                 <div className="modal-footer">
                     <Button variant="secondary" onClick={() => setIsCreateModalOpen(false)}>
-                        Cancel
+                        {t('buttons.cancel')}
                     </Button>
                     <Button variant="primary" onClick={handleCreateUser}>
-                        Create Account
+                        {t('buttons.createAccount')}
                     </Button>
                 </div>
             </Modal>
@@ -189,10 +193,10 @@ const UserManagementSection: React.FC = () => {
             <Modal
                 isOpen={isEditModalOpen}
                 onClose={() => setIsEditModalOpen(false)}
-                title={`Edit Account: ${editingUser?.name}`}
+                title={t('settings.manageAccounts.editModalTitle', { name: editingUser?.name })}
             >
                 <div className="form-group">
-                    <Label htmlFor="edit-user-name">Name</Label>
+                    <Label htmlFor="edit-user-name">{t('labels.name')}</Label>
                     <Input
                         id="edit-user-name"
                         value={newUserName}
@@ -200,22 +204,22 @@ const UserManagementSection: React.FC = () => {
                     />
                 </div>
                 <div className="form-group">
-                    <Label htmlFor="edit-user-type">Account Type</Label>
+                    <Label htmlFor="edit-user-type">{t('labels.accountType')}</Label>
                     <Select
                         id="edit-user-type"
                         value={newUserType}
                         onChange={(e) => setNewUserType(e.target.value as typeof newUserType)}
                     >
-                        <option value="learner">Learner</option>
-                        <option value="admin">Admin</option>
+                        <option value="learner">{t('userTypes.learner')}</option>
+                        <option value="admin">{t('userTypes.admin')}</option>
                     </Select>
                 </div>
                 <div className="modal-footer">
                     <Button variant="secondary" onClick={() => setIsEditModalOpen(false)}>
-                        Cancel
+                        {t('buttons.cancel')}
                     </Button>
                     <Button variant="primary" onClick={handleUpdateUser}>
-                        Save Changes
+                        {t('buttons.saveChanges')}
                     </Button>
                 </div>
             </Modal>
