@@ -1,6 +1,7 @@
 // src/components/admin/QuestionEditor/AlgebraEquationEditor.tsx
 
 import React from 'react';
+import { useTranslation } from 'react-i18next'; // MODIFICATION: Imported useTranslation
 import type { IQuestion } from '../../../types/database';
 import Button from '../../common/Button/Button';
 import Input from '../../common/Form/Input';
@@ -15,8 +16,6 @@ interface AlgebraEquationEditorProps {
 
 /**
  * A dedicated editor component for the 'alg-equation' question type.
- * It provides fields for the question text, the equation itself,
- * and a list of variables to be solved.
  */
 const AlgebraEquationEditor: React.FC<AlgebraEquationEditorProps> = ({
     question,
@@ -24,30 +23,20 @@ const AlgebraEquationEditor: React.FC<AlgebraEquationEditorProps> = ({
     onQuestionChange,
     onRemoveQuestion,
 }) => {
-    // This is a type guard. It ensures that this component only ever tries to render
-    // if the question is of the correct 'alg-equation' type.
+    const { t } = useTranslation(); // MODIFICATION: Initialized useTranslation
+
     if (question.type !== 'alg-equation') {
         return null;
     }
 
-    /**
-     * Handles changes to the main question text.
-     */
     const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         onQuestionChange(index, { ...question, questionText: e.target.value });
     };
 
-    /**
-     * Handles changes to the equation string.
-     */
     const handleEquationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         onQuestionChange(index, { ...question, equation: e.target.value });
     };
 
-    /**
-     * Handles changes to the variables input. It converts the comma-separated
-     * string from the input field into an array of strings for the data model.
-     */
     const handleVariablesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const variables = e.target.value.split(',').map((v) => v.trim());
         onQuestionChange(index, { ...question, variables });
@@ -56,36 +45,47 @@ const AlgebraEquationEditor: React.FC<AlgebraEquationEditorProps> = ({
     return (
         <div className="question-editor">
             <div className="question-editor__header">
+                {/* MODIFICATION: Title is now dynamically translated. */}
                 <h3 className="question-editor__title">
-                    Question {index + 1} (Algebraic Equation)
+                    {t('editor.questionTitle', {
+                        index: index + 1,
+                        type: t('questionTypes.algEquation'),
+                    })}
                 </h3>
-                <Button onClick={() => onRemoveQuestion(index)}>Remove</Button>
+                {/* MODIFICATION: Replaced hardcoded button text. */}
+                <Button onClick={() => onRemoveQuestion(index)}>{t('buttons.remove')}</Button>
             </div>
             <div className="form-group">
-                <Label htmlFor={`question-text-${question.id}`}>Question Text</Label>
+                {/* MODIFICATION: Replaced hardcoded label. */}
+                <Label htmlFor={`question-text-${question.id}`}>{t('labels.questionText')}</Label>
                 <Input
                     id={`question-text-${question.id}`}
                     value={question.questionText}
                     onChange={handleTextChange}
-                    placeholder="e.g., Solve for the variables in the equation below."
+                    // MODIFICATION: Replaced hardcoded placeholder.
+                    placeholder={t('placeholders.algEquation.questionText')}
                 />
             </div>
             <div className="form-group">
-                <Label htmlFor={`equation-${question.id}`}>Equation</Label>
+                {/* MODIFICATION: Replaced hardcoded label. */}
+                <Label htmlFor={`equation-${question.id}`}>{t('labels.equation')}</Label>
                 <Input
                     id={`equation-${question.id}`}
                     value={question.equation}
                     onChange={handleEquationChange}
-                    placeholder="e.g., 2*x + 5 = 15"
+                    // MODIFICATION: Replaced hardcoded placeholder.
+                    placeholder={t('placeholders.algEquation.equation')}
                 />
             </div>
             <div className="form-group">
-                <Label htmlFor={`variables-${question.id}`}>Variables (comma-separated)</Label>
+                {/* MODIFICATION: Replaced hardcoded label. */}
+                <Label htmlFor={`variables-${question.id}`}>{t('labels.variables')}</Label>
                 <Input
                     id={`variables-${question.id}`}
                     value={question.variables.join(', ')}
                     onChange={handleVariablesChange}
-                    placeholder="e.g., x, y"
+                    // MODIFICATION: Replaced hardcoded placeholder.
+                    placeholder={t('placeholders.algEquation.variables')}
                 />
             </div>
         </div>
