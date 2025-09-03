@@ -1,6 +1,9 @@
+// src/pages/admin/CourseEditorPage.tsx
+
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+import { useTranslation } from 'react-i18next'; // MODIFICATION: Imported useTranslation
 
 import { db } from '../../lib/db';
 import { ModalContext } from '../../contexts/ModalContext';
@@ -52,6 +55,7 @@ const createNewQuestion = (type: IQuestion['type']): IQuestion => {
 };
 
 const CourseEditorPage: React.FC = () => {
+    const { t } = useTranslation(); // MODIFICATION: Initialized useTranslation
     const navigate = useNavigate();
     const { courseId } = useParams<{ courseId?: string }>();
     const modal = useContext(ModalContext);
@@ -81,7 +85,6 @@ const CourseEditorPage: React.FC = () => {
                     navigate('/admin');
                 }
             } catch (error) {
-                // FIX: Added missing opening brace '{'
                 console.error('Failed to fetch course:', error);
             } finally {
                 setIsLoading(false);
@@ -104,9 +107,10 @@ const CourseEditorPage: React.FC = () => {
 
     const handleSaveCourse = async () => {
         if (!title.trim()) {
+            // MODIFICATION: Replaced hardcoded alert text with i18n keys.
             return modal.showAlert({
-                title: 'Validation Error',
-                message: 'Please enter a course title.',
+                title: t('errors.validation.title'),
+                message: t('errors.validation.titleMissing'),
             });
         }
         const courseData: Omit<ICourse, 'id'> = { title, subject, questions };
@@ -119,14 +123,16 @@ const CourseEditorPage: React.FC = () => {
             navigate('/admin');
         } catch (error) {
             console.error('Failed to save course:', error);
+            // MODIFICATION: Replaced hardcoded alert text with i18n keys.
             modal.showAlert({
-                title: 'Save Error',
-                message: 'There was an error saving the course.',
+                title: t('errors.saveCourse.title'),
+                message: t('errors.saveCourse.message'),
             });
         }
     };
 
-    if (isLoading) return <div>Loading course data...</div>;
+    // MODIFICATION: Replaced hardcoded loading text.
+    if (isLoading) return <div>{t('labels.loading')}</div>;
 
     return (
         <div className="course-editor-page">
@@ -148,11 +154,12 @@ const CourseEditorPage: React.FC = () => {
                 />
             </main>
             <footer className="course-editor-page__footer">
+                {/* MODIFICATION: Replaced hardcoded button text. */}
                 <Button variant="secondary" onClick={() => navigate(-1)}>
-                    Discard Changes
+                    {t('buttons.discardChanges')}
                 </Button>
                 <Button variant="primary" onClick={handleSaveCourse}>
-                    Save Course
+                    {t('buttons.saveCourse')}
                 </Button>
             </footer>
             <AddQuestionModal
