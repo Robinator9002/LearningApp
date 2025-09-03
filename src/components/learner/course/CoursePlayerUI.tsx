@@ -1,5 +1,8 @@
+// src/components/learner/course/CoursePlayerUI.tsx
+
 import React from 'react';
 import { ArrowLeft, Check, X } from 'lucide-react';
+import { useTranslation } from 'react-i18next'; // MODIFICATION: Imported useTranslation
 
 import type { ICourse } from '../../../types/database';
 import type { AnswerStatus } from '../qa/AnswerOption';
@@ -47,6 +50,7 @@ const CoursePlayerUI: React.FC<CoursePlayerUIProps> = ({
     getMCQStatus,
     isCheckButtonDisabled,
 }) => {
+    const { t } = useTranslation(); // MODIFICATION: Initialized useTranslation
     const currentQuestion = course.questions[currentQuestionIndex];
     const totalQuestions = course.questions.length;
 
@@ -71,7 +75,8 @@ const CoursePlayerUI: React.FC<CoursePlayerUIProps> = ({
                     <div className="fitb-answer-area">
                         <Input
                             type="text"
-                            placeholder="Type your answer here..."
+                            // MODIFICATION: Replaced hardcoded placeholder
+                            placeholder={t('placeholders.sti.answer')}
                             value={stiAnswer}
                             onChange={(e) => onStiAnswerChange(e.target.value)}
                             disabled={isAnswered}
@@ -80,7 +85,8 @@ const CoursePlayerUI: React.FC<CoursePlayerUIProps> = ({
                         />
                         {isAnswered && !isCorrect && (
                             <p className="fitb-correct-answer">
-                                The correct answer was:{' '}
+                                {/* MODIFICATION: Replaced hardcoded text */}
+                                {t('player.correctAnswerWas')}{' '}
                                 <strong>{currentQuestion.correctAnswers[0]}</strong>
                             </p>
                         )}
@@ -112,7 +118,8 @@ const CoursePlayerUI: React.FC<CoursePlayerUIProps> = ({
     return (
         <div className="course-player-v2">
             <header className="course-player-v2__header">
-                <Button variant="secondary" onClick={onExitCourse} title="Exit Course">
+                {/* MODIFICATION: Replaced hardcoded title */}
+                <Button variant="secondary" onClick={onExitCourse} title={t('player.exitCourse')}>
                     <ArrowLeft size={20} />
                 </Button>
                 <div className="course-player-v2__progress-bar">
@@ -122,7 +129,10 @@ const CoursePlayerUI: React.FC<CoursePlayerUIProps> = ({
                     />
                 </div>
                 <div className="course-player-v2__progress-text">
-                    {currentQuestionIndex + 1} / {totalQuestions}
+                    {t('player.progress', {
+                        current: currentQuestionIndex + 1,
+                        total: totalQuestions,
+                    })}
                 </div>
             </header>
 
@@ -142,11 +152,13 @@ const CoursePlayerUI: React.FC<CoursePlayerUIProps> = ({
                     <div className="feedback-section">
                         {isCorrect ? (
                             <span className="feedback-text feedback-text--correct">
-                                <Check /> Correct!
+                                {/* MODIFICATION: Replaced hardcoded text */}
+                                <Check /> {t('feedback.correct')}
                             </span>
                         ) : (
                             <span className="feedback-text feedback-text--incorrect">
-                                <X /> Not quite...
+                                {/* MODIFICATION: Replaced hardcoded text */}
+                                <X /> {t('feedback.incorrect')}
                             </span>
                         )}
                     </div>
@@ -156,7 +168,8 @@ const CoursePlayerUI: React.FC<CoursePlayerUIProps> = ({
                         onClick={onCheckAnswer}
                         disabled={isCheckButtonDisabled()}
                     >
-                        Check Answer
+                        {/* MODIFICATION: Replaced hardcoded button text */}
+                        {t('buttons.checkAnswer')}
                     </Button>
                 )}
             </footer>
