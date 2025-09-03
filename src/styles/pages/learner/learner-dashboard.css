@@ -1,5 +1,43 @@
 /* src/styles/pages/learner/learner-dashboard.css */
 
+/* --- NEW STYLES for Course Grouping --- */
+.learner-dashboard__content {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing-unit) * 5);
+}
+
+.course-group {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing-unit) * 3);
+}
+
+.course-group__subject-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    padding-bottom: var(--spacing-unit);
+    border-bottom: 2px solid var(--color-accent);
+    margin: 0;
+}
+
+.course-group__grade-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-unit);
+}
+
+.course-group__grade-title {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0;
+}
+/* --- End of New Styles --- */
+
 .learner-dashboard__grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
