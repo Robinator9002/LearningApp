@@ -1,9 +1,9 @@
 // src/pages/learner/CoursePlayerPage.tsx
 
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useReducer } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-// --- REMOVED: Confetti and useWindowSize temporarily to resolve build issues ---
 
+// MODIFICATION: All state management logic is now consolidated here.
 import { db } from '../../lib/db';
 import { ModalContext } from '../../contexts/ModalContext';
 import type { ICourse } from '../../types/database';
@@ -12,26 +12,127 @@ import CoursePlayerUI from '../../components/learner/course/CoursePlayerUI';
 import CourseSummary from '../../components/learner/course/CourseSummary';
 import { checkAnswer, isAnswerValid } from './CoursePlayerUtils';
 
+// --- STATE MANAGEMENT (useReducer) ---
+
+// 1. Define the shape of our state
+interface PlayerState {
+    course: ICourse | null;
+    currentQuestionIndex: number;
+    score: number;
+    isAnswered: boolean;
+    isCorrect: boolean;
+    showSummary: boolean;
+    // Answer-specific state
+    selectedOptionId: string | null;
+    stiAnswer: string;
+    algAnswers: Record<string, string>;
+    sentenceCorrectionAnswer: string;
+}
+
+// 2. Define the initial state
+const initialState: PlayerState = {
+    course: null,
+    currentQuestionIndex: 0,
+    score: 0,
+    isAnswered: false,
+    isCorrect: false,
+    showSummary: false,
+    selectedOptionId: null,
+    stiAnswer: '',
+    algAnswers: {},
+    sentenceCorrectionAnswer: '',
+};
+
+// 3. Define the possible actions that can change our state
+type PlayerAction =
+    | { type: 'SET_COURSE'; payload: ICourse }
+    | { type: 'SELECT_OPTION'; payload: string }
+    | { type: 'SET_STI_ANSWER'; payload: string }
+    | { type: 'SET_ALG_ANSWER'; payload: { variable: string; value: string } }
+    | { type: 'SET_SENTENCE_CORRECTION'; payload: string }
+    | { type: 'CHECK_ANSWER' }
+    | { type: 'NEXT_QUESTION' };
+
+// 4. Create the reducer function, which is the heart of our state machine
+function playerReducer(state: PlayerState, action: PlayerAction): PlayerState {
+    switch (action.type) {
+        case 'SET_COURSE':
+            return { ...state, course: action.payload };
+        case 'SELECT_OPTION':
+            return { ...state, selectedOptionId: action.payload };
+        case 'SET_STI_ANSWER':
+            return { ...state, stiAnswer: action.payload };
+        case 'SET_ALG_ANSWER':
+            return {
+                ...state,
+                algAnswers: {
+                    ...state.algAnswers,
+                    [action.payload.variable]: action.payload.value,
+                },
+            };
+        case 'SET_SENTENCE_CORRECTION':
+            return { ...state, sentenceCorrectionAnswer: action.payload };
+        case 'CHECK_ANSWER': {
+            if (!state.course) return state;
+            const currentQuestion = state.course.questions[state.currentQuestionIndex];
+            const answerPayload = {
+                mcq: state.selectedOptionId,
+                sti: state.stiAnswer,
+                'alg-equation': state.algAnswers,
+                'sentence-correction': state.sentenceCorrectionAnswer,
+            };
+            const isCorrect = checkAnswer(currentQuestion, answerPayload);
+            return {
+                ...state,
+                isAnswered: true,
+                isCorrect,
+                score: isCorrect ? state.score + 1 : state.score,
+            };
+        }
+        case 'NEXT_QUESTION': {
+            if (!state.course) return state;
+            const isLastQuestion = state.currentQuestionIndex >= state.course.questions.length - 1;
+            if (isLastQuestion) {
+                return { ...state, showSummary: true };
+            }
+            return {
+                ...state,
+                currentQuestionIndex: state.currentQuestionIndex + 1,
+                isAnswered: false,
+                isCorrect: false,
+                // Reset all answer types for the new question
+                selectedOptionId: null,
+                stiAnswer: '',
+                algAnswers: {},
+                sentenceCorrectionAnswer: '',
+            };
+        }
+        default:
+            return state;
+    }
+}
+
+// --- COMPONENT DEFINITION ---
+
 const CoursePlayerPage: React.FC = () => {
     const { courseId } = useParams<{ courseId: string }>();
     const navigate = useNavigate();
     const modal = useContext(ModalContext);
-    // --- REMOVED: useWindowSize hook ---
 
-    const [course, setCourse] = useState<ICourse | null>(null);
-    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [score, setScore] = useState(0);
-    const [isAnswered, setIsAnswered] = useState(false);
-    const [isCorrect, setIsCorrect] = useState(false);
-    const [showSummary, setShowSummary] = useState(false);
-    // --- REMOVED: showConfetti state ---
-
-    // --- State for different answer types ---
-    const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
-    const [stiAnswer, setStiAnswer] = useState('');
-    const [algAnswers, setAlgAnswers] = useState<Record<string, string>>({});
-    const [sentenceCorrectionAnswer, setSentenceCorrectionAnswer] = useState('');
-    // -----------------------------------------
+    // MODIFICATION: All useState calls have been replaced by a single useReducer.
+    const [state, dispatch] = useReducer(playerReducer, initialState);
+    const {
+        course,
+        currentQuestionIndex,
+        score,
+        isAnswered,
+        isCorrect,
+        showSummary,
+        selectedOptionId,
+        stiAnswer,
+        algAnswers,
+        sentenceCorrectionAnswer,
+    } = state;
 
     if (!modal) throw new Error('CoursePlayerPage must be used within a ModalProvider');
 
@@ -41,7 +142,7 @@ const CoursePlayerPage: React.FC = () => {
             try {
                 const courseData = await db.courses.get(parseInt(courseId, 10));
                 if (courseData) {
-                    setCourse(courseData);
+                    dispatch({ type: 'SET_COURSE', payload: courseData });
                 } else {
                     navigate('/dashboard');
                 }
@@ -52,56 +153,21 @@ const CoursePlayerPage: React.FC = () => {
         fetchCourse();
     }, [courseId, navigate]);
 
-    const currentQuestion = course?.questions[currentQuestionIndex];
-
-    const resetAnswerStates = () => {
-        setSelectedOptionId(null);
-        setStiAnswer('');
-        setAlgAnswers({});
-        setSentenceCorrectionAnswer('');
-    };
-
+    // MODIFICATION: The check answer logic now dispatches an action.
     const handleCheckAnswer = () => {
-        if (!currentQuestion) return;
-
-        const answerPayload = {
-            mcq: selectedOptionId,
-            sti: stiAnswer,
-            'alg-equation': algAnswers,
-            'sentence-correction': sentenceCorrectionAnswer,
-        };
-
-        const result = checkAnswer(currentQuestion, answerPayload);
-        setIsCorrect(result);
-        setIsAnswered(true);
-
-        if (result) {
-            setScore((s) => s + 1);
-        }
-
+        dispatch({ type: 'CHECK_ANSWER' });
         setTimeout(() => {
-            goToNextQuestion();
+            dispatch({ type: 'NEXT_QUESTION' });
         }, 2000);
     };
 
-    const goToNextQuestion = () => {
-        if (course && currentQuestionIndex < course.questions.length - 1) {
-            setCurrentQuestionIndex((prev) => prev + 1);
-            setIsAnswered(false);
-            setIsCorrect(false);
-            resetAnswerStates();
-        } else {
-            setShowSummary(true);
-        }
-    };
+    const currentQuestion = course?.questions[currentQuestionIndex];
 
     const getMCQStatus = (optionId: string): AnswerStatus => {
         if (!isAnswered) {
             return selectedOptionId === optionId ? 'selected' : 'default';
         }
-
         if (currentQuestion?.type !== 'mcq') return 'default';
-
         const correctOption = currentQuestion.options.find((o) => o.isCorrect);
         if (correctOption?.id === optionId) {
             return 'correct';
@@ -130,30 +196,30 @@ const CoursePlayerPage: React.FC = () => {
 
     const progressPercentage = ((currentQuestionIndex + 1) / course.questions.length) * 100;
 
+    // MODIFICATION: All event handlers now dispatch actions.
     return (
-        <>
-            {/* --- REMOVED: Confetti component --- */}
-            <CoursePlayerUI
-                course={course}
-                currentQuestionIndex={currentQuestionIndex}
-                progressPercentage={progressPercentage}
-                isAnswered={isAnswered}
-                isCorrect={isCorrect}
-                stiAnswer={stiAnswer}
-                algAnswers={algAnswers}
-                sentenceCorrectionAnswer={sentenceCorrectionAnswer}
-                onExitCourse={() => navigate('/dashboard')}
-                onCheckAnswer={handleCheckAnswer}
-                onSelectOption={setSelectedOptionId}
-                onStiAnswerChange={setStiAnswer}
-                onAlgAnswerChange={(variable, value) =>
-                    setAlgAnswers((prev) => ({ ...prev, [variable]: value }))
-                }
-                onSentenceCorrectionChange={setSentenceCorrectionAnswer}
-                getMCQStatus={getMCQStatus}
-                isCheckButtonDisabled={isCheckButtonDisabled}
-            />
-        </>
+        <CoursePlayerUI
+            course={course}
+            currentQuestionIndex={currentQuestionIndex}
+            progressPercentage={progressPercentage}
+            isAnswered={isAnswered}
+            isCorrect={isCorrect}
+            stiAnswer={stiAnswer}
+            algAnswers={algAnswers}
+            sentenceCorrectionAnswer={sentenceCorrectionAnswer}
+            onExitCourse={() => navigate('/dashboard')}
+            onCheckAnswer={handleCheckAnswer}
+            onSelectOption={(id) => dispatch({ type: 'SELECT_OPTION', payload: id })}
+            onStiAnswerChange={(value) => dispatch({ type: 'SET_STI_ANSWER', payload: value })}
+            onAlgAnswerChange={(variable, value) =>
+                dispatch({ type: 'SET_ALG_ANSWER', payload: { variable, value } })
+            }
+            onSentenceCorrectionChange={(value) =>
+                dispatch({ type: 'SET_SENTENCE_CORRECTION', payload: value })
+            }
+            getMCQStatus={getMCQStatus}
+            isCheckButtonDisabled={isCheckButtonDisabled}
+        />
     );
 };
 
