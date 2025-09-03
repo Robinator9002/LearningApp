@@ -1,105 +1,216 @@
 {
     "translation": {
         "appTitle": "Lern-App",
-        "userSelection": {
-            "title": "Wähle dein Profil",
-            "selectUser": "Profil auswählen",
-            "welcomeTitle": "Willkommen!",
-            "firstAdminPrompt": "Lassen Sie uns das erste Administratorkonto erstellen, um loszulegen.",
-            "createAdminAccount": "Administratorkonto erstellen",
+        "buttons": {
+            "addQuestion": "+ Frage hinzufügen",
+            "backToDashboard": "Zurück zum Dashboard",
+            "cancel": "Abbrechen",
+            "checkAnswer": "Antwort prüfen",
+            "close": "Schließen",
+            "createAccount": "Konto erstellen",
+            "createCourse": "Neuen Kurs erstellen",
             "createNewAccount": "Neues Konto erstellen",
-            "passwordPromptTitle": "Passwort für {{name}} eingeben",
-            "loginFailedTitle": "Anmeldung fehlgeschlagen",
-            "incorrectPassword": "Falsches Passwort."
+            "delete": "Löschen",
+            "deleteMyAccount": "Mein Konto löschen",
+            "discardChanges": "Änderungen verwerfen",
+            "edit": "Bearbeiten",
+            "editName": "Namen bearbeiten",
+            "exportCourse": "Kurs exportieren",
+            "importCourse": "Kurs importieren",
+            "login": "Anmelden",
+            "remove": "Entfernen",
+            "saveChanges": "Änderungen speichern",
+            "saveCourse": "Kurs speichern",
+            "savePassword": "Passwort speichern",
+            "setPassword": "Passwort festlegen",
+            "changePassword": "Passwort ändern",
+            "startCourse": "Kurs starten"
         },
         "dashboard": {
+            "adminTitle": "Admin-Dashboard",
+            "averageScore": "Ø Punktzahl",
+            "coursesCompleted": "Kurse abgeschlossen",
             "learnerTitle": "Lern-Dashboard",
-            "adminTitle": "Admin-Dashboard"
+            "noCoursesAdmin": "Keine Kurse gefunden. Erstellen Sie einen, um loszulegen!",
+            "noCoursesLearner": "Noch keine Kurse verfügbar. Bitten Sie einen Admin, einen zu erstellen!",
+            "progressTitle": "Dein Fortschritt",
+            "welcomeMessage": "Schließe deinen ersten Kurs ab, um deinen Fortschritt hier zu sehen.",
+            "welcomeTitle": "Willkommen!"
         },
-        "courseEditor": {
-            "editTitle": "Kurs bearbeiten",
-            "createTitle": "Neuen Kurs erstellen",
-            "questions": "Fragen",
-            "stiTitle": "Frage {{index}} (Intelligente Texteingabe)",
-            "mcqTitle": "Frage {{index}} (Multiple-Choice)",
-            "algEquationTitle": "Frage {{index}} (Algebraische Gleichung)",
-            "sentenceCorrectionTitle": "Frage {{index}} (Satzkorrektur)"
+        "editor": {
+            "questionsTitle": "Fragen",
+            "titleCreate": "Neuen Kurs erstellen",
+            "titleEdit": "Kurs bearbeiten"
         },
-        "courseSummary": {
-            "title": "Kurs abgeschlossen!",
-            "message": "Gut gemacht, du hast es bis zum Ende geschafft.",
-            "score": "Deine Punktzahl: {{score}} / {{totalQuestions}}",
-            "backToDashboard": "Zurück zum Dashboard"
+        "feedback": {
+            "correct": "Richtig!",
+            "incorrect": "Nicht ganz..."
         },
         "labels": {
-            "title": "Titel",
-            "subject": "Fach",
-            "loading": "Laden...",
-            "loadingCourses": "Kurse werden geladen...",
-            "loadingUser": "Benutzer wird geladen...",
-            "noCoursesFound": "Keine Kurse gefunden. Bitten Sie einen Administrator, einen zu erstellen!",
-            "questionText": "Fragetext",
-            "evaluationMode": "Auswertungsmodus",
-            "acceptedAnswers": "Akzeptierte Antworten (eine oder mehrere)",
-            "name": "Name",
-            "password": "Passwort (optional)",
-            "passwordMinChars": "Passwort (min. 4 Zeichen)",
-            "confirmPassword": "Neues Passwort bestätigen",
             "accountType": "Kontotyp",
-            "admin": "Administrator",
-            "learner": "Lernender"
-        },
-        "buttons": {
-            "edit": "Bearbeiten",
-            "delete": "Löschen",
-            "remove": "Entfernen",
-            "save": "Speichern",
-            "cancel": "Abbrechen",
-            "confirm": "Bestätigen",
-            "login": "Anmelden",
-            "logout": "Abmelden",
-            "settings": "Einstellungen",
-            "close": "Schließen",
-            "create": "Erstellen",
-            "createNewCourse": "Neuen Kurs erstellen",
-            "addQuestion": "+ Frage hinzufügen",
-            "addAnotherAnswer": "+ Weitere Antwort hinzufügen",
-            "checkAnswer": "Antwort überprüfen",
-            "discardChanges": "Änderungen verwerfen",
-            "saveCourse": "Kurs speichern"
-        },
-        "options": {
-            "caseInsensitive": "Groß-/Kleinschreibung ignorieren",
-            "exactMatch": "Exakte Übereinstimmung"
+            "answerOptions": "Antwortmöglichkeiten",
+            "correctedSentence": "Korrigierter Satz",
+            "correct": "Korrekt",
+            "courseTitle": "Kurstitel",
+            "equation": "Gleichung",
+            "evaluationMode": "Bewertungsmodus",
+            "gradeRange": "Klassenstufe",
+            "gradeRangeLabel": "Klasse {{range}}",
+            "incorrectSentence": "Fehlerhafter Satz",
+            "loading": "Wird geladen...",
+            "loadingProgress": "Lade Fortschritt...",
+            "name": "Name",
+            "newName": "Neuer Name",
+            "newPassword": "Neues Passwort",
+            "confirmNewPassword": "Neues Passwort bestätigen",
+            "password": "Passwort",
+
+            "questionText": "Fragentext",
+            "subject": "Fach",
+            "variables": "Variablen (durch Komma getrennt)"
         },
         "placeholders": {
-            "adminName": "Admin-Name"
+            "algEquation": {
+                "equation": "z.B. 2*x + 5 = 15",
+                "questionText": "z.B. Löse nach den Variablen in der Gleichung unten auf.",
+                "variables": "z.B. x, y"
+            },
+            "mcq": {
+                "option": "Option {{index}}",
+                "questionText": "z.B. Was ist 2 + 2?"
+            },
+            "sentenceCorrection": {
+                "correct": "z.B. Er mag kein Gemüse.",
+                "incorrect": "z.B. Er mögen kein Gemüse."
+            },
+            "sti": {
+                "answer": "Gib deine Antwort hier ein...",
+                "questionText": "z.B. Die Hauptstadt von Frankreich ist ____."
+            }
         },
-        "modals": {
-            "actionProhibited": {
-                "title": "Aktion verboten",
-                "stiMessage": "Eine Frage mit intelligenter Texteingabe muss mindestens eine akzeptierte Antwort haben."
+        "player": {
+            "correctAnswerWas": "Die richtige Antwort war:",
+            "exitCourse": "Kurs verlassen",
+            "progress": "{{current}} / {{total}}"
+        },
+        "questionTypes": {
+            "algEquation": "Algebraische Gleichung",
+            "mcq": "Multiple-Choice",
+            "sentenceCorrection": "Satzkorrektur",
+            "sti": "Intelligente Texteingabe"
+        },
+        "roles": {
+            "admin": "Admin",
+            "learner": "Lernender"
+        },
+        "settings": {
+            "account": "Konto",
+            "appearance": {
+                "title": "Erscheinungsbild",
+                "theme": "Thema",
+                "light": "Hell",
+                "dark": "Dunkel",
+                "accent": "Akzentfarbe",
+                "setAccent": "Akzentfarbe auf {{color}} setzen",
+                "contrast": "Kontrast",
+                "normal": "Normal",
+                "high": "Hoch",
+                "font": "Schriftart",
+                "sansSerif": "Sans-Serif",
+                "serif": "Serif",
+                "monospace": "Monospace",
+                "fontSize": "Schriftgröße",
+                "adjustFontSize": "Schriftgröße anpassen"
+            },
+            "manageAccounts": {
+                "title": "Konten verwalten",
+                "noLearners": "Keine anderen Lernenden-Konten gefunden.",
+                "createModalTitle": "Neues Konto erstellen",
+                "editModalTitle": "Konto bearbeiten: {{name}}"
+            },
+            "myProfile": {
+                "title": "Mein Profil",
+                "deleteAccount": "Konto löschen",
+                "editNameModalTitle": "Deinen Namen bearbeiten",
+                "changePasswordModalTitle": "Dein Passwort ändern",
+                "setPasswordModalTitle": "Ein neues Passwort festlegen",
+                "passwordModalDescription": "Lasse beide Felder leer, um dein Passwort vollständig zu entfernen."
+            },
+            "title": "Einstellungen"
+        },
+        "summary": {
+            "message": "Tolle Arbeit, du hast es bis zum Ende geschafft.",
+            "score": "Deine Punktzahl: {{score}} / {{total}}",
+            "title": "Kurs abgeschlossen!"
+        },
+        "userSelection": {
+            "createAccount": "Neues Konto erstellen",
+            "createAdminAccount": "Admin-Konto erstellen",
+            "enterPasswordFor": "Passwort für {{name}} eingeben",
+            "firstRunSubtitle": "Lass uns das erste Admin-Konto erstellen, um loszulegen.",
+            "firstRunTitle": "Willkommen!",
+            "title": "Wähle dein Profil"
+        },
+        "addQuestionModal": {
+            "title": "Neue Frage hinzufügen",
+            "description": "Wähle einen Fragetyp aus den folgenden Kategorien.",
+            "categories": {
+                "general": "Allgemein",
+                "readingWriting": "Lesen & Schreiben",
+                "math": "Mathe"
+            },
+            "mcq": {
+                "label": "Multiple-Choice",
+                "description": "Mehrere Optionen präsentieren, eine ist korrekt."
+            },
+            "sti": {
+                "label": "Intelligente Texteingabe",
+                "description": "Benutzer gibt eine Antwort ein (Groß-/Kleinschreibung egal oder exakt)."
+            },
+            "sentenceCorrection": {
+                "label": "Satzkorrektur",
+                "description": "Benutzer schreibt einen fehlerhaften Satz korrekt neu."
+            },
+            "algEquation": {
+                "label": "Algebraische Gleichung",
+                "description": "Benutzer löst nach einer oder mehreren Variablen in einer Gleichung."
             }
         },
         "confirmations": {
             "deleteCourse": {
                 "title": "Kurs löschen",
-                "message": "Sind Sie sicher, dass Sie diesen Kurs löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden."
+                "message": "Bist du sicher, dass du den Kurs '{{title}}' löschen möchtest? Diese Aktion kann nicht rückgängig gemacht werden."
+            },
+            "deleteUser": {
+                "title": "Benutzer löschen: {{name}}",
+                "message": "Bist du sicher? Alle Fortschrittsdaten für diesen Benutzer gehen dauerhaft verloren."
+            },
+            "deleteSelf": {
+                "title": "Konto löschen",
+                "message": "Bist du sicher, dass du dein Konto löschen möchtest? Diese Aktion ist dauerhaft und kann nicht rückgängig gemacht werden."
             }
         },
         "errors": {
-            "deleteCourse": {
-                "title": "Fehler beim Löschen",
-                "message": "Beim Löschen des Kurses ist ein Fehler aufgetreten."
-            },
-            "saveCourse": {
-                "title": "Fehler beim Speichern",
-                "message": "Beim Speichern des Kurses ist ein Fehler aufgetreten."
-            },
+            "title": "Fehler",
+            "deleteCourseFailed": "Beim Löschen des Kurses ist ein Fehler aufgetreten.",
+            "deleteUserFailed": "Benutzer konnte nicht gelöscht werden.",
+            "deleteAccountFailed": "Dein Konto konnte nicht gelöscht werden.",
+            "importFailed": "Kursimport fehlgeschlagen. Bitte stelle sicher, dass die Datei eine gültige Kurs-JSON-Datei ist.",
+            "nameUpdateFailed": "Name konnte nicht aktualisiert werden.",
+            "passwordUpdateFailed": "Passwort konnte nicht aktualisiert werden.",
+            "userExists": "Ein Benutzer mit diesem Namen existiert bereits.",
+            "userUpdateFailed": "Benutzer konnte nicht aktualisiert werden.",
             "validation": {
                 "title": "Validierungsfehler",
-                "titleMissing": "Bitte geben Sie einen Kurstitel ein."
+                "nameMissing": "Bitte gib einen Namen ein.",
+                "passwordsDontMatch": "Die Passwörter stimmen nicht überein."
             }
+        },
+        "success": {
+            "title": "Erfolg",
+            "importSuccess": "Kurs '{{title}}' erfolgreich importiert!",
+            "nameUpdated": "Dein Name wurde aktualisiert.",
+            "passwordUpdated": "Dein Passwort wurde aktualisiert."
         }
     }
 }
