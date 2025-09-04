@@ -1,6 +1,7 @@
 // src/components/common/Modal/ConfirmModal.tsx
 
 import React from 'react';
+import { useTranslation } from 'react-i18next'; // NEW: Import useTranslation
 import Modal from './Modal';
 import Button from '../Button';
 
@@ -22,14 +23,20 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
     title,
     message,
 }) => {
+    const { t } = useTranslation(); // NEW: Initialize useTranslation
+
     return (
         <Modal isOpen={isOpen} onClose={onClose} title={title}>
             <>
                 <p>{message}</p>
                 <div className="modal-footer">
-                    <Button onClick={onClose}>Cancel</Button>
+                    {/* FIX: Replaced hardcoded "Cancel" */}
+                    <Button onClick={onClose} variant="secondary">
+                        {t('buttons.cancel')}
+                    </Button>
+                    {/* FIX: Replaced hardcoded "Confirm" */}
                     <Button variant="primary" onClick={onConfirm}>
-                        Confirm
+                        {t('buttons.confirm')}
                     </Button>
                 </div>
             </>
