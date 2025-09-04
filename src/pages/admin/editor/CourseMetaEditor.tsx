@@ -7,7 +7,7 @@ import Input from '../../../components/common/Form/Input.tsx';
 import Label from '../../../components/common/Form/Label.tsx';
 import Select from '../../../components/common/Form/Select.tsx';
 
-// MODIFICATION: Added gradeRange and setGradeRange to the props interface.
+// MODIFICATION: Added gradeRange and setGradeRange to the props interface to accept them from the parent.
 interface CourseMetaEditorProps {
     title: string;
     setTitle: (title: string) => void;
@@ -46,7 +46,9 @@ const CourseMetaEditor: React.FC<CourseMetaEditorProps> = ({
                     <option value="English">{t('subjects.english')}</option>
                 </Select>
             </div>
-            {/* MODIFICATION: Replaced the hardcoded select with a flexible input. */}
+            {/* FIX & UPGRADE: Replaced the restrictive dropdown with a flexible text input. 
+                This now correctly uses the setGradeRange function passed from the parent, fixing the crash.
+            */}
             <div className="form-group">
                 <Label htmlFor="course-grade-range">{t('labels.gradeRange')}</Label>
                 <Input
