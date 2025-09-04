@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useLiveQuery } from 'dexie-react-hooks';
 
 // --- DATABASE & TYPES ---
+// FIX: Corrected import paths to include file extensions.
 import { db } from '../lib/db.ts';
 import type { IUser, IAppSettings } from '../types/database.ts';
 
@@ -68,10 +69,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                     const defaultSettings: IAppSettings = {
                         id: 1,
                         defaultLanguage: i18n.language.startsWith('de') ? 'de' : 'en',
-                        // FIX: Corrected property name to align with the IAppSettings interface.
                         seedCoursesOnFirstRun: true,
                     };
-                    await db.appSettings.add(defaultSettings);
+                    // FIX: Use .put() instead of .add(). This is an "upsert" operation
+                    // that creates the record if it doesn't exist or updates it if it
+                    // does. This makes the initialization idempotent and prevents race conditions.
+                    await db.appSettings.put(defaultSettings);
                     settings = defaultSettings;
                 }
                 setAppSettings(settings);
