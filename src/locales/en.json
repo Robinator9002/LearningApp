@@ -1,0 +1,229 @@
+{
+    "translation": {
+        "appTitle": "Learning App",
+        "buttons": {
+            "addAnotherAnswer": "+ Add Another Answer",
+            "addQuestion": "+ Add Question",
+            "backToDashboard": "Back to Dashboard",
+            "cancel": "Cancel",
+            "changePassword": "Change Password",
+            "checkAnswer": "Check Answer",
+            "close": "Close",
+            "create": "Create",
+            "createAccount": "Create Account",
+            "createCourse": "Create New Course",
+            "createNewAccount": "Create New Account",
+            "delete": "Delete",
+            "deleteMyAccount": "Delete My Account",
+            "discardChanges": "Discard Changes",
+            "edit": "Edit",
+            "editName": "Edit Name",
+            "export": "Export",
+            "importCourse": "Import Course",
+            "login": "Login",
+            "remove": "Remove",
+            "saveChanges": "Save Changes",
+            "saveCourse": "Save Course",
+            "savePassword": "Save Password",
+            "setPassword": "Set Password",
+            "startCourse": "Start Course"
+        },
+        "dashboard": {
+            "adminTitle": "Admin Dashboard",
+            "averageScore": "Average Score",
+            "coursesCompleted": "Courses Completed",
+            "importHint": "Hint: You can import the starter pack at ",
+            "learnerTitle": "Learner Dashboard",
+            "noCoursesAdmin": "No courses found. Create one or import a file to get started.",
+            "noCoursesLearner": "No courses available yet. Ask an admin to create one!",
+            "progressTitle": "Your Progress",
+            "welcomeMessage": "Complete your first course to see your progress here.",
+            "welcomeTitle": "Welcome!"
+        },
+        "editor": {
+            "questionTitle": "Question {{index}} ({{type}})",
+            "questionsTitle": "Questions",
+            "titleCreate": "Create New Course",
+            "titleEdit": "Edit Course"
+        },
+        "feedback": {
+            "correct": "Correct!",
+            "incorrect": "Not quite..."
+        },
+        "labels": {
+            "acceptedAnswers": "Accepted Answers (one or more)",
+            "accountType": "Account Type",
+            "answerOptions": "Answer Options",
+            "correctedSentence": "Corrected Sentence",
+            "correct": "Correct",
+            "courseTitle": "Course Title",
+            "equation": "Equation",
+            "evaluationMode": "Evaluation Mode",
+            "gradeRange": "Grade Range",
+            "incorrectSentence": "Incorrect Sentence",
+            "loading": "Loading...",
+            "loadingProgress": "Loading Progress...",
+            "name": "Name",
+            "newName": "New Name",
+            "newPassword": "New Password",
+            "confirmNewPassword": "Confirm New Password",
+            "password": "Password",
+            "passwordOptional": "Password (Optional)",
+            "questionText": "Question Text",
+            "subject": "Subject",
+            "title": "Title",
+            "variables": "Variables (comma-separated)"
+        },
+        "options": {
+            "caseInsensitive": "Case Insensitive",
+            "exactMatch": "Exact Match"
+        },
+        "placeholders": {
+            "algEquation": {
+                "equation": "e.g. 2*x + 5 = 15",
+                "questionText": "e.g. Solve for the variables in the equation below.",
+                "variables": "e.g. x, y"
+            },
+            "mcq": {
+                "option": "Option {{index}}",
+                "questionText": "e.g. What is 2 + 2?"
+            },
+            "sentenceCorrection": {
+                "correct": "e.g. He doesn't like vegetables.",
+                "incorrect": "e.g. He don't like vegetables."
+            },
+            "sti": {
+                "answer": "Enter your answer here...",
+                "answerOption": "Answer {{index}}",
+                "questionText": "e.g. The capital of France is ____."
+            }
+        },
+        "player": {
+            "correctAnswerWas": "The correct answer was:",
+            "exitCourse": "Exit Course",
+            "progress": "{{current}} / {{total}}"
+        },
+        "questionTypes": {
+            "algEquation": "Algebraic Equation",
+            "mcq": "Multiple Choice",
+            "sentenceCorrection": "Sentence Correction",
+            "sti": "Smart Text Input"
+        },
+        "roles": {
+            "admin": "Admin",
+            "learner": "Learner"
+        },
+        "settings": {
+            "tabs": {
+                "account": "Account",
+                "appearance": "Appearance"
+            },
+            "appearance": {
+                "title": "Appearance",
+                "theme": "Theme",
+                "light": "Light",
+                "dark": "Dark",
+                "accent": "Accent Color",
+                "setAccent": "Set accent color to {{color}}",
+                "contrast": "Contrast",
+                "normal": "Normal",
+                "high": "High",
+                "font": "Font",
+                "sansSerif": "Sans-Serif",
+                "serif": "Serif",
+                "monospace": "Monospace",
+                "fontSize": "Font Size",
+                "adjustFontSize": "Adjust font size"
+            },
+            "manageAccounts": {
+                "title": "Manage Accounts",
+                "noLearners": "No other learner accounts found.",
+                "createModalTitle": "Create New Account",
+                "editModalTitle": "Edit Account: {{name}}"
+            },
+            "myProfile": {
+                "title": "My Profile",
+                "deleteAccount": "Delete Account",
+                "editNameModalTitle": "Edit your name",
+                "changePasswordModalTitle": "Change your password",
+                "setPasswordModalTitle": "Set a new password",
+                "passwordModalDescription": "Leave both fields blank to remove your password entirely."
+            },
+            "title": "Settings"
+        },
+        "summary": {
+            "message": "Great job, you made it to the end.",
+            "score": "Your score: {{score}} / {{total}}",
+            "title": "Course Complete!"
+        },
+        "userSelection": {
+            "createAdminAccount": "Create Admin Account",
+            "enterPasswordFor": "Enter password for {{name}}",
+            "firstRunSubtitle": "Let's create the first admin account to get started.",
+            "firstRunTitle": "Welcome!",
+            "title": "Select your profile",
+            "createUserModalTitle": "Create New Account"
+        },
+        "addQuestionModal": {
+            "title": "Add New Question",
+            "description": "Select a question type from the categories below.",
+            "categories": {
+                "general": "General",
+                "readingWriting": "Reading & Writing",
+                "math": "Math"
+            },
+            "mcq": {
+                "label": "Multiple Choice",
+                "description": "Present several options, one is correct."
+            },
+            "sti": {
+                "label": "Smart Text Input",
+                "description": "User types an answer (case-insensitive or exact)."
+            },
+            "sentenceCorrection": {
+                "label": "Sentence Correction",
+                "description": "User re-types an incorrect sentence correctly."
+            },
+            "algEquation": {
+                "label": "Algebraic Equation",
+                "description": "User solves for one or more variables in an equation."
+            }
+        },
+        "confirmations": {
+            "deleteCourse": {
+                "title": "Delete Course",
+                "message": "Are you sure you want to delete the course '{{title}}'? This action cannot be undone."
+            },
+            "deleteUser": {
+                "title": "Delete User: {{name}}",
+                "message": "Are you sure? All progress data for this user will be permanently lost."
+            },
+            "deleteSelf": {
+                "title": "Delete Account",
+                "message": "Are you sure you want to delete your account? This action is permanent and cannot be undone."
+            }
+        },
+        "errors": {
+            "title": "Error",
+            "deleteCourseFailed": "An error occurred while deleting the course.",
+            "deleteUserFailed": "Could not delete user.",
+            "deleteAccountFailed": "Could not delete your account.",
+            "importFailed": "Course import failed. Please ensure the file is a valid course JSON file.",
+            "nameUpdateFailed": "Could not update name.",
+            "passwordUpdateFailed": "Could not update password.",
+            "userExists": "A user with this name already exists.",
+            "userUpdateFailed": "Could not update user.",
+            "validation": {
+                "title": "Validation Error",
+                "nameMissing": "Please enter a name.",
+                "passwordsDontMatch": "The passwords do not match."
+            }
+        },
+        "success": {
+            "title": "Success",
+            "importSuccess": "Successfully imported course '{{title}}'!",
+            "nameUpdated": "Your name has been updated.",
+            "passwordUpdated": "Your password has been updated."
+        }
+    }
+}
