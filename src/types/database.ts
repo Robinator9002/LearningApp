@@ -1,6 +1,36 @@
 // src/types/database.ts
 
-// --- BASE INTERFACES ---
+// --- THEME & SETTINGS ---
+export interface IThemeState {
+    theme: 'light' | 'dark';
+    accent: 'blue' | 'purple' | 'green';
+    contrast: 'normal' | 'high';
+    font: 'sans' | 'serif' | 'mono';
+    fontSize: number;
+}
+
+// --- USER & AUTH ---
+export interface IUser {
+    id?: number;
+    name: string;
+    type: 'learner' | 'admin';
+    password?: string;
+    settings?: IThemeState;
+    // MODIFICATION: Added an optional language property to store user preference.
+    language?: 'en' | 'de';
+}
+
+// --- PROGRESS ---
+export interface IProgressLog {
+    id?: number;
+    userId: number;
+    courseId: number;
+    score: number;
+    totalQuestions: number;
+    timestamp: number;
+}
+
+// --- BASE QUESTION INTERFACES ---
 export interface IQuestionBase {
     id: string;
     questionText: string;
@@ -32,9 +62,10 @@ export interface IQuestionAlgEquation extends IQuestionBase {
 }
 
 // --- QUESTION TYPE: Free Response (Essay) ---
+// Note: This type is deprecated and no longer created, but the interface remains
+// to support any legacy courses that might still exist in a user's database.
 export interface IQuestionFreeResponse extends IQuestionBase {
     type: 'free-response';
-    // No extra fields needed, grading is manual
 }
 
 // --- QUESTION TYPE: Sentence Correction ---
@@ -52,41 +83,11 @@ export type IQuestion =
     | IQuestionFreeResponse
     | IQuestionSentenceCorrection;
 
-// The main Course interface
+// --- MAIN COURSE INTERFACE ---
 export interface ICourse {
     id?: number;
     title: string;
     subject: 'Math' | 'Reading' | 'Writing' | 'English';
-    // MODIFICATION: Changed gradeRange to a flexible string.
-    gradeRange: string;
     questions: IQuestion[];
-}
-
-// --- THEME & USER INTERFACES ---
-
-export interface IThemeState {
-    theme: 'light' | 'dark';
-    accent: 'blue' | 'purple' | 'green';
-    contrast: 'normal' | 'high';
-    font: 'sans' | 'serif' | 'mono';
-    fontSize: number;
-}
-
-// The main User interface
-export interface IUser {
-    id?: number;
-    name: string;
-    type: 'learner' | 'admin';
-    password?: string;
-    settings?: IThemeState;
-}
-
-// The Progress Log interface
-export interface IProgressLog {
-    id?: number;
-    userId: number;
-    courseId: number;
-    score: number;
-    totalQuestions: number;
-    timestamp: Date;
+    gradeRange: string;
 }
