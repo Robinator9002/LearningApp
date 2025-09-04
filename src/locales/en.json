@@ -9,6 +9,8 @@
             "changePassword": "Change Password",
             "checkAnswer": "Check Answer",
             "close": "Close",
+            "completeSetup": "Complete Setup",
+            "confirm": "Confirm",
             "create": "Create",
             "createAccount": "Create Account",
             "createCourse": "Create New Course",
@@ -21,6 +23,7 @@
             "export": "Export",
             "importCourse": "Import Course",
             "login": "Login",
+            "ok": "OK",
             "remove": "Remove",
             "saveChanges": "Save Changes",
             "saveCourse": "Save Course",
@@ -53,26 +56,35 @@
         "labels": {
             "acceptedAnswers": "Accepted Answers (one or more)",
             "accountType": "Account Type",
-            "correctedSentence": "Corrected Sentence",
+            "answerOptions": "Answer Options",
+            "confirmNewPassword": "Confirm New Password",
             "correct": "Correct",
+            "correctedSentence": "Corrected Sentence",
             "courseTitle": "Course Title",
             "equation": "Equation",
             "evaluationMode": "Evaluation Mode",
             "gradeRange": "Grade Range",
+            "gradeRangeLabel": "Grade {{range}}",
             "incorrectSentence": "Incorrect Sentence",
+            "language": "Language",
             "loading": "Loading...",
+            "loadingCourses": "Loading Courses...",
             "loadingProgress": "Loading Progress...",
+            "loadingUser": "Loading User Information...",
             "name": "Name",
             "newName": "New Name",
             "newPassword": "New Password",
-            "confirmNewPassword": "Confirm New Password",
+            "noCoursesFound": "No courses have been created yet.",
             "password": "Password",
             "passwordOptional": "Password (Optional)",
             "questionText": "Question Text",
             "subject": "Subject",
             "title": "Title",
-            "variables": "Variables (comma-separated)",
-            "answerOptions": "Answer Options"
+            "variables": "Variables (comma-separated)"
+        },
+        "languages": {
+            "en": "English",
+            "de": "Deutsch"
         },
         "options": {
             "caseInsensitive": "Case-insensitive",
@@ -136,6 +148,12 @@
                 "fontSize": "Font Size",
                 "adjustFontSize": "Adjust font size"
             },
+            "global": {
+                "title": "Global App Settings (Admins Only)",
+                "defaultLanguageLabel": "Default Language",
+                "seedCoursesLabel": "Starter Courses",
+                "seedCoursesDescription": "Automatically import starter courses for new users."
+            },
             "manageAccounts": {
                 "title": "Manage Accounts",
                 "noLearners": "No other learner accounts found.",
@@ -152,16 +170,23 @@
             },
             "title": "Settings"
         },
+        "setup": {
+            "title": "Welcome to the Learning App!",
+            "subtitle": "Let's set up your administrator account and the application defaults.",
+            "adminNameLabel": "Your Administrator Name",
+            "adminPasswordLabel": "Your Password (Optional)",
+            "yourLanguageLabel": "Your Language",
+            "defaultLanguageLabel": "Default App Language",
+            "defaultLanguageDescription": "The language new users will see by default.",
+            "seedCoursesLabel": "Import Starter Courses",
+            "seedCoursesDescription": "Automatically add a set of sample courses in the default language."
+        },
         "summary": {
             "message": "Great job making it to the end.",
             "score": "Your Score: {{score}} / {{total}}",
             "title": "Course Complete!"
         },
         "userSelection": {
-            "createAdminAccount": "Create Admin Account",
-            "enterPasswordFor": "Enter password for {{name}}",
-            "firstRunSubtitle": "Let's create the first Admin account to get started.",
-            "firstRunTitle": "Welcome!",
             "title": "Select Your Profile",
             "createUserModalTitle": "Create New Account"
         },
@@ -206,11 +231,13 @@
         },
         "errors": {
             "title": "Error",
+            "createUserFailed": "Could not create user. The name might already be taken.",
             "deleteCourseFailed": "An error occurred while deleting the course.",
             "deleteUserFailed": "Could not delete user.",
             "deleteAccountFailed": "Could not delete your account.",
             "importFailed": "Course import failed. Please ensure the file is a valid course JSON file.",
-            "nameUpdateFailed": "Could not update name.",
+            "loginFailed": "The password you entered was incorrect. Please try again.",
+            "nameUpdateFailed": "Could not update name. The name might already be taken.",
             "passwordUpdateFailed": "Could not update password.",
             "userExists": "A user with this name already exists.",
             "userUpdateFailed": "Could not update user.",
@@ -231,10 +258,6 @@
             "reading": "Reading",
             "writing": "Writing",
             "english": "English"
-        },
-        "gradeRanges": {
-            "2-4": "2-4",
-            "6-8": "6-8"
         }
     }
 }
