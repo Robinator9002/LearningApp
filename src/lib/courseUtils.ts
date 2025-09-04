@@ -1,6 +1,5 @@
 // src/lib/courseUtils.ts
 
-// FIX: Added explicit file extensions to resolve potential import path errors.
 import { db } from './db.ts';
 import type { ICourse } from '../types/database.ts';
 
@@ -8,11 +7,39 @@ import type { ICourse } from '../types/database.ts';
 
 /**
  * Defines the structured, nested object that our grouping function will produce.
- * It's a dictionary where keys are subjects, and values are another dictionary
- * where keys are grade ranges and values are the list of courses.
  * e.g., { "Math": { "2-4": [course1, course2] } }
  */
 export type GroupedCourses = Record<string, Record<string, ICourse[]>>;
+
+// --- NEW: COURSE SEEDING UTILITY ---
+
+/**
+ * Dynamically imports and seeds the starter courses for a given language.
+ * This function is designed to be called during the initial application setup.
+ * @param language - The language ('en' or 'de') of the starter courses to import.
+ */
+export async function seedInitialCourses(language: 'en' | 'de'): Promise<void> {
+    try {
+        // Use dynamic import() to load the correct JSON file based on the language.
+        const courseModule =
+            language === 'de'
+                ? await import('../../data/starter-courses_de.json')
+                : await import('../../data/starter-courses_en.json');
+
+        // The default export of the JSON module is the array of courses.
+        const starterCourses = courseModule.default;
+
+        // Type assertion to ensure data integrity before adding to the database.
+        const validCourses = starterCourses as Omit<ICourse, 'id'>[];
+
+        // Use Dexie's bulkAdd for efficient batch insertion.
+        await db.courses.bulkAdd(validCourses as ICourse[]);
+    } catch (error) {
+        console.error(`Failed to seed initial courses for language "${language}":`, error);
+        // Re-throw the error to be handled by the calling function (e.g., in a modal).
+        throw new Error('Could not load starter courses.');
+    }
+}
 
 // --- IMPORT / EXPORT UTILITIES ---
 
