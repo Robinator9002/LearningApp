@@ -53,7 +53,6 @@
         "labels": {
             "acceptedAnswers": "Accepted Answers (one or more)",
             "accountType": "Account Type",
-            "answerOptions": "Answer Options",
             "correctedSentence": "Corrected Sentence",
             "correct": "Correct",
             "courseTitle": "Course Title",
@@ -72,31 +71,33 @@
             "questionText": "Question Text",
             "subject": "Subject",
             "title": "Title",
-            "variables": "Variables (comma-separated)"
+            "variables": "Variables (comma-separated)",
+            "answerOptions": "Answer Options"
         },
         "options": {
-            "caseInsensitive": "Case Insensitive",
+            "caseInsensitive": "Case-insensitive",
             "exactMatch": "Exact Match"
         },
         "placeholders": {
             "algEquation": {
-                "equation": "e.g. 2*x + 5 = 15",
-                "questionText": "e.g. Solve for the variables in the equation below.",
-                "variables": "e.g. x, y"
+                "equation": "e.g., 2*x + 5 = 15",
+                "questionText": "e.g., Solve for the variables in the equation below.",
+                "variables": "e.g., x, y"
             },
             "mcq": {
                 "option": "Option {{index}}",
-                "questionText": "e.g. What is 2 + 2?"
+                "questionText": "e.g., What is 2 + 2?"
             },
             "sentenceCorrection": {
-                "correct": "e.g. He doesn't like vegetables.",
-                "incorrect": "e.g. He don't like vegetables."
+                "correct": "e.g., He doesn't like vegetables.",
+                "incorrect": "e.g., He don't like vegetables."
             },
             "sti": {
-                "answer": "Enter your answer here...",
+                "answer": "Type your answer here...",
                 "answerOption": "Answer {{index}}",
-                "questionText": "e.g. The capital of France is ____."
-            }
+                "questionText": "e.g., The capital of France is ____."
+            },
+            "gradeRange": "e.g., 2-4, 9, Advanced"
         },
         "player": {
             "correctAnswerWas": "The correct answer was:",
@@ -144,31 +145,31 @@
             "myProfile": {
                 "title": "My Profile",
                 "deleteAccount": "Delete Account",
-                "editNameModalTitle": "Edit your name",
-                "changePasswordModalTitle": "Change your password",
-                "setPasswordModalTitle": "Set a new password",
+                "editNameModalTitle": "Edit Your Name",
+                "changePasswordModalTitle": "Change Your Password",
+                "setPasswordModalTitle": "Set a New Password",
                 "passwordModalDescription": "Leave both fields blank to remove your password entirely."
             },
             "title": "Settings"
         },
         "summary": {
-            "message": "Great job, you made it to the end.",
-            "score": "Your score: {{score}} / {{total}}",
+            "message": "Great job making it to the end.",
+            "score": "Your Score: {{score}} / {{total}}",
             "title": "Course Complete!"
         },
         "userSelection": {
             "createAdminAccount": "Create Admin Account",
             "enterPasswordFor": "Enter password for {{name}}",
-            "firstRunSubtitle": "Let's create the first admin account to get started.",
+            "firstRunSubtitle": "Let's create the first Admin account to get started.",
             "firstRunTitle": "Welcome!",
-            "title": "Select your profile",
+            "title": "Select Your Profile",
             "createUserModalTitle": "Create New Account"
         },
         "addQuestionModal": {
-            "title": "Add New Question",
+            "title": "Add a New Question",
             "description": "Select a question type from the categories below.",
             "categories": {
-                "general": "General",
+                "general": "General Purpose",
                 "readingWriting": "Reading & Writing",
                 "math": "Math"
             },
@@ -224,6 +225,16 @@
             "importSuccess": "Successfully imported course '{{title}}'!",
             "nameUpdated": "Your name has been updated.",
             "passwordUpdated": "Your password has been updated."
+        },
+        "subjects": {
+            "math": "Math",
+            "reading": "Reading",
+            "writing": "Writing",
+            "english": "English"
+        },
+        "gradeRanges": {
+            "2-4": "2-4",
+            "6-8": "6-8"
         }
     }
 }
