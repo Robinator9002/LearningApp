@@ -30,11 +30,11 @@
         },
         "dashboard": {
             "adminTitle": "Admin-Dashboard",
-            "averageScore": "Ø Punktzahl",
+            "averageScore": "Durchschnitt",
             "coursesCompleted": "Kurse abgeschlossen",
-            "importHint": "Tipp: Sie können das Starter-Paket importieren unter ",
+            "importHint": "Hinweis: Sie können das Starterpaket unter ",
             "learnerTitle": "Lern-Dashboard",
-            "noCoursesAdmin": "Keine Kurse gefunden. Erstellen Sie einen oder importieren Sie eine Datei, um loszulegen.",
+            "noCoursesAdmin": "Keine Kurse gefunden. Erstellen Sie einen oder importieren Sie eine Datei, um zu beginnen.",
             "noCoursesLearner": "Noch keine Kurse verfügbar. Bitten Sie einen Admin, einen zu erstellen!",
             "progressTitle": "Dein Fortschritt",
             "welcomeMessage": "Schließe deinen ersten Kurs ab, um deinen Fortschritt hier zu sehen.",
@@ -53,7 +53,6 @@
         "labels": {
             "acceptedAnswers": "Akzeptierte Antworten (eine oder mehrere)",
             "accountType": "Kontotyp",
-            "answerOptions": "Antwortmöglichkeiten",
             "correctedSentence": "Korrigierter Satz",
             "correct": "Korrekt",
             "courseTitle": "Kurstitel",
@@ -68,11 +67,12 @@
             "newPassword": "Neues Passwort",
             "confirmNewPassword": "Neues Passwort bestätigen",
             "password": "Passwort",
-            "passwordOptional": "Passwort (Optional)",
-            "questionText": "Fragentext",
+            "passwordOptional": "Passwort (optional)",
+            "questionText": "Fragetext",
             "subject": "Fach",
             "title": "Titel",
-            "variables": "Variablen (durch Komma getrennt)"
+            "variables": "Variablen (durch Komma getrennt)",
+            "answerOptions": "Antwortmöglichkeiten"
         },
         "options": {
             "caseInsensitive": "Groß-/Kleinschreibung ignorieren",
@@ -81,7 +81,7 @@
         "placeholders": {
             "algEquation": {
                 "equation": "z.B. 2*x + 5 = 15",
-                "questionText": "z.B. Löse nach den Variablen in der Gleichung unten auf.",
+                "questionText": "z.B. Lösen Sie für die Variablen in der folgenden Gleichung.",
                 "variables": "z.B. x, y"
             },
             "mcq": {
@@ -93,10 +93,11 @@
                 "incorrect": "z.B. Er mögen kein Gemüse."
             },
             "sti": {
-                "answer": "Gib deine Antwort hier ein...",
+                "answer": "Geben Sie Ihre Antwort hier ein...",
                 "answerOption": "Antwort {{index}}",
                 "questionText": "z.B. Die Hauptstadt von Frankreich ist ____."
-            }
+            },
+            "gradeRange": "z.B. 2-4, 9, Fortgeschritten"
         },
         "player": {
             "correctAnswerWas": "Die richtige Antwort war:",
@@ -111,7 +112,7 @@
         },
         "roles": {
             "admin": "Admin",
-            "learner": "Lernender"
+            "learner": "Lernende(r)"
         },
         "settings": {
             "tabs": {
@@ -144,29 +145,29 @@
             "myProfile": {
                 "title": "Mein Profil",
                 "deleteAccount": "Konto löschen",
-                "editNameModalTitle": "Deinen Namen bearbeiten",
-                "changePasswordModalTitle": "Dein Passwort ändern",
+                "editNameModalTitle": "Ihren Namen bearbeiten",
+                "changePasswordModalTitle": "Ihr Passwort ändern",
                 "setPasswordModalTitle": "Ein neues Passwort festlegen",
-                "passwordModalDescription": "Lasse beide Felder leer, um dein Passwort vollständig zu entfernen."
+                "passwordModalDescription": "Lassen Sie beide Felder leer, um Ihr Passwort vollständig zu entfernen."
             },
             "title": "Einstellungen"
         },
         "summary": {
-            "message": "Tolle Arbeit, du hast es bis zum Ende geschafft.",
+            "message": "Gute Arbeit, du hast es bis zum Ende geschafft.",
             "score": "Deine Punktzahl: {{score}} / {{total}}",
             "title": "Kurs abgeschlossen!"
         },
         "userSelection": {
             "createAdminAccount": "Admin-Konto erstellen",
             "enterPasswordFor": "Passwort für {{name}} eingeben",
-            "firstRunSubtitle": "Lass uns das erste Admin-Konto erstellen, um loszulegen.",
+            "firstRunSubtitle": "Lassen Sie uns das erste Admin-Konto erstellen, um zu beginnen.",
             "firstRunTitle": "Willkommen!",
-            "title": "Wähle dein Profil",
+            "title": "Wählen Sie Ihr Profil",
             "createUserModalTitle": "Neues Konto erstellen"
         },
         "addQuestionModal": {
             "title": "Neue Frage hinzufügen",
-            "description": "Wähle einen Fragetyp aus den folgenden Kategorien.",
+            "description": "Wählen Sie einen Fragetyp aus den folgenden Kategorien.",
             "categories": {
                 "general": "Allgemein",
                 "readingWriting": "Lesen & Schreiben",
@@ -182,48 +183,58 @@
             },
             "sentenceCorrection": {
                 "label": "Satzkorrektur",
-                "description": "Benutzer schreibt einen fehlerhaften Satz korrekt neu."
+                "description": "Benutzer tippt einen fehlerhaften Satz korrekt ab."
             },
             "algEquation": {
                 "label": "Algebraische Gleichung",
-                "description": "Benutzer löst nach einer oder mehreren Variablen in einer Gleichung."
+                "description": "Benutzer löst eine Gleichung nach einer oder mehreren Variablen auf."
             }
         },
         "confirmations": {
             "deleteCourse": {
                 "title": "Kurs löschen",
-                "message": "Bist du sicher, dass du den Kurs '{{title}}' löschen möchtest? Diese Aktion kann nicht rückgängig gemacht werden."
+                "message": "Sind Sie sicher, dass Sie den Kurs '{{title}}' löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden."
             },
             "deleteUser": {
                 "title": "Benutzer löschen: {{name}}",
-                "message": "Bist du sicher? Alle Fortschrittsdaten für diesen Benutzer gehen dauerhaft verloren."
+                "message": "Sind Sie sicher? Alle Fortschrittsdaten für diesen Benutzer gehen dauerhaft verloren."
             },
             "deleteSelf": {
                 "title": "Konto löschen",
-                "message": "Bist du sicher, dass du dein Konto löschen möchtest? Diese Aktion ist dauerhaft und kann nicht rückgängig gemacht werden."
+                "message": "Sind Sie sicher, dass Sie Ihr Konto löschen möchten? Diese Aktion ist endgültig und kann nicht rückgängig gemacht werden."
             }
         },
         "errors": {
             "title": "Fehler",
             "deleteCourseFailed": "Beim Löschen des Kurses ist ein Fehler aufgetreten.",
             "deleteUserFailed": "Benutzer konnte nicht gelöscht werden.",
-            "deleteAccountFailed": "Dein Konto konnte nicht gelöscht werden.",
-            "importFailed": "Kursimport fehlgeschlagen. Bitte stelle sicher, dass die Datei eine gültige Kurs-JSON-Datei ist.",
+            "deleteAccountFailed": "Ihr Konto konnte nicht gelöscht werden.",
+            "importFailed": "Kursimport fehlgeschlagen. Bitte stellen Sie sicher, dass die Datei eine gültige Kurs-JSON-Datei ist.",
             "nameUpdateFailed": "Name konnte nicht aktualisiert werden.",
             "passwordUpdateFailed": "Passwort konnte nicht aktualisiert werden.",
             "userExists": "Ein Benutzer mit diesem Namen existiert bereits.",
             "userUpdateFailed": "Benutzer konnte nicht aktualisiert werden.",
             "validation": {
                 "title": "Validierungsfehler",
-                "nameMissing": "Bitte gib einen Namen ein.",
+                "nameMissing": "Bitte geben Sie einen Namen ein.",
                 "passwordsDontMatch": "Die Passwörter stimmen nicht überein."
             }
         },
         "success": {
             "title": "Erfolg",
             "importSuccess": "Kurs '{{title}}' erfolgreich importiert!",
-            "nameUpdated": "Dein Name wurde aktualisiert.",
-            "passwordUpdated": "Dein Passwort wurde aktualisiert."
+            "nameUpdated": "Ihr Name wurde aktualisiert.",
+            "passwordUpdated": "Ihr Passwort wurde aktualisiert."
+        },
+        "subjects": {
+            "math": "Mathe",
+            "reading": "Lesen",
+            "writing": "Schreiben",
+            "english": "Englisch"
+        },
+        "gradeRanges": {
+            "2-4": "2-4",
+            "6-8": "6-8"
         }
     }
 }
