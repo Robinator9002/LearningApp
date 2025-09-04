@@ -2,24 +2,30 @@
 
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
+import LanguageDetector from 'i18next-browser-languagedetector';
 
-// Import our German translation file
+// MODIFICATION: Imported both English and German translation files.
 import translationDE from '../locales/de.json';
+import translationEN from '../locales/en.json';
 
-// Define the resources
+// MODIFICATION: Defined both 'en' and 'de' as available resources.
 const resources = {
+    en: {
+        translation: translationEN.translation,
+    },
     de: {
-        ...translationDE,
+        translation: translationDE.translation,
     },
 };
 
-i18n.use(initReactI18next) // Passes i18n down to react-i18next
+i18n.use(LanguageDetector) // MODIFICATION: Added browser language detection.
+    .use(initReactI18next)
     .init({
         resources,
-        lng: 'de', // Set the default language to German
-        fallbackLng: 'de', // Fallback language if a key is missing
+        // MODIFICATION: Set a fallback language in case detection fails or a key is missing.
+        fallbackLng: 'en',
         interpolation: {
-            escapeValue: false, // React already safes from xss
+            escapeValue: false, // React already escapes from XSS.
         },
         // You can add debug: true here during development to see logs
         // debug: true,
