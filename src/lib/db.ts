@@ -1,7 +1,8 @@
 // src/lib/db.ts
 
 import Dexie, { type Table } from 'dexie';
-import type { IUser, ICourse, IProgressLog } from '../types/database';
+// MODIFICATION: Imported the new IAppSettings type.
+import type { IUser, ICourse, IProgressLog, IAppSettings } from '../types/database';
 
 export class LocalDatabase extends Dexie {
     // These tables will hold our application data.
@@ -9,22 +10,31 @@ export class LocalDatabase extends Dexie {
     users!: Table<IUser>;
     courses!: Table<ICourse>;
     progressLogs!: Table<IProgressLog>;
+    // NEW: Added the appSettings table.
+    appSettings!: Table<IAppSettings>;
 
     constructor() {
         super('learningAppDatabase');
         // Bumping the version number is crucial when changing the schema.
         // Dexie uses this to manage migrations automatically.
+        this.version(3).stores({
+            users: '++id, &name, type',
+            courses: '++id, subject, gradeRange, title',
+            progressLogs: '++id, userId, courseId, timestamp',
+            // NEW: Defined the schema for our new singleton settings table.
+            appSettings: '++id',
+        });
+
+        // --- MIGRATION HISTORY ---
+        // This is the previous version of the schema. It is kept here
+        // to allow Dexie to correctly migrate from version 2 to version 3
+        // for users who already have the database.
         this.version(2).stores({
             users: '++id, &name, type',
-            // MODIFICATION: Added 'gradeRange' to the index.
-            // This allows for efficient querying of courses by their grade level.
             courses: '++id, subject, gradeRange, title',
             progressLogs: '++id, userId, courseId, timestamp',
         });
 
-        // This is the previous version of the schema. It is kept here
-        // to allow Dexie to correctly migrate from version 1 to version 2
-        // for users who already have the database.
         this.version(1).stores({
             users: '++id, &name, type',
             courses: '++id, subject, title',
