@@ -1,30 +1,39 @@
-// src/components/common/Button/Button.tsx
+// src/components/common/Button.tsx
 
 import React from 'react';
 
-// Define the props for the Button component
+// --- TYPE DEFINITIONS ---
+// Defines the props for the Button component.
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     children: React.ReactNode;
     /**
      * The visual style of the button.
-     * Defaults to 'primary'.
+     * @default 'primary'
      */
     variant?: 'primary' | 'secondary' | 'danger';
+    /**
+     * The size of the button.
+     * @default 'normal'
+     */
+    size?: 'normal' | 'large';
 }
 
 /**
- * A reusable button component that uses global BEM-style CSS classes.
+ * A reusable, theme-aware button component.
+ * It supports different visual variants and sizes through BEM-style CSS classes.
  */
 const Button: React.FC<ButtonProps> = ({
     children,
     variant = 'primary',
+    size = 'normal', // Default size is 'normal'
     className = '',
     ...props
 }) => {
-    // Construct the className string from our global CSS classes
+    // Construct the className string from our global CSS classes.
     // Base class: 'btn'
-    // Modifier class: e.g., 'btn--primary'
-    const buttonClassName = `btn btn--${variant} ${className}`.trim();
+    // Modifiers: e.g., 'btn--primary', 'btn--large'
+    const sizeClass = size !== 'normal' ? `btn--${size}` : '';
+    const buttonClassName = `btn btn--${variant} ${sizeClass} ${className}`.trim();
 
     return (
         <button className={buttonClassName} {...props}>
