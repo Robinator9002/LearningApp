@@ -2,8 +2,9 @@
 
 import React, { useContext } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import { AuthContext } from '../../contexts/AuthContext';
-import type { IUser } from '../../types/database';
+import { useTranslation } from 'react-i18next'; // NEW: Import useTranslation
+import { AuthContext } from '../../contexts/AuthContext.tsx';
+import type { IUser } from '../../types/database.ts';
 
 interface ProtectedRouteProps {
     allowedType: IUser['type'];
@@ -16,6 +17,7 @@ interface ProtectedRouteProps {
  */
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedType }) => {
     const auth = useContext(AuthContext);
+    const { t } = useTranslation(); // NEW: Initialize useTranslation
 
     if (!auth) {
         throw new Error('ProtectedRoute must be used within an AuthProvider');
@@ -25,7 +27,8 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedType }) => {
 
     // While we are checking the session, don't render anything
     if (isLoading) {
-        return <div>Loading...</div>;
+        // FIX: Replaced hardcoded string with a translation key.
+        return <div>{t('labels.loading')}</div>;
     }
 
     // If there is no user or the user type doesn't match, redirect
