@@ -3,7 +3,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next'; // MODIFICATION: Imported useTranslation
 import type { IQuestion } from '../../../types/database';
-import Button from '../../common/Button/Button';
+import Button from '../../common/Button';
 import Input from '../../common/Form/Input';
 import Label from '../../common/Form/Label';
 

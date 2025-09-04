@@ -7,7 +7,7 @@ import type { IQuestion } from '../../../types/database';
 import { ModalContext } from '../../../contexts/ModalContext';
 
 // --- Component Imports ---
-import Button from '../../common/Button/Button';
+import Button from '../../common/Button';
 import Input from '../../common/Form/Input';
 import Label from '../../common/Form/Label';
 import Select from '../../common/Form/Select';

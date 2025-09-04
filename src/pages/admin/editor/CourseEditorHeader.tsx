@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useTranslation } from 'react-i18next'; // MODIFICATION: Imported useTranslation
-import Button from '../../../components/common/Button/Button';
+import Button from '../../../components/common/Button';
 
 /**
  * Defines the properties for the CourseEditorHeader component.

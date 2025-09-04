@@ -6,7 +6,7 @@ import { db } from '../../lib/db';
 import type { IUser } from '../../types/database';
 import { ModalContext } from '../../contexts/ModalContext';
 
-import Button from '../common/Button/Button';
+import Button from '../common/Button';
 import Modal from '../common/Modal/Modal';
 import Input from '../common/Form/Input';
 import Label from '../common/Form/Label';

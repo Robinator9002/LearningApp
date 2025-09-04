@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Modal from './Modal';
-import Button from '../Button/Button';
+import Button from '../Button';
 
 interface AlertModalProps {
     isOpen: boolean;

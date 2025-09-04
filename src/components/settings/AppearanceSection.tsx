@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useTheme, type Theme, type Accent } from '../../contexts/ThemeContext';
-import Button from '../common/Button/Button';
+import Button from '../common/Button';
 import Label from '../common/Form/Label';
 
 /**

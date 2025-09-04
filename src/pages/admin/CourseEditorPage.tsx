@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { db } from '../../lib/db.ts';
 import { ModalContext } from '../../contexts/ModalContext.tsx';
 import type { ICourse, IQuestion } from '../../types/database.ts';
-import Button from '../../components/common/Button/Button.tsx';
+import Button from '../../components/common/Button.tsx';
 
 import CourseEditorHeader from './editor/CourseEditorHeader.tsx';
 import CourseMetaEditor from './editor/CourseMetaEditor.tsx';

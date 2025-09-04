@@ -3,7 +3,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next'; // MODIFICATION: Imported useTranslation
-import Button from '../../common/Button/Button';
+import Button from '../../common/Button';
 
 interface CourseSummaryProps {
     score: number;

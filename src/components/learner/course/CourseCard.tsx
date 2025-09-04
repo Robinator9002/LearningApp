@@ -4,7 +4,7 @@ import React from 'react';
 import { Book, Calculator, Pencil } from 'lucide-react';
 import { useTranslation } from 'react-i18next'; // MODIFICATION: Imported useTranslation
 import type { ICourse } from '../../../types/database';
-import Button from '../../common/Button/Button';
+import Button from '../../common/Button';
 
 interface CourseCardProps {
     course: ICourse;

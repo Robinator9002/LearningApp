@@ -4,7 +4,7 @@ import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next'; // MODIFICATION: Imported useTranslation
 import { AuthContext } from '../../contexts/AuthContext';
-import Button from '../../components/common/Button/Button';
+import Button from '../../components/common/Button';
 import AccountTab from './tabs/AccountTab';
 import AppearanceTab from './tabs/AppearanceTab';
 

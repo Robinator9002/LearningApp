@@ -3,7 +3,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import type { ICourse } from '../../../types/database';
-import Button from '../../common/Button/Button';
+import Button from '../../common/Button.tsx';
 // NEW: Import our export utility.
 import { exportCourseToJson } from '../../../lib/courseUtils.ts';
 

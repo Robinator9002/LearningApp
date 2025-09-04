@@ -10,7 +10,7 @@ import { ModalContext } from '../../contexts/ModalContext.tsx';
 import { importCourseFromJson } from '../../lib/courseUtils.ts';
 
 import CourseList from '../../components/admin/CourseList/CourseList.tsx';
-import Button from '../../components/common/Button/Button.tsx';
+import Button from '../../components/common/Button.tsx';
 
 const AdminDashboardPage: React.FC = () => {
     const { t } = useTranslation();

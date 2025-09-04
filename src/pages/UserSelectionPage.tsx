@@ -12,7 +12,7 @@ import { ModalContext } from '../contexts/ModalContext';
 import type { IUser } from '../types/database';
 
 // Reusable components
-import Button from '../components/common/Button/Button';
+import Button from '../components/common/Button';
 import Modal from '../components/common/Modal/Modal';
 import Input from '../components/common/Form/Input';
 import Label from '../components/common/Form/Label';
