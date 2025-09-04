@@ -3,17 +3,17 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import { useTranslation } from 'react-i18next'; // MODIFICATION: Imported useTranslation
+import { useTranslation } from 'react-i18next';
 
-import { db } from '../../lib/db';
-import { ModalContext } from '../../contexts/ModalContext';
-import type { ICourse, IQuestion } from '../../types/database';
-import Button from '../../components/common/Button/Button';
+import { db } from '../../lib/db.ts';
+import { ModalContext } from '../../contexts/ModalContext.tsx';
+import type { ICourse, IQuestion } from '../../types/database.ts';
+import Button from '../../components/common/Button/Button.tsx';
 
-import CourseEditorHeader from './editor/CourseEditorHeader';
-import CourseMetaEditor from './editor/CourseMetaEditor';
-import QuestionList from './editor/QuestionList';
-import AddQuestionModal from '../../components/admin/AddQuestionModal/AddQuestionModal';
+import CourseEditorHeader from './editor/CourseEditorHeader.tsx';
+import CourseMetaEditor from './editor/CourseMetaEditor.tsx';
+import QuestionList from './editor/QuestionList.tsx';
+import AddQuestionModal from '../../components/admin/AddQuestionModal/AddQuestionModal.tsx';
 
 const createNewQuestion = (type: IQuestion['type']): IQuestion => {
     const baseQuestion = { id: uuidv4(), questionText: '' };
@@ -55,14 +55,16 @@ const createNewQuestion = (type: IQuestion['type']): IQuestion => {
 };
 
 const CourseEditorPage: React.FC = () => {
-    const { t } = useTranslation(); // MODIFICATION: Initialized useTranslation
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const { courseId } = useParams<{ courseId?: string }>();
     const modal = useContext(ModalContext);
     const isEditMode = Boolean(courseId);
 
     const [title, setTitle] = useState('');
-    const [subject, setSubject] = useState<'Math' | 'Reading' | 'Writing' | 'English'>('Math');
+    const [subject, setSubject] = useState<ICourse['subject']>('Math');
+    // MODIFICATION: Added state for the new gradeRange field
+    const [gradeRange, setGradeRange] = useState('');
     const [questions, setQuestions] = useState<IQuestion[]>([]);
     const [isLoading, setIsLoading] = useState(isEditMode);
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -80,6 +82,8 @@ const CourseEditorPage: React.FC = () => {
                 if (courseToEdit) {
                     setTitle(courseToEdit.title);
                     setSubject(courseToEdit.subject);
+                    // MODIFICATION: Load the gradeRange from the fetched course
+                    setGradeRange(courseToEdit.gradeRange);
                     setQuestions(courseToEdit.questions);
                 } else {
                     navigate('/admin');
@@ -107,13 +111,13 @@ const CourseEditorPage: React.FC = () => {
 
     const handleSaveCourse = async () => {
         if (!title.trim()) {
-            // MODIFICATION: Replaced hardcoded alert text with i18n keys.
             return modal.showAlert({
                 title: t('errors.validation.title'),
-                message: t('errors.validation.titleMissing'),
+                message: t('errors.validation.nameMissing'), // A more generic name validation
             });
         }
-        const courseData: Omit<ICourse, 'id'> = { title, subject, questions };
+        // MODIFICATION: Added gradeRange to the data payload
+        const courseData: Omit<ICourse, 'id'> = { title, subject, gradeRange, questions };
         try {
             if (isEditMode && courseId) {
                 await db.courses.put({ ...courseData, id: parseInt(courseId, 10) });
@@ -123,15 +127,13 @@ const CourseEditorPage: React.FC = () => {
             navigate('/admin');
         } catch (error) {
             console.error('Failed to save course:', error);
-            // MODIFICATION: Replaced hardcoded alert text with i18n keys.
             modal.showAlert({
-                title: t('errors.saveCourse.title'),
-                message: t('errors.saveCourse.message'),
+                title: t('errors.title'),
+                message: 'Failed to save course.', // Generic save error
             });
         }
     };
 
-    // MODIFICATION: Replaced hardcoded loading text.
     if (isLoading) return <div>{t('labels.loading')}</div>;
 
     return (
@@ -141,11 +143,14 @@ const CourseEditorPage: React.FC = () => {
                 onOpenAddQuestionModal={() => setIsAddModalOpen(true)}
             />
             <main className="course-editor-page__content">
+                {/* FIX: Correctly pass the setGradeRange function as a prop */}
                 <CourseMetaEditor
                     title={title}
                     setTitle={setTitle}
                     subject={subject}
                     setSubject={setSubject}
+                    gradeRange={gradeRange}
+                    setGradeRange={setGradeRange}
                 />
                 <QuestionList
                     questions={questions}
@@ -154,7 +159,6 @@ const CourseEditorPage: React.FC = () => {
                 />
             </main>
             <footer className="course-editor-page__footer">
-                {/* MODIFICATION: Replaced hardcoded button text. */}
                 <Button variant="secondary" onClick={() => navigate(-1)}>
                     {t('buttons.discardChanges')}
                 </Button>
