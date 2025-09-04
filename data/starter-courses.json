@@ -1,0 +1,198 @@
+[
+    {
+        "title": "Fun with Phonics",
+        "subject": "Reading",
+        "gradeRange": "2-4",
+        "questions": [
+            {
+                "id": "uuid-phonics-1",
+                "type": "mcq",
+                "questionText": "Which word rhymes with 'cat'?",
+                "options": [
+                    { "id": "uuid-phonics-1-1", "text": "Hat", "isCorrect": true },
+                    { "id": "uuid-phonics-1-2", "text": "Dog", "isCorrect": false },
+                    { "id": "uuid-phonics-1-3", "text": "Sun", "isCorrect": false },
+                    { "id": "uuid-phonics-1-4", "text": "Car", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "uuid-phonics-2",
+                "type": "sti",
+                "questionText": "The opposite of 'hot' is ____.",
+                "correctAnswers": ["cold"],
+                "evaluationMode": "case-insensitive"
+            }
+        ]
+    },
+    {
+        "title": "Basic Addition",
+        "subject": "Math",
+        "gradeRange": "2-4",
+        "questions": [
+            {
+                "id": "uuid-addition-1",
+                "type": "mcq",
+                "questionText": "What is 5 + 3?",
+                "options": [
+                    { "id": "uuid-addition-1-1", "text": "7", "isCorrect": false },
+                    { "id": "uuid-addition-1-2", "text": "8", "isCorrect": true },
+                    { "id": "uuid-addition-1-3", "text": "6", "isCorrect": false },
+                    { "id": "uuid-addition-1-4", "text": "9", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "uuid-addition-2",
+                "type": "alg-equation",
+                "questionText": "Solve for the missing number.",
+                "equation": "4 + x = 10",
+                "variables": ["x"]
+            }
+        ]
+    },
+    {
+        "title": "Story Starters",
+        "subject": "Writing",
+        "gradeRange": "2-4",
+        "questions": [
+            {
+                "id": "uuid-writing-1",
+                "type": "sentence-correction",
+                "questionText": "Correct the sentence below.",
+                "sentenceWithMistake": "i go to the park.",
+                "correctedSentence": "I go to the park."
+            }
+        ]
+    },
+    {
+        "title": "Noun Detective",
+        "subject": "English",
+        "gradeRange": "2-4",
+        "questions": [
+            {
+                "id": "uuid-english-1",
+                "type": "mcq",
+                "questionText": "Which of these is a noun?",
+                "options": [
+                    { "id": "uuid-english-1-1", "text": "Run", "isCorrect": false },
+                    { "id": "uuid-english-1-2", "text": "Happy", "isCorrect": false },
+                    { "id": "uuid-english-1-3", "text": "Apple", "isCorrect": true },
+                    { "id": "uuid-english-1-4", "text": "Quickly", "isCorrect": false }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Simple Subtraction",
+        "subject": "Math",
+        "gradeRange": "2-4",
+        "questions": [
+            {
+                "id": "uuid-subtraction-1",
+                "type": "mcq",
+                "questionText": "What is 12 - 5?",
+                "options": [
+                    { "id": "uuid-subtraction-1-1", "text": "7", "isCorrect": true },
+                    { "id": "uuid-subtraction-1-2", "text": "6", "isCorrect": false },
+                    { "id": "uuid-subtraction-1-3", "text": "8", "isCorrect": false },
+                    { "id": "uuid-subtraction-1-4", "text": "5", "isCorrect": false }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Advanced Vocabulary",
+        "subject": "Reading",
+        "gradeRange": "6-8",
+        "questions": [
+            {
+                "id": "uuid-vocab-1",
+                "type": "mcq",
+                "questionText": "Which word is a synonym for 'ephemeral'?",
+                "options": [
+                    { "id": "uuid-vocab-1-1", "text": "Permanent", "isCorrect": false },
+                    { "id": "uuid-vocab-1-2", "text": "Fleeting", "isCorrect": true },
+                    { "id": "uuid-vocab-1-3", "text": "Important", "isCorrect": false },
+                    { "id": "uuid-vocab-1-4", "text": "Ancient", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "uuid-vocab-2",
+                "type": "sti",
+                "questionText": "A story about a person's life written by that person is an ____.",
+                "correctAnswers": ["autobiography"],
+                "evaluationMode": "case-insensitive"
+            }
+        ]
+    },
+    {
+        "title": "Pre-Algebra Concepts",
+        "subject": "Math",
+        "gradeRange": "6-8",
+        "questions": [
+            {
+                "id": "uuid-prealgebra-1",
+                "type": "alg-equation",
+                "questionText": "Solve for x in the equation.",
+                "equation": "3 * x + 7 = 22",
+                "variables": ["x"]
+            },
+            {
+                "id": "uuid-prealgebra-2",
+                "type": "mcq",
+                "questionText": "What is the value of 2 to the power of 5?",
+                "options": [
+                    { "id": "uuid-prealgebra-2-1", "text": "10", "isCorrect": false },
+                    { "id": "uuid-prealgebra-2-2", "text": "25", "isCorrect": false },
+                    { "id": "uuid-prealgebra-2-3", "text": "32", "isCorrect": true },
+                    { "id": "uuid-prealgebra-2-4", "text": "16", "isCorrect": false }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Persuasive Arguments",
+        "subject": "Writing",
+        "gradeRange": "6-8",
+        "questions": [
+            {
+                "id": "uuid-persuasive-1",
+                "type": "sentence-correction",
+                "questionText": "Correct the punctuation in the sentence.",
+                "sentenceWithMistake": "The team needs three things to succeed talent, dedication, and teamwork.",
+                "correctedSentence": "The team needs three things to succeed: talent, dedication, and teamwork."
+            }
+        ]
+    },
+    {
+        "title": "Literary Devices",
+        "subject": "English",
+        "gradeRange": "6-8",
+        "questions": [
+            {
+                "id": "uuid-literary-1",
+                "type": "mcq",
+                "questionText": "'The wind whispered through the trees' is an example of what?",
+                "options": [
+                    { "id": "uuid-literary-1-1", "text": "Metaphor", "isCorrect": false },
+                    { "id": "uuid-literary-1-2", "text": "Simile", "isCorrect": false },
+                    { "id": "uuid-literary-1-3", "text": "Personification", "isCorrect": true },
+                    { "id": "uuid-literary-1-4", "text": "Hyperbole", "isCorrect": false }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Order of Operations",
+        "subject": "Math",
+        "gradeRange": "6-8",
+        "questions": [
+            {
+                "id": "uuid-pemdas-1",
+                "type": "sti",
+                "questionText": "Calculate the value of: 5 + (3 * 2)^2",
+                "correctAnswers": ["41"],
+                "evaluationMode": "exact-match"
+            }
+        ]
+    }
+]
