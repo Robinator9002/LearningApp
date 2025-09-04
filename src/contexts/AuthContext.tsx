@@ -1,69 +1,74 @@
 // src/contexts/AuthContext.tsx
 
 import React, { createContext, useState, useEffect, type ReactNode } from 'react';
+import { useTranslation } from 'react-i18next'; // MODIFICATION: Imported useTranslation
 import type { IUser } from '../types/database';
-import { useTheme } from './ThemeContext'; // Import the useTheme hook
+import { useTheme } from './ThemeContext';
 
-// Define the shape of the context data
+// MODIFICATION: Expanded the context shape with a language update function.
 interface AuthContextType {
     currentUser: IUser | null;
     login: (user: IUser) => void;
     logout: () => void;
     isLoading: boolean;
-    updateCurrentUser: (user: IUser) => void; // Add a function to update user data
+    updateCurrentUser: (user: IUser) => void;
 }
 
-// Create the context with a default value
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 interface AuthProviderProps {
     children: ReactNode;
 }
 
-/**
- * The AuthProvider component manages the current user's state,
- * including persistence to sessionStorage and theme loading.
- */
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const [currentUser, setCurrentUser] = useState<IUser | null>(null);
     const [isLoading, setIsLoading] = useState(true);
-    const theme = useTheme(); // Get the theme context
+    const theme = useTheme();
+    const { i18n } = useTranslation(); // MODIFICATION: Get the i18n instance.
 
-    // On initial load, check sessionStorage for a saved user session
     useEffect(() => {
         try {
             const savedUser = sessionStorage.getItem('currentUser');
             if (savedUser) {
-                const user = JSON.parse(savedUser);
+                const user = JSON.parse(savedUser) as IUser;
                 setCurrentUser(user);
-                // CRITICAL: Load the theme for the session-restored user
                 theme.loadUserTheme(user);
+                // MODIFICATION: Set language on session restore.
+                if (user.language) {
+                    i18n.changeLanguage(user.language);
+                }
             }
         } catch (error) {
             console.error('Failed to parse user from sessionStorage', error);
         } finally {
             setIsLoading(false);
         }
-    }, []); // This effect should only run once
+    }, []); // Note: i18n is stable and doesn't need to be a dependency.
 
-    // Login function: now also loads the user's theme
     const login = (user: IUser) => {
         setCurrentUser(user);
         sessionStorage.setItem('currentUser', JSON.stringify(user));
-        // CRITICAL: Load the theme for the newly logged-in user
         theme.loadUserTheme(user);
+        // MODIFICATION: Set language on login.
+        if (user.language) {
+            i18n.changeLanguage(user.language);
+        }
     };
 
-    // Logout function: now also reverts to the default theme
     const logout = () => {
         setCurrentUser(null);
         sessionStorage.removeItem('currentUser');
-        // CRITICAL: Revert to the default theme on logout
         theme.loadUserTheme(null);
+        // MODIFICATION: Optionally revert to browser's detected language on logout.
+        i18n.changeLanguage(navigator.language.split('-')[0]);
     };
 
-    // New function to keep the currentUser in sync after a database update (e.g., name change)
+    // MODIFICATION: updateCurrentUser now also handles language changes.
     const updateCurrentUser = (user: IUser) => {
+        // Only update language if it has changed to avoid unnecessary re-renders.
+        if (user.language && user.language !== i18n.language) {
+            i18n.changeLanguage(user.language);
+        }
         setCurrentUser(user);
         sessionStorage.setItem('currentUser', JSON.stringify(user));
     };
