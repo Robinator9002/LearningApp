@@ -1,6 +1,17 @@
 // src/types/database.ts
 
-// --- THEME & SETTINGS ---
+// --- APPLICATION SETTINGS ---
+/**
+ * Defines the structure for global application settings.
+ * This will be stored as a single entry in a new 'settings' table.
+ */
+export interface IAppSettings {
+    id?: number; // Should always be 1 for the singleton settings object
+    defaultLanguage: 'en' | 'de';
+    seedCoursesOnNewUser: boolean; // Controls if starter courses are added for new users
+}
+
+// --- THEME & USER SETTINGS ---
 export interface IThemeState {
     theme: 'light' | 'dark';
     accent: 'blue' | 'purple' | 'green';
