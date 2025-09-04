@@ -1,20 +1,23 @@
 // src/pages/settings/tabs/account/UserManagementSection.tsx
 
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useState } from 'react';
 
 // --- CONTEXTS ---
-import { AuthContext } from '../../../../contexts/AuthContext';
-import { ModalContext } from '../../../../contexts/ModalContext';
+// FIX: Added .tsx extension for explicit file resolution.
+import { AuthContext } from '../../../../contexts/AuthContext.tsx';
+import { ModalContext } from '../../../../contexts/ModalContext.tsx';
 
 // --- TYPES ---
-import type { IUser } from '../../../../types/database';
+import type { IUser } from '../../../../types/database.ts';
 
 // --- COMPONENTS ---
+// FIX: Added .tsx extension for explicit file resolution.
 import Button from '../../../../components/common/Button.tsx';
-import Input from '../../../../components/common/Form/Input';
-import Label from '../../../../components/common/Form/Label';
-import Select from '../../../../components/common/Form/Select';
+import Input from '../../../../components/common/Form/Input.tsx';
+import Label from '../../../../components/common/Form/Label.tsx';
+import Select from '../../../../components/common/Form/Select.tsx';
 
 /**
  * An admin-only component for managing all user accounts.
@@ -32,7 +35,7 @@ const UserManagementSection: React.FC = () => {
         throw new Error('This component must be used within all required providers.');
     }
 
-    const { users, createUser, updateUser, deleteUser, currentUser } = auth;
+    const { users, createUser, updateUser, deleteUser, currentUser, appSettings } = auth;
 
     // Filter out the current admin from the list to prevent self-modification here.
     const otherUsers = users.filter((u) => u.id !== currentUser?.id);
@@ -47,6 +50,8 @@ const UserManagementSection: React.FC = () => {
         const CreateUserForm = () => {
             const [name, setName] = useState('');
             const [type, setType] = useState<'learner' | 'admin'>('learner');
+            // MODIFICATION: Add state for language, defaulting to app's default.
+            const [language, setLanguage] = useState(appSettings?.defaultLanguage || 'en');
 
             const handleSave = async () => {
                 if (!name.trim()) {
@@ -56,7 +61,8 @@ const UserManagementSection: React.FC = () => {
                     });
                 }
                 try {
-                    await createUser({ name: name.trim(), type });
+                    // MODIFICATION: Include language in the new user object.
+                    await createUser({ name: name.trim(), type, language });
                     modal.hideModal();
                 } catch (error) {
                     console.error('Failed to create user:', error);
@@ -88,6 +94,18 @@ const UserManagementSection: React.FC = () => {
                             <option value="admin">{t('roles.admin')}</option>
                         </Select>
                     </div>
+                    {/* NEW: Language selection dropdown for new users. */}
+                    <div className="form-group">
+                        <Label htmlFor="new-user-language">{t('labels.language')}</Label>
+                        <Select
+                            id="new-user-language"
+                            value={language}
+                            onChange={(e) => setLanguage(e.target.value as 'en' | 'de')}
+                        >
+                            <option value="en">English</option>
+                            <option value="de">Deutsch</option>
+                        </Select>
+                    </div>
                     <div className="modal-footer">
                         <Button variant="secondary" onClick={modal.hideModal}>
                             {t('buttons.cancel')}
@@ -114,6 +132,10 @@ const UserManagementSection: React.FC = () => {
         const EditUserForm = () => {
             const [name, setName] = useState(userToEdit.name);
             const [type, setType] = useState(userToEdit.type);
+            // MODIFICATION: Add state for language.
+            const [language, setLanguage] = useState(
+                userToEdit.language || appSettings?.defaultLanguage || 'en',
+            );
 
             const handleSave = async () => {
                 if (!name.trim()) {
@@ -123,7 +145,8 @@ const UserManagementSection: React.FC = () => {
                     });
                 }
                 try {
-                    await updateUser(userToEdit.id!, { name: name.trim(), type });
+                    // MODIFICATION: Include language in the update payload.
+                    await updateUser(userToEdit.id!, { name: name.trim(), type, language });
                     modal.hideModal();
                 } catch (error) {
                     console.error('Failed to update user:', error);
@@ -153,6 +176,18 @@ const UserManagementSection: React.FC = () => {
                         >
                             <option value="learner">{t('roles.learner')}</option>
                             <option value="admin">{t('roles.admin')}</option>
+                        </Select>
+                    </div>
+                    {/* NEW: Language selection dropdown for editing users. */}
+                    <div className="form-group">
+                        <Label htmlFor="edit-user-language">{t('labels.language')}</Label>
+                        <Select
+                            id="edit-user-language"
+                            value={language}
+                            onChange={(e) => setLanguage(e.target.value as 'en' | 'de')}
+                        >
+                            <option value="en">English</option>
+                            <option value="de">Deutsch</option>
                         </Select>
                     </div>
                     <div className="modal-footer">
