@@ -113,7 +113,7 @@ const CourseEditorPage: React.FC = () => {
         if (!title.trim()) {
             return modal.showAlert({
                 title: t('errors.validation.title'),
-                message: t('errors.validation.nameMissing'), // A more generic name validation
+                message: t('errors.validation.nameMissing'),
             });
         }
         // MODIFICATION: Added gradeRange to the data payload
@@ -143,7 +143,7 @@ const CourseEditorPage: React.FC = () => {
                 onOpenAddQuestionModal={() => setIsAddModalOpen(true)}
             />
             <main className="course-editor-page__content">
-                {/* FIX: Correctly pass the setGradeRange function as a prop */}
+                {/* FIX: Correctly pass the gradeRange state and setGradeRange function as props */}
                 <CourseMetaEditor
                     title={title}
                     setTitle={setTitle}
