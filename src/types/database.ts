@@ -9,7 +9,7 @@
 export interface IAppSettings {
     id?: number; // Primary key for the settings object (usually just 1)
     defaultLanguage: 'en' | 'de';
-    // FIX: Standardized property name for clarity and consistency.
+    // NEW: Added the missing property to allow admins to control this feature.
     seedCoursesOnFirstRun: boolean;
 }
 
