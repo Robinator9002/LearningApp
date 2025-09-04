@@ -2,20 +2,19 @@
 
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-// FIX: Corrected import paths based on recent build errors.
+import type { ICourse } from '../../../types/database';
 import Input from '../../../components/common/Form/Input.tsx';
 import Label from '../../../components/common/Form/Label.tsx';
 import Select from '../../../components/common/Form/Select.tsx';
-import type { ICourse } from '../../../types/database';
 
+// MODIFICATION: Added gradeRange and setGradeRange to the props interface.
 interface CourseMetaEditorProps {
     title: string;
     setTitle: (title: string) => void;
     subject: ICourse['subject'];
     setSubject: (subject: ICourse['subject']) => void;
-    // MODIFICATION: Added gradeRange and its setter to the component's props.
-    gradeRange: ICourse['gradeRange'];
-    setGradeRange: (gradeRange: ICourse['gradeRange']) => void;
+    gradeRange: string;
+    setGradeRange: (gradeRange: string) => void;
 }
 
 const CourseMetaEditor: React.FC<CourseMetaEditorProps> = ({
@@ -28,7 +27,6 @@ const CourseMetaEditor: React.FC<CourseMetaEditorProps> = ({
     setGradeRange,
 }) => {
     const { t } = useTranslation();
-
     return (
         <div className="course-editor-page__meta">
             <div className="form-group">
@@ -48,17 +46,15 @@ const CourseMetaEditor: React.FC<CourseMetaEditorProps> = ({
                     <option value="English">{t('subjects.english')}</option>
                 </Select>
             </div>
-            {/* MODIFICATION: Added the new form group for the Grade Range dropdown. */}
+            {/* MODIFICATION: Replaced the hardcoded select with a flexible input. */}
             <div className="form-group">
                 <Label htmlFor="course-grade-range">{t('labels.gradeRange')}</Label>
-                <Select
+                <Input
                     id="course-grade-range"
                     value={gradeRange}
-                    onChange={(e) => setGradeRange(e.target.value as typeof gradeRange)}
-                >
-                    <option value="2-4">{t('gradeRanges.2-4')}</option>
-                    <option value="6-8">{t('gradeRanges.6-8')}</option>
-                </Select>
+                    onChange={(e) => setGradeRange(e.target.value)}
+                    placeholder="e.g., 2-4, 9, Advanced"
+                />
             </div>
         </div>
     );
