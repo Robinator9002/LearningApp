@@ -3,15 +3,17 @@
 // --- APPLICATION SETTINGS ---
 /**
  * Defines the structure for global application settings.
- * This will be stored as a single entry in a new 'settings' table.
+ * This will be stored in a separate table to manage app-wide state
+ * that is not tied to a specific user.
  */
 export interface IAppSettings {
-    id?: number; // Should always be 1 for the singleton settings object
+    id?: number; // Primary key for the settings object (usually just 1)
     defaultLanguage: 'en' | 'de';
-    seedCoursesOnNewUser: boolean; // Controls if starter courses are added for new users
+    // FIX: Standardized property name for clarity and consistency.
+    seedCoursesOnFirstRun: boolean;
 }
 
-// --- THEME & USER SETTINGS ---
+// --- THEME & SETTINGS ---
 export interface IThemeState {
     theme: 'light' | 'dark';
     accent: 'blue' | 'purple' | 'green';
@@ -27,7 +29,7 @@ export interface IUser {
     type: 'learner' | 'admin';
     password?: string;
     settings?: IThemeState;
-    // MODIFICATION: Added an optional language property to store user preference.
+    // NEW: Added an optional language property to store individual user preference.
     language?: 'en' | 'de';
 }
 
