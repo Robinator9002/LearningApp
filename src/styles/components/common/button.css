@@ -18,10 +18,15 @@
     white-space: nowrap; /* Prevent text wrapping */
 }
 
+/* --- Size Modifier --- */
+.btn--large {
+    padding: calc(var(--spacing-unit) * 2) calc(var(--spacing-unit) * 4);
+    font-size: calc(var(--font-size-base) * 1.125);
+}
+
 /* --- Primary Variant (Default) --- */
 .btn--primary {
     background-color: var(--color-accent);
-    /* FIX: Replaced non-existent --color-accent-text with the new, valid variable. */
     color: var(--color-accent-text);
     border-color: var(--color-accent);
 }
@@ -47,13 +52,11 @@
 
 .btn--secondary:hover {
     background-color: var(--color-background);
-    /* FIX: Replaced non-existent --color-border-strong with the new, valid variable. */
     border-color: var(--color-border-strong);
 }
 
 /* --- Danger Variant --- */
 .btn--danger {
-    /* FIX: Replaced non-existent --color-feedback-negative-soft with the new, valid variable. */
     background-color: var(--color-feedback-negative-soft);
     color: var(--color-feedback-negative);
     border-color: var(--color-feedback-negative-soft);
@@ -61,7 +64,6 @@
 
 .btn--danger:hover {
     background-color: var(--color-feedback-negative);
-    /* FIX: Replaced hardcoded #ffffff with the theme-aware accent text color. */
     color: var(--color-accent-text);
     border-color: var(--color-feedback-negative);
 }
