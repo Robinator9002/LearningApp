@@ -6,11 +6,11 @@ import { useNavigate } from 'react-router-dom';
 import { useLiveQuery } from 'dexie-react-hooks';
 
 // --- DATABASE & TYPES ---
-import { db } from '../lib/db';
-import type { IUser, IAppSettings } from '../types/database';
+import { db } from '../lib/db.ts';
+import type { IUser, IAppSettings } from '../types/database.ts';
 
 // --- CONTEXTS ---
-import { useTheme } from './ThemeContext';
+import { useTheme } from './ThemeContext.tsx';
 
 // --- TYPE DEFINITIONS ---
 // The shape of the data and functions the context will provide to the app.
@@ -68,7 +68,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                     const defaultSettings: IAppSettings = {
                         id: 1,
                         defaultLanguage: i18n.language.startsWith('de') ? 'de' : 'en',
-                        seedCoursesOnNewUser: true,
+                        // FIX: Corrected property name to align with the IAppSettings interface.
+                        seedCoursesOnFirstRun: true,
                     };
                     await db.appSettings.add(defaultSettings);
                     settings = defaultSettings;
