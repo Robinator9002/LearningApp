@@ -1,28 +1,6 @@
 // src/types/database.ts
 
-// --- THEME & SETTINGS ---
-// Defines the structure for user-specific appearance settings.
-export interface IThemeState {
-    theme: 'light' | 'dark';
-    accent: 'blue' | 'purple' | 'green';
-    contrast: 'normal' | 'high';
-    font: 'sans' | 'serif' | 'mono';
-    fontSize: number;
-}
-
-// --- USER & AUTHENTICATION ---
-// The core User interface.
-export interface IUser {
-    id?: number;
-    name: string;
-    type: 'learner' | 'admin';
-    password?: string;
-    settings?: IThemeState; // User's appearance preferences.
-}
-
-// --- QUESTIONS & COURSES ---
-
-// A base interface that all question types will extend.
+// --- BASE INTERFACES ---
 export interface IQuestionBase {
     id: string;
     questionText: string;
@@ -54,9 +32,9 @@ export interface IQuestionAlgEquation extends IQuestionBase {
 }
 
 // --- QUESTION TYPE: Free Response (Essay) ---
-// Note: This type is deprecated and no longer created by the UI.
 export interface IQuestionFreeResponse extends IQuestionBase {
     type: 'free-response';
+    // No extra fields needed, grading is manual
 }
 
 // --- QUESTION TYPE: Sentence Correction ---
@@ -66,7 +44,7 @@ export interface IQuestionSentenceCorrection extends IQuestionBase {
     correctedSentence: string;
 }
 
-// A discriminated union type for any question in the system.
+// A union type that can represent any type of question in the system.
 export type IQuestion =
     | IQuestionMCQ
     | IQuestionSTI
@@ -79,13 +57,31 @@ export interface ICourse {
     id?: number;
     title: string;
     subject: 'Math' | 'Reading' | 'Writing' | 'English';
-    // NEW: Added gradeRange to allow for course categorization.
-    gradeRange: '2-4' | '6-8';
+    // MODIFICATION: Changed gradeRange to a flexible string.
+    gradeRange: string;
     questions: IQuestion[];
 }
 
-// --- LEARNER PROGRESS ---
-// Defines the structure for a log entry when a learner completes a course.
+// --- THEME & USER INTERFACES ---
+
+export interface IThemeState {
+    theme: 'light' | 'dark';
+    accent: 'blue' | 'purple' | 'green';
+    contrast: 'normal' | 'high';
+    font: 'sans' | 'serif' | 'mono';
+    fontSize: number;
+}
+
+// The main User interface
+export interface IUser {
+    id?: number;
+    name: string;
+    type: 'learner' | 'admin';
+    password?: string;
+    settings?: IThemeState;
+}
+
+// The Progress Log interface
 export interface IProgressLog {
     id?: number;
     userId: number;
