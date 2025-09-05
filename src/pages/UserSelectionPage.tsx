@@ -19,8 +19,6 @@ import Label from '../components/common/Form/Label';
 import Select from '../components/common/Form/Select';
 
 // --- UTILITIES ---
-// NOTE: We will create this utility in a later step, but we are designing
-// our component to use it now, following the "plan-first" methodology.
 import { seedInitialCourses } from '../lib/courseUtils';
 
 // --- SUB-COMPONENTS ---
@@ -82,13 +80,14 @@ const FirstAdminSetup: React.FC = () => {
             await createUser(newAdmin);
 
             // 2. Update the global app settings.
+            // FIX: Changed 'seedCoursesOnNewUser' to the correct 'seedCoursesOnFirstRun'.
             const appSettingsUpdate: Partial<IAppSettings> = {
                 defaultLanguage: appLanguage,
-                seedCoursesOnNewUser: shouldSeedCourses,
+                seedCoursesOnFirstRun: shouldSeedCourses,
             };
             await updateAppSettings(appSettingsUpdate);
 
-            // 3. Seed courses if requested.
+            // 3. Seed courses only if requested.
             if (shouldSeedCourses) {
                 await seedInitialCourses(appLanguage);
             }
@@ -98,7 +97,9 @@ const FirstAdminSetup: React.FC = () => {
 
             // 5. Automatically log in the new admin after a short delay.
             setTimeout(async () => {
-                const createdUser = await auth.users.find((u) => u.name === adminName.trim());
+                // We need to fetch the user list again to find the newly created admin.
+                const updatedUsers = await auth.users;
+                const createdUser = updatedUsers.find((u) => u.name === adminName.trim());
                 if (createdUser) {
                     login(createdUser);
                 }
@@ -197,8 +198,7 @@ const UserSelectionPage: React.FC = () => {
     }
     const { users, login, createUser } = auth;
 
-    // --- STATE ---
-    const [selectedUser, setSelectedUser] = useState<IUser | null>(null);
+    // FIX: Removed unused 'selectedUser' state.
 
     // --- "FIRST RUN" SCENARIO ---
     // If the users array is empty after loading, it's a first run.
@@ -224,7 +224,6 @@ const UserSelectionPage: React.FC = () => {
      */
     const handleUserSelect = (user: IUser) => {
         if (user.password) {
-            setSelectedUser(user);
             showLoginModal(user);
         } else {
             login(user);
