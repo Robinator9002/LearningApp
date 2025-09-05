@@ -1,5 +1,37 @@
 /* src/styles/components/admin/course-list.css */
 
+/* NEW: Container to position scroll button relative to the list */
+.course-list-container {
+    position: relative;
+    width: 100%;
+}
+
+/* NEW: Toolbar to house the search bar */
+.course-list__toolbar {
+    margin-bottom: calc(var(--spacing-unit) * 2);
+}
+
+/* NEW: Search bar styles */
+.search-bar {
+    position: relative;
+    width: 100%;
+    max-width: 400px; /* Or adjust as needed */
+}
+
+.search-bar__icon {
+    position: absolute;
+    top: 50%;
+    left: calc(var(--spacing-unit) * 1.5);
+    transform: translateY(-50%);
+    color: var(--color-text-secondary);
+    pointer-events: none; /* Let clicks pass through to the input */
+}
+
+.search-bar__input {
+    padding-left: calc(var(--spacing-unit) * 5); /* Make space for the icon */
+    width: 100%;
+}
+
 /* Block: 'course-list' */
 .course-list {
     max-height: 30rem;
@@ -20,6 +52,9 @@
     color: var(--color-text-secondary);
     text-transform: uppercase;
     font-size: 0.875rem;
+    position: sticky; /* Keep header visible on scroll */
+    top: 0;
+    z-index: 1;
 }
 
 /* Element: 'row' */
@@ -52,4 +87,38 @@
     padding: calc(var(--spacing-unit) * 4);
     text-align: center;
     color: var(--color-text-secondary);
+}
+
+/* NEW: Scroll to top button styles */
+.scroll-to-top-btn {
+    position: absolute;
+    bottom: calc(var(--spacing-unit) * 2);
+    right: calc(var(--spacing-unit) * 2);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: var(--color-accent);
+    color: var(--color-accent-text);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-card);
+    transition: transform 0.2s, opacity 0.2s;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeIn-up 0.3s forwards;
+    z-index: 10;
+}
+
+.scroll-to-top-btn:hover {
+    background-color: var(--color-accent-dark);
+}
+
+@keyframes fadeIn-up {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
