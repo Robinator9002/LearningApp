@@ -28,6 +28,7 @@
             "saveChanges": "Save Changes",
             "saveCourse": "Save Course",
             "savePassword": "Save Password",
+            "scrollToTop": "Scroll to top",
             "setPassword": "Set Password",
             "startCourse": "Start Course"
         },
@@ -52,6 +53,16 @@
         "feedback": {
             "correct": "Correct!",
             "incorrect": "Not quite..."
+        },
+        "firstRun": {
+            "title": "Welcome to the Learning App!",
+            "description": "Let's set up your administrator account and the application defaults.",
+            "adminNameLabel": "Your Administrator Name",
+            "yourLanguageLabel": "Your Language",
+            "defaultLanguageLabel": "Default App Language",
+            "seedCoursesLabel": "Import Starter Courses",
+            "successTitle": "Setup Complete!",
+            "successMessage": "You will be logged in automatically. Welcome!"
         },
         "labels": {
             "acceptedAnswers": "Accepted Answers (one or more)",
@@ -78,6 +89,7 @@
             "password": "Password",
             "passwordOptional": "Password (Optional)",
             "questionText": "Question Text",
+            "searchCourses": "Search courses by title or subject...",
             "subject": "Subject",
             "title": "Title",
             "variables": "Variables (comma-separated)"
@@ -86,11 +98,15 @@
             "en": "English",
             "de": "Deutsch"
         },
+        "loginModal": {
+            "title": "Login for {{name}}"
+        },
         "options": {
             "caseInsensitive": "Case-insensitive",
             "exactMatch": "Exact Match"
         },
         "placeholders": {
+            "adminName": "e.g., Jane Doe",
             "algEquation": {
                 "equation": "e.g., 2*x + 5 = 15",
                 "questionText": "e.g., Solve for the variables in the equation below.",
@@ -170,17 +186,6 @@
             },
             "title": "Settings"
         },
-        "setup": {
-            "title": "Welcome to the Learning App!",
-            "subtitle": "Let's set up your administrator account and the application defaults.",
-            "adminNameLabel": "Your Administrator Name",
-            "adminPasswordLabel": "Your Password (Optional)",
-            "yourLanguageLabel": "Your Language",
-            "defaultLanguageLabel": "Default App Language",
-            "defaultLanguageDescription": "The language new users will see by default.",
-            "seedCoursesLabel": "Import Starter Courses",
-            "seedCoursesDescription": "Automatically add a set of sample courses in the default language."
-        },
         "summary": {
             "message": "Great job making it to the end.",
             "score": "Your Score: {{score}} / {{total}}",
@@ -236,9 +241,13 @@
             "deleteUserFailed": "Could not delete user.",
             "deleteAccountFailed": "Could not delete your account.",
             "importFailed": "Course import failed. Please ensure the file is a valid course JSON file.",
-            "loginFailed": "The password you entered was incorrect. Please try again.",
+            "loginFailed": {
+                "title": "Login Failed",
+                "message": "The password you entered was incorrect. Please try again."
+            },
             "nameUpdateFailed": "Could not update name. The name might already be taken.",
             "passwordUpdateFailed": "Could not update password.",
+            "setupFailed": "The initial application setup could not be completed.",
             "userExists": "A user with this name already exists.",
             "userUpdateFailed": "Could not update user.",
             "validation": {
