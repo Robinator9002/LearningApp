@@ -117,13 +117,11 @@
     max-width: 300px;
 }
 
-/* NEW: Styles for the font size slider */
 .font-size-slider {
     -webkit-appearance: none;
     appearance: none;
     width: 100%;
     height: 8px;
-    /* FIX: Changed from --color-muted-bg to --color-border for better contrast */
     background: var(--color-border);
     border-radius: 5px;
     outline: none;
@@ -164,7 +162,6 @@
     display: flex;
     flex-direction: column;
     gap: var(--spacing-unit);
-    /* MODIFICATION: Added a margin to create space between the header and the list. */
     margin-top: calc(var(--spacing-unit) * 3);
 }
 .user-list-item {
@@ -184,4 +181,66 @@
 .user-list-item__actions {
     display: flex;
     gap: var(--spacing-unit);
+}
+
+/* --- NEW: Toggle Switch Styles for Global Settings --- */
+.form-checkbox {
+    /* Hide the default checkbox */
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+}
+
+.form-checkbox-label {
+    /* The text next to the toggle */
+    cursor: pointer;
+    color: var(--color-text-secondary);
+    user-select: none;
+    display: inline-block;
+    padding-left: 52px; /* Space for the toggle switch */
+    position: relative;
+    line-height: 24px; /* Vertically align with the switch */
+}
+
+.form-checkbox + .form-checkbox-label::before {
+    /* This is the track of the switch */
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 44px;
+    height: 24px;
+    background-color: var(--color-border);
+    border-radius: 12px;
+    transition: background-color 0.2s;
+}
+
+.form-checkbox + .form-checkbox-label::after {
+    /* This is the handle of the switch */
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 4px;
+    width: 16px;
+    height: 16px;
+    background-color: var(--color-background);
+    border-radius: 50%;
+    box-shadow: var(--shadow-small);
+    transition: transform 0.2s;
+}
+
+.form-checkbox:checked + .form-checkbox-label::before {
+    /* Track color when 'on' */
+    background-color: var(--color-accent);
+}
+
+.form-checkbox:checked + .form-checkbox-label::after {
+    /* Handle position when 'on' */
+    transform: translateX(20px);
+}
+
+.form-checkbox:focus + .form-checkbox-label::before {
+    /* Accessibility: Add focus ring to the track */
+    box-shadow: 0 0 0 3px var(--color-accent-soft);
 }
