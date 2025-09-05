@@ -2,50 +2,50 @@
 
 import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+// NEW: Import Languages icon
+import { Languages } from 'lucide-react';
 
 // --- CONTEXTS ---
-import { AuthContext } from '../../../../contexts/AuthContext';
-import { ModalContext } from '../../../../contexts/ModalContext';
+import { AuthContext } from '../../../../contexts/AuthContext.tsx';
+import { ModalContext } from '../../../../contexts/ModalContext.tsx';
 
 // --- COMPONENTS ---
 import Button from '../../../../components/common/Button.tsx';
-import Input from '../../../../components/common/Form/Input';
-import Label from '../../../../components/common/Form/Label';
+import Input from '../../../../components/common/Form/Input.tsx';
+import Label from '../../../../components/common/Form/Label.tsx';
+// NEW: Import Select component
+import Select from '../../../../components/common/Form/Select.tsx';
 
 /**
  * A component for the current user to manage their own profile information.
- * This component is now a "dumb" component. It reads data and functions from
- * contexts and does not manage its own complex state or perform direct database calls.
  */
 const MyProfileSection: React.FC = () => {
-    // --- HOOKS & CONTEXTS ---
     const { t } = useTranslation();
     const auth = useContext(AuthContext);
     const modal = useContext(ModalContext);
 
-    // This is a critical guard to ensure the component doesn't render
-    // in a broken state if the contexts are not available.
     if (!auth || !modal) {
         throw new Error('This component must be used within all required providers.');
     }
 
-    const { currentUser, updateUser, deleteUser } = auth;
+    // NEW: Destructure appSettings to determine language fallback.
+    const { currentUser, updateUser, deleteUser, appSettings } = auth;
 
-    // We can't render anything if there's no user. The parent component
-    // should ideally handle this, but this is a safe fallback.
     if (!currentUser) {
         return null;
     }
 
+    // --- EVENT HANDLERS ---
+
+    // NEW: Handler for the language dropdown.
+    const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const newLanguage = e.target.value as 'en' | 'de';
+        updateUser(currentUser.id!, { language: newLanguage });
+    };
+
     // --- MODAL HANDLERS ---
 
-    /**
-     * Opens a modal to edit the user's name.
-     * The modal's content, a small form, is defined directly here and passed
-     * to the generic ModalContext, which handles the rendering.
-     */
     const showEditNameModal = () => {
-        // A small, self-contained component for the modal's content.
         const EditNameForm = () => {
             const [name, setName] = useState(currentUser.name);
 
@@ -59,10 +59,9 @@ const MyProfileSection: React.FC = () => {
                 }
                 try {
                     await updateUser(currentUser.id!, { name: name.trim() });
-                    modal.hideModal(); // Close this modal on success
+                    modal.hideModal();
                 } catch (error) {
                     console.error('Failed to update name:', error);
-                    // Show a new alert modal on top of the current one for the error.
                     modal.showAlert({
                         title: t('errors.title'),
                         message: t('errors.userExists'),
@@ -92,17 +91,12 @@ const MyProfileSection: React.FC = () => {
             );
         };
 
-        // Use the context to show our custom form.
         modal.showModal({
             title: t('settings.myProfile.editNameModalTitle'),
             content: <EditNameForm />,
         });
     };
 
-    /**
-     * Opens a modal to change or set the user's password.
-     * Similar to the name modal, it uses a small, self-contained form component.
-     */
     const showChangePasswordModal = () => {
         const ChangePasswordForm = () => {
             const [newPassword, setNewPassword] = useState('');
@@ -174,10 +168,6 @@ const MyProfileSection: React.FC = () => {
         });
     };
 
-    /**
-     * Shows a confirmation dialog before deleting the user's account.
-     * The logic is now handled entirely by the AuthContext after confirmation.
-     */
     const handleDeleteAccount = () => {
         modal.showConfirm({
             title: t('confirmations.deleteSelf.title'),
@@ -185,8 +175,6 @@ const MyProfileSection: React.FC = () => {
             onConfirm: async () => {
                 try {
                     await deleteUser(currentUser.id!);
-                    // The logout and navigation will be handled by the AuthContext's
-                    // deleteUser function if the current user is deleted.
                 } catch (error) {
                     console.error('Failed to delete account:', error);
                     modal.showAlert({
@@ -198,7 +186,6 @@ const MyProfileSection: React.FC = () => {
         });
     };
 
-    // --- RENDER ---
     return (
         <div className="settings-section">
             <h3 className="settings-section__title">{t('settings.myProfile.title')}</h3>
@@ -210,6 +197,23 @@ const MyProfileSection: React.FC = () => {
                     <Button variant="secondary" onClick={showEditNameModal}>
                         {t('buttons.editName')}
                     </Button>
+                </div>
+            </div>
+
+            {/* NEW: Language Setting */}
+            <div className="settings-group">
+                <Label as="h4">
+                    <Languages size={16} /> {t('labels.language')}
+                </Label>
+                <div className="settings-group__controls">
+                    <Select
+                        value={currentUser.language || appSettings?.defaultLanguage || 'en'}
+                        onChange={handleLanguageChange}
+                        aria-label={t('labels.language')}
+                    >
+                        <option value="en">{t('languages.en')}</option>
+                        <option value="de">{t('languages.de')}</option>
+                    </Select>
                 </div>
             </div>
 
