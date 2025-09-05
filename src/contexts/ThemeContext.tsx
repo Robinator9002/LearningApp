@@ -8,11 +8,11 @@ import React, {
     useCallback,
     useContext,
 } from 'react';
-import { db } from '../lib/db';
-import type { IUser, IThemeState } from '../types/database';
+// FIX: Added the .ts extension to the import path.
+import { db } from '../lib/db.ts';
+import type { IUser, IThemeState, IAppSettings } from '../types/database';
 
 // --- Type Definitions ---
-// Re-exporting these types for easy access from other components
 export type { IThemeState };
 export type Theme = IThemeState['theme'];
 export type Accent = IThemeState['accent'];
@@ -22,9 +22,7 @@ export type FontSize = IThemeState['fontSize'];
 
 // --- Context Shape ---
 interface ThemeContextType extends IThemeState {
-    // This new function will be called by AuthContext on login/logout
-    loadUserTheme: (user: IUser | null) => void;
-    // Setter functions remain, but their internal logic will change
+    loadUserTheme: (user: IUser | null, appSettings: IAppSettings | null) => void;
     setTheme: (theme: Theme) => void;
     setAccent: (accent: Accent) => void;
     setContrast: (contrast: Contrast) => void;
@@ -36,10 +34,6 @@ interface ThemeContextType extends IThemeState {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 // --- Default State ---
-/**
- * The default theme state for new users or users who haven't set their preferences.
- * This ensures a consistent starting point.
- */
 const defaultThemeState: IThemeState = {
     theme: 'light',
     accent: 'blue',
@@ -57,9 +51,6 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     const [themeState, setThemeState] = useState<IThemeState>(defaultThemeState);
     const [currentUser, setCurrentUser] = useState<IUser | null>(null);
 
-    // --- Core Logic ---
-
-    // 1. This effect applies the current theme state to the DOM whenever it changes.
     useEffect(() => {
         const body = document.body;
         body.dataset.theme = themeState.theme;
@@ -72,27 +63,26 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
         );
     }, [themeState]);
 
-    // 2. This function is the new entry point, called by AuthContext.
-    const loadUserTheme = useCallback((user: IUser | null) => {
-        setCurrentUser(user); // Keep track of the current user
+    const loadUserTheme = useCallback((user: IUser | null, appSettings: IAppSettings | null) => {
+        setCurrentUser(user);
         if (user && user.settings) {
-            // If the user exists and has settings, apply them
             setThemeState(user.settings);
         } else {
-            // Otherwise, revert to the default theme (e.g., on logout)
-            setThemeState(defaultThemeState);
+            const newDefaultState = {
+                ...defaultThemeState,
+                theme: appSettings?.defaultTheme || 'light',
+            };
+            setThemeState(newDefaultState);
         }
     }, []);
 
-    // 3. The generic update function that handles saving changes to the database.
     const updateThemeSetting = useCallback(
         (newSettings: Partial<IThemeState>) => {
-            if (!currentUser || !currentUser.id) return; // Safety check
+            if (!currentUser || !currentUser.id) return;
 
             const updatedState = { ...themeState, ...newSettings };
-            setThemeState(updatedState); // Update the UI immediately
+            setThemeState(updatedState);
 
-            // Asynchronously update the database
             db.users.update(currentUser.id, {
                 settings: updatedState,
             });
@@ -100,8 +90,6 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
         [currentUser, themeState],
     );
 
-    // --- Memoized Setter Functions ---
-    // Each setter now calls the generic update function.
     const setTheme = useCallback(
         (theme: Theme) => updateThemeSetting({ theme }),
         [updateThemeSetting],
