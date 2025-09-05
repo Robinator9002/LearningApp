@@ -9,6 +9,8 @@
             "changePassword": "Passwort ändern",
             "checkAnswer": "Antwort prüfen",
             "close": "Schließen",
+            "completeSetup": "Einrichtung abschließen",
+            "confirm": "Bestätigen",
             "create": "Erstellen",
             "createAccount": "Konto erstellen",
             "createCourse": "Neuen Kurs erstellen",
@@ -21,6 +23,7 @@
             "export": "Exportieren",
             "importCourse": "Kurs importieren",
             "login": "Anmelden",
+            "ok": "OK",
             "remove": "Entfernen",
             "saveChanges": "Änderungen speichern",
             "saveCourse": "Kurs speichern",
@@ -53,26 +56,35 @@
         "labels": {
             "acceptedAnswers": "Akzeptierte Antworten (eine oder mehrere)",
             "accountType": "Kontotyp",
-            "correctedSentence": "Korrigierter Satz",
+            "answerOptions": "Antwortmöglichkeiten",
+            "confirmNewPassword": "Neues Passwort bestätigen",
             "correct": "Korrekt",
+            "correctedSentence": "Korrigierter Satz",
             "courseTitle": "Kurstitel",
             "equation": "Gleichung",
             "evaluationMode": "Bewertungsmodus",
             "gradeRange": "Klassenstufe",
+            "gradeRangeLabel": "Klasse {{range}}",
             "incorrectSentence": "Fehlerhafter Satz",
+            "language": "Sprache",
             "loading": "Wird geladen...",
+            "loadingCourses": "Lade Kurse...",
             "loadingProgress": "Lade Fortschritt...",
+            "loadingUser": "Lade Benutzerinformationen...",
             "name": "Name",
             "newName": "Neuer Name",
             "newPassword": "Neues Passwort",
-            "confirmNewPassword": "Neues Passwort bestätigen",
+            "noCoursesFound": "Es wurden noch keine Kurse erstellt.",
             "password": "Passwort",
             "passwordOptional": "Passwort (optional)",
             "questionText": "Fragetext",
             "subject": "Fach",
             "title": "Titel",
-            "variables": "Variablen (durch Komma getrennt)",
-            "answerOptions": "Antwortmöglichkeiten"
+            "variables": "Variablen (durch Komma getrennt)"
+        },
+        "languages": {
+            "en": "English",
+            "de": "Deutsch"
         },
         "options": {
             "caseInsensitive": "Groß-/Kleinschreibung ignorieren",
@@ -136,6 +148,12 @@
                 "fontSize": "Schriftgröße",
                 "adjustFontSize": "Schriftgröße anpassen"
             },
+            "global": {
+                "title": "Globale App-Einstellungen (Nur Admins)",
+                "defaultLanguageLabel": "Standardsprache",
+                "seedCoursesLabel": "Starterkurse",
+                "seedCoursesDescription": "Starterkurse für neue Benutzer automatisch importieren."
+            },
             "manageAccounts": {
                 "title": "Konten verwalten",
                 "noLearners": "Keine anderen Lernenden-Konten gefunden.",
@@ -152,16 +170,23 @@
             },
             "title": "Einstellungen"
         },
+        "setup": {
+            "title": "Willkommen zur Lern-App!",
+            "subtitle": "Lassen Sie uns Ihr Administratorkonto und die Anwendungsstandards einrichten.",
+            "adminNameLabel": "Ihr Administratorname",
+            "adminPasswordLabel": "Ihr Passwort (optional)",
+            "yourLanguageLabel": "Ihre Sprache",
+            "defaultLanguageLabel": "Standard-App-Sprache",
+            "defaultLanguageDescription": "Die Sprache, die neue Benutzer standardmäßig sehen werden.",
+            "seedCoursesLabel": "Starterkurse importieren",
+            "seedCoursesDescription": "Fügt automatisch eine Reihe von Beispielkursen in der Standardsprache hinzu."
+        },
         "summary": {
             "message": "Gute Arbeit, du hast es bis zum Ende geschafft.",
             "score": "Deine Punktzahl: {{score}} / {{total}}",
             "title": "Kurs abgeschlossen!"
         },
         "userSelection": {
-            "createAdminAccount": "Admin-Konto erstellen",
-            "enterPasswordFor": "Passwort für {{name}} eingeben",
-            "firstRunSubtitle": "Lassen Sie uns das erste Admin-Konto erstellen, um zu beginnen.",
-            "firstRunTitle": "Willkommen!",
             "title": "Wählen Sie Ihr Profil",
             "createUserModalTitle": "Neues Konto erstellen"
         },
@@ -206,11 +231,13 @@
         },
         "errors": {
             "title": "Fehler",
+            "createUserFailed": "Benutzer konnte nicht erstellt werden. Der Name ist möglicherweise bereits vergeben.",
             "deleteCourseFailed": "Beim Löschen des Kurses ist ein Fehler aufgetreten.",
             "deleteUserFailed": "Benutzer konnte nicht gelöscht werden.",
             "deleteAccountFailed": "Ihr Konto konnte nicht gelöscht werden.",
             "importFailed": "Kursimport fehlgeschlagen. Bitte stellen Sie sicher, dass die Datei eine gültige Kurs-JSON-Datei ist.",
-            "nameUpdateFailed": "Name konnte nicht aktualisiert werden.",
+            "loginFailed": "Das eingegebene Passwort war falsch. Bitte versuchen Sie es erneut.",
+            "nameUpdateFailed": "Name konnte nicht aktualisiert werden. Der Name ist möglicherweise bereits vergeben.",
             "passwordUpdateFailed": "Passwort konnte nicht aktualisiert werden.",
             "userExists": "Ein Benutzer mit diesem Namen existiert bereits.",
             "userUpdateFailed": "Benutzer konnte nicht aktualisiert werden.",
@@ -231,10 +258,6 @@
             "reading": "Lesen",
             "writing": "Schreiben",
             "english": "Englisch"
-        },
-        "gradeRanges": {
-            "2-4": "2-4",
-            "6-8": "6-8"
         }
     }
 }
