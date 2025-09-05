@@ -1,4 +1,4 @@
-// src/components/admin/AddQuestionModal/AddQuestionModal.tsx
+// src/components/admin/AddQuestionModal.tsx
 
 import React from 'react';
 import { useTranslation } from 'react-i18next'; // MODIFICATION: Imported useTranslation
