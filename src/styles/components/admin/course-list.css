@@ -2,10 +2,11 @@
 
 /* Block: 'course-list' */
 .course-list {
+    max-height: 30rem;
     width: 100%;
     border: 1px solid var(--color-border);
     border-radius: var(--border-radius);
-    overflow: hidden; /* Ensures the border-radius is respected by children */
+    overflow: auto; /* Ensures the border-radius is respected by children */
 }
 
 /* Element: 'header' */
