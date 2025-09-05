@@ -1,11 +1,11 @@
-// src/components/admin/CourseList/CourseList.tsx
+// src/components/admin/CourseList.tsx
 
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import type { ICourse } from '../../../types/database';
-import Button from '../../common/Button.tsx';
+import type { ICourse } from '../../types/database.ts';
+import Button from '../common/Button.tsx';
 // NEW: Import our export utility.
-import { exportCourseToJson } from '../../../lib/courseUtils.ts';
+import { exportCourseToJson } from '../../lib/courseUtils.ts';
 
 interface CourseListProps {
     courses: ICourse[];

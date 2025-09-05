@@ -13,7 +13,7 @@ import Button from '../../components/common/Button.tsx';
 import CourseEditorHeader from './editor/CourseEditorHeader.tsx';
 import CourseMetaEditor from './editor/CourseMetaEditor.tsx';
 import QuestionList from './editor/QuestionList.tsx';
-import AddQuestionModal from '../../components/admin/AddQuestionModal/AddQuestionModal.tsx';
+import AddQuestionModal from '../../components/admin/AddQuestionModal.tsx';
 
 const createNewQuestion = (type: IQuestion['type']): IQuestion => {
     const baseQuestion = { id: uuidv4(), questionText: '' };

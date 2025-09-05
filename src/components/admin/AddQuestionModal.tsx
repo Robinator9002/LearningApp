@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { useTranslation } from 'react-i18next'; // MODIFICATION: Imported useTranslation
-import type { IQuestion } from '../../../types/database';
-import Modal from '../../common/Modal/Modal';
+import type { IQuestion } from '../../types/database';
+import Modal from '../common/Modal/Modal';
 
 /**
  * Defines the properties for the AddQuestionModal component.

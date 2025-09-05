@@ -9,7 +9,7 @@ import { ModalContext } from '../../contexts/ModalContext.tsx';
 // NEW: Import our new utility function.
 import { importCourseFromJson } from '../../lib/courseUtils.ts';
 
-import CourseList from '../../components/admin/CourseList/CourseList.tsx';
+import CourseList from '../../components/admin/CourseList.tsx';
 import Button from '../../components/common/Button.tsx';
 
 const AdminDashboardPage: React.FC = () => {
