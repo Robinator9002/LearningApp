@@ -5,6 +5,11 @@
     padding: calc(var(--spacing-unit) * 3);
 }
 
+.admin-dashboard__actions {
+    display: flex;
+    gap: var(--spacing-unit);
+}
+
 .admin-dashboard__header {
     display: flex;
     justify-content: space-between;

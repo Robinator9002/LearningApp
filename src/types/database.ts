@@ -9,7 +9,8 @@
 export interface IAppSettings {
     id?: number; // Primary key for the settings object (usually just 1)
     defaultLanguage: 'en' | 'de';
-    // NEW: Added the missing property to allow admins to control this feature.
+    // NEW: Add a setting for the default theme for new users or when logged out.
+    defaultTheme: 'light' | 'dark';
     seedCoursesOnFirstRun: boolean;
 }
 
@@ -29,7 +30,6 @@ export interface IUser {
     type: 'learner' | 'admin';
     password?: string;
     settings?: IThemeState;
-    // NEW: Added an optional language property to store individual user preference.
     language?: 'en' | 'de';
 }
 
