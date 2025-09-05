@@ -6,11 +6,12 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { db } from '../../lib/db.ts';
 import { ModalContext } from '../../contexts/ModalContext.tsx';
-// NEW: Import our new utility function.
-import { importCourseFromJson } from '../../lib/courseUtils.ts';
 
+// --- COMPONENT IMPORTS ---
 import CourseList from '../../components/admin/CourseList.tsx';
 import Button from '../../components/common/Button.tsx';
+// FIX: We now import the dedicated component for handling imports.
+import CourseImport from '../../components/admin/CourseImport.tsx';
 
 const AdminDashboardPage: React.FC = () => {
     const { t } = useTranslation();
@@ -22,23 +23,9 @@ const AdminDashboardPage: React.FC = () => {
         throw new Error('AdminDashboardPage must be used within a ModalProvider');
     }
 
-    // NEW: Handler function for the import process.
-    // It calls our utility and uses the modal context to show success or error messages.
-    const handleImportCourse = async () => {
-        try {
-            const successMessage = await importCourseFromJson();
-            modal.showAlert({
-                title: t('success.title'),
-                message: successMessage,
-            });
-        } catch (error) {
-            const message = error instanceof Error ? error.message : String(error);
-            modal.showAlert({
-                title: t('errors.importCourse.title'),
-                message: message,
-            });
-        }
-    };
+    // FIX: The complex import logic has been removed from this component
+    // and is now handled entirely by the <CourseImport /> component.
+    // This resolves both of the TypeScript errors.
 
     const handleCreateCourse = () => {
         navigate('/admin/create-course');
@@ -49,17 +36,23 @@ const AdminDashboardPage: React.FC = () => {
     };
 
     const handleDeleteCourse = (courseId: number) => {
+        // Find the course title for a more descriptive confirmation message.
+        const courseToDelete = courses?.find((c) => c.id === courseId);
         modal.showConfirm({
             title: t('confirmations.deleteCourse.title'),
-            message: t('confirmations.deleteCourse.message'),
+            // NEW: Added the course title to the message for clarity.
+            message: t('confirmations.deleteCourse.message', {
+                title: courseToDelete?.title || 'this course',
+            }),
             onConfirm: async () => {
                 try {
                     await db.courses.delete(courseId);
                 } catch (error) {
                     console.error('Failed to delete course:', error);
                     modal.showAlert({
-                        title: t('errors.deleteCourse.title'),
-                        message: t('errors.deleteCourse.message'),
+                        title: t('errors.title'),
+                        // FIX: Changed to a more generic error message key.
+                        message: t('errors.deleteCourseFailed'),
                     });
                 }
             },
@@ -70,13 +63,12 @@ const AdminDashboardPage: React.FC = () => {
         <div className="admin-dashboard">
             <div className="admin-dashboard__header">
                 <h2 className="admin-dashboard__title">{t('dashboard.adminTitle')}</h2>
-                {/* NEW: A wrapper for the action buttons. */}
                 <div className="admin-dashboard__actions">
-                    <Button variant="secondary" onClick={handleImportCourse}>
-                        {t('buttons.importCourse')}
-                    </Button>
+                    {/* FIX: Replaced the old button with the new component. */}
+                    <CourseImport />
                     <Button variant="primary" onClick={handleCreateCourse}>
-                        {t('buttons.createNewCourse')}
+                        {/* The key 'buttons.createCourse' will be added to the JSON files next. */}
+                        {t('buttons.createCourse')}
                     </Button>
                 </div>
             </div>
