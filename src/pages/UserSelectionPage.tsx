@@ -5,6 +5,10 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { User, Shield, CheckCircle } from 'lucide-react';
 
+// --- STYLES ---
+// NEW: Import the dedicated stylesheet for this page.
+import '../styles/pages/user-selection-page.css';
+
 // --- CONTEXTS ---
 import { AuthContext } from '../contexts/AuthContext';
 import { ModalContext } from '../contexts/ModalContext';
@@ -23,31 +27,23 @@ import { seedInitialCourses } from '../lib/courseUtils';
 
 // --- SUB-COMPONENTS ---
 
-/**
- * A simple, presentational component for displaying a user profile card.
- */
 const UserCard: React.FC<{ user: IUser; onSelect: (user: IUser) => void }> = ({
     user,
     onSelect,
 }) => (
     <div className="user-card" onClick={() => onSelect(user)}>
         <div className="user-card__icon">
-            {user.type === 'admin' ? <Shield size={48} /> : <User size={48} />}
+            {user.type === 'admin' ? <Shield size={32} /> : <User size={32} />}
         </div>
         <span className="user-card__name">{user.name}</span>
     </div>
 );
 
-/**
- * The dedicated modal content for the one-time initial setup of the application.
- */
 const FirstAdminSetup: React.FC = () => {
-    // --- HOOKS & CONTEXTS ---
     const { t } = useTranslation();
     const auth = useContext(AuthContext);
     const modal = useContext(ModalContext);
 
-    // --- STATE MANAGEMENT ---
     const [adminName, setAdminName] = useState('');
     const [password, setPassword] = useState('');
     const [adminLanguage, setAdminLanguage] = useState<'en' | 'de'>('en');
@@ -58,9 +54,6 @@ const FirstAdminSetup: React.FC = () => {
     if (!auth || !modal) throw new Error('Contexts not available');
     const { createUser, updateAppSettings, login } = auth;
 
-    /**
-     * The core logic for setting up the application. This function is atomic.
-     */
     const handleSetup = async () => {
         if (!adminName.trim()) {
             return modal.showAlert({
@@ -70,7 +63,6 @@ const FirstAdminSetup: React.FC = () => {
         }
 
         try {
-            // 1. Create the admin user.
             const newAdmin: Omit<IUser, 'id'> = {
                 name: adminName.trim(),
                 type: 'admin',
@@ -79,27 +71,22 @@ const FirstAdminSetup: React.FC = () => {
             };
             await createUser(newAdmin);
 
-            // 2. Update the global app settings.
-            // FIX: Changed 'seedCoursesOnNewUser' to the correct 'seedCoursesOnFirstRun'.
             const appSettingsUpdate: Partial<IAppSettings> = {
                 defaultLanguage: appLanguage,
                 seedCoursesOnFirstRun: shouldSeedCourses,
             };
             await updateAppSettings(appSettingsUpdate);
 
-            // 3. Seed courses only if requested.
             if (shouldSeedCourses) {
                 await seedInitialCourses(appLanguage);
             }
 
-            // 4. Mark setup as complete and show success message.
             setIsComplete(true);
 
-            // 5. Automatically log in the new admin after a short delay.
             setTimeout(async () => {
-                // We need to fetch the user list again to find the newly created admin.
-                const updatedUsers = await auth.users;
-                const createdUser = updatedUsers.find((u) => u.name === adminName.trim());
+                // Find the user we just created to log them in.
+                // This is safer than relying on array indices.
+                const createdUser = await db.users.where('name').equals(adminName.trim()).first();
                 if (createdUser) {
                     login(createdUser);
                 }
@@ -110,27 +97,24 @@ const FirstAdminSetup: React.FC = () => {
         }
     };
 
-    // Render a success screen after setup is complete.
     if (isComplete) {
         return (
             <div className="first-run-success">
                 <CheckCircle className="first-run-success__icon" size={64} />
-                <h3 className="first-run-success__title">{t('firstRun.successTitle')}</h3>
-                <p className="first-run-success__message">{t('firstRun.successMessage')}</p>
+                <h3 className="first-run-success__title">{t('setup.successTitle')}</h3>
+                <p className="first-run-success__message">{t('setup.successMessage')}</p>
             </div>
         );
     }
 
-    // Render the setup form.
     return (
         <div className="first-run-form">
             <div className="form-group">
-                <Label htmlFor="admin-name">{t('firstRun.adminNameLabel')}</Label>
+                <Label htmlFor="admin-name">{t('setup.adminNameLabel')}</Label>
                 <Input
                     id="admin-name"
                     value={adminName}
                     onChange={(e) => setAdminName(e.target.value)}
-                    placeholder={t('placeholders.adminName')}
                 />
             </div>
             <div className="form-group">
@@ -143,27 +127,28 @@ const FirstAdminSetup: React.FC = () => {
                 />
             </div>
             <div className="form-group">
-                <Label htmlFor="admin-language">{t('firstRun.yourLanguageLabel')}</Label>
+                <Label htmlFor="admin-language">{t('setup.yourLanguageLabel')}</Label>
                 <Select
                     id="admin-language"
                     value={adminLanguage}
                     onChange={(e) => setAdminLanguage(e.target.value as 'en' | 'de')}
                 >
-                    <option value="en">English</option>
-                    <option value="de">Deutsch</option>
+                    <option value="en">{t('languages.en')}</option>
+                    <option value="de">{t('languages.de')}</option>
                 </Select>
             </div>
             <hr className="form-divider" />
             <div className="form-group">
-                <Label htmlFor="app-language">{t('firstRun.defaultLanguageLabel')}</Label>
+                <Label htmlFor="app-language">{t('setup.defaultLanguageLabel')}</Label>
                 <Select
                     id="app-language"
                     value={appLanguage}
                     onChange={(e) => setAppLanguage(e.target.value as 'en' | 'de')}
                 >
-                    <option value="en">English</option>
-                    <option value="de">Deutsch</option>
+                    <option value="en">{t('languages.en')}</option>
+                    <option value="de">{t('languages.de')}</option>
                 </Select>
+                <p className="form-hint">{t('setup.defaultLanguageDescription')}</p>
             </div>
             <div className="form-group form-group--checkbox">
                 <input
@@ -171,9 +156,13 @@ const FirstAdminSetup: React.FC = () => {
                     type="checkbox"
                     checked={shouldSeedCourses}
                     onChange={(e) => setShouldSeedCourses(e.target.checked)}
+                    className="form-checkbox"
                 />
-                <Label htmlFor="seed-courses">{t('firstRun.seedCoursesLabel')}</Label>
+                <Label htmlFor="seed-courses" className="form-checkbox-label">
+                    {t('setup.seedCoursesLabel')}
+                </Label>
             </div>
+             <p className="form-hint">{t('setup.seedCoursesDescription')}</p>
 
             <div className="modal-footer">
                 <Button variant="primary" size="large" onClick={handleSetup}>
@@ -184,10 +173,7 @@ const FirstAdminSetup: React.FC = () => {
     );
 };
 
-// --- MAIN COMPONENT ---
-
 const UserSelectionPage: React.FC = () => {
-    // --- HOOKS & CONTEXTS ---
     const { t } = useTranslation();
     const navigate = useNavigate();
     const auth = useContext(AuthContext);
@@ -198,30 +184,18 @@ const UserSelectionPage: React.FC = () => {
     }
     const { users, login, createUser } = auth;
 
-    // FIX: Removed unused 'selectedUser' state.
-
-    // --- "FIRST RUN" SCENARIO ---
-    // If the users array is empty after loading, it's a first run.
     if (!auth.isLoading && users.length === 0) {
         return (
             <div className="user-select">
                 <div className="user-select__first-run">
-                    <h2 className="user-select__title">{t('firstRun.title')}</h2>
-                    <p className="user-select__subtitle">{t('firstRun.description')}</p>
+                    <h2 className="user-select__title">{t('setup.title')}</h2>
+                    <p className="user-select__subtitle">{t('setup.subtitle')}</p>
                     <FirstAdminSetup />
                 </div>
             </div>
         );
     }
 
-    // --- NORMAL OPERATION ---
-
-    /**
-     * Handles selecting a user from the grid.
-     * If the user has a password, it opens the login modal.
-     * Otherwise, it logs them in directly.
-     * @param user - The user object that was clicked.
-     */
     const handleUserSelect = (user: IUser) => {
         if (user.password) {
             showLoginModal(user);
@@ -231,22 +205,20 @@ const UserSelectionPage: React.FC = () => {
         }
     };
 
-    /**
-     * Displays a modal for entering a user's password.
-     * @param user - The user attempting to log in.
-     */
     const showLoginModal = (user: IUser) => {
         const LoginForm = () => {
             const [password, setPassword] = useState('');
             const handleLogin = () => {
+                // NOTE: In a real app, this would be a call to a secure auth endpoint.
+                // For this local-only app, direct comparison is acceptable.
                 if (password === user.password) {
                     modal.hideModal();
                     login(user);
                     navigate(user.type === 'admin' ? '/admin' : '/dashboard');
                 } else {
                     modal.showAlert({
-                        title: t('errors.loginFailed.title'),
-                        message: t('errors.loginFailed.message'),
+                        title: t('errors.loginFailed'),
+                        message: t('errors.loginFailed'), // Re-using title for message for simplicity
                     });
                     setPassword('');
                 }
@@ -276,14 +248,11 @@ const UserSelectionPage: React.FC = () => {
             );
         };
         modal.showModal({
-            title: t('loginModal.title', { name: user.name }),
+            title: `${t('buttons.login')}: ${user.name}`,
             content: <LoginForm />,
         });
     };
 
-    /**
-     * Opens a modal to create a new (non-admin) user.
-     */
     const showCreateUserModal = () => {
         const CreateUserForm = () => {
             const [name, setName] = useState('');
@@ -320,8 +289,8 @@ const UserSelectionPage: React.FC = () => {
                             value={language}
                             onChange={(e) => setLanguage(e.target.value as 'en' | 'de')}
                         >
-                            <option value="en">English</option>
-                            <option value="de">Deutsch</option>
+                            <option value="en">{t('languages.en')}</option>
+                            <option value="de">{t('languages.de')}</option>
                         </Select>
                     </div>
                     <div className="modal-footer">
@@ -336,7 +305,7 @@ const UserSelectionPage: React.FC = () => {
             );
         };
         modal.showModal({
-            title: t('createUserModal.title'),
+            title: t('userSelection.createUserModalTitle'),
             content: <CreateUserForm />,
         });
     };
@@ -345,8 +314,10 @@ const UserSelectionPage: React.FC = () => {
         <div className="user-select">
             <div className="user-select__header">
                 <h2 className="user-select__title">{t('userSelection.title')}</h2>
+                {/* Admins can create users from their settings page.
+                This button is for learners to create their own accounts. */}
                 <Button variant="primary" onClick={showCreateUserModal}>
-                    {t('buttons.createNewAccount')}
+                    {t('buttons.createAccount')}
                 </Button>
             </div>
 
@@ -356,7 +327,7 @@ const UserSelectionPage: React.FC = () => {
                     if (filteredUsers.length === 0) return null;
                     return (
                         <div key={userType} className="user-select__group">
-                            <h3 className="user-select__group-title">{t(`roles.${userType}`)}</h3>
+                            <h3 className="user-select__group-title">{t(`roles.${userType}`)}s</h3>
                             <div className="user-select__grid">
                                 {filteredUsers.map((user) => (
                                     <UserCard
@@ -375,3 +346,4 @@ const UserSelectionPage: React.FC = () => {
 };
 
 export default UserSelectionPage;
+
