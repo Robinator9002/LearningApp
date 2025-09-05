@@ -28,6 +28,7 @@
             "saveChanges": "Änderungen speichern",
             "saveCourse": "Kurs speichern",
             "savePassword": "Passwort speichern",
+            "scrollToTop": "Nach oben scrollen",
             "setPassword": "Passwort festlegen",
             "startCourse": "Kurs starten"
         },
@@ -52,6 +53,16 @@
         "feedback": {
             "correct": "Richtig!",
             "incorrect": "Nicht ganz..."
+        },
+        "firstRun": {
+            "title": "Willkommen zur Lern-App!",
+            "description": "Lassen Sie uns Ihr Administratorkonto und die Anwendungsstandards einrichten.",
+            "adminNameLabel": "Ihr Administratorname",
+            "yourLanguageLabel": "Ihre Sprache",
+            "defaultLanguageLabel": "Standard-App-Sprache",
+            "seedCoursesLabel": "Starterkurse importieren",
+            "successTitle": "Einrichtung abgeschlossen!",
+            "successMessage": "Sie werden automatisch angemeldet. Herzlich Willkommen!"
         },
         "labels": {
             "acceptedAnswers": "Akzeptierte Antworten (eine oder mehrere)",
@@ -78,6 +89,7 @@
             "password": "Passwort",
             "passwordOptional": "Passwort (optional)",
             "questionText": "Fragetext",
+            "searchCourses": "Kurse nach Titel oder Fach suchen...",
             "subject": "Fach",
             "title": "Titel",
             "variables": "Variablen (durch Komma getrennt)"
@@ -86,11 +98,15 @@
             "en": "English",
             "de": "Deutsch"
         },
+        "loginModal": {
+            "title": "Anmeldung für {{name}}"
+        },
         "options": {
             "caseInsensitive": "Groß-/Kleinschreibung ignorieren",
             "exactMatch": "Exakte Übereinstimmung"
         },
         "placeholders": {
+            "adminName": "z.B., Max Mustermann",
             "algEquation": {
                 "equation": "z.B. 2*x + 5 = 15",
                 "questionText": "z.B. Lösen Sie für die Variablen in der folgenden Gleichung.",
@@ -170,17 +186,6 @@
             },
             "title": "Einstellungen"
         },
-        "setup": {
-            "title": "Willkommen zur Lern-App!",
-            "subtitle": "Lassen Sie uns Ihr Administratorkonto und die Anwendungsstandards einrichten.",
-            "adminNameLabel": "Ihr Administratorname",
-            "adminPasswordLabel": "Ihr Passwort (optional)",
-            "yourLanguageLabel": "Ihre Sprache",
-            "defaultLanguageLabel": "Standard-App-Sprache",
-            "defaultLanguageDescription": "Die Sprache, die neue Benutzer standardmäßig sehen werden.",
-            "seedCoursesLabel": "Starterkurse importieren",
-            "seedCoursesDescription": "Fügt automatisch eine Reihe von Beispielkursen in der Standardsprache hinzu."
-        },
         "summary": {
             "message": "Gute Arbeit, du hast es bis zum Ende geschafft.",
             "score": "Deine Punktzahl: {{score}} / {{total}}",
@@ -236,9 +241,13 @@
             "deleteUserFailed": "Benutzer konnte nicht gelöscht werden.",
             "deleteAccountFailed": "Ihr Konto konnte nicht gelöscht werden.",
             "importFailed": "Kursimport fehlgeschlagen. Bitte stellen Sie sicher, dass die Datei eine gültige Kurs-JSON-Datei ist.",
-            "loginFailed": "Das eingegebene Passwort war falsch. Bitte versuchen Sie es erneut.",
+            "loginFailed": {
+                "title": "Anmeldung fehlgeschlagen",
+                "message": "Das eingegebene Passwort war falsch. Bitte versuchen Sie es erneut."
+            },
             "nameUpdateFailed": "Name konnte nicht aktualisiert werden. Der Name ist möglicherweise bereits vergeben.",
             "passwordUpdateFailed": "Passwort konnte nicht aktualisiert werden.",
+            "setupFailed": "Die erstmalige Einrichtung der Anwendung konnte nicht abgeschlossen werden.",
             "userExists": "Ein Benutzer mit diesem Namen existiert bereits.",
             "userUpdateFailed": "Benutzer konnte nicht aktualisiert werden.",
             "validation": {
