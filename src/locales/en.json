@@ -54,16 +54,6 @@
             "correct": "Correct!",
             "incorrect": "Not quite..."
         },
-        "firstRun": {
-            "title": "Welcome to the Learning App!",
-            "description": "Let's set up your administrator account and the application defaults.",
-            "adminNameLabel": "Your Administrator Name",
-            "yourLanguageLabel": "Your Language",
-            "defaultLanguageLabel": "Default App Language",
-            "seedCoursesLabel": "Import Starter Courses",
-            "successTitle": "Setup Complete!",
-            "successMessage": "You will be logged in automatically. Welcome!"
-        },
         "labels": {
             "acceptedAnswers": "Accepted Answers (one or more)",
             "accountType": "Account Type",
@@ -89,7 +79,7 @@
             "password": "Password",
             "passwordOptional": "Password (Optional)",
             "questionText": "Question Text",
-            "searchCourses": "Search courses by title or subject...",
+            "searchCourses": "Search courses...",
             "subject": "Subject",
             "title": "Title",
             "variables": "Variables (comma-separated)"
@@ -98,15 +88,11 @@
             "en": "English",
             "de": "Deutsch"
         },
-        "loginModal": {
-            "title": "Login for {{name}}"
-        },
         "options": {
             "caseInsensitive": "Case-insensitive",
             "exactMatch": "Exact Match"
         },
         "placeholders": {
-            "adminName": "e.g., Jane Doe",
             "algEquation": {
                 "equation": "e.g., 2*x + 5 = 15",
                 "questionText": "e.g., Solve for the variables in the equation below.",
@@ -145,7 +131,8 @@
         "settings": {
             "tabs": {
                 "account": "Account",
-                "appearance": "Appearance"
+                "appearance": "Appearance",
+                "global": "Global"
             },
             "appearance": {
                 "title": "Appearance",
@@ -167,6 +154,7 @@
             "global": {
                 "title": "Global App Settings (Admins Only)",
                 "defaultLanguageLabel": "Default Language",
+                "defaultThemeLabel": "Default Theme",
                 "seedCoursesLabel": "Starter Courses",
                 "seedCoursesDescription": "Automatically import starter courses for new users."
             },
@@ -182,9 +170,23 @@
                 "editNameModalTitle": "Edit Your Name",
                 "changePasswordModalTitle": "Change Your Password",
                 "setPasswordModalTitle": "Set a New Password",
-                "passwordModalDescription": "Leave both fields blank to remove your password entirely."
+                "passwordModalDescription": "Leave both fields blank to remove your password entirely.",
+                "language": "Language"
             },
             "title": "Settings"
+        },
+        "setup": {
+            "title": "Welcome to the Learning App!",
+            "subtitle": "Let's set up your administrator account and the application defaults.",
+            "adminNameLabel": "Your Administrator Name",
+            "adminPasswordLabel": "Your Password (Optional)",
+            "yourLanguageLabel": "Your Language",
+            "defaultLanguageLabel": "Default App Language",
+            "defaultLanguageDescription": "The language new users will see by default.",
+            "seedCoursesLabel": "Import Starter Courses",
+            "seedCoursesDescription": "Automatically add a set of sample courses in the default language.",
+            "successTitle": "Setup Complete!",
+            "successMessage": "Redirecting you to the login screen..."
         },
         "summary": {
             "message": "Great job making it to the end.",
@@ -236,18 +238,15 @@
         },
         "errors": {
             "title": "Error",
+            "setupFailed": "The initial setup failed. Please refresh the page and try again.",
             "createUserFailed": "Could not create user. The name might already be taken.",
             "deleteCourseFailed": "An error occurred while deleting the course.",
             "deleteUserFailed": "Could not delete user.",
             "deleteAccountFailed": "Could not delete your account.",
             "importFailed": "Course import failed. Please ensure the file is a valid course JSON file.",
-            "loginFailed": {
-                "title": "Login Failed",
-                "message": "The password you entered was incorrect. Please try again."
-            },
+            "loginFailed": "The password you entered was incorrect. Please try again.",
             "nameUpdateFailed": "Could not update name. The name might already be taken.",
             "passwordUpdateFailed": "Could not update password.",
-            "setupFailed": "The initial application setup could not be completed.",
             "userExists": "A user with this name already exists.",
             "userUpdateFailed": "Could not update user.",
             "validation": {
