@@ -1,4 +1,4 @@
-// src/pages/user-selection/FirstAdminSetup.tsx
+// src/pages/user/FirstAdminSetup.tsx
 
 import React, { useState, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -6,21 +6,21 @@ import { CheckCircle } from 'lucide-react';
 
 // --- DATABASE & UTILS ---
 // FIX: Corrected all import paths to account for the new file location.
-import { db } from '../lib/db.ts';
-import { seedInitialCourses } from '../lib/courseUtils.ts';
+import { db } from '../../lib/db.ts';
+import { seedInitialCourses } from '../../lib/courseUtils.ts';
 
 // --- CONTEXTS ---
-import { AuthContext } from '../contexts/AuthContext.tsx';
-import { ModalContext } from '../contexts/ModalContext.tsx';
+import { AuthContext } from '../../contexts/AuthContext.tsx';
+import { ModalContext } from '../../contexts/ModalContext.tsx';
 
 // --- TYPES ---
-import type { IUser, IAppSettings } from '../types/database.ts';
+import type { IUser, IAppSettings } from '../../types/database.ts';
 
 // --- COMPONENTS ---
-import Button from '../components/common/Button.tsx';
-import Input from '../components/common/Form/Input.tsx';
-import Label from '../components/common/Form/Label.tsx';
-import Select from '../components/common/Form/Select.tsx';
+import Button from '../../components/common/Button.tsx';
+import Input from '../../components/common/Form/Input.tsx';
+import Label from '../../components/common/Form/Label.tsx';
+import Select from '../../components/common/Form/Select.tsx';
 
 /**
  * The dedicated component for the one-time initial setup of the application.
