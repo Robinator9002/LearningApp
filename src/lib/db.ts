@@ -4,6 +4,8 @@ import Dexie, { type Table } from 'dexie';
 import type { IUser, ICourse, IProgressLog, IAppSettings } from '../types/database';
 
 export class LocalDatabase extends Dexie {
+    // These tables will hold our application data.
+    // The '!' asserts that Dexie will initialize them for us.
     users!: Table<IUser>;
     courses!: Table<ICourse>;
     progressLogs!: Table<IProgressLog>;
@@ -13,16 +15,25 @@ export class LocalDatabase extends Dexie {
         super('learningAppDatabase');
         // Bumping the version number is crucial when changing the schema.
         // Dexie uses this to manage migrations automatically.
-        // NOTE: We do not need to redefine the schema here, as we are only
-        // adding a new, optional property to an existing table. Dexie handles this.
+        // NEW: Version 5 adds the starterCoursesImported flag.
+        this.version(5).stores({
+            users: '++id, &name, type',
+            courses: '++id, subject, gradeRange, title',
+            progressLogs: '++id, userId, courseId, timestamp',
+            appSettings: '++id', // No schema change needed here, Dexie handles adding new properties
+        });
+
+        // --- MIGRATION HISTORY ---
+        // Previous versions are kept to allow Dexie to correctly migrate
+        // users who have older database versions.
+
         this.version(4).stores({
-            users: '++id, &name, type, language', // Added 'language' for indexing
+            users: '++id, &name, type',
             courses: '++id, subject, gradeRange, title',
             progressLogs: '++id, userId, courseId, timestamp',
             appSettings: '++id',
         });
 
-        // --- MIGRATION HISTORY ---
         this.version(3).stores({
             users: '++id, &name, type',
             courses: '++id, subject, gradeRange, title',
@@ -44,4 +55,5 @@ export class LocalDatabase extends Dexie {
     }
 }
 
+// Create a singleton instance of the database to be used throughout the app.
 export const db = new LocalDatabase();
