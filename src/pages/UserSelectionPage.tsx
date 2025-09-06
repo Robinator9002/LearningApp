@@ -11,9 +11,6 @@ import { AuthContext } from '../contexts/AuthContext.tsx';
 import FirstAdminSetup from './user/FirstAdminSetup.tsx';
 import UserGrid from './user/UserGrid.tsx';
 
-// --- STYLES ---
-import '../styles/pages/user-selection-page.css';
-
 /**
  * The main container page for user selection.
  * This component now acts as a simple router, deciding whether to show

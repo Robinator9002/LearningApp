@@ -9,9 +9,11 @@
 export interface IAppSettings {
     id?: number; // Primary key for the settings object (usually just 1)
     defaultLanguage: 'en' | 'de';
-    // NEW: Add a setting for the default theme for new users or when logged out.
-    defaultTheme: 'light' | 'dark';
     seedCoursesOnFirstRun: boolean;
+    // NEW: A flag to track if the starter courses have ever been imported.
+    starterCoursesImported: boolean;
+    // NEW: Added a global default theme setting.
+    defaultTheme: 'light' | 'dark';
 }
 
 // --- THEME & SETTINGS ---
