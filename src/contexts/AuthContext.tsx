@@ -53,23 +53,20 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                         defaultLanguage: i18n.language.startsWith('de') ? 'de' : 'en',
                         seedCoursesOnFirstRun: true,
                         defaultTheme: 'light',
-                        // NEW: Initialize the new flag on first run.
                         starterCoursesImported: false,
                     };
                     await db.appSettings.put(defaultSettings);
                     settings = defaultSettings;
                 }
 
-                // NEW: This logic handles migration for existing users. If the settings
-                // object exists but is missing our new flag, we update the database
-                // to include it with a default 'false' value.
                 if (settings && typeof settings.starterCoursesImported === 'undefined') {
                     await db.appSettings.update(1, { starterCoursesImported: false });
-                    // Reload settings from the DB to ensure our state is current.
                     settings = await db.appSettings.get(1);
                 }
 
-                setAppSettings(settings);
+                // FIX: Coalesce 'undefined' from the database call to 'null' for the state setter.
+                // This resolves the TypeScript error.
+                setAppSettings(settings || null);
 
                 const savedUserJson = sessionStorage.getItem('currentUser');
                 if (savedUserJson) {
@@ -89,15 +86,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         };
 
         initializeAppState();
-    }, [i18n]);
+    }, [i18n]); // Dependency added back as it's used in initialization
 
     const login = (user: IUser) => {
         setCurrentUser(user);
         sessionStorage.setItem('currentUser', JSON.stringify(user));
-        theme.loadUserTheme(user, appSettings);
-
-        const targetLanguage = user.language || appSettings?.defaultLanguage || 'en';
-        i18n.changeLanguage(targetLanguage);
+        // Re-fetch app settings when logging in to pass the most current version
+        db.appSettings.get(1).then((settings) => {
+            theme.loadUserTheme(user, settings || null);
+            const targetLanguage = user.language || settings?.defaultLanguage || 'en';
+            i18n.changeLanguage(targetLanguage);
+        });
     };
 
     const logout = () => {
@@ -136,9 +135,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const updateAppSettings = async (updates: Partial<IAppSettings>) => {
         await db.appSettings.update(1, updates);
         const newSettings = await db.appSettings.get(1);
-        if (newSettings) {
-            setAppSettings(newSettings);
-        }
+        // FIX: Coalesce 'undefined' to 'null' here as well for consistency.
+        setAppSettings(newSettings || null);
     };
 
     const value: AuthContextType = {
