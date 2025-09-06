@@ -6,11 +6,11 @@ import { useNavigate } from 'react-router-dom';
 import { useLiveQuery } from 'dexie-react-hooks';
 
 // --- DATABASE & TYPES ---
-import { db } from '../lib/db';
-import type { IUser, IAppSettings } from '../types/database';
+import { db } from '../lib/db.ts';
+import type { IUser, IAppSettings } from '../types/database.ts';
 
 // --- CONTEXTS ---
-import { useTheme } from './ThemeContext';
+import { useTheme } from './ThemeContext.tsx';
 
 // --- TYPE DEFINITIONS ---
 export interface AuthContextType {
@@ -26,45 +26,49 @@ export interface AuthContextType {
     updateAppSettings: (updates: Partial<IAppSettings>) => Promise<void>;
 }
 
-// --- CONTEXT CREATION ---
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// --- PROVIDER COMPONENT ---
 interface AuthProviderProps {
     children: ReactNode;
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-    // --- HOOKS ---
     const navigate = useNavigate();
     const theme = useTheme();
     const { i18n } = useTranslation();
 
-    // --- STATE MANAGEMENT ---
     const [currentUser, setCurrentUser] = useState<IUser | null>(null);
     const [appSettings, setAppSettings] = useState<IAppSettings | null>(null);
     const [isLoading, setIsLoading] = useState(true);
 
-    // --- LIVE DATA QUERIES ---
     const users = useLiveQuery(() => db.users.toArray(), [], []);
 
-    // --- INITIALIZATION EFFECT ---
     useEffect(() => {
         const initializeAppState = async () => {
             try {
                 let settings = await db.appSettings.get(1);
-                // FIX: This check now correctly handles migration by looking for the new property.
-                if (!settings || !settings.hasOwnProperty('defaultTheme')) {
+                if (!settings) {
                     const defaultSettings: IAppSettings = {
                         id: 1,
-                        defaultLanguage: settings?.defaultLanguage || 'en',
-                        // This was the missing piece causing the TypeScript error.
+                        defaultLanguage: i18n.language.startsWith('de') ? 'de' : 'en',
+                        seedCoursesOnFirstRun: true,
                         defaultTheme: 'light',
-                        seedCoursesOnFirstRun: settings?.seedCoursesOnFirstRun ?? true,
+                        // NEW: Initialize the new flag on first run.
+                        starterCoursesImported: false,
                     };
                     await db.appSettings.put(defaultSettings);
                     settings = defaultSettings;
                 }
+
+                // NEW: This logic handles migration for existing users. If the settings
+                // object exists but is missing our new flag, we update the database
+                // to include it with a default 'false' value.
+                if (settings && typeof settings.starterCoursesImported === 'undefined') {
+                    await db.appSettings.update(1, { starterCoursesImported: false });
+                    // Reload settings from the DB to ensure our state is current.
+                    settings = await db.appSettings.get(1);
+                }
+
                 setAppSettings(settings);
 
                 const savedUserJson = sessionStorage.getItem('currentUser');
@@ -85,13 +89,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         };
 
         initializeAppState();
-    }, []); // This effect should still only run once.
+    }, [i18n]);
 
-    // --- CORE AUTH FUNCTIONS ---
     const login = (user: IUser) => {
         setCurrentUser(user);
         sessionStorage.setItem('currentUser', JSON.stringify(user));
-        // Pass the global app settings to the theme loader.
         theme.loadUserTheme(user, appSettings);
 
         const targetLanguage = user.language || appSettings?.defaultLanguage || 'en';
@@ -101,13 +103,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const logout = () => {
         setCurrentUser(null);
         sessionStorage.removeItem('currentUser');
-        // Pass the global app settings to the theme loader on logout.
         theme.loadUserTheme(null, appSettings);
         i18n.changeLanguage(appSettings?.defaultLanguage || 'en');
         navigate('/');
     };
 
-    // --- USER CRUD OPERATIONS ---
     const createUser = async (userData: Omit<IUser, 'id'>) => {
         await db.users.add(userData as IUser);
     };
@@ -127,12 +127,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             await db.users.delete(userId);
             await db.progressLogs.where({ userId }).delete();
         });
+
         if (currentUser?.id === userId) {
             logout();
         }
     };
 
-    // --- GLOBAL SETTINGS MANAGEMENT ---
     const updateAppSettings = async (updates: Partial<IAppSettings>) => {
         await db.appSettings.update(1, updates);
         const newSettings = await db.appSettings.get(1);
