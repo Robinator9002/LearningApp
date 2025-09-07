@@ -2,33 +2,36 @@
 
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next'; // MODIFICATION: Imported useTranslation
-import { AuthContext } from '../../contexts/AuthContext';
-import Button from '../../components/common/Button';
-import AccountTab from './tabs/AccountTab';
-import AppearanceTab from './tabs/AppearanceTab';
+import { useTranslation } from 'react-i18next';
+import { AuthContext } from '../../contexts/AuthContext.tsx';
+import Button from '../../components/common/Button.tsx';
+// FIX: Added file extensions to all local component imports.
+import AccountTab from './tabs/AccountTab.tsx';
+import AppearanceTab from './tabs/AppearanceTab.tsx';
+import GlobalTab from './tabs/GlobalTab.tsx';
 
-type SettingsTab = 'account' | 'appearance';
+type SettingsTab = 'account' | 'appearance' | 'global';
 
 /**
  * The main container page for all user settings.
  */
 const SettingsPage: React.FC = () => {
     const navigate = useNavigate();
-    const { t } = useTranslation(); // MODIFICATION: Initialized useTranslation
+    const { t } = useTranslation();
     const auth = useContext(AuthContext);
     const [activeTab, setActiveTab] = useState<SettingsTab>('account');
 
     if (!auth?.currentUser) {
-        return <div>{t('loading.user')}</div>; // MODIFICATION: Translated loading text
+        return <div>{t('loading.user')}</div>;
     }
+
+    const { currentUser } = auth;
+    const isAdmin = currentUser.type === 'admin';
 
     return (
         <div className="settings-page">
             <header className="settings-page__header">
-                {/* MODIFICATION: Replaced hardcoded title */}
                 <h2 className="settings-page__title">{t('settings.title')}</h2>
-                {/* MODIFICATION: Replaced hardcoded button text */}
                 <Button variant="secondary" onClick={() => navigate(-1)}>
                     {t('buttons.close')}
                 </Button>
@@ -41,7 +44,6 @@ const SettingsPage: React.FC = () => {
                     }`}
                     onClick={() => setActiveTab('account')}
                 >
-                    {/* MODIFICATION: Replaced hardcoded tab name */}
                     {t('settings.tabs.account')}
                 </button>
                 <button
@@ -50,14 +52,24 @@ const SettingsPage: React.FC = () => {
                     }`}
                     onClick={() => setActiveTab('appearance')}
                 >
-                    {/* MODIFICATION: Replaced hardcoded tab name */}
                     {t('settings.tabs.appearance')}
                 </button>
+                {isAdmin && (
+                    <button
+                        className={`settings-page__tab ${
+                            activeTab === 'global' ? 'settings-page__tab--active' : ''
+                        }`}
+                        onClick={() => setActiveTab('global')}
+                    >
+                        {t('settings.tabs.global')}
+                    </button>
+                )}
             </div>
 
             <main className="settings-page__content">
                 {activeTab === 'account' && <AccountTab />}
                 {activeTab === 'appearance' && <AppearanceTab />}
+                {activeTab === 'global' && isAdmin && <GlobalTab />}
             </main>
         </div>
     );
