@@ -53,6 +53,7 @@
 /* == LEARNER == */
 @import './pages/learner/learner-dashboard.css';
 @import './pages/learner/course-player.css';
+@import './pages/learner/progress-tracker.css';
 
 /* == SETTINGS (NEW) == */
 @import './pages/settings/settings-page.css';
