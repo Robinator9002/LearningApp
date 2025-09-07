@@ -1,10 +1,15 @@
 // src/pages/learner/LearnerDashboardPage.tsx
 
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLiveQuery } from 'dexie-react-hooks';
-// FIX: Added file extensions to all local imports.
+import { useNavigate } from 'react-router-dom';
+
+// --- CONTEXTS & DB ---
 import { db } from '../../lib/db.ts';
+import { AuthContext } from '../../contexts/AuthContext.tsx';
+
+// --- UTILS ---
 import { groupCourses } from '../../lib/courseUtils.ts';
 
 // --- COMPONENT IMPORTS ---
@@ -19,15 +24,16 @@ import '../../styles/components/learner/course-filters.css';
 
 const LearnerDashboardPage: React.FC = () => {
     const { t } = useTranslation();
+    const navigate = useNavigate();
+    const auth = useContext(AuthContext);
     const allCourses = useLiveQuery(() => db.courses.toArray(), []);
+    const currentUser = auth?.currentUser;
 
-    // State for the filter values
     const [filters, setFilters] = useState<FilterValues>({
         subject: '',
         gradeRange: '',
     });
 
-    // Memoize the calculation of available filter options to prevent re-renders.
     const { availableSubjects, availableGradeRanges } = useMemo(() => {
         if (!allCourses) return { availableSubjects: [], availableGradeRanges: [] };
         const subjects = new Set(allCourses.map((c) => c.subject));
@@ -38,7 +44,6 @@ const LearnerDashboardPage: React.FC = () => {
         };
     }, [allCourses]);
 
-    // Filter the courses based on the current filter state.
     const filteredCourses = useMemo(() => {
         if (!allCourses) return [];
         return allCourses.filter((course) => {
@@ -51,22 +56,25 @@ const LearnerDashboardPage: React.FC = () => {
         });
     }, [allCourses, filters]);
 
-    // Group the filtered courses for display.
     const groupedAndFilteredCourses = useMemo(
         () => (filteredCourses ? groupCourses(filteredCourses) : {}),
         [filteredCourses],
     );
 
-    if (!allCourses) {
-        return <div>{t('labels.loadingCourses')}</div>;
+    // --- EVENT HANDLERS ---
+    const handleSelectCourse = (courseId: number) => {
+        navigate(`/course/${courseId}`);
+    };
+
+    if (!allCourses || !currentUser) {
+        return <div>{t('labels.loading')}</div>;
     }
 
     return (
         <div className="learner-dashboard">
             <h2 className="learner-dashboard__title">{t('dashboard.learnerTitle')}</h2>
-            <ProgressSummary />
+            <ProgressSummary currentUserId={currentUser.id!} />
 
-            {/* Render filters only if there are courses to filter */}
             {allCourses.length > 0 && (
                 <CourseFilters
                     filters={filters}
@@ -87,7 +95,11 @@ const LearnerDashboardPage: React.FC = () => {
                                 </h4>
                                 <div className="course-grid">
                                     {courses.map((course) => (
-                                        <CourseCard key={course.id} course={course} />
+                                        <CourseCard
+                                            key={course.id}
+                                            course={course}
+                                            onSelect={() => handleSelectCourse(course.id!)}
+                                        />
                                     ))}
                                 </div>
                             </div>

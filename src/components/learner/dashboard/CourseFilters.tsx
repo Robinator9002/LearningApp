@@ -30,7 +30,6 @@ const CourseFilters: React.FC<CourseFiltersProps> = ({
     filters,
     onFilterChange,
     availableSubjects,
-    availableGradeRanges,
 }) => {
     const { t } = useTranslation();
 
