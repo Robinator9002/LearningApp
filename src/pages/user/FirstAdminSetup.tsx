@@ -3,6 +3,7 @@
 import React, { useState, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CheckCircle } from 'lucide-react';
+import type i18n from 'i18next';
 
 // --- DATABASE & UTILS ---
 // FIX: Corrected all import paths to account for the new file location.
@@ -23,9 +24,14 @@ import Label from '../../components/common/Form/Label.tsx';
 import Select from '../../components/common/Form/Select.tsx';
 
 /**
- * The dedicated component for the one-time initial setup of the application.
+ * The props for the FirstAdminSetup component.
+ * We now require the i18n instance to be passed in.
  */
-const FirstAdminSetup: React.FC = () => {
+interface FirstAdminSetupProps {
+    i18n: typeof i18n;
+}
+
+const FirstAdminSetup: React.FC<FirstAdminSetupProps> = ({ i18n }) => {
     const { t } = useTranslation();
     const auth = useContext(AuthContext);
     const modal = useContext(ModalContext);
@@ -65,8 +71,10 @@ const FirstAdminSetup: React.FC = () => {
 
             if (shouldSeedCourses) {
                 await seedInitialCourses(appLanguage);
+                await updateAppSettings({ starterCoursesImported: true });
             }
 
+            await i18n.changeLanguage(appLanguage);
             setIsComplete(true);
 
             setTimeout(async () => {
