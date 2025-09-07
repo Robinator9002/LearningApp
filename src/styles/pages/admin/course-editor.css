@@ -30,7 +30,7 @@
     padding: calc(var(--spacing-unit) * 4);
 }
 
-.course-editor-page__meta,
+.course-meta-editor, /* MODIFICATION: Changed selector for clarity */
 .course-editor-page__questions {
     max-width: 900px;
     margin-left: auto;
@@ -38,35 +38,40 @@
 }
 
 /* --- MODIFICATION START: Reworked Meta Section Layout --- */
-.course-editor-page__meta {
-    display: flex; /* Changed from grid to flex for a row layout */
-    flex-direction: row;
-    gap: 0; /* Remove gap, we'll use padding and borders */
+/* Switched from a 3-column grid to a single-row flexbox layout */
+.course-meta-editor {
+    display: flex;
+    flex-direction: row; /* Ensures items are in a single row */
     margin-bottom: calc(var(--spacing-unit) * 4);
-    border: 1px solid var(--color-border); /* Add a containing border */
+    border: 1px solid var(--color-border);
     border-radius: var(--border-radius);
     background-color: var(--color-surface);
-    overflow: hidden; /* Ensures child borders don't break the container's radius */
+    overflow: hidden;
+    align-items: stretch; /* Make children stretch to the same height */
 }
 
 /* Target the direct children (the form groups) of the meta container */
-.course-editor-page__meta > .form-group {
+.course-meta-editor > .form-group {
     padding: calc(var(--spacing-unit) * 2); /* Add internal padding */
     border-right: 1px solid var(--color-border); /* Add separator line */
+    margin: 0;
+    display: flex; /* Use flex to better control label and input alignment */
+    flex-direction: column;
 }
 
-.course-editor-page__meta > .form-group:last-child {
+/* Assign flex-grow properties to mimic the old 2fr 1fr 1fr layout */
+.course-meta-editor > .form-group:nth-child(1) {
+    flex: 2; /* Title input takes up more space */
+}
+.course-meta-editor > .form-group:nth-child(2) {
+    flex: 1; /* Subject dropdown */
+}
+.course-meta-editor > .form-group:nth-child(3) {
+    flex: 1; /* Grade editor */
+}
+
+.course-meta-editor > .form-group:last-child {
     border-right: none; /* Don't add a line after the last item */
-}
-
-/* Give the Title field more space */
-.course-editor-page__meta > .form-group:nth-child(1) {
-    flex: 2;
-}
-/* Give Subject and Grade equal, smaller space */
-.course-editor-page__meta > .form-group:nth-child(2),
-.course-editor-page__meta > .form-group:nth-child(3) {
-    flex: 1;
 }
 /* --- MODIFICATION END --- */
 
@@ -74,6 +79,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: calc(var(--spacing-unit) * 4); /* Added margin-top for separation */
     margin-bottom: calc(var(--spacing-unit) * 2);
     padding-bottom: var(--spacing-unit);
     border-bottom: 1px solid var(--color-border);

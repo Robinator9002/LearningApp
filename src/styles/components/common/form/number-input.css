@@ -9,7 +9,11 @@ input[type='number']::-webkit-outer-spin-button {
     margin: 0;
 }
 
-/* For Firefox */
+/* For Firefox and modern browsers.
+  - '-moz-appearance' is the older, Firefox-specific way to remove the number input spinner.
+  - 'appearance' is the standard CSS property. Including both ensures the widest browser support.
+*/
 input[type='number'] {
     -moz-appearance: textfield;
+    appearance: textfield;
 }
