@@ -13,7 +13,7 @@
             "confirm": "Confirm",
             "create": "Create",
             "createAccount": "Create Account",
-            "createCourse": "Create New Course",
+            "createCourse": "Create Course",
             "createNewAccount": "Create New Account",
             "delete": "Delete",
             "deleteMyAccount": "Delete My Account",
@@ -22,15 +22,16 @@
             "editName": "Edit Name",
             "export": "Export",
             "importCourse": "Import Course",
+            "importStarter": "Import Starter Courses",
             "login": "Login",
             "ok": "OK",
             "remove": "Remove",
             "saveChanges": "Save Changes",
             "saveCourse": "Save Course",
             "savePassword": "Save Password",
-            "scrollToTop": "Scroll to top",
             "setPassword": "Set Password",
-            "startCourse": "Start Course"
+            "startCourse": "Start Course",
+            "scrollToTop": "Scroll to Top"
         },
         "dashboard": {
             "adminTitle": "Admin Dashboard",
@@ -57,6 +58,7 @@
         "labels": {
             "acceptedAnswers": "Accepted Answers (one or more)",
             "accountType": "Account Type",
+            "alreadyImported": "Already Imported",
             "answerOptions": "Answer Options",
             "confirmNewPassword": "Confirm New Password",
             "correct": "Correct",
@@ -75,7 +77,7 @@
             "name": "Name",
             "newName": "New Name",
             "newPassword": "New Password",
-            "noCoursesFound": "No courses have been created yet.",
+            "noCoursesFound": "No courses found.",
             "password": "Password",
             "passwordOptional": "Password (Optional)",
             "questionText": "Question Text",
@@ -93,6 +95,7 @@
             "exactMatch": "Exact Match"
         },
         "placeholders": {
+            "adminName": "e.g., Jane Doe",
             "algEquation": {
                 "equation": "e.g., 2*x + 5 = 15",
                 "questionText": "e.g., Solve for the variables in the equation below.",
@@ -170,8 +173,7 @@
                 "editNameModalTitle": "Edit Your Name",
                 "changePasswordModalTitle": "Change Your Password",
                 "setPasswordModalTitle": "Set a New Password",
-                "passwordModalDescription": "Leave both fields blank to remove your password entirely.",
-                "language": "Language"
+                "passwordModalDescription": "Leave both fields blank to remove your password entirely."
             },
             "title": "Settings"
         },
@@ -186,7 +188,7 @@
             "seedCoursesLabel": "Import Starter Courses",
             "seedCoursesDescription": "Automatically add a set of sample courses in the default language.",
             "successTitle": "Setup Complete!",
-            "successMessage": "Redirecting you to the login screen..."
+            "successMessage": "You will be logged in automatically."
         },
         "summary": {
             "message": "Great job making it to the end.",
@@ -238,13 +240,16 @@
         },
         "errors": {
             "title": "Error",
-            "setupFailed": "The initial setup failed. Please refresh the page and try again.",
+            "setupFailed": "The initial setup could not be completed. Please refresh and try again.",
             "createUserFailed": "Could not create user. The name might already be taken.",
             "deleteCourseFailed": "An error occurred while deleting the course.",
             "deleteUserFailed": "Could not delete user.",
             "deleteAccountFailed": "Could not delete your account.",
             "importFailed": "Course import failed. Please ensure the file is a valid course JSON file.",
-            "loginFailed": "The password you entered was incorrect. Please try again.",
+            "loginFailed": {
+                "title": "Login Failed",
+                "message": "The password you entered was incorrect. Please try again."
+            },
             "nameUpdateFailed": "Could not update name. The name might already be taken.",
             "passwordUpdateFailed": "Could not update password.",
             "userExists": "A user with this name already exists.",
