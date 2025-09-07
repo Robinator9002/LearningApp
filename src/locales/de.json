@@ -30,7 +30,8 @@
             "saveCourse": "Kurs speichern",
             "savePassword": "Passwort speichern",
             "setPassword": "Passwort festlegen",
-            "startCourse": "Kurs starten"
+            "startCourse": "Kurs starten",
+            "scrollToTop": "Nach oben scrollen"
         },
         "dashboard": {
             "adminTitle": "Admin-Dashboard",
@@ -38,12 +39,14 @@
             "coursesCompleted": "Kurse abgeschlossen",
             "filters": {
                 "title": "Filter",
-                "allSubjects": "Alle Fächer"
+                "allSubjects": "Alle Fächer",
+                "allGrades": "Alle Klassen"
             },
             "importHint": "Hinweis: Sie können das Starterpaket unter ",
             "learnerTitle": "Lern-Dashboard",
             "noCoursesAdmin": "Keine Kurse gefunden. Erstellen Sie einen oder importieren Sie eine Datei, um zu beginnen.",
             "noCoursesLearner": "Noch keine Kurse verfügbar. Bitten Sie einen Admin, einen zu erstellen!",
+            "noCoursesMatchFilters": "Keine Kurse entsprechen den aktuellen Filtern.",
             "progressTitle": "Dein Fortschritt",
             "welcomeMessage": "Schließe deinen ersten Kurs ab, um deinen Fortschritt hier zu sehen.",
             "welcomeTitle": "Willkommen!"
@@ -61,13 +64,17 @@
         "labels": {
             "acceptedAnswers": "Akzeptierte Antworten (eine oder mehrere)",
             "accountType": "Kontotyp",
+            "advanced": "Fortgeschritten",
             "answerOptions": "Antwortmöglichkeiten",
             "confirmNewPassword": "Neues Passwort bestätigen",
             "correct": "Korrekt",
             "correctedSentence": "Korrigierter Satz",
             "courseTitle": "Kurstitel",
+            "direct": "Direkt",
             "equation": "Gleichung",
             "evaluationMode": "Bewertungsmodus",
+            "grade": "Klasse {{grade}}",
+            "gradeAssignmentMode": "Zuweisungsmodus",
             "gradeRange": "Klassenstufe",
             "gradeRangeLabel": "Klasse {{range}}",
             "incorrectSentence": "Fehlerhafter Satz",
@@ -83,6 +90,10 @@
             "password": "Passwort",
             "passwordOptional": "Passwort (optional)",
             "questionText": "Fragetext",
+            "range": "Bereich",
+            "rangeFrom": "Von Klasse",
+            "rangeTo": "Bis Klasse",
+            "searchCourses": "Suche nach Titel oder Fach...",
             "subject": "Fach",
             "title": "Titel",
             "variables": "Variablen (durch Komma getrennt)"
@@ -139,7 +150,7 @@
             "global": {
                 "title": "Globale App-Einstellungen (Nur Admins)",
                 "defaultLanguageLabel": "Standardsprache",
-                "defaultTheme": "Standardthema",
+                "defaultThemeLabel": "Standardthema",
                 "seedCoursesLabel": "Starterkurse",
                 "seedCoursesDescription": "Importieren Sie eine Reihe von Beispielkursen für neue Benutzer.",
                 "alreadyImported": "Bereits importiert"
@@ -198,9 +209,13 @@
         },
         "errors": {
             "title": "Fehler",
-            "setupFailed": "Die Ersteinrichtung ist fehlgeschlagen. Bitte laden Sie die Seite neu und versuchen Sie es erneut.",
+            "setupFailed": "Die Ersteinrichtung ist fehlgeschlagen. Bitte aktualisieren Sie die Seite und versuchen Sie es erneut.",
             "importFailed": "Kursimport fehlgeschlagen. Bitte stellen Sie sicher, dass die Datei eine gültige Kurs-JSON-Datei ist.",
-            "loginFailed": "Das eingegebene Passwort war falsch. Bitte versuchen Sie es erneut."
+            "loginFailed": "Das eingegebene Passwort war falsch. Bitte versuchen Sie es erneut.",
+            "gradeRange": {
+                "outOfBounds": "Klassenstufen müssen zwischen 1 und 13 liegen.",
+                "invalidOrder": "Die 'Von'-Klasse muss kleiner als die 'Bis'-Klasse sein."
+            }
         },
         "subjects": {
             "math": "Mathe",
