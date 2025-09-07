@@ -4,8 +4,6 @@ import Dexie, { type Table } from 'dexie';
 import type { IUser, ICourse, IProgressLog, IAppSettings } from '../types/database';
 
 export class LocalDatabase extends Dexie {
-    // These tables will hold our application data.
-    // The '!' asserts that Dexie will initialize them for us.
     users!: Table<IUser>;
     courses!: Table<ICourse>;
     progressLogs!: Table<IProgressLog>;
@@ -13,19 +11,33 @@ export class LocalDatabase extends Dexie {
 
     constructor() {
         super('learningAppDatabase');
-        // Bumping the version number is crucial when changing the schema.
-        // Dexie uses this to manage migrations automatically.
-        // NEW: Version 5 adds the starterCoursesImported flag.
+        // MODIFICATION: Bumped version to 6 for the subject name migration.
+        this.version(6)
+            .stores({
+                // Schema is unchanged, only data is being modified.
+                users: '++id, &name, type',
+                courses: '++id, subject, gradeRange, title',
+                progressLogs: '++id, userId, courseId, timestamp',
+                appSettings: '++id',
+            })
+            .upgrade((tx) => {
+                // This upgrade function will run for any user who has a database version < 6.
+                // It ensures that all existing course subjects are converted to lowercase.
+                return tx
+                    .table('courses')
+                    .toCollection()
+                    .modify((course) => {
+                        course.subject = course.subject.toLowerCase();
+                    });
+            });
+
+        // --- MIGRATION HISTORY ---
         this.version(5).stores({
             users: '++id, &name, type',
             courses: '++id, subject, gradeRange, title',
             progressLogs: '++id, userId, courseId, timestamp',
-            appSettings: '++id', // No schema change needed here, Dexie handles adding new properties
+            appSettings: '++id, starterCoursesImported', // Technically this was added in v5 logic, schema helps Dexie
         });
-
-        // --- MIGRATION HISTORY ---
-        // Previous versions are kept to allow Dexie to correctly migrate
-        // users who have older database versions.
 
         this.version(4).stores({
             users: '++id, &name, type',
@@ -55,5 +67,4 @@ export class LocalDatabase extends Dexie {
     }
 }
 
-// Create a singleton instance of the database to be used throughout the app.
 export const db = new LocalDatabase();
