@@ -5,7 +5,6 @@ export interface IAppSettings {
     id?: number;
     defaultLanguage: 'en' | 'de';
     seedCoursesOnFirstRun: boolean;
-    // NEW: Added from previous step
     defaultTheme: 'light' | 'dark';
     starterCoursesImported: boolean;
 }
@@ -29,7 +28,9 @@ export interface IUser {
     language?: 'en' | 'de';
 }
 
-// --- PROGRESS ---
+// --- LEGACY & NEW PROGRESS TRACKING ---
+
+/** @deprecated Replaced by the more detailed IUserTracking system. */
 export interface IProgressLog {
     id?: number;
     userId: number;
@@ -39,13 +40,50 @@ export interface IProgressLog {
     timestamp: number;
 }
 
-// --- BASE QUESTION INTERFACES ---
+// --- NEW LEARNER TRACKING SYSTEM (v2) ---
+
+export type Grade = 'A' | 'B' | 'C' | 'D' | 'F' | '1' | '2' | '3' | '4' | '5' | '6';
+
+/** A record of a single completed course. */
+export interface ITrackedCourse {
+    courseId: number;
+    courseTitle: string;
+    timestamp: number; // Completion date
+    timeSpent: number; // in seconds
+    score: number;
+    totalQuestions: number;
+    grade: Grade;
+}
+
+/** Aggregated statistics for a specific subject. */
+export interface ITrackedSubject {
+    totalTimeSpent: number;
+    coursesCompleted: number;
+    // Note: Average score is calculated dynamically in the UI to avoid data duplication.
+}
+
+/** A log of time spent on a specific day. */
+export interface IDailyActivity {
+    date: string; // "YYYY-MM-DD"
+    timeSpent: number; // in seconds
+}
+
+/** The main tracking document for a single user. */
+export interface IUserTracking {
+    id?: number; // Primary key for the table
+    userId: number; // Foreign key to IUser, should be unique
+    totalTimeSpent: number;
+    completedCourses: ITrackedCourse[];
+    dailyActivity: IDailyActivity[];
+    statsBySubject: Record<ICourse['subject'], ITrackedSubject>;
+}
+
+// --- COURSE & QUESTION STRUCTURES ---
+
 export interface IQuestionBase {
     id: string;
     questionText: string;
 }
-
-// --- QUESTION TYPE: Multiple Choice ---
 export interface IMCQOption {
     id: string;
     text: string;
@@ -55,34 +93,24 @@ export interface IQuestionMCQ extends IQuestionBase {
     type: 'mcq';
     options: IMCQOption[];
 }
-
-// --- QUESTION TYPE: Smart Text Input (Fill-in-the-blank) ---
 export interface IQuestionSTI extends IQuestionBase {
     type: 'sti';
     correctAnswers: string[];
     evaluationMode: 'case-insensitive' | 'exact-match';
 }
-
-// --- QUESTION TYPE: Algebraic Equation ---
 export interface IQuestionAlgEquation extends IQuestionBase {
     type: 'alg-equation';
     equation: string;
     variables: string[];
 }
-
-// --- QUESTION TYPE: Free Response (Essay) ---
 export interface IQuestionFreeResponse extends IQuestionBase {
     type: 'free-response';
 }
-
-// --- QUESTION TYPE: Sentence Correction ---
 export interface IQuestionSentenceCorrection extends IQuestionBase {
     type: 'sentence-correction';
     sentenceWithMistake: string;
     correctedSentence: string;
 }
-
-// A union type that can represent any type of question in the system.
 export type IQuestion =
     | IQuestionMCQ
     | IQuestionSTI
@@ -90,11 +118,9 @@ export type IQuestion =
     | IQuestionFreeResponse
     | IQuestionSentenceCorrection;
 
-// --- MAIN COURSE INTERFACE ---
 export interface ICourse {
     id?: number;
     title: string;
-    // MODIFICATION: Changed subject to be lowercase for i18n key consistency.
     subject: 'math' | 'reading' | 'writing' | 'english';
     questions: IQuestion[];
     gradeRange: string;
