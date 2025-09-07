@@ -13,7 +13,7 @@
             "confirm": "Bestätigen",
             "create": "Erstellen",
             "createAccount": "Konto erstellen",
-            "createCourse": "Neuen Kurs erstellen",
+            "createCourse": "Kurs erstellen",
             "createNewAccount": "Neues Konto erstellen",
             "delete": "Löschen",
             "deleteMyAccount": "Mein Konto löschen",
@@ -22,15 +22,16 @@
             "editName": "Namen bearbeiten",
             "export": "Exportieren",
             "importCourse": "Kurs importieren",
+            "importStarter": "Starterkurse importieren",
             "login": "Anmelden",
             "ok": "OK",
             "remove": "Entfernen",
             "saveChanges": "Änderungen speichern",
             "saveCourse": "Kurs speichern",
             "savePassword": "Passwort speichern",
-            "scrollToTop": "Nach oben scrollen",
             "setPassword": "Passwort festlegen",
-            "startCourse": "Kurs starten"
+            "startCourse": "Kurs starten",
+            "scrollToTop": "Nach oben scrollen"
         },
         "dashboard": {
             "adminTitle": "Admin-Dashboard",
@@ -57,6 +58,7 @@
         "labels": {
             "acceptedAnswers": "Akzeptierte Antworten (eine oder mehrere)",
             "accountType": "Kontotyp",
+            "alreadyImported": "Bereits importiert",
             "answerOptions": "Antwortmöglichkeiten",
             "confirmNewPassword": "Neues Passwort bestätigen",
             "correct": "Korrekt",
@@ -75,7 +77,7 @@
             "name": "Name",
             "newName": "Neuer Name",
             "newPassword": "Neues Passwort",
-            "noCoursesFound": "Es wurden noch keine Kurse erstellt.",
+            "noCoursesFound": "Keine Kurse gefunden.",
             "password": "Passwort",
             "passwordOptional": "Passwort (optional)",
             "questionText": "Fragetext",
@@ -93,6 +95,7 @@
             "exactMatch": "Exakte Übereinstimmung"
         },
         "placeholders": {
+            "adminName": "z.B. Maria Musterfrau",
             "algEquation": {
                 "equation": "z.B. 2*x + 5 = 15",
                 "questionText": "z.B. Lösen Sie für die Variablen in der folgenden Gleichung.",
@@ -154,7 +157,7 @@
             "global": {
                 "title": "Globale App-Einstellungen (Nur Admins)",
                 "defaultLanguageLabel": "Standardsprache",
-                "defaultThemeLabel": "Standard-Theme",
+                "defaultThemeLabel": "Standardthema",
                 "seedCoursesLabel": "Starterkurse",
                 "seedCoursesDescription": "Starterkurse für neue Benutzer automatisch importieren."
             },
@@ -170,8 +173,7 @@
                 "editNameModalTitle": "Ihren Namen bearbeiten",
                 "changePasswordModalTitle": "Ihr Passwort ändern",
                 "setPasswordModalTitle": "Ein neues Passwort festlegen",
-                "passwordModalDescription": "Lassen Sie beide Felder leer, um Ihr Passwort vollständig zu entfernen.",
-                "language": "Sprache"
+                "passwordModalDescription": "Lassen Sie beide Felder leer, um Ihr Passwort vollständig zu entfernen."
             },
             "title": "Einstellungen"
         },
@@ -186,7 +188,7 @@
             "seedCoursesLabel": "Starterkurse importieren",
             "seedCoursesDescription": "Fügt automatisch eine Reihe von Beispielkursen in der Standardsprache hinzu.",
             "successTitle": "Einrichtung abgeschlossen!",
-            "successMessage": "Sie werden zum Anmeldebildschirm weitergeleitet..."
+            "successMessage": "Sie werden automatisch angemeldet."
         },
         "summary": {
             "message": "Gute Arbeit, du hast es bis zum Ende geschafft.",
@@ -238,13 +240,16 @@
         },
         "errors": {
             "title": "Fehler",
-            "setupFailed": "Die Ersteinrichtung ist fehlgeschlagen. Bitte laden Sie die Seite neu und versuchen Sie es erneut.",
+            "setupFailed": "Die Ersteinrichtung konnte nicht abgeschlossen werden. Bitte aktualisieren Sie und versuchen Sie es erneut.",
             "createUserFailed": "Benutzer konnte nicht erstellt werden. Der Name ist möglicherweise bereits vergeben.",
             "deleteCourseFailed": "Beim Löschen des Kurses ist ein Fehler aufgetreten.",
             "deleteUserFailed": "Benutzer konnte nicht gelöscht werden.",
             "deleteAccountFailed": "Ihr Konto konnte nicht gelöscht werden.",
             "importFailed": "Kursimport fehlgeschlagen. Bitte stellen Sie sicher, dass die Datei eine gültige Kurs-JSON-Datei ist.",
-            "loginFailed": "Das eingegebene Passwort war falsch. Bitte versuchen Sie es erneut.",
+            "loginFailed": {
+                "title": "Anmeldung fehlgeschlagen",
+                "message": "Das eingegebene Passwort war falsch. Bitte versuchen Sie es erneut."
+            },
             "nameUpdateFailed": "Name konnte nicht aktualisiert werden. Der Name ist möglicherweise bereits vergeben.",
             "passwordUpdateFailed": "Passwort konnte nicht aktualisiert werden.",
             "userExists": "Ein Benutzer mit diesem Namen existiert bereits.",
