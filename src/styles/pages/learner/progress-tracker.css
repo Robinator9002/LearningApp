@@ -1,0 +1,163 @@
+/* src/styles/pages/learner/progress-tracker.css */
+
+.progress-tracker-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: calc(var(--spacing-unit) * 4);
+}
+
+.progress-tracker-page__title {
+    font-size: 2rem;
+    margin-bottom: calc(var(--spacing-unit) * 3);
+    color: var(--color-text-primary);
+}
+
+.progress-tracker-page__overview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: calc(var(--spacing-unit) * 3);
+    margin-bottom: calc(var(--spacing-unit) * 4);
+}
+
+.progress-tracker-page__visuals {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: calc(var(--spacing-unit) * 3);
+    margin-bottom: calc(var(--spacing-unit) * 4);
+    align-items: stretch;
+}
+
+.progress-tracker-page__history {
+    margin-top: calc(var(--spacing-unit) * 2);
+}
+
+/* --- Stat Card --- */
+.stat-card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-large);
+    padding: calc(var(--spacing-unit) * 3);
+    text-align: center;
+}
+
+.stat-card__title {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    margin: 0 0 calc(var(--spacing-unit) * 1.5) 0;
+}
+
+.stat-card__value {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0;
+}
+
+/* --- Chart Container --- */
+.chart-container {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-large);
+    padding: calc(var(--spacing-unit) * 3);
+}
+
+.chart-container__title {
+    font-size: 1.25rem;
+    margin: 0 0 calc(var(--spacing-unit) * 3) 0;
+    color: var(--color-text-primary);
+}
+
+/* --- Subject Breakdown --- */
+.subject-breakdown {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-large);
+    padding: calc(var(--spacing-unit) * 3);
+}
+
+.subject-breakdown__title {
+    font-size: 1.25rem;
+    margin: 0 0 calc(var(--spacing-unit) * 3) 0;
+}
+
+.subject-breakdown__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-unit);
+}
+
+.subject-card {
+    padding: var(--spacing-unit);
+}
+
+.subject-card__title {
+    font-size: 1rem;
+    margin: 0 0 calc(var(--spacing-unit) * 0.5) 0;
+    color: var(--color-text-primary);
+}
+
+.subject-card__stat {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    margin: 0;
+}
+
+/* --- History Table --- */
+.history-table-container {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-large);
+    padding: calc(var(--spacing-unit) * 3);
+}
+
+.history-table-container__title {
+    font-size: 1.25rem;
+    margin: 0 0 calc(var(--spacing-unit) * 3) 0;
+}
+
+.history-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.history-table th,
+.history-table td {
+    padding: var(--spacing-unit) calc(var(--spacing-unit) * 1.5);
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.history-table th {
+    color: var(--color-text-secondary);
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.history-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.history-table__grade {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--color-accent);
+}
+
+/* --- Empty State --- */
+.progress-tracker-empty {
+    text-align: center;
+    padding: calc(var(--spacing-unit) * 10) calc(var(--spacing-unit) * 2);
+    color: var(--color-text-secondary);
+}
+
+.progress-tracker-empty h2 {
+    margin: var(--spacing-unit) 0;
+    color: var(--color-text-primary);
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 900px) {
+    .progress-tracker-page__visuals {
+        grid-template-columns: 1fr;
+    }
+}
