@@ -1,0 +1,37 @@
+/* src/styles/components/learner/course-filters.css */
+
+.course-filters {
+    background-color: var(--color-background);
+    padding: calc(var(--spacing-unit) * 2);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    margin-bottom: calc(var(--spacing-unit) * 3);
+}
+
+.course-filters__title {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-unit);
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin-bottom: calc(var(--spacing-unit) * 1.5);
+    color: var(--color-text-secondary);
+}
+
+.course-filters__controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: calc(var(--spacing-unit) * 2);
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-group__label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: calc(var(--spacing-unit) * 0.5);
+    color: var(--color-text-secondary);
+}
