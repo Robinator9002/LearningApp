@@ -3,10 +3,10 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Search, ArrowUpCircle } from 'lucide-react';
-import type { ICourse } from '../../../types/database.ts';
-import Button from '../../common/Button.tsx';
-import Input from '../../common/Form/Input.tsx';
-import { exportCourseToJson } from '../../../lib/courseUtils.ts';
+import type { ICourse } from '../../../types/database';
+import Button from '../../common/Button';
+import Input from '../../common/Form/Input';
+import { exportCourseToJson } from '../../../lib/courseUtils';
 
 interface CourseListProps {
     courses: ICourse[];
@@ -21,12 +21,13 @@ const CourseList: React.FC<CourseListProps> = ({ courses, onEditCourse, onDelete
     const listRef = useRef<HTMLDivElement>(null);
 
     const filteredCourses = useMemo(() => {
+        // MODIFICATION: Also filter by the translated subject name for a better user experience.
         return courses.filter(
             (course) =>
                 course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                course.subject.toLowerCase().includes(searchTerm.toLowerCase()),
+                t(`subjects.${course.subject}`).toLowerCase().includes(searchTerm.toLowerCase()),
         );
-    }, [courses, searchTerm]);
+    }, [courses, searchTerm, t]);
 
     useEffect(() => {
         const listElement = listRef.current;
@@ -75,7 +76,8 @@ const CourseList: React.FC<CourseListProps> = ({ courses, onEditCourse, onDelete
                             <div key={course.id} className="course-list__row">
                                 <div className="course-list__cell">{course.title}</div>
                                 <div className="course-list__cell course-list__cell--subject">
-                                    {course.subject}
+                                    {/* MODIFICATION: Use the t() function to translate the subject key. */}
+                                    {t(`subjects.${course.subject}`)}
                                 </div>
                                 <div className="course-list__cell course-list__cell--actions">
                                     <Button
