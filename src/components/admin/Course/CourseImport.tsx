@@ -5,13 +5,13 @@ import { useTranslation } from 'react-i18next';
 import { Upload } from 'lucide-react';
 
 // --- UTILITIES ---
-import { importCourseFromJson } from '../../lib/courseUtils.ts';
+import { importCourseFromJson } from '../../../lib/courseUtils.ts';
 
 // --- CONTEXTS ---
-import { ModalContext } from '../../contexts/ModalContext.tsx';
+import { ModalContext } from '../../../contexts/ModalContext.tsx';
 
 // --- COMPONENTS ---
-import Button from '../common/Button.tsx';
+import Button from '../../common/Button.tsx';
 
 /**
  * A dedicated component for handling the course import functionality.

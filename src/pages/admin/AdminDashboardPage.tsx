@@ -8,10 +8,10 @@ import { db } from '../../lib/db.ts';
 import { ModalContext } from '../../contexts/ModalContext.tsx';
 
 // --- COMPONENT IMPORTS ---
-import CourseList from '../../components/admin/CourseList.tsx';
+import CourseList from '../../components/admin/Course/CourseList.tsx';
 import Button from '../../components/common/Button.tsx';
 // FIX: We now import the dedicated component for handling imports.
-import CourseImport from '../../components/admin/CourseImport.tsx';
+import CourseImport from '../../components/admin/Course/CourseImport.tsx';
 
 const AdminDashboardPage: React.FC = () => {
     const { t } = useTranslation();

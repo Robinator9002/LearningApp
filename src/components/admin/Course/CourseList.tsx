@@ -3,10 +3,10 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Search, ArrowUpCircle } from 'lucide-react';
-import type { ICourse } from '../../types/database.ts';
-import Button from '../common/Button.tsx';
-import Input from '../common/Form/Input.tsx';
-import { exportCourseToJson } from '../../lib/courseUtils.ts';
+import type { ICourse } from '../../../types/database.ts';
+import Button from '../../common/Button.tsx';
+import Input from '../../common/Form/Input.tsx';
+import { exportCourseToJson } from '../../../lib/courseUtils.ts';
 
 interface CourseListProps {
     courses: ICourse[];
