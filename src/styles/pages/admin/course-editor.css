@@ -43,6 +43,8 @@
     grid-template-columns: 2fr 1fr 1fr;
     gap: calc(var(--spacing-unit) * 3);
     margin-bottom: calc(var(--spacing-unit) * 4);
+    /* NEW: Align items to the start of the grid cell for a cleaner look. */
+    align-items: start;
 }
 
 .course-editor-page__questions-header {
