@@ -1,0 +1,64 @@
+/* src/styles/components/admin/grade-assignment-editor.css */
+
+.grade-assignment-editor .form-group--horizontal {
+    display: flex;
+    align-items: center;
+    gap: calc(var(--spacing-unit) * 2);
+    margin-bottom: var(--spacing-unit);
+}
+
+.grade-assignment-editor .radio-group {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-unit);
+    background-color: var(--color-background);
+    padding: calc(var(--spacing-unit) / 2);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--color-border);
+}
+
+/* Visually hide the actual radio button */
+.grade-assignment-editor .radio-group input[type='radio'] {
+    opacity: 0;
+    position: fixed;
+    width: 0;
+}
+
+.grade-assignment-editor .radio-group label {
+    display: inline-block;
+    padding: calc(var(--spacing-unit) * 0.75) calc(var(--spacing-unit) * 1.5);
+    background-color: transparent;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+    font-weight: 500;
+}
+
+/* Style for the selected radio button's label */
+.grade-assignment-editor .radio-group input[type='radio']:checked + label {
+    background-color: var(--color-accent);
+    color: var(--color-accent-text);
+    box-shadow: 0 2px 4px color-mix(in srgb, var(--color-accent) 25%, transparent);
+}
+
+.range-inputs {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-unit);
+}
+
+.range-inputs .form-input {
+    width: 80px; /* Give a fixed, appropriate width */
+    text-align: center;
+}
+
+.range-inputs span {
+    font-weight: 700;
+    color: var(--color-text-secondary);
+}
+
+.form-error {
+    color: var(--color-feedback-negative);
+    font-size: 0.875rem;
+    margin-top: var(--spacing-unit);
+}
