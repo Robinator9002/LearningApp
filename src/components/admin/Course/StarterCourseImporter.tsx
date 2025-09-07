@@ -62,7 +62,7 @@ const StarterCourseImporter: React.FC = () => {
     return (
         <div className="starter-course-importer">
             <Button variant="secondary" onClick={handleImport} disabled={hasBeenImported}>
-                {t('buttons.importStarterCourses')}
+                {t('buttons.importStarter')}
             </Button>
             {hasBeenImported && (
                 <span className="import-status-message">
