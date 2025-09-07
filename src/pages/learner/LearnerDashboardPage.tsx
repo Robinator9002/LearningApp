@@ -60,7 +60,9 @@ const LearnerDashboardPage: React.FC = () => {
     );
 
     const handleSelectCourse = (courseId: number) => {
-        navigate(`/course/${courseId}`);
+        // FIX: The route for the course player is '/player/:courseId', not '/course/:courseId'.
+        // This change directs the navigation to the correct, existing route.
+        navigate(`/player/${courseId}`);
     };
 
     if (!allCourses || !currentUser) {
