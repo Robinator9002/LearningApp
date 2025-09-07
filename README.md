@@ -9,7 +9,7 @@
 
 ---
 
-Welcome to the Learning App project, a local-first educational platform designed for children in class levels 1–3. This application provides a focused, distraction-free environment for practicing core skills in **Math, Reading, and Writing**.
+Welcome to the Learning App project, a local-first educational platform designed for children. This application provides a focused, distraction-free environment for practicing core skills in **Math, Reading, and Writing**.
 
 Built for simplicity and engagement, this tool empowers both learners to practice at their own pace and admins (parents or teachers) to easily create and manage educational content.
 
