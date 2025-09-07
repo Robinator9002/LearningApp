@@ -1,6 +1,6 @@
 // src/pages/learner/CoursePlayerUtils.tsx
 
-import type { IQuestion } from '../../types/database';
+import type { IQuestion } from '../../../types/database';
 
 // The AnswerPayload type now reflects the removal of the 'free-response' question type.
 type AnswerPayload = {

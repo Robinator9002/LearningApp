@@ -4,12 +4,12 @@ import React, { useEffect, useContext, useReducer, useState, useLayoutEffect } f
 import { useNavigate, useParams } from 'react-router-dom';
 import Confetti from 'react-confetti';
 
-import { db } from '../../lib/db';
-import { ModalContext } from '../../contexts/ModalContext';
-import type { ICourse } from '../../types/database';
-import type { AnswerStatus } from '../../components/learner/qa/AnswerOption';
-import CoursePlayerUI from '../../components/learner/course/CoursePlayerUI';
-import CourseSummary from '../../components/learner/course/CourseSummary';
+import { db } from '../../../lib/db';
+import { ModalContext } from '../../../contexts/ModalContext';
+import type { ICourse } from '../../../types/database';
+import type { AnswerStatus } from '../../../components/learner/qa/AnswerOption';
+import CoursePlayerUI from '../../../components/learner/course/CoursePlayerUI';
+import CourseSummary from '../../../components/learner/course/CourseSummary';
 import { checkAnswer, isAnswerValid } from './CoursePlayerUtils';
 
 // A simple, self-contained window size hook to avoid external dependencies

@@ -3,13 +3,13 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 // --- TYPES ---
-import type { ICourse } from '../../../types/database.ts';
+import type { ICourse } from '../../../../types/database.ts';
 // --- COMPONENTS ---
-import Input from '../../../components/common/Form/Input.tsx';
-import Label from '../../../components/common/Form/Label.tsx';
-import Select from '../../../components/common/Form/Select.tsx';
+import Input from '../../../../components/common/Form/Input.tsx';
+import Label from '../../../../components/common/Form/Label.tsx';
+import Select from '../../../../components/common/Form/Select.tsx';
 // NEW: Import our new grade assignment component.
-import GradeAssignmentEditor from './GradeAssignmentEditor.tsx';
+import GradeAssignmentEditor from '../GradeAssignmentEditor.tsx';
 
 interface CourseMetaEditorProps {
     title: string;

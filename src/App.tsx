@@ -17,7 +17,7 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import UserSelectionPage from './pages/UserSelectionPage';
 // Learner Pages
 import LearnerDashboardPage from './pages/learner/LearnerDashboardPage';
-import CoursePlayerPage from './pages/learner/CoursePlayerPage';
+import CoursePlayerPage from './pages/learner/Course/CoursePlayerPage';
 import ProgressTrackerPage from './pages/learner/ProgressTrackerPage'; // NEW: Import the new page
 // Admin Pages
 import AdminDashboardPage from './pages/admin/AdminDashboardPage';

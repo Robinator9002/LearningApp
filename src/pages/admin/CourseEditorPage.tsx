@@ -10,8 +10,8 @@ import { ModalContext } from '../../contexts/ModalContext.tsx';
 import type { ICourse, IQuestion } from '../../types/database.ts';
 import Button from '../../components/common/Button.tsx';
 
-import CourseEditorHeader from './editor/CourseEditorHeader.tsx';
-import CourseMetaEditor from './editor/CourseMetaEditor.tsx';
+import CourseEditorHeader from './editor/Course/CourseEditorHeader.tsx';
+import CourseMetaEditor from './editor/Course/CourseMetaEditor.tsx';
 import QuestionList from './editor/QuestionList.tsx';
 import AddQuestionModal from '../../components/admin/AddQuestionModal.tsx';
 
