@@ -17,6 +17,7 @@
 /* == ADMIN == */
 @import './components/admin/question-editor.css';
 @import './components/admin/course-list.css';
+@import './components/admin/grade-assignment-editor.css';
 @import './components/admin/add-question-modal.css';
 
 /* == LEARNER == */
