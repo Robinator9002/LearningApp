@@ -32,20 +32,43 @@
 
 .course-editor-page__meta,
 .course-editor-page__questions {
-    max-width: 900px; /* MODIFICATION: Increased max-width to better suit 3 columns */
+    max-width: 900px;
     margin-left: auto;
     margin-right: auto;
 }
 
+/* --- MODIFICATION START: Reworked Meta Section Layout --- */
 .course-editor-page__meta {
-    display: grid;
-    /* MODIFICATION: Changed grid from 2 columns to 3 to accommodate the new field. */
-    grid-template-columns: 2fr 1fr 1fr;
-    gap: calc(var(--spacing-unit) * 3);
+    display: flex; /* Changed from grid to flex for a row layout */
+    flex-direction: row;
+    gap: 0; /* Remove gap, we'll use padding and borders */
     margin-bottom: calc(var(--spacing-unit) * 4);
-    /* NEW: Align items to the start of the grid cell for a cleaner look. */
-    align-items: start;
+    border: 1px solid var(--color-border); /* Add a containing border */
+    border-radius: var(--border-radius);
+    background-color: var(--color-surface);
+    overflow: hidden; /* Ensures child borders don't break the container's radius */
 }
+
+/* Target the direct children (the form groups) of the meta container */
+.course-editor-page__meta > .form-group {
+    padding: calc(var(--spacing-unit) * 2); /* Add internal padding */
+    border-right: 1px solid var(--color-border); /* Add separator line */
+}
+
+.course-editor-page__meta > .form-group:last-child {
+    border-right: none; /* Don't add a line after the last item */
+}
+
+/* Give the Title field more space */
+.course-editor-page__meta > .form-group:nth-child(1) {
+    flex: 2;
+}
+/* Give Subject and Grade equal, smaller space */
+.course-editor-page__meta > .form-group:nth-child(2),
+.course-editor-page__meta > .form-group:nth-child(3) {
+    flex: 1;
+}
+/* --- MODIFICATION END --- */
 
 .course-editor-page__questions-header {
     display: flex;
