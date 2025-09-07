@@ -110,7 +110,7 @@ const LearnerDashboardPage: React.FC = () => {
                 <div className="learner-dashboard__empty">
                     <p>
                         {allCourses.length > 0
-                            ? t('dashboard.noCoursesMatchFilters') // A new key for this case
+                            ? t('dashboard.noCoursesFound') // A new key for this case
                             : t('dashboard.noCoursesLearner')}
                     </p>
                 </div>

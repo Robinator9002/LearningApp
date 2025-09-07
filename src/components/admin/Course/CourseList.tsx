@@ -103,7 +103,7 @@ const CourseList: React.FC<CourseListProps> = ({ courses, onEditCourse, onDelete
                         ))}
                     </>
                 ) : (
-                    <div className="course-list__empty">{t('labels.noCoursesFound')}</div>
+                    <div className="course-list__empty">{t('labels.noCoursesAdmin')}</div>
                 )}
             </div>
 
