@@ -1,19 +1,13 @@
 // src/types/database.ts
 
 // --- APPLICATION SETTINGS ---
-/**
- * Defines the structure for global application settings.
- * This will be stored in a separate table to manage app-wide state
- * that is not tied to a specific user.
- */
 export interface IAppSettings {
-    id?: number; // Primary key for the settings object (usually just 1)
+    id?: number;
     defaultLanguage: 'en' | 'de';
     seedCoursesOnFirstRun: boolean;
-    // NEW: A flag to track if the starter courses have ever been imported.
-    starterCoursesImported: boolean;
-    // NEW: Added a global default theme setting.
+    // NEW: Added from previous step
     defaultTheme: 'light' | 'dark';
+    starterCoursesImported: boolean;
 }
 
 // --- THEME & SETTINGS ---
@@ -77,8 +71,6 @@ export interface IQuestionAlgEquation extends IQuestionBase {
 }
 
 // --- QUESTION TYPE: Free Response (Essay) ---
-// Note: This type is deprecated and no longer created, but the interface remains
-// to support any legacy courses that might still exist in a user's database.
 export interface IQuestionFreeResponse extends IQuestionBase {
     type: 'free-response';
 }
@@ -102,7 +94,8 @@ export type IQuestion =
 export interface ICourse {
     id?: number;
     title: string;
-    subject: 'Math' | 'Reading' | 'Writing' | 'English';
+    // MODIFICATION: Changed subject to be lowercase for i18n key consistency.
+    subject: 'math' | 'reading' | 'writing' | 'english';
     questions: IQuestion[];
     gradeRange: string;
 }
