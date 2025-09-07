@@ -18,9 +18,7 @@ import CourseCard from '../../components/learner/course/CourseCard.tsx';
 import CourseFilters, {
     type FilterValues,
 } from '../../components/learner/dashboard/CourseFilters.tsx';
-
-// --- STYLES ---
-import '../../styles/components/learner/course-filters.css';
+import type { ICourse } from '../../types/database.ts';
 
 const LearnerDashboardPage: React.FC = () => {
     const { t } = useTranslation();
@@ -61,7 +59,6 @@ const LearnerDashboardPage: React.FC = () => {
         [filteredCourses],
     );
 
-    // --- EVENT HANDLERS ---
     const handleSelectCourse = (courseId: number) => {
         navigate(`/course/${courseId}`);
     };
@@ -72,7 +69,6 @@ const LearnerDashboardPage: React.FC = () => {
 
     return (
         <div className="learner-dashboard">
-            <h2 className="learner-dashboard__title">{t('dashboard.learnerTitle')}</h2>
             <ProgressSummary currentUserId={currentUser.id!} />
 
             {allCourses.length > 0 && (
@@ -85,31 +81,38 @@ const LearnerDashboardPage: React.FC = () => {
             )}
 
             {Object.keys(groupedAndFilteredCourses).length > 0 ? (
-                Object.entries(groupedAndFilteredCourses).map(([subject, grades]) => (
-                    <div key={subject} className="course-group">
-                        <h3 className="course-group__title">{t(`subjects.${subject}`)}</h3>
-                        {Object.entries(grades).map(([gradeRange, courses]) => (
-                            <div key={gradeRange} className="course-subgroup">
-                                <h4 className="course-subgroup__title">
-                                    {t('labels.gradeRangeLabel', { range: gradeRange })}
-                                </h4>
-                                <div className="course-grid">
-                                    {courses.map((course) => (
-                                        <CourseCard
-                                            key={course.id}
-                                            course={course}
-                                            onSelect={() => handleSelectCourse(course.id!)}
-                                        />
-                                    ))}
+                <div className="learner-dashboard__content">
+                    {Object.entries(groupedAndFilteredCourses).map(([subject, grades]) => (
+                        <div key={subject} className="course-group">
+                            <h3 className="course-group__subject-title">
+                                {t(`subjects.${subject}`)}
+                            </h3>
+                            {Object.entries(grades).map(([gradeRange, courses]) => (
+                                <div key={gradeRange} className="course-group__grade-section">
+                                    <h4 className="course-group__grade-title">
+                                        {t('labels.gradeRangeLabel', { range: gradeRange })}
+                                    </h4>
+                                    <div className="learner-dashboard__grid">
+                                        {courses.map((course: ICourse) => (
+                                            <CourseCard
+                                                key={course.id}
+                                                course={course}
+                                                onSelect={() => handleSelectCourse(course.id!)}
+                                            />
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
-                    </div>
-                ))
+                            ))}
+                        </div>
+                    ))}
+                </div>
             ) : (
-                <div className="dashboard-welcome">
-                    <h3 className="dashboard-welcome__title">{t('dashboard.welcomeTitle')}</h3>
-                    <p>{t('dashboard.noCoursesLearner')}</p>
+                <div className="learner-dashboard__empty">
+                    <p>
+                        {allCourses.length > 0
+                            ? t('dashboard.noCoursesMatchFilters') // A new key for this case
+                            : t('dashboard.noCoursesLearner')}
+                    </p>
                 </div>
             )}
         </div>
