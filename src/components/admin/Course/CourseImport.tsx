@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Upload } from 'lucide-react';
 
 // --- UTILITIES ---
-import { importCourseFromJson } from '../../../lib/courseUtils.ts';
+import { importCourseFromJson } from '../../../utils/courseUtils.ts';
 
 // --- CONTEXTS ---
 import { ModalContext } from '../../../contexts/ModalContext.tsx';

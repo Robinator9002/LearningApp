@@ -8,7 +8,7 @@ import { AuthContext } from '../../../contexts/AuthContext.tsx';
 import { ModalContext } from '../../../contexts/ModalContext.tsx';
 
 // --- UTILITIES ---
-import { seedInitialCourses } from '../../../lib/courseUtils.ts';
+import { seedInitialCourses } from '../../../utils/courseUtils.ts';
 
 // --- COMPONENTS ---
 import Button from '../../common/Button.tsx';

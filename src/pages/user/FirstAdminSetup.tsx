@@ -8,7 +8,7 @@ import type i18n from 'i18next';
 // --- DATABASE & UTILS ---
 // FIX: Corrected all import paths to account for the new file location.
 import { db } from '../../lib/db.ts';
-import { seedInitialCourses } from '../../lib/courseUtils.ts';
+import { seedInitialCourses } from '../../utils/courseUtils.ts';
 
 // --- CONTEXTS ---
 import { AuthContext } from '../../contexts/AuthContext.tsx';

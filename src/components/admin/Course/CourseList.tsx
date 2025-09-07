@@ -6,7 +6,7 @@ import { Search, ArrowUpCircle } from 'lucide-react';
 import type { ICourse } from '../../../types/database';
 import Button from '../../common/Button';
 import Input from '../../common/Form/Input';
-import { exportCourseToJson } from '../../../lib/courseUtils';
+import { exportCourseToJson } from '../../../utils/courseUtils';
 
 interface CourseListProps {
     courses: ICourse[];

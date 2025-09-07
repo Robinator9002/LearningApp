@@ -10,7 +10,7 @@ import { db } from '../../lib/db.ts';
 import { AuthContext } from '../../contexts/AuthContext.tsx';
 
 // --- UTILS ---
-import { groupCourses } from '../../lib/courseUtils.ts';
+import { groupCourses } from '../../utils/courseUtils.ts';
 
 // --- COMPONENT IMPORTS ---
 import ProgressSummary from '../../components/learner/dashboard/ProgressSummary.tsx';

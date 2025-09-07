@@ -1,6 +1,6 @@
 // src/lib/courseUtils.ts
 
-import { db } from './db.ts';
+import { db } from '../lib/db.ts';
 import type { ICourse } from '../types/database.ts';
 
 // --- TYPE DEFINITIONS ---
