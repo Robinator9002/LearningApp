@@ -1,4 +1,4 @@
-// src/components/admin/CourseImport.tsx
+// src/components/admin/Course/CourseImport.tsx
 
 import React, { useRef, useContext } from 'react';
 import { useTranslation } from 'react-i18next';

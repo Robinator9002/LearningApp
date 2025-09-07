@@ -1,4 +1,4 @@
-// src/components/admin/CourseList.tsx
+// src/components/admin/Course/CourseList.tsx
 
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
