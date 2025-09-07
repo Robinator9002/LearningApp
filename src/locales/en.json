@@ -13,7 +13,7 @@
             "confirm": "Confirm",
             "create": "Create",
             "createAccount": "Create Account",
-            "createCourse": "Create Course",
+            "createCourse": "Create New Course",
             "createNewAccount": "Create New Account",
             "delete": "Delete",
             "deleteMyAccount": "Delete My Account",
@@ -30,13 +30,16 @@
             "saveCourse": "Save Course",
             "savePassword": "Save Password",
             "setPassword": "Set Password",
-            "startCourse": "Start Course",
-            "scrollToTop": "Scroll to Top"
+            "startCourse": "Start Course"
         },
         "dashboard": {
             "adminTitle": "Admin Dashboard",
             "averageScore": "Average Score",
             "coursesCompleted": "Courses Completed",
+            "filters": {
+                "title": "Filters",
+                "allSubjects": "All Subjects"
+            },
             "importHint": "Hint: You can import the starter pack at ",
             "learnerTitle": "Learner Dashboard",
             "noCoursesAdmin": "No courses found. Create one or import a file to get started.",
@@ -58,7 +61,6 @@
         "labels": {
             "acceptedAnswers": "Accepted Answers (one or more)",
             "accountType": "Account Type",
-            "alreadyImported": "Already Imported",
             "answerOptions": "Answer Options",
             "confirmNewPassword": "Confirm New Password",
             "correct": "Correct",
@@ -77,11 +79,10 @@
             "name": "Name",
             "newName": "New Name",
             "newPassword": "New Password",
-            "noCoursesFound": "No courses found.",
+            "noCoursesFound": "No courses have been created yet.",
             "password": "Password",
             "passwordOptional": "Password (Optional)",
             "questionText": "Question Text",
-            "searchCourses": "Search courses...",
             "subject": "Subject",
             "title": "Title",
             "variables": "Variables (comma-separated)"
@@ -95,25 +96,6 @@
             "exactMatch": "Exact Match"
         },
         "placeholders": {
-            "adminName": "e.g., Jane Doe",
-            "algEquation": {
-                "equation": "e.g., 2*x + 5 = 15",
-                "questionText": "e.g., Solve for the variables in the equation below.",
-                "variables": "e.g., x, y"
-            },
-            "mcq": {
-                "option": "Option {{index}}",
-                "questionText": "e.g., What is 2 + 2?"
-            },
-            "sentenceCorrection": {
-                "correct": "e.g., He doesn't like vegetables.",
-                "incorrect": "e.g., He don't like vegetables."
-            },
-            "sti": {
-                "answer": "Type your answer here...",
-                "answerOption": "Answer {{index}}",
-                "questionText": "e.g., The capital of France is ____."
-            },
             "gradeRange": "e.g., 2-4, 9, Advanced"
         },
         "player": {
@@ -157,9 +139,10 @@
             "global": {
                 "title": "Global App Settings (Admins Only)",
                 "defaultLanguageLabel": "Default Language",
-                "defaultThemeLabel": "Default Theme",
+                "defaultTheme": "Default Theme",
                 "seedCoursesLabel": "Starter Courses",
-                "seedCoursesDescription": "Automatically import starter courses for new users."
+                "seedCoursesDescription": "Import a set of sample courses for new users.",
+                "alreadyImported": "Already Imported"
             },
             "manageAccounts": {
                 "title": "Manage Accounts",
@@ -186,9 +169,9 @@
             "defaultLanguageLabel": "Default App Language",
             "defaultLanguageDescription": "The language new users will see by default.",
             "seedCoursesLabel": "Import Starter Courses",
-            "seedCoursesDescription": "Automatically add a set of sample courses in the default language.",
+            "seedCoursesDescription": "Automatically add a set of sample courses.",
             "successTitle": "Setup Complete!",
-            "successMessage": "You will be logged in automatically."
+            "successMessage": "You will now be logged in automatically."
         },
         "summary": {
             "message": "Great job making it to the end.",
@@ -198,31 +181,6 @@
         "userSelection": {
             "title": "Select Your Profile",
             "createUserModalTitle": "Create New Account"
-        },
-        "addQuestionModal": {
-            "title": "Add a New Question",
-            "description": "Select a question type from the categories below.",
-            "categories": {
-                "general": "General Purpose",
-                "readingWriting": "Reading & Writing",
-                "math": "Math"
-            },
-            "mcq": {
-                "label": "Multiple Choice",
-                "description": "Present several options, one is correct."
-            },
-            "sti": {
-                "label": "Smart Text Input",
-                "description": "User types an answer (case-insensitive or exact)."
-            },
-            "sentenceCorrection": {
-                "label": "Sentence Correction",
-                "description": "User re-types an incorrect sentence correctly."
-            },
-            "algEquation": {
-                "label": "Algebraic Equation",
-                "description": "User solves for one or more variables in an equation."
-            }
         },
         "confirmations": {
             "deleteCourse": {
@@ -240,31 +198,9 @@
         },
         "errors": {
             "title": "Error",
-            "setupFailed": "The initial setup could not be completed. Please refresh and try again.",
-            "createUserFailed": "Could not create user. The name might already be taken.",
-            "deleteCourseFailed": "An error occurred while deleting the course.",
-            "deleteUserFailed": "Could not delete user.",
-            "deleteAccountFailed": "Could not delete your account.",
+            "setupFailed": "The initial setup failed. Please refresh the page and try again.",
             "importFailed": "Course import failed. Please ensure the file is a valid course JSON file.",
-            "loginFailed": {
-                "title": "Login Failed",
-                "message": "The password you entered was incorrect. Please try again."
-            },
-            "nameUpdateFailed": "Could not update name. The name might already be taken.",
-            "passwordUpdateFailed": "Could not update password.",
-            "userExists": "A user with this name already exists.",
-            "userUpdateFailed": "Could not update user.",
-            "validation": {
-                "title": "Validation Error",
-                "nameMissing": "Please enter a name.",
-                "passwordsDontMatch": "The passwords do not match."
-            }
-        },
-        "success": {
-            "title": "Success",
-            "importSuccess": "Successfully imported course '{{title}}'!",
-            "nameUpdated": "Your name has been updated.",
-            "passwordUpdated": "Your password has been updated."
+            "loginFailed": "The password you entered was incorrect. Please try again."
         },
         "subjects": {
             "math": "Math",
