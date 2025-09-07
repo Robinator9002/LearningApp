@@ -18,6 +18,7 @@ import UserSelectionPage from './pages/UserSelectionPage';
 // Learner Pages
 import LearnerDashboardPage from './pages/learner/LearnerDashboardPage';
 import CoursePlayerPage from './pages/learner/CoursePlayerPage';
+import ProgressTrackerPage from './pages/learner/ProgressTrackerPage'; // NEW: Import the new page
 // Admin Pages
 import AdminDashboardPage from './pages/admin/AdminDashboardPage';
 import CourseEditorPage from './pages/admin/CourseEditorPage';
@@ -79,6 +80,8 @@ const AppCore: React.FC = () => {
                 <Route element={<ProtectedRoute allowedType="learner" />}>
                     <Route path="dashboard" element={<LearnerDashboardPage />} />
                     <Route path="player/:courseId" element={<CoursePlayerPage />} />
+                    {/* NEW: Add the route for the progress tracker */}
+                    <Route path="progress" element={<ProgressTrackerPage />} />
                 </Route>
 
                 {/* Admin-Only Routes */}

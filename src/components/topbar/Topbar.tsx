@@ -1,8 +1,8 @@
 // src/components/topbar/Topbar.tsx
 
 import React, { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { LogOut, Settings } from 'lucide-react'; // Import the Settings icon
+import { NavLink, useNavigate } from 'react-router-dom';
+import { LogOut, Settings, TrendingUp } from 'lucide-react'; // MODIFICATION: Import new icon
 import { AuthContext } from '../../contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
 
@@ -16,28 +16,46 @@ const Topbar: React.FC = () => {
     const navigate = useNavigate();
     const auth = useContext(AuthContext);
 
-    // This component should not render at all if there is no authenticated user.
-    // The AppLayout component already handles this logic.
     if (!auth || !auth.currentUser) {
         return null;
     }
 
     const { currentUser, logout } = auth;
+    const isLearner = currentUser.type === 'learner';
 
     return (
         <header className="topbar">
-            <div className="topbar__brand">{t('appTitle')}</div>
-            <div className="topbar__user-info">
-                <span className="topbar__user-name">Welcome, {currentUser.name}</span>
+            {/* MODIFICATION: The brand is now a link to the appropriate dashboard */}
+            <NavLink
+                to={isLearner ? '/dashboard' : '/admin'}
+                className="topbar__brand"
+                end // Use 'end' to only match the exact path
+            >
+                {t('appTitle')}
+            </NavLink>
 
-                {/* Settings Icon Button */}
-                {/* This button navigates the user to the unified settings page. */}
-                <button className="icon-btn" onClick={() => navigate('/settings')} title="Settings">
+            {/* MODIFICATION: Added a dedicated navigation section */}
+            <nav className="topbar__nav">
+                {isLearner && (
+                    <NavLink to="/progress" className="topbar__nav-link">
+                        <TrendingUp size={18} />
+                        <span>{t('topbar.myProgress')}</span>
+                    </NavLink>
+                )}
+            </nav>
+
+            <div className="topbar__user-info">
+                <span className="topbar__user-name">{currentUser.name}</span>
+
+                <button
+                    className="icon-btn"
+                    onClick={() => navigate('/settings')}
+                    title={t('topbar.settings')}
+                >
                     <Settings size={20} />
                 </button>
 
-                {/* Existing Logout Button */}
-                <button className="icon-btn" onClick={logout} title="Logout">
+                <button className="icon-btn" onClick={logout} title={t('topbar.logout')}>
                     <LogOut size={20} />
                 </button>
             </div>

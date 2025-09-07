@@ -13,7 +13,7 @@ import { AuthContext } from '../../contexts/AuthContext.tsx';
 import { groupCourses } from '../../utils/courseUtils.ts';
 
 // --- COMPONENT IMPORTS ---
-import ProgressSummary from '../../components/learner/dashboard/ProgressSummary.tsx';
+// REMOVED: The old ProgressSummary is no longer imported.
 import CourseCard from '../../components/learner/course/CourseCard.tsx';
 import CourseFilters, {
     type FilterValues,
@@ -60,8 +60,6 @@ const LearnerDashboardPage: React.FC = () => {
     );
 
     const handleSelectCourse = (courseId: number) => {
-        // FIX: The route for the course player is '/player/:courseId', not '/course/:courseId'.
-        // This change directs the navigation to the correct, existing route.
         navigate(`/player/${courseId}`);
     };
 
@@ -71,7 +69,7 @@ const LearnerDashboardPage: React.FC = () => {
 
     return (
         <div className="learner-dashboard">
-            <ProgressSummary currentUserId={currentUser.id!} />
+            {/* REMOVED: The ProgressSummary component has been taken out. */}
 
             {allCourses.length > 0 && (
                 <CourseFilters
@@ -112,7 +110,7 @@ const LearnerDashboardPage: React.FC = () => {
                 <div className="learner-dashboard__empty">
                     <p>
                         {allCourses.length > 0
-                            ? t('dashboard.noCoursesFound') // A new key for this case
+                            ? t('dashboard.noCoursesFound')
                             : t('dashboard.noCoursesLearner')}
                     </p>
                 </div>
