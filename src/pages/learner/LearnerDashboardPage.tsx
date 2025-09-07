@@ -1,74 +1,103 @@
 // src/pages/learner/LearnerDashboardPage.tsx
 
-import React, { useContext, useMemo } from 'react';
-import { useLiveQuery } from 'dexie-react-hooks';
-import { useNavigate } from 'react-router-dom';
+import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-
-// FIX: Added explicit file extensions to resolve potential import path errors.
+import { useLiveQuery } from 'dexie-react-hooks';
+// FIX: Added file extensions to all local imports.
 import { db } from '../../lib/db.ts';
-import { AuthContext } from '../../contexts/AuthContext.tsx';
 import { groupCourses } from '../../lib/courseUtils.ts';
+
+// --- COMPONENT IMPORTS ---
 import ProgressSummary from '../../components/learner/dashboard/ProgressSummary.tsx';
 import CourseCard from '../../components/learner/course/CourseCard.tsx';
-import type { ICourse } from '../../types/database.ts';
+import CourseFilters, {
+    type FilterValues,
+} from '../../components/learner/dashboard/CourseFilters.tsx';
+
+// --- STYLES ---
+import '../../styles/components/learner/course-filters.css';
 
 const LearnerDashboardPage: React.FC = () => {
-    const navigate = useNavigate();
     const { t } = useTranslation();
-    const auth = useContext(AuthContext);
-    const courses = useLiveQuery(() => db.courses.toArray(), []);
+    const allCourses = useLiveQuery(() => db.courses.toArray(), []);
 
-    // MODIFICATION: Use the `groupCourses` utility, memoizing the result for performance.
-    const groupedCourses = useMemo(() => {
-        if (!courses) return {};
-        return groupCourses(courses);
-    }, [courses]);
+    // State for the filter values
+    const [filters, setFilters] = useState<FilterValues>({
+        subject: '',
+        gradeRange: '',
+    });
 
-    if (!auth || !auth.currentUser) {
-        return <div>{t('labels.loading')}</div>;
+    // Memoize the calculation of available filter options to prevent re-renders.
+    const { availableSubjects, availableGradeRanges } = useMemo(() => {
+        if (!allCourses) return { availableSubjects: [], availableGradeRanges: [] };
+        const subjects = new Set(allCourses.map((c) => c.subject));
+        const gradeRanges = new Set(allCourses.map((c) => c.gradeRange));
+        return {
+            availableSubjects: Array.from(subjects),
+            availableGradeRanges: Array.from(gradeRanges),
+        };
+    }, [allCourses]);
+
+    // Filter the courses based on the current filter state.
+    const filteredCourses = useMemo(() => {
+        if (!allCourses) return [];
+        return allCourses.filter((course) => {
+            const subjectMatch =
+                !filters.subject || course.subject.toLowerCase() === filters.subject.toLowerCase();
+            const gradeMatch =
+                !filters.gradeRange ||
+                course.gradeRange.toLowerCase().includes(filters.gradeRange.toLowerCase());
+            return subjectMatch && gradeMatch;
+        });
+    }, [allCourses, filters]);
+
+    // Group the filtered courses for display.
+    const groupedAndFilteredCourses = useMemo(
+        () => (filteredCourses ? groupCourses(filteredCourses) : {}),
+        [filteredCourses],
+    );
+
+    if (!allCourses) {
+        return <div>{t('labels.loadingCourses')}</div>;
     }
-
-    const { currentUser } = auth;
-
-    const handleSelectCourse = (courseId: number) => {
-        navigate(`/player/${courseId}`);
-    };
 
     return (
         <div className="learner-dashboard">
-            <ProgressSummary currentUserId={currentUser.id!} />
+            <h2 className="learner-dashboard__title">{t('dashboard.learnerTitle')}</h2>
+            <ProgressSummary />
 
-            {courses && courses.length > 0 ? (
-                <div className="learner-dashboard__content">
-                    {/* MODIFICATION: Render courses in nested loops by category. */}
-                    {Object.keys(groupedCourses).map((subject) => (
-                        <div key={subject} className="course-group">
-                            <h3 className="course-group__subject-title">{subject}</h3>
-                            {Object.keys(groupedCourses[subject]).map((gradeRange) => (
-                                <div key={gradeRange} className="course-group__grade-section">
-                                    <h4 className="course-group__grade-title">
-                                        {t('labels.gradeRangeLabel', { range: gradeRange })}
-                                    </h4>
-                                    <div className="learner-dashboard__grid">
-                                        {groupedCourses[subject][gradeRange].map(
-                                            (course: ICourse) => (
-                                                <CourseCard
-                                                    key={course.id}
-                                                    course={course}
-                                                    onSelect={handleSelectCourse}
-                                                />
-                                            ),
-                                        )}
-                                    </div>
+            {/* Render filters only if there are courses to filter */}
+            {allCourses.length > 0 && (
+                <CourseFilters
+                    filters={filters}
+                    onFilterChange={setFilters}
+                    availableSubjects={availableSubjects}
+                    availableGradeRanges={availableGradeRanges}
+                />
+            )}
+
+            {Object.keys(groupedAndFilteredCourses).length > 0 ? (
+                Object.entries(groupedAndFilteredCourses).map(([subject, grades]) => (
+                    <div key={subject} className="course-group">
+                        <h3 className="course-group__title">{t(`subjects.${subject}`)}</h3>
+                        {Object.entries(grades).map(([gradeRange, courses]) => (
+                            <div key={gradeRange} className="course-subgroup">
+                                <h4 className="course-subgroup__title">
+                                    {t('labels.gradeRangeLabel', { range: gradeRange })}
+                                </h4>
+                                <div className="course-grid">
+                                    {courses.map((course) => (
+                                        <CourseCard key={course.id} course={course} />
+                                    ))}
                                 </div>
-                            ))}
-                        </div>
-                    ))}
-                </div>
+                            </div>
+                        ))}
+                    </div>
+                ))
             ) : (
-                <div className="learner-dashboard__empty">
-                    <p>{courses ? t('dashboard.noCoursesLearner') : t('labels.loading')}</p>
+                <div className="dashboard-welcome">
+                    <h3 className="dashboard-welcome__title">{t('dashboard.welcomeTitle')}</h3>
+                    <p>{t('dashboard.noCoursesLearner')}</p>
                 </div>
             )}
         </div>
