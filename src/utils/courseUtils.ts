@@ -1,4 +1,4 @@
-// src/lib/courseUtils.ts
+// src/utils/courseUtils.ts
 
 import { db } from '../lib/db.ts';
 import type { ICourse } from '../types/database.ts';
