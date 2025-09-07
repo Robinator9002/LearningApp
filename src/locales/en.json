@@ -30,7 +30,8 @@
             "saveCourse": "Save Course",
             "savePassword": "Save Password",
             "setPassword": "Set Password",
-            "startCourse": "Start Course"
+            "startCourse": "Start Course",
+            "scrollToTop": "Scroll to top"
         },
         "dashboard": {
             "adminTitle": "Admin Dashboard",
@@ -38,12 +39,14 @@
             "coursesCompleted": "Courses Completed",
             "filters": {
                 "title": "Filters",
-                "allSubjects": "All Subjects"
+                "allSubjects": "All Subjects",
+                "allGrades": "All Grades"
             },
             "importHint": "Hint: You can import the starter pack at ",
             "learnerTitle": "Learner Dashboard",
             "noCoursesAdmin": "No courses found. Create one or import a file to get started.",
             "noCoursesLearner": "No courses available yet. Ask an admin to create one!",
+            "noCoursesMatchFilters": "No courses match the current filters.",
             "progressTitle": "Your Progress",
             "welcomeMessage": "Complete your first course to see your progress here.",
             "welcomeTitle": "Welcome!"
@@ -61,13 +64,17 @@
         "labels": {
             "acceptedAnswers": "Accepted Answers (one or more)",
             "accountType": "Account Type",
+            "advanced": "Advanced",
             "answerOptions": "Answer Options",
             "confirmNewPassword": "Confirm New Password",
             "correct": "Correct",
             "correctedSentence": "Corrected Sentence",
             "courseTitle": "Course Title",
+            "direct": "Direct",
             "equation": "Equation",
             "evaluationMode": "Evaluation Mode",
+            "grade": "Grade {{grade}}",
+            "gradeAssignmentMode": "Assignment Mode",
             "gradeRange": "Grade Range",
             "gradeRangeLabel": "Grade {{range}}",
             "incorrectSentence": "Incorrect Sentence",
@@ -83,6 +90,10 @@
             "password": "Password",
             "passwordOptional": "Password (Optional)",
             "questionText": "Question Text",
+            "range": "Range",
+            "rangeFrom": "From Grade",
+            "rangeTo": "To Grade",
+            "searchCourses": "Search by title or subject...",
             "subject": "Subject",
             "title": "Title",
             "variables": "Variables (comma-separated)"
@@ -139,7 +150,7 @@
             "global": {
                 "title": "Global App Settings (Admins Only)",
                 "defaultLanguageLabel": "Default Language",
-                "defaultTheme": "Default Theme",
+                "defaultThemeLabel": "Default Theme",
                 "seedCoursesLabel": "Starter Courses",
                 "seedCoursesDescription": "Import a set of sample courses for new users.",
                 "alreadyImported": "Already Imported"
@@ -200,7 +211,11 @@
             "title": "Error",
             "setupFailed": "The initial setup failed. Please refresh the page and try again.",
             "importFailed": "Course import failed. Please ensure the file is a valid course JSON file.",
-            "loginFailed": "The password you entered was incorrect. Please try again."
+            "loginFailed": "The password you entered was incorrect. Please try again.",
+            "gradeRange": {
+                "outOfBounds": "Grades must be between 1 and 13.",
+                "invalidOrder": "'From' grade must be lower than 'To' grade."
+            }
         },
         "subjects": {
             "math": "Math",
