@@ -2,7 +2,7 @@
 
 import React, { useEffect, useContext, useReducer, useState, useLayoutEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import Confetti from 'react-confetti'; // MODIFICATION: Re-imported the confetti library
+import Confetti from 'react-confetti';
 
 import { db } from '../../lib/db';
 import { ModalContext } from '../../contexts/ModalContext';
@@ -12,7 +12,7 @@ import CoursePlayerUI from '../../components/learner/course/CoursePlayerUI';
 import CourseSummary from '../../components/learner/course/CourseSummary';
 import { checkAnswer, isAnswerValid } from './CoursePlayerUtils';
 
-// --- A simple, self-contained window size hook to avoid external dependencies ---
+// A simple, self-contained window size hook to avoid external dependencies
 const useWindowSize = () => {
     const [size, setSize] = useState([0, 0]);
     useLayoutEffect(() => {
@@ -35,7 +35,7 @@ interface PlayerState {
     isAnswered: boolean;
     isCorrect: boolean;
     showSummary: boolean;
-    showConfetti: boolean; // MODIFICATION: Added state for confetti
+    showConfetti: boolean;
     // Answer-specific state
     selectedOptionId: string | null;
     stiAnswer: string;
@@ -50,7 +50,7 @@ const initialState: PlayerState = {
     isAnswered: false,
     isCorrect: false,
     showSummary: false,
-    showConfetti: false, // MODIFICATION: Initialized confetti state
+    showConfetti: false,
     selectedOptionId: null,
     stiAnswer: '',
     algAnswers: {},
@@ -99,22 +99,26 @@ function playerReducer(state: PlayerState, action: PlayerAction): PlayerState {
                 isAnswered: true,
                 isCorrect,
                 score: isCorrect ? state.score + 1 : state.score,
-                // MODIFICATION: Trigger confetti if the answer is correct
-                showConfetti: isCorrect,
+                // MODIFICATION: Confetti is no longer triggered here.
+                // We want to wait until the entire course is finished.
             };
         }
         case 'NEXT_QUESTION': {
             if (!state.course) return state;
             const isLastQuestion = state.currentQuestionIndex >= state.course.questions.length - 1;
+
+            // MODIFICATION: If it's the last question, show the summary AND trigger the confetti.
             if (isLastQuestion) {
-                return { ...state, showSummary: true, showConfetti: false };
+                return { ...state, showSummary: true, showConfetti: true };
             }
+
+            // Otherwise, proceed to the next question as normal.
             return {
                 ...state,
                 currentQuestionIndex: state.currentQuestionIndex + 1,
                 isAnswered: false,
                 isCorrect: false,
-                showConfetti: false, // MODIFICATION: Turn off confetti for the next question
+                showConfetti: false,
                 selectedOptionId: null,
                 stiAnswer: '',
                 algAnswers: {},
@@ -132,7 +136,7 @@ const CoursePlayerPage: React.FC = () => {
     const { courseId } = useParams<{ courseId: string }>();
     const navigate = useNavigate();
     const modal = useContext(ModalContext);
-    const [width, height] = useWindowSize(); // MODIFICATION: Re-added window size hook
+    const [width, height] = useWindowSize();
 
     const [state, dispatch] = useReducer(playerReducer, initialState);
     const {
@@ -142,7 +146,7 @@ const CoursePlayerPage: React.FC = () => {
         isAnswered,
         isCorrect,
         showSummary,
-        showConfetti, // MODIFICATION: Destructured confetti state
+        showConfetti,
         selectedOptionId,
         stiAnswer,
         algAnswers,
@@ -204,6 +208,9 @@ const CoursePlayerPage: React.FC = () => {
     };
 
     if (!course) return <div>Loading...</div>;
+
+    // The logic to render the summary or the player UI remains,
+    // but now the confetti will appear over the summary screen.
     if (showSummary) {
         return <CourseSummary score={score} totalQuestions={course.questions.length} />;
     }
@@ -212,7 +219,6 @@ const CoursePlayerPage: React.FC = () => {
 
     return (
         <>
-            {/* MODIFICATION: Re-added the confetti component with a one-shot burst effect */}
             {showConfetti && <Confetti width={width} height={height} recycle={false} />}
             <CoursePlayerUI
                 course={course}
