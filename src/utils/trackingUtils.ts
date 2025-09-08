@@ -1,13 +1,7 @@
 // src/utils/trackingUtils.ts
 
 import { db } from '../lib/db';
-import type {
-    ICourse,
-    IUserTracking,
-    ITrackedCourse,
-    IDailyActivity,
-    ITrackedSubject,
-} from '../types/database';
+import type { ICourse, IUserTracking, ITrackedCourse, Grade } from '../types/database';
 
 /**
  * Calculates a grade based on a percentage score.
@@ -15,7 +9,8 @@ import type {
  * @param language - The user's language to determine the grading scale.
  * @returns A grade as a string (e.g., "A", "B" or "1", "2").
  */
-export const calculateGrade = (percentage: number, language: 'en' | 'de'): string => {
+// FIX: The return type is now correctly set to 'Grade', not 'string'.
+export const calculateGrade = (percentage: number, language: 'en' | 'de'): Grade => {
     if (language === 'de') {
         if (percentage >= 92) return '1';
         if (percentage >= 81) return '2';
@@ -32,8 +27,6 @@ export const calculateGrade = (percentage: number, language: 'en' | 'de'): strin
         return 'F';
     }
 };
-
-// --- NEWLY IMPLEMENTED FUNCTION ---
 
 interface SaveTrackingDataArgs {
     userId: number;
