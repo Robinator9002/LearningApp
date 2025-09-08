@@ -1,29 +1,121 @@
 // src/utils/trackingUtils.ts
 
-import type { Grade } from '../types/database';
+import { db } from '../lib/db';
+import type {
+    ICourse,
+    IUserTracking,
+    ITrackedCourse,
+    IDailyActivity,
+    ITrackedSubject,
+} from '../types/database';
 
 /**
- * Calculates a grade based on a percentage score and the current language.
- * Follows standard US and German grading scales.
- * @param percentage - The user's score as a percentage (0-100).
- * @param language - The current language ('en' or 'de').
- * @returns The calculated grade as a Grade type.
+ * Calculates a grade based on a percentage score.
+ * @param percentage - The user's percentage score (0-100).
+ * @param language - The user's language to determine the grading scale.
+ * @returns A grade as a string (e.g., "A", "B" or "1", "2").
  */
-export const calculateGrade = (percentage: number, language: 'en' | 'de'): Grade => {
+export const calculateGrade = (percentage: number, language: 'en' | 'de'): string => {
     if (language === 'de') {
-        // German grading system (1 is best, 6 is worst)
         if (percentage >= 92) return '1';
         if (percentage >= 81) return '2';
         if (percentage >= 67) return '3';
         if (percentage >= 50) return '4';
-        if (percentage >= 23) return '5';
+        if (percentage >= 30) return '5';
         return '6';
     } else {
-        // Default to US grading system (A is best, F is worst)
-        if (percentage >= 90) return 'A';
-        if (percentage >= 80) return 'B';
-        if (percentage >= 70) return 'C';
-        if (percentage >= 60) return 'D';
+        // Default to English 'en'
+        if (percentage >= 93) return 'A';
+        if (percentage >= 85) return 'B';
+        if (percentage >= 75) return 'C';
+        if (percentage >= 65) return 'D';
         return 'F';
+    }
+};
+
+// --- NEWLY IMPLEMENTED FUNCTION ---
+
+interface SaveTrackingDataArgs {
+    userId: number;
+    course: ICourse;
+    score: number;
+    timeSpent: number; // in seconds
+    language: 'en' | 'de';
+}
+
+/**
+ * The core logic for saving a user's progress after a course.
+ * It finds the user's tracking document, or creates one, and updates it with the new data.
+ */
+export const saveTrackingData = async ({
+    userId,
+    course,
+    score,
+    timeSpent,
+    language,
+}: SaveTrackingDataArgs): Promise<void> => {
+    try {
+        const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
+
+        const percentage = (score / course.questions.length) * 100;
+        const grade = calculateGrade(percentage, language);
+
+        const newCompletedCourse: ITrackedCourse = {
+            courseId: course.id!,
+            title: course.title,
+            subject: course.subject,
+            completedAt: Date.now(),
+            timeSpent,
+            score,
+            totalQuestions: course.questions.length,
+            grade,
+        };
+
+        const existingTracking = await db.userTracking.where({ userId }).first();
+
+        if (existingTracking) {
+            // --- UPDATE EXISTING TRACKING DOCUMENT ---
+            const dailyActivityUpdate = [...existingTracking.dailyActivity];
+            const todayActivity = dailyActivityUpdate.find((d) => d.date === today);
+
+            if (todayActivity) {
+                todayActivity.timeSpent += timeSpent;
+            } else {
+                dailyActivityUpdate.push({ date: today, timeSpent });
+            }
+
+            const subjectStatsUpdate = { ...existingTracking.statsBySubject };
+            const subjectData = subjectStatsUpdate[course.subject] || {
+                coursesCompleted: 0,
+                timeSpent: 0,
+            };
+            subjectData.coursesCompleted += 1;
+            subjectData.timeSpent += timeSpent;
+            subjectStatsUpdate[course.subject] = subjectData;
+
+            await db.userTracking.update(existingTracking.id!, {
+                totalTimeSpent: existingTracking.totalTimeSpent + timeSpent,
+                completedCourses: [...existingTracking.completedCourses, newCompletedCourse],
+                dailyActivity: dailyActivityUpdate,
+                statsBySubject: subjectStatsUpdate,
+            });
+        } else {
+            // --- CREATE NEW TRACKING DOCUMENT ---
+            const newTrackingData: Omit<IUserTracking, 'id'> = {
+                userId,
+                totalTimeSpent: timeSpent,
+                completedCourses: [newCompletedCourse],
+                dailyActivity: [{ date: today, timeSpent }],
+                statsBySubject: {
+                    [course.subject]: {
+                        coursesCompleted: 1,
+                        timeSpent,
+                    },
+                },
+            };
+            await db.userTracking.add(newTrackingData as IUserTracking);
+        }
+    } catch (error) {
+        console.error('Failed to save tracking data:', error);
     }
 };
