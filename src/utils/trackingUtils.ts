@@ -1,7 +1,7 @@
 // src/utils/trackingUtils.ts
 
 import { db } from '../lib/db';
-import type { ICourse, Grade, IUserTracking } from '../types/database';
+import type { ICourse, Grade, IUserTracking, ITrackedCourse } from '../types/database';
 
 /**
  * Calculates a grade based on a percentage score.
@@ -50,9 +50,11 @@ export const saveTrackingData = async (
 
         const existingData = await db.userTracking.get(userId);
 
-        const newCourseRecord = {
+        // FIX: Ensure the new record perfectly matches the ITrackedCourse interface
+        const newCourseRecord: ITrackedCourse = {
             courseId: course.id!,
-            courseTitle: course.title,
+            title: course.title,
+            subject: course.subject,
             score,
             totalQuestions: course.questions.length,
             timeSpent,
@@ -85,7 +87,7 @@ export const saveTrackingData = async (
                 },
             };
 
-            // NEW: Recalculate average score
+            // Recalculate average score
             const totalScore = updatedCompletedCourses.reduce((sum, c) => sum + c.score, 0);
             const totalQs = updatedCompletedCourses.reduce((sum, c) => sum + c.totalQuestions, 0);
             const newAverageScore = totalQs > 0 ? (totalScore / totalQs) * 100 : 0;
@@ -96,7 +98,7 @@ export const saveTrackingData = async (
                 completedCourses: updatedCompletedCourses,
                 dailyActivity: updatedDailyActivity,
                 statsBySubject: updatedSubjectStats,
-                averageScore: newAverageScore, // Save the new average
+                averageScore: newAverageScore,
             });
         } else {
             // --- CREATE NEW RECORD ---
@@ -108,7 +110,7 @@ export const saveTrackingData = async (
                 statsBySubject: {
                     [course.subject]: { coursesCompleted: 1, totalTimeSpent: timeSpent },
                 },
-                averageScore: percentage, // First course's percentage is the average
+                averageScore: percentage,
             };
             await db.userTracking.add(newTrackingData);
         }
