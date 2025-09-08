@@ -29,7 +29,6 @@ export interface IUser {
 }
 
 // --- PROGRESS ---
-// This is the old, simple progress log. We're keeping it for now.
 export interface IProgressLog {
     id?: number;
     userId: number;
@@ -39,13 +38,13 @@ export interface IProgressLog {
     timestamp: number;
 }
 
-// --- QUESTION & COURSE INTERFACES (UNCHANGED) ---
-
+// --- BASE QUESTION INTERFACES ---
 export interface IQuestionBase {
     id: string;
     questionText: string;
 }
 
+// --- QUESTION TYPE: Multiple Choice ---
 export interface IMCQOption {
     id: string;
     text: string;
@@ -56,78 +55,87 @@ export interface IQuestionMCQ extends IQuestionBase {
     options: IMCQOption[];
 }
 
+// --- QUESTION TYPE: Smart Text Input (Fill-in-the-blank) ---
 export interface IQuestionSTI extends IQuestionBase {
     type: 'sti';
     correctAnswers: string[];
     evaluationMode: 'case-insensitive' | 'exact-match';
 }
 
+// --- QUESTION TYPE: Algebraic Equation ---
 export interface IQuestionAlgEquation extends IQuestionBase {
     type: 'alg-equation';
     equation: string;
     variables: string[];
 }
 
+// --- QUESTION TYPE: Free Response (Essay) ---
+export interface IQuestionFreeResponse extends IQuestionBase {
+    type: 'free-response';
+}
+
+// --- QUESTION TYPE: Sentence Correction ---
 export interface IQuestionSentenceCorrection extends IQuestionBase {
     type: 'sentence-correction';
     sentenceWithMistake: string;
     correctedSentence: string;
 }
 
+// A union type that can represent any type of question in the system.
 export type IQuestion =
     | IQuestionMCQ
     | IQuestionSTI
     | IQuestionAlgEquation
+    | IQuestionFreeResponse
     | IQuestionSentenceCorrection;
 
-// Defines the subjects available in the app.
-export type Subject = 'math' | 'reading' | 'writing' | 'english';
-
+// --- MAIN COURSE INTERFACE ---
 export interface ICourse {
     id?: number;
     title: string;
-    subject: Subject;
+    subject: 'math' | 'reading' | 'writing' | 'english';
     questions: IQuestion[];
     gradeRange: string;
 }
 
-// --- NEW LEARNER TRACKING SYSTEM ---
+// --- LEARNER TRACKING SYSTEM ---
 
-// Defines the grade scales.
+// Defines the grade a learner can receive.
 export type Grade = 'A' | 'B' | 'C' | 'D' | 'F' | '1' | '2' | '3' | '4' | '5' | '6';
 
-// Represents a single course completion record.
+// Represents a single completed course in the user's history.
 export interface ITrackedCourse {
     courseId: number;
-    title: string;
-    subject: Subject;
-    completedAt: number; // timestamp
-    timeSpent: number; // in seconds
+    title: string; // FIX: Renamed from courseTitle for consistency
+    subject: ICourse['subject']; // FIX: Added subject for filtering/stats
     score: number;
     totalQuestions: number;
+    timeSpent: number; // in seconds
+    completedAt: number; // timestamp
     grade: Grade;
 }
 
-// Represents daily activity.
+// Represents a log of activity for a single day.
 export interface IDailyActivity {
     date: string; // YYYY-MM-DD
     timeSpent: number; // in seconds
 }
 
-// Represents aggregated stats for a single subject.
+// Represents aggregated stats for a single subject (e.g., "Math").
 export interface ITrackedSubject {
     coursesCompleted: number;
-    timeSpent: number; // in seconds
+    totalTimeSpent: number; // FIX: Re-added this essential property
 }
 
-// The main document for storing all tracking data for a single user.
+// A flexible record for storing stats for each subject.
+export type IStatsBySubject = Partial<Record<ICourse['subject'], ITrackedSubject>>;
+
+// The main, comprehensive tracking document for a single user.
 export interface IUserTracking {
-    id?: number;
-    userId: number; // Foreign key to the IUser table
+    userId: number; // Foreign key to the User table
     totalTimeSpent: number; // in seconds
     completedCourses: ITrackedCourse[];
     dailyActivity: IDailyActivity[];
-    statsBySubject: Partial<Record<Subject, ITrackedSubject>>;
-    // FIX: Added the missing property
+    statsBySubject: IStatsBySubject;
     averageScore: number; // Overall average percentage
 }
