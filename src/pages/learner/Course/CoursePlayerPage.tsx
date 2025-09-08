@@ -1,4 +1,4 @@
-// src/pages/learner/CoursePlayerPage.tsx
+// src/pages/learner/Course/CoursePlayerPage.tsx
 
 import React, { useEffect, useContext, useReducer, useState, useLayoutEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -6,13 +6,16 @@ import Confetti from 'react-confetti';
 
 import { db } from '../../../lib/db';
 import { ModalContext } from '../../../contexts/ModalContext';
+// MODIFICATION: Import the AuthContext to get the current user
+import { AuthContext } from '../../../contexts/AuthContext';
 import type { ICourse } from '../../../types/database';
 import type { AnswerStatus } from '../../../components/learner/qa/AnswerOption';
 import CoursePlayerUI from '../../../components/learner/course/CoursePlayerUI';
 import CourseSummary from '../../../components/learner/course/CourseSummary';
 import { checkAnswer, isAnswerValid } from './CoursePlayerUtils';
+// MODIFICATION: Import the tracking utility
+import { saveTrackingData } from '../../../utils/trackingUtils';
 
-// A simple, self-contained window size hook to avoid external dependencies
 const useWindowSize = () => {
     const [size, setSize] = useState([0, 0]);
     useLayoutEffect(() => {
@@ -26,8 +29,6 @@ const useWindowSize = () => {
     return size;
 };
 
-// --- STATE MANAGEMENT (useReducer) ---
-
 interface PlayerState {
     course: ICourse | null;
     currentQuestionIndex: number;
@@ -36,7 +37,7 @@ interface PlayerState {
     isCorrect: boolean;
     showSummary: boolean;
     showConfetti: boolean;
-    // Answer-specific state
+    startTime: number; // For tracking time spent
     selectedOptionId: string | null;
     stiAnswer: string;
     algAnswers: Record<string, string>;
@@ -51,6 +52,7 @@ const initialState: PlayerState = {
     isCorrect: false,
     showSummary: false,
     showConfetti: false,
+    startTime: 0,
     selectedOptionId: null,
     stiAnswer: '',
     algAnswers: {},
@@ -69,7 +71,7 @@ type PlayerAction =
 function playerReducer(state: PlayerState, action: PlayerAction): PlayerState {
     switch (action.type) {
         case 'SET_COURSE':
-            return { ...state, course: action.payload };
+            return { ...state, course: action.payload, startTime: Date.now() };
         case 'SELECT_OPTION':
             return { ...state, selectedOptionId: action.payload };
         case 'SET_STI_ANSWER':
@@ -99,20 +101,16 @@ function playerReducer(state: PlayerState, action: PlayerAction): PlayerState {
                 isAnswered: true,
                 isCorrect,
                 score: isCorrect ? state.score + 1 : state.score,
-                // MODIFICATION: Confetti is no longer triggered here.
-                // We want to wait until the entire course is finished.
             };
         }
         case 'NEXT_QUESTION': {
             if (!state.course) return state;
             const isLastQuestion = state.currentQuestionIndex >= state.course.questions.length - 1;
 
-            // MODIFICATION: If it's the last question, show the summary AND trigger the confetti.
             if (isLastQuestion) {
                 return { ...state, showSummary: true, showConfetti: true };
             }
 
-            // Otherwise, proceed to the next question as normal.
             return {
                 ...state,
                 currentQuestionIndex: state.currentQuestionIndex + 1,
@@ -130,14 +128,12 @@ function playerReducer(state: PlayerState, action: PlayerAction): PlayerState {
     }
 }
 
-// --- COMPONENT DEFINITION ---
-
 const CoursePlayerPage: React.FC = () => {
     const { courseId } = useParams<{ courseId: string }>();
     const navigate = useNavigate();
     const modal = useContext(ModalContext);
+    const auth = useContext(AuthContext); // MODIFICATION: Get the auth context
     const [width, height] = useWindowSize();
-
     const [state, dispatch] = useReducer(playerReducer, initialState);
     const {
         course,
@@ -147,13 +143,14 @@ const CoursePlayerPage: React.FC = () => {
         isCorrect,
         showSummary,
         showConfetti,
+        startTime,
         selectedOptionId,
         stiAnswer,
         algAnswers,
         sentenceCorrectionAnswer,
     } = state;
 
-    if (!modal) throw new Error('CoursePlayerPage must be used within a ModalProvider');
+    if (!modal || !auth) throw new Error('CoursePlayerPage must be used within required providers');
 
     useEffect(() => {
         const fetchCourse = async () => {
@@ -171,6 +168,20 @@ const CoursePlayerPage: React.FC = () => {
         };
         fetchCourse();
     }, [courseId, navigate]);
+
+    // MODIFICATION: This effect now handles saving the data when the summary is shown
+    useEffect(() => {
+        if (showSummary && course && auth.currentUser) {
+            const timeSpent = (Date.now() - startTime) / 1000; // in seconds
+            saveTrackingData({
+                userId: auth.currentUser.id!,
+                course,
+                score,
+                timeSpent,
+                language: auth.currentUser.language || 'en',
+            });
+        }
+    }, [showSummary, course, score, startTime, auth.currentUser]);
 
     const handleCheckAnswer = () => {
         dispatch({ type: 'CHECK_ANSWER' });
@@ -209,8 +220,6 @@ const CoursePlayerPage: React.FC = () => {
 
     if (!course) return <div>Loading...</div>;
 
-    // The logic to render the summary or the player UI remains,
-    // but now the confetti will appear over the summary screen.
     if (showSummary) {
         return <CourseSummary score={score} totalQuestions={course.questions.length} />;
     }
