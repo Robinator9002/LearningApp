@@ -57,6 +57,44 @@
     margin-bottom: calc(var(--spacing-unit) * 4);
 }
 
+/* NEW: Header for chart with toggle */
+.chart-container__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-unit);
+}
+
+.chart-container__title {
+    margin: 0;
+}
+
+/* NEW: Toggle button group styling */
+.chart-toggle {
+    display: flex;
+    background-color: var(--color-background);
+    border-radius: var(--border-radius);
+    padding: 4px;
+    border: 1px solid var(--color-border);
+}
+
+.chart-toggle__btn {
+    background-color: transparent;
+    border: none;
+    padding: calc(var(--spacing-unit) * 0.5) var(--spacing-unit);
+    border-radius: calc(var(--border-radius) - 2px);
+    cursor: pointer;
+    color: var(--color-text-secondary);
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+}
+
+.chart-toggle__btn.active {
+    background-color: var(--color-surface);
+    color: var(--color-text-primary);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
 /* --- Subject Breakdown --- */
 .subject-breakdown {
     margin-bottom: calc(var(--spacing-unit) * 4);
@@ -80,6 +118,23 @@
     padding: calc(var(--spacing-unit) * 2);
     border: 1px solid var(--color-border);
 }
+
+/* NEW: Header for table with controls */
+.history-table-container__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: calc(var(--spacing-unit) * 2);
+    margin-bottom: calc(var(--spacing-unit) * 2);
+}
+
+.history-table-container__controls {
+    display: flex;
+    gap: var(--spacing-unit);
+    flex-wrap: wrap;
+}
+
 .history-table {
     width: 100%;
     border-collapse: collapse;
@@ -95,7 +150,7 @@
     color: var(--color-text-secondary);
 }
 
-/* --- NEW: Grade Color Styling --- */
+/* --- Grade Color Styling --- */
 .history-table__grade {
     padding: 2px 8px;
     border-radius: 12px;
@@ -103,6 +158,8 @@
     text-align: center;
     color: #fff;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+    display: inline-block;
+    min-width: 24px;
 }
 
 /* English Grades */
