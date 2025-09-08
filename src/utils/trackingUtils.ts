@@ -43,6 +43,13 @@ export const saveTrackingData = async (
     timeSpent: number,
     language: 'en' | 'de' = 'en',
 ): Promise<void> => {
+    // CRITICAL FIX: Add a guard to prevent crashes if the component unmounts
+    // during the async operation, leaving the course object undefined.
+    if (!course || !course.questions || course.questions.length === 0) {
+        console.error('saveTrackingData called with invalid course object. Aborting.');
+        return;
+    }
+
     try {
         const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
         const percentage = (score / course.questions.length) * 100;
@@ -50,7 +57,6 @@ export const saveTrackingData = async (
 
         const existingData = await db.userTracking.get(userId);
 
-        // FIX: Ensure the new record perfectly matches the ITrackedCourse interface
         const newCourseRecord: ITrackedCourse = {
             courseId: course.id!,
             title: course.title,
@@ -66,7 +72,6 @@ export const saveTrackingData = async (
             // --- UPDATE EXISTING RECORD ---
             const updatedCompletedCourses = [...existingData.completedCourses, newCourseRecord];
 
-            // Update daily activity
             const todayActivity = existingData.dailyActivity.find((a) => a.date === today);
             const updatedDailyActivity = todayActivity
                 ? existingData.dailyActivity.map((a) =>
@@ -74,7 +79,6 @@ export const saveTrackingData = async (
                   )
                 : [...existingData.dailyActivity, { date: today, timeSpent }];
 
-            // Update subject stats
             const subjectStats = existingData.statsBySubject[course.subject] || {
                 coursesCompleted: 0,
                 totalTimeSpent: 0,
@@ -87,7 +91,6 @@ export const saveTrackingData = async (
                 },
             };
 
-            // Recalculate average score
             const totalScore = updatedCompletedCourses.reduce((sum, c) => sum + c.score, 0);
             const totalQs = updatedCompletedCourses.reduce((sum, c) => sum + c.totalQuestions, 0);
             const newAverageScore = totalQs > 0 ? (totalScore / totalQs) * 100 : 0;

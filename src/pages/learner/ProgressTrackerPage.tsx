@@ -45,8 +45,8 @@ const ProgressTrackerPage: React.FC = () => {
                         {t('buttons.backToDashboard')}
                     </Button>
                 </div>
-                <h3>{t('progress.noDataTitle')}</h3>
-                <p>{t('progress.noDataMessage')}</p>
+                <h3>{t('progress.title')}</h3>
+                <p>{t('progress.noData')}</p>
             </div>
         );
     }
