@@ -33,6 +33,9 @@
             "startCourse": "Start Course",
             "scrollToTop": "Scroll to top"
         },
+        "topbar": {
+            "myProgress": "My Progress"
+        },
         "dashboard": {
             "adminTitle": "Admin Dashboard",
             "averageScore": "Average Score",
