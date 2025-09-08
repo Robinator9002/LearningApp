@@ -18,26 +18,28 @@ import HistoryTable from '../../components/learner/progress/HistoryTable';
 const ProgressTrackerPage: React.FC = () => {
     const { t } = useTranslation();
     const auth = useContext(AuthContext);
+    const currentUserId = auth?.currentUser?.id;
 
-    const trackingData = useLiveQuery(
-        () =>
-            auth?.currentUser
-                ? db.userTracking.where('userId').equals(auth.currentUser.id!).first()
-                : undefined,
-        [auth?.currentUser],
-    ) as IUserTracking | undefined;
+    // MODIFICATION: The query is now an async function that explicitly returns null
+    // if no data is found. This prevents the hook from being perpetually stuck
+    // in the initial `undefined` state.
+    const trackingData = useLiveQuery(async () => {
+        if (!currentUserId) return undefined; // Still waiting for user ID
+        const data = await db.userTracking.where('userId').equals(currentUserId).first();
+        return data || null; // Return the data, or null if nothing was found
+    }, [currentUserId]) as IUserTracking | null | undefined;
 
     if (!auth?.currentUser) {
-        return <div>{t('labels.loading')}</div>; // Or some other auth error state
+        return <div>{t('labels.loading')}</div>;
     }
 
-    // Loading state while dexie fetches the data
+    // Loading state: useLiveQuery is `undefined` before the first query completes.
     if (trackingData === undefined) {
         return <div>{t('labels.loading')}</div>;
     }
 
-    // Empty state if the user has no tracking data yet
-    if (trackingData === null || trackingData?.completedCourses.length === 0) {
+    // Empty state: The query completed and explicitly returned `null`.
+    if (trackingData === null || trackingData.completedCourses.length === 0) {
         return (
             <div className="progress-tracker-empty">
                 <Frown size={64} />
@@ -50,7 +52,6 @@ const ProgressTrackerPage: React.FC = () => {
     const totalCourses = trackingData.completedCourses.length;
     const totalTimeMinutes = Math.round(trackingData.totalTimeSpent / 60);
 
-    // Calculate average score
     const totalScoreSum = trackingData.completedCourses.reduce(
         (sum, course) => sum + course.score,
         0,
