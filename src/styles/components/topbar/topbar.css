@@ -2,17 +2,48 @@
 
 .topbar {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: var(--spacing-unit) calc(var(--spacing-unit) * 2);
+    /* MODIFICATION: Align items to the baseline for better vertical centering */
+    align-items: baseline;
+    padding: var(--spacing-unit) calc(var(--spacing-unit) * 3); /* Increased padding */
     background-color: var(--color-surface);
     border-bottom: 1px solid var(--color-border);
-    margin-bottom: calc(var(--spacing-unit) * 4);
+    /* MODIFICATION: Removed bottom margin to be handled by page layouts */
 }
 
 .topbar__brand {
     font-size: calc(var(--font-size-base) * 1.5);
     font-weight: 700;
+    color: var(--color-text-primary);
+    text-decoration: none; /* Ensure brand link isn't underlined */
+    margin-right: calc(var(--spacing-unit) * 4); /* Add spacing */
+}
+
+/* NEW: Added a dedicated nav section */
+.topbar__nav {
+    flex-grow: 1; /* Allow the nav to take up available space */
+}
+
+/* NEW: Styles for the new navigation link */
+.topbar__nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-unit);
+    padding: var(--spacing-unit) calc(var(--spacing-unit) * 1.5);
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    color: var(--color-text-secondary);
+    font-weight: 500;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.topbar__nav-link:hover {
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
+}
+
+/* Style for the active NavLink */
+.topbar__nav-link.active {
+    background-color: color-mix(in srgb, var(--color-accent) 15%, transparent);
     color: var(--color-accent);
 }
 
@@ -24,7 +55,7 @@
 
 .topbar__user-name {
     font-weight: 500;
-    color: var(--color-text-primary);
+    color: var(--color-text-secondary); /* Adjusted for better hierarchy */
 }
 
 .icon-btn {

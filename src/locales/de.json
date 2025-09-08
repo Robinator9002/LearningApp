@@ -110,7 +110,8 @@
             "exactMatch": "Exakte Übereinstimmung"
         },
         "placeholders": {
-            "gradeRange": "z.B. 2-4, 9, Fortgeschritten"
+            "gradeRange": "z.B. 2-4, 9, Fortgeschritten",
+            "sti.answer": "..."
         },
         "player": {
             "correctAnswerWas": "Die richtige Antwort war:",

@@ -110,7 +110,8 @@
             "exactMatch": "Exact Match"
         },
         "placeholders": {
-            "gradeRange": "e.g., 2-4, 9, Advanced"
+            "gradeRange": "e.g., 2-4, 9, Advanced",
+            "sti.answer": "..."
         },
         "player": {
             "correctAnswerWas": "The correct answer was:",
