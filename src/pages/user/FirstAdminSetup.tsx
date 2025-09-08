@@ -3,36 +3,27 @@
 import React, { useState, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CheckCircle } from 'lucide-react';
-import type i18n from 'i18next';
 
-// --- DATABASE & UTILS ---
-// FIX: Corrected all import paths to account for the new file location.
-import { db } from '../../lib/db.ts';
-import { seedInitialCourses } from '../../utils/courseUtils.ts';
+import { db } from '../../lib/db';
+import { seedInitialCourses } from '../../utils/courseUtils';
+import { AuthContext } from '../../contexts/AuthContext';
+import { ModalContext } from '../../contexts/ModalContext';
 
-// --- CONTEXTS ---
-import { AuthContext } from '../../contexts/AuthContext.tsx';
-import { ModalContext } from '../../contexts/ModalContext.tsx';
+import type { IUser, IAppSettings } from '../../types/database';
 
-// --- TYPES ---
-import type { IUser, IAppSettings } from '../../types/database.ts';
+import Button from '../../components/common/Button';
+import Input from '../../components/common/Form/Input';
+import Label from '../../components/common/Form/Label';
+import Select from '../../components/common/Form/Select';
 
-// --- COMPONENTS ---
-import Button from '../../components/common/Button.tsx';
-import Input from '../../components/common/Form/Input.tsx';
-import Label from '../../components/common/Form/Label.tsx';
-import Select from '../../components/common/Form/Select.tsx';
+// FIX: Removed the i18n prop as it was causing issues and is not the standard way to access the instance.
+// interface FirstAdminSetupProps {
+//     i18n: typeof i18n;
+// }
 
-/**
- * The props for the FirstAdminSetup component.
- * We now require the i18n instance to be passed in.
- */
-interface FirstAdminSetupProps {
-    i18n: typeof i18n;
-}
-
-const FirstAdminSetup: React.FC<FirstAdminSetupProps> = ({ i18n }) => {
-    const { t } = useTranslation();
+const FirstAdminSetup: React.FC = () => {
+    // FIX: Get the i18n instance directly from the hook, which is the correct and stable method.
+    const { t, i18n } = useTranslation();
     const auth = useContext(AuthContext);
     const modal = useContext(ModalContext);
 
@@ -74,6 +65,7 @@ const FirstAdminSetup: React.FC<FirstAdminSetupProps> = ({ i18n }) => {
                 await updateAppSettings({ starterCoursesImported: true });
             }
 
+            // The language change is now awaited properly because we get i18n from the hook.
             await i18n.changeLanguage(appLanguage);
             setIsComplete(true);
 
