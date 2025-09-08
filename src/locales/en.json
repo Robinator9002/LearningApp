@@ -237,10 +237,10 @@
             }
         },
         "subjects": {
-            "math": "Math",
-            "reading": "Reading",
-            "writing": "Writing",
-            "english": "English"
+            "Math": "Math",
+            "Reading": "Reading",
+            "Writing": "Writing",
+            "English": "English"
         }
     }
 }
