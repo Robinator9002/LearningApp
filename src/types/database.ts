@@ -127,6 +127,7 @@ export interface IUserTracking {
     totalTimeSpent: number; // in seconds
     completedCourses: ITrackedCourse[];
     dailyActivity: IDailyActivity[];
-    // Use Partial here because a user might not have data for every subject.
     statsBySubject: Partial<Record<Subject, ITrackedSubject>>;
+    // FIX: Added the missing property
+    averageScore: number; // Overall average percentage
 }
