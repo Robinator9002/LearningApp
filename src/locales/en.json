@@ -58,7 +58,8 @@
             "questionTitle": "Question {{index}} ({{type}})",
             "questionsTitle": "Questions",
             "titleCreate": "Create New Course",
-            "titleEdit": "Edit Course"
+            "titleEdit": "Edit Course",
+            "settingsTitle": "Course Settings"
         },
         "feedback": {
             "correct": "Correct!",
@@ -68,8 +69,6 @@
             "acceptedAnswers": "Accepted Answers (one or more)",
             "accountType": "Account Type",
             "advanced": "Advanced",
-            "ageRange": "Age Range",
-            "allSubjects": "All Subjects",
             "answerOptions": "Answer Options",
             "confirmNewPassword": "Confirm New Password",
             "correct": "Correct",
@@ -79,7 +78,6 @@
             "direct": "Direct",
             "equation": "Equation",
             "evaluationMode": "Evaluation Mode",
-            "filterBySubject": "Filter by subject",
             "grade": "Grade",
             "gradeAssignmentMode": "Assignment Mode",
             "gradeRange": "Grade Range",
@@ -103,17 +101,12 @@
             "rangeTo": "To Grade",
             "score": "Score",
             "searchCourses": "Search by title or subject...",
-            "sortBy": "Sort by",
-            "sort": {
-                "alphaAsc": "Title (A-Z)",
-                "alphaDesc": "Title (Z-A)",
-                "ageAsc": "Age (Youngest First)",
-                "ageDesc": "Age (Oldest First)"
-            },
             "subject": "Subject",
             "timeSpent": "Time Spent",
             "title": "Title",
-            "variables": "Variables (comma-separated)"
+            "variables": "Variables (comma-separated)",
+            "sentenceWithErrors": "Sentence with Errors",
+            "selectErrors": "Select the Incorrect Word(s)"
         },
         "languages": {
             "en": "English",
@@ -125,7 +118,12 @@
         },
         "placeholders": {
             "gradeRange": "e.g., 2-4, 9, Advanced",
-            "sti.answer": "..."
+            "sti.answer": "...",
+            "highlightError": {
+                "questionText": "e.g., Identify the error in the sentence below.",
+                "sentence": "e.g., The quick brown fox jump over the lazy dog.",
+                "wordBank": "Enter a sentence above to select the errors."
+            }
         },
         "player": {
             "correctAnswerWas": "The correct answer was:",
@@ -143,24 +141,54 @@
             "completedCoursesTitle": "Completed Courses History",
             "minutes": "min",
             "courses": "courses",
-            "searchPlaceholder": "Search history...",
-            "chart": {
-                "bar": "Bar",
-                "line": "Line"
-            },
+            "searchPlaceholder": "Search by course title...",
             "sortBy": {
                 "date": "Sort by Date",
                 "title": "Sort by Title",
                 "time": "Sort by Time",
                 "score": "Sort by Score",
                 "grade": "Sort by Grade"
+            },
+            "chart": {
+                "bar": "Bar",
+                "line": "Line"
             }
         },
         "questionTypes": {
             "algEquation": "Algebraic Equation",
             "mcq": "Multiple Choice",
             "sentenceCorrection": "Sentence Correction",
-            "sti": "Smart Text Input"
+            "sti": "Smart Text Input",
+            "highlightError": "Highlight the Error"
+        },
+        "addQuestionModal": {
+            "title": "Add a New Question",
+            "description": "Select the type of question you'd like to add to this course.",
+            "categories": {
+                "general": "General Types",
+                "readingWriting": "Reading & Writing",
+                "math": "Mathematics"
+            },
+            "mcq": {
+                "label": "Multiple Choice",
+                "description": "Learner selects one correct answer from a list of options."
+            },
+            "sti": {
+                "label": "Smart Text Input",
+                "description": "Learner types a short answer which is checked against a list of possibilities."
+            },
+            "sentenceCorrection": {
+                "label": "Sentence Correction",
+                "description": "Learner re-types a sentence to correct a grammatical error."
+            },
+            "algEquation": {
+                "label": "Algebraic Equation",
+                "description": "Learner solves for one or more variables in an equation."
+            },
+            "highlightError": {
+                "label": "Highlight the Error",
+                "description": "Learner clicks on the incorrect word(s) in a sentence."
+            }
         },
         "roles": {
             "admin": "Admin",

@@ -58,7 +58,8 @@
             "questionTitle": "Frage {{index}} ({{type}})",
             "questionsTitle": "Fragen",
             "titleCreate": "Neuen Kurs erstellen",
-            "titleEdit": "Kurs bearbeiten"
+            "titleEdit": "Kurs bearbeiten",
+            "settingsTitle": "Kurseinstellungen"
         },
         "feedback": {
             "correct": "Richtig!",
@@ -68,8 +69,6 @@
             "acceptedAnswers": "Akzeptierte Antworten (eine oder mehrere)",
             "accountType": "Kontotyp",
             "advanced": "Fortgeschritten",
-            "ageRange": "Altersgruppe",
-            "allSubjects": "Alle Fächer",
             "answerOptions": "Antwortmöglichkeiten",
             "confirmNewPassword": "Neues Passwort bestätigen",
             "correct": "Korrekt",
@@ -79,7 +78,6 @@
             "direct": "Direkt",
             "equation": "Gleichung",
             "evaluationMode": "Bewertungsmodus",
-            "filterBySubject": "Nach Fach filtern",
             "grade": "Note",
             "gradeAssignmentMode": "Zuweisungsmodus",
             "gradeRange": "Klassenstufe",
@@ -103,17 +101,12 @@
             "rangeTo": "Bis Klasse",
             "score": "Punkte",
             "searchCourses": "Suche nach Titel oder Fach...",
-            "sortBy": "Sortieren nach",
-            "sort": {
-                "alphaAsc": "Titel (A-Z)",
-                "alphaDesc": "Titel (Z-A)",
-                "ageAsc": "Alter (Jüngste zuerst)",
-                "ageDesc": "Alter (Älteste zuerst)"
-            },
             "subject": "Fach",
             "timeSpent": "Benötigte Zeit",
             "title": "Titel",
-            "variables": "Variablen (durch Komma getrennt)"
+            "variables": "Variablen (durch Komma getrennt)",
+            "sentenceWithErrors": "Satz mit Fehlern",
+            "selectErrors": "Wählen Sie die falschen Wörter aus"
         },
         "languages": {
             "en": "English",
@@ -125,7 +118,12 @@
         },
         "placeholders": {
             "gradeRange": "z.B. 2-4, 9, Fortgeschritten",
-            "sti.answer": "..."
+            "sti.answer": "...",
+            "highlightError": {
+                "questionText": "z.B. Identifizieren Sie den Fehler im folgenden Satz.",
+                "sentence": "z.B. Der schnelle braune Fuchs springen über den faulen Hund.",
+                "wordBank": "Geben Sie oben einen Satz ein, um die Fehler auszuwählen."
+            }
         },
         "player": {
             "correctAnswerWas": "Die richtige Antwort war:",
@@ -143,24 +141,54 @@
             "completedCoursesTitle": "Verlauf der abgeschlossenen Kurse",
             "minutes": "Min.",
             "courses": "Kurse",
-            "searchPlaceholder": "Verlauf durchsuchen...",
+            "searchPlaceholder": "Suche nach Kurstitel...",
+            "sortBy": {
+                "date": "Nach Datum sortieren",
+                "title": "Nach Titel sortieren",
+                "time": "Nach Zeit sortieren",
+                "score": "Nach Punktzahl sortieren",
+                "grade": "Nach Note sortieren"
+            },
             "chart": {
                 "bar": "Balken",
                 "line": "Linie"
-            },
-            "sortBy": {
-                "date": "Sortieren nach Datum",
-                "title": "Sortieren nach Titel",
-                "time": "Sortieren nach Zeit",
-                "score": "Sortieren nach Punktzahl",
-                "grade": "Sortieren nach Note"
             }
         },
         "questionTypes": {
             "algEquation": "Algebraische Gleichung",
             "mcq": "Multiple-Choice",
             "sentenceCorrection": "Satzkorrektur",
-            "sti": "Intelligente Texteingabe"
+            "sti": "Intelligente Texteingabe",
+            "highlightError": "Fehler markieren"
+        },
+        "addQuestionModal": {
+            "title": "Neue Frage hinzufügen",
+            "description": "Wählen Sie den Fragentyp aus, den Sie diesem Kurs hinzufügen möchten.",
+            "categories": {
+                "general": "Allgemeine Typen",
+                "readingWriting": "Lesen & Schreiben",
+                "math": "Mathematik"
+            },
+            "mcq": {
+                "label": "Multiple-Choice",
+                "description": "Der Lernende wählt eine richtige Antwort aus einer Liste von Optionen."
+            },
+            "sti": {
+                "label": "Intelligente Texteingabe",
+                "description": "Der Lernende gibt eine kurze Antwort ein, die mit einer Liste von Möglichkeiten abgeglichen wird."
+            },
+            "sentenceCorrection": {
+                "label": "Satzkorrektur",
+                "description": "Der Lernende tippt einen Satz neu ein, um einen grammatikalischen Fehler zu korrigieren."
+            },
+            "algEquation": {
+                "label": "Algebraische Gleichung",
+                "description": "Der Lernende löst eine oder mehrere Variablen in einer Gleichung."
+            },
+            "highlightError": {
+                "label": "Fehler markieren",
+                "description": "Der Lernende klickt auf das/die falsche(n) Wort/Wörter in einem Satz."
+            }
         },
         "roles": {
             "admin": "Admin",
