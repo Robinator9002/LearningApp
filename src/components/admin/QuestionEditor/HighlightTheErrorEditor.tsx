@@ -71,9 +71,9 @@ const HighlightTheErrorEditor: React.FC<HighlightTheErrorEditorProps> = ({
     };
 
     return (
-        <div className="question-editor-card">
-            <div className="question-editor-card__header">
-                <h4 className="question-editor-card__title">
+        <div className="question-editor">
+            <div className="question-editor__header">
+                <h4 className="question-editor__title">
                     {t('editor.questionTitle', {
                         index: index + 1,
                         type: t('questionTypes.highlightError'),
@@ -83,71 +83,68 @@ const HighlightTheErrorEditor: React.FC<HighlightTheErrorEditorProps> = ({
                     <X size={16} /> {t('buttons.remove')}
                 </Button>
             </div>
-            <div className="question-editor-card__content">
-                <div className="form-group">
-                    <Label htmlFor={`q-text-${question.id}`}>{t('labels.questionText')}</Label>
-                    <Textarea
-                        id={`q-text-${question.id}`}
-                        value={question.questionText}
-                        onChange={(e) =>
-                            onQuestionChange(index, { ...question, questionText: e.target.value })
-                        }
-                        placeholder={t('placeholders.highlightError.questionText')}
-                        rows={2}
-                    />
-                </div>
-                <div className="form-group">
-                    <Label htmlFor={`q-sentence-${question.id}`}>
-                        {t('labels.sentenceWithErrors')}
-                    </Label>
-                    <Textarea
-                        id={`q-sentence-${question.id}`}
-                        value={question.sentence}
-                        onChange={handleSentenceChange}
-                        placeholder={t('placeholders.highlightError.sentence')}
-                        rows={3}
-                    />
-                </div>
-                <div className="form-group">
-                    <Label>{t('labels.selectErrors')}</Label>
-                    <div className="highlight-editor__word-bank">
-                        {sentenceTokens.length > 0 ? (
-                            sentenceTokens.map((token, tokenIndex) => {
-                                // FIX: Determine if the token is a word and can be clicked.
-                                const isWord = /\w/.test(token);
-                                const isSelected =
-                                    question.correctAnswerIndices.includes(tokenIndex);
+            <div className="form-group">
+                <Label htmlFor={`q-text-${question.id}`}>{t('labels.questionText')}</Label>
+                <Textarea
+                    id={`q-text-${question.id}`}
+                    value={question.questionText}
+                    onChange={(e) =>
+                        onQuestionChange(index, { ...question, questionText: e.target.value })
+                    }
+                    placeholder={t('placeholders.highlightError.questionText')}
+                    rows={2}
+                />
+            </div>
+            <div className="form-group">
+                <Label htmlFor={`q-sentence-${question.id}`}>
+                    {t('labels.sentenceWithErrors')}
+                </Label>
+                <Textarea
+                    id={`q-sentence-${question.id}`}
+                    value={question.sentence}
+                    onChange={handleSentenceChange}
+                    placeholder={t('placeholders.highlightError.sentence')}
+                    rows={3}
+                />
+            </div>
+            <div className="form-group">
+                <Label>{t('labels.selectErrors')}</Label>
+                <div className="highlight-editor__word-bank">
+                    {sentenceTokens.length > 0 ? (
+                        sentenceTokens.map((token, tokenIndex) => {
+                            // FIX: Determine if the token is a word and can be clicked.
+                            const isWord = /\w/.test(token);
+                            const isSelected = question.correctAnswerIndices.includes(tokenIndex);
 
-                                if (isWord) {
-                                    return (
-                                        <span
-                                            key={`${question.id}-token-${tokenIndex}`}
-                                            className={`word-token ${
-                                                isSelected ? 'word-token--selected' : ''
-                                            }`}
-                                            onClick={() => handleTokenClick(tokenIndex)}
-                                        >
-                                            {token}
-                                        </span>
-                                    );
-                                } else {
-                                    // Render punctuation as a simple, non-interactive span.
-                                    return (
-                                        <span
-                                            key={`${question.id}-token-${tokenIndex}`}
-                                            className="punctuation-token"
-                                        >
-                                            {token}
-                                        </span>
-                                    );
-                                }
-                            })
-                        ) : (
-                            <p className="highlight-editor__placeholder">
-                                {t('placeholders.highlightError.wordBank')}
-                            </p>
-                        )}
-                    </div>
+                            if (isWord) {
+                                return (
+                                    <span
+                                        key={`${question.id}-token-${tokenIndex}`}
+                                        className={`word-token ${
+                                            isSelected ? 'word-token--selected' : ''
+                                        }`}
+                                        onClick={() => handleTokenClick(tokenIndex)}
+                                    >
+                                        {token}
+                                    </span>
+                                );
+                            } else {
+                                // Render punctuation as a simple, non-interactive span.
+                                return (
+                                    <span
+                                        key={`${question.id}-token-${tokenIndex}`}
+                                        className="punctuation-token"
+                                    >
+                                        {token}
+                                    </span>
+                                );
+                            }
+                        })
+                    ) : (
+                        <p className="highlight-editor__placeholder">
+                            {t('placeholders.highlightError.wordBank')}
+                        </p>
+                    )}
                 </div>
             </div>
         </div>

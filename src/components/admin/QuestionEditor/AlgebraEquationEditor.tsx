@@ -1,6 +1,7 @@
 // src/components/admin/QuestionEditor/AlgebraEquationEditor.tsx
 
 import React from 'react';
+import { X } from 'lucide-react';
 import { useTranslation } from 'react-i18next'; // MODIFICATION: Imported useTranslation
 import type { IQuestion } from '../../../types/database';
 import Button from '../../common/Button';
@@ -53,7 +54,9 @@ const AlgebraEquationEditor: React.FC<AlgebraEquationEditorProps> = ({
                     })}
                 </h3>
                 {/* MODIFICATION: Replaced hardcoded button text. */}
-                <Button onClick={() => onRemoveQuestion(index)}>{t('buttons.remove')}</Button>
+                <Button variant="danger" onClick={() => onRemoveQuestion(index)}>
+                    <X size={16} /> {t('buttons.remove')}
+                </Button>
             </div>
             <div className="form-group">
                 {/* MODIFICATION: Replaced hardcoded label. */}

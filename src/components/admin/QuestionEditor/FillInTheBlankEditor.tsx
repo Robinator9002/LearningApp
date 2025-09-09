@@ -85,7 +85,9 @@ const FillInTheBlankEditor: React.FC<FillInTheBlankEditorProps> = ({
                     })}
                 </h3>
                 {/* MODIFICATION: Replaced hardcoded button text */}
-                <Button onClick={() => onRemoveQuestion(index)}>{t('buttons.remove')}</Button>
+                <Button variant="danger" onClick={() => onRemoveQuestion(index)}>
+                    <X size={16} /> {t('buttons.remove')}
+                </Button>
             </div>
             <div className="form-group">
                 {/* MODIFICATION: Replaced hardcoded label */}

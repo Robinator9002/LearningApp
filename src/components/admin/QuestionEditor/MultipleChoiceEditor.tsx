@@ -1,6 +1,7 @@
 // src/components/admin/QuestionEditor/MultipleChoiceEditor.tsx
 
 import React from 'react';
+import { X } from 'lucide-react';
 import { useTranslation } from 'react-i18next'; // MODIFICATION: Imported useTranslation
 import type { IQuestion } from '../../../types/database';
 import Button from '../../common/Button';
@@ -60,7 +61,9 @@ const MultipleChoiceEditor: React.FC<QuestionEditorProps> = ({
                     })}
                 </h3>
                 {/* MODIFICATION: Replaced hardcoded button text. */}
-                <Button onClick={() => onRemoveQuestion(index)}>{t('buttons.remove')}</Button>
+                <Button variant="danger" onClick={() => onRemoveQuestion(index)}>
+                    <X size={16} /> {t('buttons.remove')}
+                </Button>
             </div>
 
             <div className="form-group">
