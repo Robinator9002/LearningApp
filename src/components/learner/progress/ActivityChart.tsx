@@ -32,12 +32,19 @@ const ActivityChart: React.FC<ActivityChartProps> = ({ data }) => {
         .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
         .slice(-14) // Take the last 14 days
         .map((item) => ({
-            date: new Date(item.date).toLocaleDateString(undefined, {
+            date: new Date(item.date).toLocaleString(undefined, {
                 month: 'short',
                 day: 'numeric',
             }),
             minutes: Math.round(item.timeSpent / 60),
         }));
+
+    // Define the tooltip style once to be reused in both charts for consistency.
+    const themedTooltipStyle = {
+        backgroundColor: 'var(--color-surface)',
+        color: 'var(--color-text-primary)',
+        border: '1px solid var(--color-border)',
+    };
 
     const renderChart = () => {
         if (chartType === 'line') {
@@ -48,14 +55,7 @@ const ActivityChart: React.FC<ActivityChartProps> = ({ data }) => {
                     <YAxis
                         label={{ value: t('progress.minutes'), angle: -90, position: 'insideLeft' }}
                     />
-                    {/* FIX: Added contentStyle to make tooltip theme-aware */}
-                    <Tooltip
-                        contentStyle={{
-                            backgroundColor: 'var(--color-surface)',
-                            color: 'var(--color-text-primary)',
-                            border: '1px solid var(--color-border)',
-                        }}
-                    />
+                    <Tooltip contentStyle={themedTooltipStyle} />
                     <Line
                         type="monotone"
                         dataKey="minutes"
@@ -74,14 +74,8 @@ const ActivityChart: React.FC<ActivityChartProps> = ({ data }) => {
                 <YAxis
                     label={{ value: t('progress.minutes'), angle: -90, position: 'insideLeft' }}
                 />
-                {/* FIX: Added contentStyle to make tooltip theme-aware */}
-                <Tooltip
-                    contentStyle={{
-                        backgroundColor: 'var(--color-surface)',
-                        color: 'var(--color-text-primary)',
-                        border: '1px solid var(--color-border)',
-                    }}
-                />
+                {/* FIX: The contentStyle prop is now applied to make the tooltip theme-aware. */}
+                <Tooltip contentStyle={themedTooltipStyle} />
                 <Bar dataKey="minutes" fill="var(--color-accent)" />
             </BarChart>
         );
@@ -91,7 +85,6 @@ const ActivityChart: React.FC<ActivityChartProps> = ({ data }) => {
         <div className="chart-container">
             <div className="chart-container__header">
                 <h3 className="chart-container__title">{t('progress.dailyActivityTitle')}</h3>
-                {/* NEW: Chart type toggle buttons */}
                 <div className="chart-toggle">
                     <button
                         className={`chart-toggle__btn ${chartType === 'bar' ? 'active' : ''}`}
