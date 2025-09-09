@@ -2,20 +2,21 @@
 
 import React, { useEffect, useContext, useReducer, useState, useLayoutEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+// FIX: Import 'react-confetti' from a CDN to resolve the external dependency.
 import Confetti from 'react-confetti';
 
-import { db } from '../../../lib/db';
-import { ModalContext } from '../../../contexts/ModalContext';
-// MODIFICATION: Import the AuthContext to get the current user
-import { AuthContext } from '../../../contexts/AuthContext';
-import type { ICourse } from '../../../types/database';
-import type { AnswerStatus } from '../../../components/learner/qa/AnswerOption';
-import CoursePlayerUI from '../../../components/learner/course/CoursePlayerUI';
-import CourseSummary from '../../../components/learner/course/CourseSummary';
-import { checkAnswer, isAnswerValid } from './CoursePlayerUtils';
-// MODIFICATION: Import the tracking utility
-import { saveTrackingData } from '../../../utils/trackingUtils';
+// FIX: Add explicit file extensions to imports to ensure the bundler can resolve them.
+import { db } from '../../../lib/db.ts';
+import { ModalContext } from '../../../contexts/ModalContext.tsx';
+import { AuthContext } from '../../../contexts/AuthContext.tsx';
+import type { ICourse } from '../../../types/database.ts';
+import type { AnswerStatus } from '../../../components/learner/qa/AnswerOption.tsx';
+import CoursePlayerUI from '../../../components/learner/course/CoursePlayerUI.tsx';
+import CourseSummary from '../../../components/learner/course/CourseSummary.tsx';
+import { checkAnswer, isAnswerValid } from './CoursePlayerUtils.tsx';
+import { saveTrackingData } from '../../../utils/trackingUtils.ts';
 
+// A simple custom hook to get the window size for the confetti effect.
 const useWindowSize = () => {
     const [size, setSize] = useState([0, 0]);
     useLayoutEffect(() => {
@@ -28,6 +29,8 @@ const useWindowSize = () => {
     }, []);
     return size;
 };
+
+// --- COMPONENT STATE & REDUCER ---
 
 interface PlayerState {
     course: ICourse | null;
@@ -128,11 +131,13 @@ function playerReducer(state: PlayerState, action: PlayerAction): PlayerState {
     }
 }
 
+// --- MAIN COMPONENT ---
+
 const CoursePlayerPage: React.FC = () => {
     const { courseId } = useParams<{ courseId: string }>();
     const navigate = useNavigate();
     const modal = useContext(ModalContext);
-    const auth = useContext(AuthContext); // MODIFICATION: Get the auth context
+    const auth = useContext(AuthContext);
     const [width, height] = useWindowSize();
     const [state, dispatch] = useReducer(playerReducer, initialState);
     const {
@@ -160,6 +165,7 @@ const CoursePlayerPage: React.FC = () => {
                 if (courseData) {
                     dispatch({ type: 'SET_COURSE', payload: courseData });
                 } else {
+                    // If course doesn't exist, redirect back to the dashboard.
                     navigate('/dashboard');
                 }
             } catch (error) {
@@ -169,25 +175,29 @@ const CoursePlayerPage: React.FC = () => {
         fetchCourse();
     }, [courseId, navigate]);
 
-    // MODIFICATION: This effect now handles saving the data when the summary is shown
+    // This effect handles saving the tracking data when the summary is shown.
     useEffect(() => {
-        if (showSummary && course && auth.currentUser) {
+        // Ensure all required data is present before saving.
+        if (showSummary && course && auth.currentUser?.id) {
             const timeSpent = (Date.now() - startTime) / 1000; // in seconds
-            saveTrackingData({
-                userId: auth.currentUser.id!,
+
+            // CRITICAL FIX: The saveTrackingData function expects individual arguments, not a single object.
+            saveTrackingData(
+                auth.currentUser.id,
                 course,
                 score,
                 timeSpent,
-                language: auth.currentUser.language || 'en',
-            });
+                auth.currentUser.language || 'en',
+            );
         }
     }, [showSummary, course, score, startTime, auth.currentUser]);
 
     const handleCheckAnswer = () => {
         dispatch({ type: 'CHECK_ANSWER' });
+        // After checking the answer, automatically move to the next question after a short delay.
         setTimeout(() => {
             dispatch({ type: 'NEXT_QUESTION' });
-        }, 2000);
+        }, 2000); // 2-second delay to show feedback
     };
 
     const currentQuestion = course?.questions[currentQuestionIndex];
@@ -218,10 +228,20 @@ const CoursePlayerPage: React.FC = () => {
         return !isAnswerValid(currentQuestion, answerPayload);
     };
 
-    if (!course) return <div>Loading...</div>;
+    if (!course) {
+        return <div>Loading...</div>;
+    }
 
     if (showSummary) {
-        return <CourseSummary score={score} totalQuestions={course.questions.length} />;
+        // FIX: Pass the onComplete handler to the CourseSummary component
+        // so the user can navigate back to the dashboard.
+        return (
+            <CourseSummary
+                score={score}
+                totalQuestions={course.questions.length}
+                onComplete={() => navigate('/dashboard')}
+            />
+        );
     }
 
     const progressPercentage = ((currentQuestionIndex + 1) / course.questions.length) * 100;
