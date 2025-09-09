@@ -127,11 +127,24 @@
             "noData": "Du hast noch keine Kurse abgeschlossen. Beende einen Kurs, um deine Statistiken zu sehen!",
             "totalTime": "Gesamtzeit",
             "coursesCompleted": "Abgeschlossene Kurse",
+            "averageScore": "Durchschnittsnote",
             "dailyActivityTitle": "Tägliche Aktivität (Letzte 14 Tage)",
             "subjectBreakdownTitle": "Aufschlüsselung nach Fach",
             "completedCoursesTitle": "Verlauf der abgeschlossenen Kurse",
             "minutes": "Min.",
-            "courses": "Kurse"
+            "courses": "Kurse",
+            "searchPlaceholder": "Verlauf durchsuchen...",
+            "chart": {
+                "bar": "Balken",
+                "line": "Linie"
+            },
+            "sortBy": {
+                "date": "Sortieren nach Datum",
+                "title": "Sortieren nach Titel",
+                "time": "Sortieren nach Zeit",
+                "score": "Sortieren nach Punktzahl",
+                "grade": "Sortieren nach Note"
+            }
         },
         "questionTypes": {
             "algEquation": "Algebraische Gleichung",

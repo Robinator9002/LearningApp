@@ -127,11 +127,24 @@
             "noData": "You haven't completed any courses yet. Finish a course to see your stats!",
             "totalTime": "Total Time Spent",
             "coursesCompleted": "Courses Completed",
+            "averageScore": "Average Score",
             "dailyActivityTitle": "Daily Activity (Last 14 Days)",
             "subjectBreakdownTitle": "Breakdown by Subject",
             "completedCoursesTitle": "Completed Courses History",
             "minutes": "min",
-            "courses": "courses"
+            "courses": "courses",
+            "searchPlaceholder": "Search history...",
+            "chart": {
+                "bar": "Bar",
+                "line": "Line"
+            },
+            "sortBy": {
+                "date": "Sort by Date",
+                "title": "Sort by Title",
+                "time": "Sort by Time",
+                "score": "Sort by Score",
+                "grade": "Sort by Grade"
+            }
         },
         "questionTypes": {
             "algEquation": "Algebraic Equation",
