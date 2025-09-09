@@ -1,24 +1,21 @@
-// src/pages/learner/CoursePlayerUtils.tsx
+// src/pages/learner/Course/CoursePlayerUtils.tsx
 
 import type { IQuestion } from '../../../types/database';
 
-// The AnswerPayload type now reflects the removal of the 'free-response' question type.
+// MODIFICATION: The AnswerPayload now includes the new question type.
 type AnswerPayload = {
     mcq: string | null;
     sti: string;
     'alg-equation': Record<string, string>;
     'sentence-correction': string;
+    'highlight-error': number[];
 };
 
 /**
  * A robust evaluation function to simulate a real math library.
- * This version handles implicit multiplication (e.g., '2x') to prevent SyntaxErrors.
  */
 const evalWithScope = (expression: string, scope: Record<string, number>): number => {
-    // Sanitize to prevent implicit multiplication errors, e.g., '2x' becomes '2*x'
     let sanitizedExpression = expression.replace(/(\d+)([a-zA-Z]+)/g, '$1*$2');
-
-    // Create a safe evaluation scope
     const functionBody = `
         "use strict";
         ${Object.keys(scope)
@@ -34,7 +31,7 @@ const evalWithScope = (expression: string, scope: Record<string, number>): numbe
         return result;
     } catch (error) {
         console.error('Evaluation error:', error);
-        return NaN; // Return NaN to indicate failure
+        return NaN;
     }
 };
 
@@ -44,21 +41,16 @@ const evalWithScope = (expression: string, scope: Record<string, number>): numbe
 export const evaluateEquation = (equation: string, answers: Record<string, string>): boolean => {
     const parts = equation.split('=');
     if (parts.length !== 2) return false;
-
     const [leftSide, rightSide] = parts.map((p) => p.trim());
-
-    // Create a scope of variables for the evaluation
     const scope: Record<string, number> = {};
     for (const key in answers) {
         const numValue = parseFloat(answers[key]);
-        if (isNaN(numValue)) return false; // Incomplete/invalid answer
+        if (isNaN(numValue)) return false;
         scope[key] = numValue;
     }
-
     try {
         const leftResult = evalWithScope(leftSide, scope);
         const rightResult = evalWithScope(rightSide, scope);
-        // Compare results with a small tolerance for floating point inaccuracies
         return Math.abs(leftResult - rightResult) < 1e-9;
     } catch (error) {
         console.error('Equation evaluation failed:', error);
@@ -84,9 +76,11 @@ export const isAnswerValid = (question: IQuestion, answers: AnswerPayload): bool
                         !isNaN(parseFloat(answers['alg-equation'][v])),
                 )
             );
-        // --- REMOVED: The case for 'free-response' has been deleted. ---
         case 'sentence-correction':
             return answers['sentence-correction'].trim() !== '';
+        // NEW: Validation logic for the new question type.
+        case 'highlight-error':
+            return answers['highlight-error'].length > 0;
         default:
             return false;
     }
@@ -109,11 +103,17 @@ export const checkAnswer = (question: IQuestion, answers: AnswerPayload): boolea
             );
         case 'alg-equation':
             return evaluateEquation(question.equation, answers['alg-equation']);
-        // --- REMOVED: The case for 'free-response' has been deleted. ---
         case 'sentence-correction':
             const corrected = answers['sentence-correction'].trim();
             const expected = question.correctedSentence.trim();
             return corrected === expected;
+        // NEW: Grading logic for the new question type.
+        case 'highlight-error': {
+            const learnerAnswers = [...answers['highlight-error']].sort((a, b) => a - b);
+            const correctAnswers = [...question.correctAnswerIndices].sort((a, b) => a - b);
+            // The answer is correct only if the arrays are identical.
+            return JSON.stringify(learnerAnswers) === JSON.stringify(correctAnswers);
+        }
         default:
             return false;
     }

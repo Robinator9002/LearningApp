@@ -2,9 +2,9 @@
 
 import React from 'react';
 import { ArrowLeft, Check, X } from 'lucide-react';
-import { useTranslation } from 'react-i18next'; // MODIFICATION: Imported useTranslation
+import { useTranslation } from 'react-i18next';
 
-import type { ICourse } from '../../../types/database';
+import type { ICourse, IQuestionHighlightError } from '../../../types/database';
 import type { AnswerStatus } from '../qa/AnswerOption';
 import Button from '../../common/Button';
 import AnswerOption from '../qa/AnswerOption';
@@ -12,6 +12,7 @@ import Input from '../../common/Form/Input';
 import AlgebraEquationSolver from '../qa/AlgebraEquationSolver';
 import EquationDisplay from '../qa/EquationDisplay';
 import SentenceCorrectionPlayer from '../qa/SentenceCorrectionPlayer';
+import HighlightErrorPlayer from '../qa/HighlightErrorPlayer';
 
 interface CoursePlayerUIProps {
     course: ICourse;
@@ -19,15 +20,22 @@ interface CoursePlayerUIProps {
     progressPercentage: number;
     isAnswered: boolean;
     isCorrect: boolean;
+    // --- Answer States ---
     stiAnswer: string;
     algAnswers: Record<string, string>;
     sentenceCorrectionAnswer: string;
+    // FIX: Added the missing prop to the interface definition.
+    highlightErrorIndices: number[];
+    // --- Event Handlers ---
     onExitCourse: () => void;
     onCheckAnswer: () => void;
     onSelectOption: (id: string) => void;
     onStiAnswerChange: (value: string) => void;
     onAlgAnswerChange: (variable: string, value: string) => void;
     onSentenceCorrectionChange: (value: string) => void;
+    // FIX: Renamed prop to match what CoursePlayerPage is sending.
+    onHighlightErrorTokenSelect: (index: number) => void;
+    // --- Status Getters ---
     getMCQStatus: (optionId: string) => AnswerStatus;
     isCheckButtonDisabled: () => boolean;
 }
@@ -41,16 +49,18 @@ const CoursePlayerUI: React.FC<CoursePlayerUIProps> = ({
     stiAnswer,
     algAnswers,
     sentenceCorrectionAnswer,
+    highlightErrorIndices,
     onExitCourse,
     onCheckAnswer,
     onSelectOption,
     onStiAnswerChange,
     onAlgAnswerChange,
     onSentenceCorrectionChange,
+    onHighlightErrorTokenSelect,
     getMCQStatus,
     isCheckButtonDisabled,
 }) => {
-    const { t } = useTranslation(); // MODIFICATION: Initialized useTranslation
+    const { t } = useTranslation();
     const currentQuestion = course.questions[currentQuestionIndex];
     const totalQuestions = course.questions.length;
 
@@ -75,7 +85,6 @@ const CoursePlayerUI: React.FC<CoursePlayerUIProps> = ({
                     <div className="fitb-answer-area">
                         <Input
                             type="text"
-                            // MODIFICATION: Replaced hardcoded placeholder
                             placeholder={t('placeholders.sti.answer')}
                             value={stiAnswer}
                             onChange={(e) => onStiAnswerChange(e.target.value)}
@@ -85,7 +94,6 @@ const CoursePlayerUI: React.FC<CoursePlayerUIProps> = ({
                         />
                         {isAnswered && !isCorrect && (
                             <p className="fitb-correct-answer">
-                                {/* MODIFICATION: Replaced hardcoded text */}
                                 {t('player.correctAnswerWas')}{' '}
                                 <strong>{currentQuestion.correctAnswers[0]}</strong>
                             </p>
@@ -110,6 +118,15 @@ const CoursePlayerUI: React.FC<CoursePlayerUIProps> = ({
                         isAnswered={isAnswered}
                     />
                 );
+            case 'highlight-error':
+                return (
+                    <HighlightErrorPlayer
+                        question={currentQuestion as IQuestionHighlightError}
+                        selectedIndices={highlightErrorIndices}
+                        isAnswered={isAnswered}
+                        onTokenSelect={onHighlightErrorTokenSelect} // FIX: Prop name corrected
+                    />
+                );
             default:
                 return null;
         }
@@ -118,7 +135,6 @@ const CoursePlayerUI: React.FC<CoursePlayerUIProps> = ({
     return (
         <div className="course-player-v2">
             <header className="course-player-v2__header">
-                {/* MODIFICATION: Replaced hardcoded title */}
                 <Button variant="secondary" onClick={onExitCourse} title={t('player.exitCourse')}>
                     <ArrowLeft size={20} />
                 </Button>
@@ -152,12 +168,10 @@ const CoursePlayerUI: React.FC<CoursePlayerUIProps> = ({
                     <div className="feedback-section">
                         {isCorrect ? (
                             <span className="feedback-text feedback-text--correct">
-                                {/* MODIFICATION: Replaced hardcoded text */}
                                 <Check /> {t('feedback.correct')}
                             </span>
                         ) : (
                             <span className="feedback-text feedback-text--incorrect">
-                                {/* MODIFICATION: Replaced hardcoded text */}
                                 <X /> {t('feedback.incorrect')}
                             </span>
                         )}
@@ -168,7 +182,6 @@ const CoursePlayerUI: React.FC<CoursePlayerUIProps> = ({
                         onClick={onCheckAnswer}
                         disabled={isCheckButtonDisabled()}
                     >
-                        {/* MODIFICATION: Replaced hardcoded button text */}
                         {t('buttons.checkAnswer')}
                     </Button>
                 )}
