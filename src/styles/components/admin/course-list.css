@@ -1,21 +1,27 @@
 /* src/styles/components/admin/course-list.css */
 
-/* NEW: Container to position scroll button relative to the list */
+/* Container to position scroll button relative to the list */
 .course-list-container {
     position: relative;
     width: 100%;
 }
 
-/* NEW: Toolbar to house the search bar */
+/* REFACTORED: Toolbar now uses flexbox for better alignment of its children. */
 .course-list__toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Allows items to wrap on smaller screens */
+    gap: calc(var(--spacing-unit) * 2); /* Provides space between items when they wrap */
     margin-bottom: calc(var(--spacing-unit) * 2);
 }
 
-/* NEW: Search bar styles */
+/* Search bar styles remain largely the same but with a flexible width. */
 .search-bar {
     position: relative;
-    width: 100%;
-    max-width: 400px; /* Or adjust as needed */
+    flex-grow: 1; /* Allows search bar to take up available space */
+    min-width: 250px; /* Ensures it doesn't get too squished */
+    max-width: 400px;
 }
 
 .search-bar__icon {
@@ -24,12 +30,19 @@
     left: calc(var(--spacing-unit) * 1.5);
     transform: translateY(-50%);
     color: var(--color-text-secondary);
-    pointer-events: none; /* Let clicks pass through to the input */
+    pointer-events: none;
 }
 
 .search-bar__input {
-    padding-left: calc(var(--spacing-unit) * 5); /* Make space for the icon */
+    padding-left: calc(var(--spacing-unit) * 5);
     width: 100%;
+}
+
+/* NEW: Container for the filter and sort dropdowns. */
+.course-list__filters {
+    display: flex;
+    gap: var(--spacing-unit);
+    flex-wrap: wrap; /* Allows filters to wrap if space is tight */
 }
 
 /* Block: 'course-list' */
@@ -38,13 +51,14 @@
     width: 100%;
     border: 1px solid var(--color-border);
     border-radius: var(--border-radius);
-    overflow: auto; /* Ensures the border-radius is respected by children */
+    overflow: auto;
 }
 
-/* Element: 'header' */
+/* REFACTORED: Header grid updated to 4 columns for the new 'Age Range' field. */
 .course-list__header {
     display: grid;
-    grid-template-columns: 3fr 1fr 1fr;
+    /* Title, Subject, Age Range, Actions */
+    grid-template-columns: 3fr 1.5fr 1fr 2fr;
     padding: calc(var(--spacing-unit) * 1.5);
     background-color: var(--color-background);
     border-bottom: 1px solid var(--color-border);
@@ -52,15 +66,15 @@
     color: var(--color-text-secondary);
     text-transform: uppercase;
     font-size: 0.875rem;
-    position: sticky; /* Keep header visible on scroll */
+    position: sticky;
     top: 0;
     z-index: 1;
 }
 
-/* Element: 'row' */
+/* REFACTORED: Row grid updated to match the new 4-column header layout. */
 .course-list__row {
     display: grid;
-    grid-template-columns: 3fr 1fr 1fr;
+    grid-template-columns: 3fr 1.5fr 1fr 2fr;
     padding: calc(var(--spacing-unit) * 1.5);
     border-bottom: 1px solid var(--color-border);
     align-items: center;
@@ -89,7 +103,7 @@
     color: var(--color-text-secondary);
 }
 
-/* NEW: Scroll to top button styles */
+/* Scroll to top button styles */
 .scroll-to-top-btn {
     position: absolute;
     bottom: calc(var(--spacing-unit) * 2);
