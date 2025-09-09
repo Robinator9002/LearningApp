@@ -5,9 +5,8 @@ import type { IQuestion } from '../../../types/database';
 import MultipleChoiceEditor from '../../../components/admin/QuestionEditor/MultipleChoiceEditor';
 import FillInTheBlankEditor from '../../../components/admin/QuestionEditor/FillInTheBlankEditor';
 import AlgebraEquationEditor from '../../../components/admin/QuestionEditor/AlgebraEquationEditor';
-
-// --- REMOVED: The import for FreeResponseEditor has been deleted. ---
 import SentenceCorrectionEditor from '../../../components/admin/QuestionEditor/SentenceCorrectionEditor';
+import HighlightTheErrorEditor from '../../../components/admin/QuestionEditor/HighlightTheErrorEditor';
 
 interface QuestionListProps {
     questions: IQuestion[];
@@ -60,6 +59,16 @@ const QuestionList: React.FC<QuestionListProps> = ({
                     case 'sentence-correction':
                         return (
                             <SentenceCorrectionEditor
+                                key={q.id}
+                                index={index}
+                                question={q}
+                                onQuestionChange={onQuestionChange}
+                                onRemoveQuestion={onRemoveQuestion}
+                            />
+                        );
+                    case 'highlight-error':
+                        return (
+                            <HighlightTheErrorEditor
                                 key={q.id}
                                 index={index}
                                 question={q}

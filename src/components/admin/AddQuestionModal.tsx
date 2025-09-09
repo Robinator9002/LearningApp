@@ -64,6 +64,12 @@ const AddQuestionModal: React.FC<AddQuestionModalProps> = ({ isOpen, onClose, on
                     label: t('addQuestionModal.sentenceCorrection.label'),
                     description: t('addQuestionModal.sentenceCorrection.description'),
                 },
+                // NEW: Added the "Highlight the Error" question type.
+                {
+                    type: 'highlight-error',
+                    label: t('addQuestionModal.highlightError.label'),
+                    description: t('addQuestionModal.highlightError.description'),
+                },
             ],
         },
         {
