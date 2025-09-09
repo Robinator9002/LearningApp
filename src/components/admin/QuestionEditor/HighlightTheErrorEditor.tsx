@@ -5,9 +5,9 @@ import { useTranslation } from 'react-i18next';
 import { X } from 'lucide-react';
 
 import type { IQuestionHighlightError } from '../../../types/database';
-import Button from '../../common/Button.tsx';
-import Label from '../../common/Form/Label.tsx';
-import Textarea from '../../common/Form/Textarea.tsx';
+import Button from '../../common/Button';
+import Label from '../../common/Form/Label';
+import Textarea from '../../common/Form/Textarea';
 
 interface HighlightTheErrorEditorProps {
     index: number;
@@ -15,6 +15,10 @@ interface HighlightTheErrorEditorProps {
     onQuestionChange: (index: number, question: IQuestionHighlightError) => void;
     onRemoveQuestion: (index: number) => void;
 }
+
+// FIX: A more robust regex to split the sentence into words and punctuation.
+// This captures either a sequence of word characters (\w+) OR a single non-word, non-space character ([^\w\s]).
+const TOKENIZER_REGEX = /(\w+)|([^\w\s])/g;
 
 /**
  * An editor component for the "Highlight the Error" question type.
@@ -31,11 +35,10 @@ const HighlightTheErrorEditor: React.FC<HighlightTheErrorEditorProps> = ({
 
     /**
      * Memoizes the tokenization of the sentence.
-     * This splits the sentence into an array of words, which is crucial for the interactive part.
-     * It uses a simple regex to split by spaces, which is effective for this use case.
+     * This now uses the improved regex to correctly separate words and punctuation.
      */
-    const wordTokens = useMemo(() => {
-        return question.sentence.trim().split(/\s+/).filter(Boolean);
+    const sentenceTokens = useMemo(() => {
+        return question.sentence.match(TOKENIZER_REGEX) || [];
     }, [question.sentence]);
 
     /**
@@ -54,11 +57,12 @@ const HighlightTheErrorEditor: React.FC<HighlightTheErrorEditorProps> = ({
     /**
      * Toggles the selection of a word. If the word's index is already marked
      * as an error, it's removed; otherwise, it's added.
+     * NOTE: This now operates on the index within the `sentenceTokens` array.
      */
-    const handleWordClick = (wordIndex: number) => {
-        const newIndices = question.correctAnswerIndices.includes(wordIndex)
-            ? question.correctAnswerIndices.filter((i) => i !== wordIndex)
-            : [...question.correctAnswerIndices, wordIndex];
+    const handleTokenClick = (tokenIndex: number) => {
+        const newIndices = question.correctAnswerIndices.includes(tokenIndex)
+            ? question.correctAnswerIndices.filter((i) => i !== tokenIndex)
+            : [...question.correctAnswerIndices, tokenIndex];
 
         onQuestionChange(index, {
             ...question,
@@ -75,8 +79,6 @@ const HighlightTheErrorEditor: React.FC<HighlightTheErrorEditorProps> = ({
                         type: t('questionTypes.highlightError'),
                     })}
                 </h4>
-                {/* FIX: Corrected Button props to match component definition. */}
-                {/* Changed variant to "danger" and removed the invalid "sm" size. */}
                 <Button variant="danger" onClick={() => onRemoveQuestion(index)}>
                     <X size={16} /> {t('buttons.remove')}
                 </Button>
@@ -109,21 +111,36 @@ const HighlightTheErrorEditor: React.FC<HighlightTheErrorEditorProps> = ({
                 <div className="form-group">
                     <Label>{t('labels.selectErrors')}</Label>
                     <div className="highlight-editor__word-bank">
-                        {wordTokens.length > 0 ? (
-                            wordTokens.map((word, wordIndex) => {
+                        {sentenceTokens.length > 0 ? (
+                            sentenceTokens.map((token, tokenIndex) => {
+                                // FIX: Determine if the token is a word and can be clicked.
+                                const isWord = /\w/.test(token);
                                 const isSelected =
-                                    question.correctAnswerIndices.includes(wordIndex);
-                                return (
-                                    <span
-                                        key={`${question.id}-word-${wordIndex}`}
-                                        className={`word-token ${
-                                            isSelected ? 'word-token--selected' : ''
-                                        }`}
-                                        onClick={() => handleWordClick(wordIndex)}
-                                    >
-                                        {word}
-                                    </span>
-                                );
+                                    question.correctAnswerIndices.includes(tokenIndex);
+
+                                if (isWord) {
+                                    return (
+                                        <span
+                                            key={`${question.id}-token-${tokenIndex}`}
+                                            className={`word-token ${
+                                                isSelected ? 'word-token--selected' : ''
+                                            }`}
+                                            onClick={() => handleTokenClick(tokenIndex)}
+                                        >
+                                            {token}
+                                        </span>
+                                    );
+                                } else {
+                                    // Render punctuation as a simple, non-interactive span.
+                                    return (
+                                        <span
+                                            key={`${question.id}-token-${tokenIndex}`}
+                                            className="punctuation-token"
+                                        >
+                                            {token}
+                                        </span>
+                                    );
+                                }
                             })
                         ) : (
                             <p className="highlight-editor__placeholder">
