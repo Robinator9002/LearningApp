@@ -1,104 +1,87 @@
 /* src/styles/pages/admin/course-editor.css */
 
-.course-editor-page {
+/* --- Main Editor Layout --- */
+.course-editor-layout {
     display: flex;
-    flex-direction: column;
-    height: 85vh;
+    /* Full height minus top bar height */
+    height: calc(100vh - 56px);
     background-color: var(--color-background);
 }
 
-.course-editor-page__header,
-.course-editor-page__footer {
+/* --- Settings Panel (Left Side) --- */
+.course-settings-panel {
+    width: 380px; /* A bit wider for comfort */
     flex-shrink: 0;
     background-color: var(--color-surface);
-    padding: calc(var(--spacing-unit) * 2) calc(var(--spacing-unit) * 4);
+    border-right: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
     z-index: 10;
 }
 
-.course-editor-page__header {
+.course-settings-panel__header {
+    padding: calc(var(--spacing-unit) * 2) calc(var(--spacing-unit) * 2.5);
     border-bottom: 1px solid var(--color-border);
+    flex-shrink: 0;
 }
 
-.course-editor-page__title {
-    font-size: 1.75rem;
+.course-settings-panel__header h3 {
     margin: 0;
+    font-size: 1.2rem;
 }
 
-.course-editor-page__content {
+.course-settings-panel__content {
+    padding: calc(var(--spacing-unit) * 2.5);
     flex-grow: 1;
     overflow-y: auto;
-    padding: calc(var(--spacing-unit) * 4);
 }
 
-.course-meta-editor, /* MODIFICATION: Changed selector for clarity */
-.course-editor-page__questions {
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
+.course-settings-panel__content .form-group {
+    margin-bottom: calc(var(--spacing-unit) * 3);
 }
 
-/* --- MODIFICATION START: Reworked Meta Section Layout --- */
-/* Switched from a 3-column grid to a single-row flexbox layout */
-.course-meta-editor {
-    display: flex;
-    flex-direction: row; /* Ensures items are in a single row */
-    margin-bottom: calc(var(--spacing-unit) * 4);
-    border: 1px solid var(--color-border);
-    border-radius: var(--border-radius);
-    background-color: var(--color-surface);
-    overflow: hidden;
-    align-items: stretch; /* Make children stretch to the same height */
-}
-
-/* Target the direct children (the form groups) of the meta container */
-.course-meta-editor > .form-group {
-    padding: calc(var(--spacing-unit) * 2); /* Add internal padding */
-    border-right: 1px solid var(--color-border); /* Add separator line */
-    margin: 0;
-    display: flex; /* Use flex to better control label and input alignment */
-    flex-direction: column;
-}
-
-/* Assign flex-grow properties to mimic the old 2fr 1fr 1fr layout */
-.course-meta-editor > .form-group:nth-child(1) {
-    flex: 2; /* Title input takes up more space */
-}
-.course-meta-editor > .form-group:nth-child(2) {
-    flex: 1; /* Subject dropdown */
-}
-.course-meta-editor > .form-group:nth-child(3) {
-    flex: 1; /* Grade editor */
-}
-
-.course-meta-editor > .form-group:last-child {
-    border-right: none; /* Don't add a line after the last item */
-}
-/* --- MODIFICATION END --- */
-
-.course-editor-page__questions-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: calc(var(--spacing-unit) * 4); /* Added margin-top for separation */
-    margin-bottom: calc(var(--spacing-unit) * 2);
-    padding-bottom: var(--spacing-unit);
-    border-bottom: 1px solid var(--color-border);
-}
-
-.course-editor-page__questions-title {
-    font-size: 1.25rem;
-}
-
-.add-question-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--spacing-unit);
-    justify-content: flex-end;
-}
-
-.course-editor-page__footer {
+.course-settings-panel__footer {
+    padding: calc(var(--spacing-unit) * 2) calc(var(--spacing-unit) * 2.5);
     border-top: 1px solid var(--color-border);
     display: flex;
     justify-content: flex-end;
-    gap: calc(var(--spacing-unit) * 2);
+    gap: var(--spacing-unit);
+    flex-shrink: 0;
+    background-color: var(--color-surface);
+}
+
+/* --- Main Content (Right Side) --- */
+.course-editor-main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Prevent parent from scrolling */
+}
+
+.course-editor-main__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: calc(var(--spacing-unit) * 1.5) calc(var(--spacing-unit) * 3);
+    border-bottom: 1px solid var(--color-border);
+    background-color: var(--color-surface);
+    flex-shrink: 0;
+}
+
+.course-editor-main__header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.course-editor-main__content {
+    flex-grow: 1;
+    overflow-y: auto; /* Allow this part to scroll */
+    padding: calc(var(--spacing-unit) * 3);
+}
+
+/* Ensure question editors have some space */
+.course-editor-main__content > * {
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
 }

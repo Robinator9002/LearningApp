@@ -10,11 +10,12 @@ import { ModalContext } from '../../contexts/ModalContext.tsx';
 import type { ICourse, IQuestion } from '../../types/database.ts';
 import Button from '../../components/common/Button.tsx';
 
-import CourseEditorHeader from './editor/Course/CourseEditorHeader.tsx';
-import CourseMetaEditor from './editor/Course/CourseMetaEditor.tsx';
+// NEW: Import the new settings panel component
+import CourseSettingsPanel from './editor/Course/CourseSettingsPanel.tsx';
 import QuestionList from './editor/QuestionList.tsx';
 import AddQuestionModal from '../../components/admin/AddQuestionModal.tsx';
 
+// This utility function remains unchanged.
 const createNewQuestion = (type: IQuestion['type']): IQuestion => {
     const baseQuestion = { id: uuidv4(), questionText: '' };
     switch (type) {
@@ -46,9 +47,12 @@ const createNewQuestion = (type: IQuestion['type']): IQuestion => {
                 sentenceWithMistake: '',
                 correctedSentence: '',
             };
+        // This case is deprecated and should not be used.
         case 'free-response':
             throw new Error("Deprecated question type: 'free-response' should not be created.");
         default:
+            // This ensures we get a compile-time error if a new question type is added
+            // but not handled here, preventing runtime errors.
             const exhaustiveCheck: never = type;
             throw new Error(`Unhandled question type: ${exhaustiveCheck}`);
     }
@@ -61,9 +65,9 @@ const CourseEditorPage: React.FC = () => {
     const modal = useContext(ModalContext);
     const isEditMode = Boolean(courseId);
 
+    // State management remains largely the same, but the layout will use it differently.
     const [title, setTitle] = useState('');
     const [subject, setSubject] = useState<ICourse['subject']>('Math');
-    // MODIFICATION: Added state for the new gradeRange field
     const [gradeRange, setGradeRange] = useState('');
     const [questions, setQuestions] = useState<IQuestion[]>([]);
     const [isLoading, setIsLoading] = useState(isEditMode);
@@ -71,6 +75,7 @@ const CourseEditorPage: React.FC = () => {
 
     if (!modal) throw new Error('CourseEditorPage must be used within a ModalProvider');
 
+    // Data fetching logic is unchanged.
     useEffect(() => {
         if (!isEditMode || !courseId) {
             setIsLoading(false);
@@ -82,10 +87,10 @@ const CourseEditorPage: React.FC = () => {
                 if (courseToEdit) {
                     setTitle(courseToEdit.title);
                     setSubject(courseToEdit.subject);
-                    // MODIFICATION: Load the gradeRange from the fetched course
                     setGradeRange(courseToEdit.gradeRange);
                     setQuestions(courseToEdit.questions);
                 } else {
+                    // If the course doesn't exist, redirect back to the admin dashboard.
                     navigate('/admin');
                 }
             } catch (error) {
@@ -97,6 +102,7 @@ const CourseEditorPage: React.FC = () => {
         fetchCourse();
     }, [courseId, isEditMode, navigate]);
 
+    // Handlers for adding, updating, and removing questions remain unchanged.
     const handleAddQuestion = (type: IQuestion['type']) => {
         setQuestions((prev) => [...prev, createNewQuestion(type)]);
     };
@@ -109,6 +115,7 @@ const CourseEditorPage: React.FC = () => {
         setQuestions((prev) => prev.filter((_, i) => i !== index));
     };
 
+    // Save logic now includes a validation check for the title.
     const handleSaveCourse = async () => {
         if (!title.trim()) {
             return modal.showAlert({
@@ -116,7 +123,7 @@ const CourseEditorPage: React.FC = () => {
                 message: t('errors.validation.nameMissing'),
             });
         }
-        // MODIFICATION: Added gradeRange to the data payload
+
         const courseData: Omit<ICourse, 'id'> = { title, subject, gradeRange, questions };
         try {
             if (isEditMode && courseId) {
@@ -129,43 +136,45 @@ const CourseEditorPage: React.FC = () => {
             console.error('Failed to save course:', error);
             modal.showAlert({
                 title: t('errors.title'),
-                message: 'Failed to save course.', // Generic save error
+                message: 'Failed to save course.',
             });
         }
     };
 
     if (isLoading) return <div>{t('labels.loading')}</div>;
 
+    // REWORK: The entire layout has been restructured into a two-panel design.
     return (
-        <div className="course-editor-page">
-            <CourseEditorHeader
-                isEditMode={isEditMode}
-                onOpenAddQuestionModal={() => setIsAddModalOpen(true)}
+        <div className="course-editor-layout">
+            {/* The new settings panel on the left */}
+            <CourseSettingsPanel
+                title={title}
+                setTitle={setTitle}
+                subject={subject}
+                setSubject={setSubject}
+                gradeRange={gradeRange}
+                setGradeRange={setGradeRange}
+                onSave={handleSaveCourse}
             />
-            <main className="course-editor-page__content">
-                {/* FIX: Correctly pass the gradeRange state and setGradeRange function as props */}
-                <CourseMetaEditor
-                    title={title}
-                    setTitle={setTitle}
-                    subject={subject}
-                    setSubject={setSubject}
-                    gradeRange={gradeRange}
-                    setGradeRange={setGradeRange}
-                />
-                <QuestionList
-                    questions={questions}
-                    onQuestionChange={handleQuestionChange}
-                    onRemoveQuestion={handleRemoveQuestion}
-                />
+
+            {/* The main content area for questions on the right */}
+            <main className="course-editor-main">
+                <div className="course-editor-main__header">
+                    <h2>{t('editor.questionsTitle')}</h2>
+                    <Button variant="primary" onClick={() => setIsAddModalOpen(true)}>
+                        {t('buttons.addQuestion')}
+                    </Button>
+                </div>
+                <div className="course-editor-main__content">
+                    <QuestionList
+                        questions={questions}
+                        onQuestionChange={handleQuestionChange}
+                        onRemoveQuestion={handleRemoveQuestion}
+                    />
+                </div>
             </main>
-            <footer className="course-editor-page__footer">
-                <Button variant="secondary" onClick={() => navigate(-1)}>
-                    {t('buttons.discardChanges')}
-                </Button>
-                <Button variant="primary" onClick={handleSaveCourse}>
-                    {t('buttons.saveCourse')}
-                </Button>
-            </footer>
+
+            {/* The AddQuestionModal remains, as it's a good way to present many options. */}
             <AddQuestionModal
                 isOpen={isAddModalOpen}
                 onClose={() => setIsAddModalOpen(false)}
