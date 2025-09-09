@@ -106,7 +106,15 @@
             "title": "Title",
             "variables": "Variables (comma-separated)",
             "sentenceWithErrors": "Sentence with Errors",
-            "selectErrors": "Select the Incorrect Word(s)"
+            "selectErrors": "Select the Incorrect Word(s)",
+            "allSubjects": "All",
+            "ageRange": "Age",
+            "sort": {
+                "alphaAsc": "Alphabetical Ascending",
+                "alphaDesc": "Alphabetical Descending",
+                "ageAsc": "Age Ascending",
+                "ageDesc": "Age Descending"
+            }
         },
         "languages": {
             "en": "English",

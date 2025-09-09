@@ -106,7 +106,15 @@
             "title": "Titel",
             "variables": "Variablen (durch Komma getrennt)",
             "sentenceWithErrors": "Satz mit Fehlern",
-            "selectErrors": "Wählen Sie die falschen Wörter aus"
+            "selectErrors": "Wählen Sie die falschen Wörter aus",
+            "allSubjects": "Alle",
+            "ageRange": "Alter",
+            "sort": {
+                "alphaAsc": "Alphabetisch Aufsteigend",
+                "alphaDesc": "Alphabetisch Absteigend",
+                "ageAsc": "Alter Aufsteigend",
+                "ageDesc": "Alter Absteigend"
+            }
         },
         "languages": {
             "en": "English",
