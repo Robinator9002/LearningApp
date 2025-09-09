@@ -45,6 +45,7 @@ interface PlayerState {
     stiAnswer: string;
     algAnswers: Record<string, string>;
     sentenceCorrectionAnswer: string;
+    highlightErrorIndices: number[]; // NEW: State for the new question type
 }
 
 const initialState: PlayerState = {
@@ -60,6 +61,7 @@ const initialState: PlayerState = {
     stiAnswer: '',
     algAnswers: {},
     sentenceCorrectionAnswer: '',
+    highlightErrorIndices: [], // NEW: Initialize the new state
 };
 
 type PlayerAction =
@@ -69,6 +71,7 @@ type PlayerAction =
     | { type: 'SET_ALG_ANSWER'; payload: { variable: string; value: string } }
     | { type: 'SET_SENTENCE_CORRECTION'; payload: string }
     | { type: 'CHECK_ANSWER' }
+    | { type: 'TOGGLE_HIGHLIGHT_ERROR_INDEX'; payload: number }
     | { type: 'NEXT_QUESTION' };
 
 function playerReducer(state: PlayerState, action: PlayerAction): PlayerState {
@@ -89,6 +92,14 @@ function playerReducer(state: PlayerState, action: PlayerAction): PlayerState {
             };
         case 'SET_SENTENCE_CORRECTION':
             return { ...state, sentenceCorrectionAnswer: action.payload };
+        // NEW: Reducer logic for handling word selection
+        case 'TOGGLE_HIGHLIGHT_ERROR_INDEX': {
+            const index = action.payload;
+            const newIndices = state.highlightErrorIndices.includes(index)
+                ? state.highlightErrorIndices.filter((i) => i !== index)
+                : [...state.highlightErrorIndices, index];
+            return { ...state, highlightErrorIndices: newIndices };
+        }
         case 'CHECK_ANSWER': {
             if (!state.course) return state;
             const currentQuestion = state.course.questions[state.currentQuestionIndex];
@@ -153,6 +164,7 @@ const CoursePlayerPage: React.FC = () => {
         stiAnswer,
         algAnswers,
         sentenceCorrectionAnswer,
+        highlightErrorIndices, // NEW: Destructure the new state
     } = state;
 
     if (!modal || !auth) throw new Error('CoursePlayerPage must be used within required providers');
@@ -224,6 +236,7 @@ const CoursePlayerPage: React.FC = () => {
             sti: stiAnswer,
             'alg-equation': algAnswers,
             'sentence-correction': sentenceCorrectionAnswer,
+            'highlight-error': highlightErrorIndices, // NEW: Pass the answer for validation
         };
         return !isAnswerValid(currentQuestion, answerPayload);
     };
@@ -258,6 +271,7 @@ const CoursePlayerPage: React.FC = () => {
                 stiAnswer={stiAnswer}
                 algAnswers={algAnswers}
                 sentenceCorrectionAnswer={sentenceCorrectionAnswer}
+                highlightErrorIndices={highlightErrorIndices} // NEW: Pass state down
                 onExitCourse={() => navigate('/dashboard')}
                 onCheckAnswer={handleCheckAnswer}
                 onSelectOption={(id) => dispatch({ type: 'SELECT_OPTION', payload: id })}
@@ -267,6 +281,10 @@ const CoursePlayerPage: React.FC = () => {
                 }
                 onSentenceCorrectionChange={(value) =>
                     dispatch({ type: 'SET_SENTENCE_CORRECTION', payload: value })
+                }
+                // NEW: Pass the handler for the new question type
+                onHighlightErrorTokenSelect={(index) =>
+                    dispatch({ type: 'TOGGLE_HIGHLIGHT_ERROR_INDEX', payload: index })
                 }
                 getMCQStatus={getMCQStatus}
                 isCheckButtonDisabled={isCheckButtonDisabled}
