@@ -43,9 +43,8 @@ export const saveTrackingData = async (
     timeSpent: number,
     language: 'en' | 'de' = 'en',
 ): Promise<void> => {
-    // CRITICAL FIX: Add a guard to prevent crashes if the component unmounts
-    // during the async operation, leaving the course object undefined.
-    if (!course || !course.questions || course.questions.length === 0) {
+    // CRITICAL: Add a guard to prevent crashes if the course object is invalid.
+    if (!course || !course.id || !course.questions || course.questions.length === 0) {
         console.error('saveTrackingData called with invalid course object. Aborting.');
         return;
     }
@@ -55,10 +54,12 @@ export const saveTrackingData = async (
         const percentage = (score / course.questions.length) * 100;
         const grade = calculateGrade(percentage, language);
 
-        const existingData = await db.userTracking.get(userId);
+        // DATABASE FIX: Use .where() to query by the 'userId' index, not the primary key.
+        // The .get() method only works on the primary key ('++id').
+        const existingData = await db.userTracking.where('userId').equals(userId).first();
 
         const newCourseRecord: ITrackedCourse = {
-            courseId: course.id!,
+            courseId: course.id,
             title: course.title,
             subject: course.subject,
             score,
@@ -95,6 +96,7 @@ export const saveTrackingData = async (
             const totalQs = updatedCompletedCourses.reduce((sum, c) => sum + c.totalQuestions, 0);
             const newAverageScore = totalQs > 0 ? (totalScore / totalQs) * 100 : 0;
 
+            // Use .put() to update the existing record.
             await db.userTracking.put({
                 ...existingData,
                 totalTimeSpent: existingData.totalTimeSpent + timeSpent,
@@ -115,6 +117,7 @@ export const saveTrackingData = async (
                 },
                 averageScore: percentage,
             };
+            // Use .add() for a new record.
             await db.userTracking.add(newTrackingData);
         }
     } catch (error) {
