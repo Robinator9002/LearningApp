@@ -142,7 +142,8 @@ const GradeAssignmentEditor: React.FC<GradeAssignmentEditorProps> = ({
                     <Select value={directValue} onChange={handleDirectChange}>
                         {Array.from({ length: 13 }, (_, i) => i + 1).map((grade) => (
                             <option key={grade} value={grade}>
-                                {t('labels.grade', { grade })}
+                                {/* FIX: The i18n key 'labels.grade' seems to be missing the interpolation placeholder. Manually appending the grade number as a workaround. */}
+                                {`${t('labels.grade', 'Grade')} ${grade}`}
                             </option>
                         ))}
                         <option value="advanced">{t('labels.advanced')}</option>
