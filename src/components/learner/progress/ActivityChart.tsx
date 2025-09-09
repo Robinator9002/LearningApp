@@ -74,8 +74,8 @@ const ActivityChart: React.FC<ActivityChartProps> = ({ data }) => {
                 <YAxis
                     label={{ value: t('progress.minutes'), angle: -90, position: 'insideLeft' }}
                 />
-                {/* FIX: The contentStyle prop is now applied to make the tooltip theme-aware. */}
-                <Tooltip contentStyle={themedTooltipStyle} />
+                {/* FIX: The Tooltip cursor is styled to be transparent to avoid the default grey background on hover. */}
+                <Tooltip contentStyle={themedTooltipStyle} cursor={{ fill: 'transparent' }} />
                 <Bar dataKey="minutes" fill="var(--color-accent)" />
             </BarChart>
         );
