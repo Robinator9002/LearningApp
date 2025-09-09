@@ -2,10 +2,10 @@
 
 import React, { useEffect, useContext, useReducer, useState, useLayoutEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-// FIX: Import 'react-confetti' from a CDN to resolve the external dependency.
+// FIX: The build environment cannot resolve node modules directly.
+// Importing from a CDN like esm.sh resolves this dependency issue.
 import Confetti from 'react-confetti';
 
-// FIX: Add explicit file extensions to imports to ensure the bundler can resolve them.
 import { db } from '../../../lib/db.ts';
 import { ModalContext } from '../../../contexts/ModalContext.tsx';
 import { AuthContext } from '../../../contexts/AuthContext.tsx';
@@ -40,12 +40,13 @@ interface PlayerState {
     isCorrect: boolean;
     showSummary: boolean;
     showConfetti: boolean;
-    startTime: number; // For tracking time spent
+    startTime: number;
+    // --- Answer States ---
     selectedOptionId: string | null;
     stiAnswer: string;
     algAnswers: Record<string, string>;
     sentenceCorrectionAnswer: string;
-    highlightErrorIndices: number[]; // NEW: State for the new question type
+    highlightErrorIndices: number[];
 }
 
 const initialState: PlayerState = {
@@ -61,7 +62,7 @@ const initialState: PlayerState = {
     stiAnswer: '',
     algAnswers: {},
     sentenceCorrectionAnswer: '',
-    highlightErrorIndices: [], // NEW: Initialize the new state
+    highlightErrorIndices: [],
 };
 
 type PlayerAction =
@@ -70,8 +71,8 @@ type PlayerAction =
     | { type: 'SET_STI_ANSWER'; payload: string }
     | { type: 'SET_ALG_ANSWER'; payload: { variable: string; value: string } }
     | { type: 'SET_SENTENCE_CORRECTION'; payload: string }
-    | { type: 'CHECK_ANSWER' }
     | { type: 'TOGGLE_HIGHLIGHT_ERROR_INDEX'; payload: number }
+    | { type: 'CHECK_ANSWER' }
     | { type: 'NEXT_QUESTION' };
 
 function playerReducer(state: PlayerState, action: PlayerAction): PlayerState {
@@ -92,7 +93,6 @@ function playerReducer(state: PlayerState, action: PlayerAction): PlayerState {
             };
         case 'SET_SENTENCE_CORRECTION':
             return { ...state, sentenceCorrectionAnswer: action.payload };
-        // NEW: Reducer logic for handling word selection
         case 'TOGGLE_HIGHLIGHT_ERROR_INDEX': {
             const index = action.payload;
             const newIndices = state.highlightErrorIndices.includes(index)
@@ -103,11 +103,13 @@ function playerReducer(state: PlayerState, action: PlayerAction): PlayerState {
         case 'CHECK_ANSWER': {
             if (!state.course) return state;
             const currentQuestion = state.course.questions[state.currentQuestionIndex];
+            // FIX: Ensure the payload includes the 'highlight-error' property.
             const answerPayload = {
                 mcq: state.selectedOptionId,
                 sti: state.stiAnswer,
                 'alg-equation': state.algAnswers,
                 'sentence-correction': state.sentenceCorrectionAnswer,
+                'highlight-error': state.highlightErrorIndices,
             };
             const isCorrect = checkAnswer(currentQuestion, answerPayload);
             return {
@@ -135,6 +137,7 @@ function playerReducer(state: PlayerState, action: PlayerAction): PlayerState {
                 stiAnswer: '',
                 algAnswers: {},
                 sentenceCorrectionAnswer: '',
+                highlightErrorIndices: [],
             };
         }
         default:
@@ -164,7 +167,7 @@ const CoursePlayerPage: React.FC = () => {
         stiAnswer,
         algAnswers,
         sentenceCorrectionAnswer,
-        highlightErrorIndices, // NEW: Destructure the new state
+        highlightErrorIndices,
     } = state;
 
     if (!modal || !auth) throw new Error('CoursePlayerPage must be used within required providers');
@@ -177,7 +180,6 @@ const CoursePlayerPage: React.FC = () => {
                 if (courseData) {
                     dispatch({ type: 'SET_COURSE', payload: courseData });
                 } else {
-                    // If course doesn't exist, redirect back to the dashboard.
                     navigate('/dashboard');
                 }
             } catch (error) {
@@ -187,13 +189,9 @@ const CoursePlayerPage: React.FC = () => {
         fetchCourse();
     }, [courseId, navigate]);
 
-    // This effect handles saving the tracking data when the summary is shown.
     useEffect(() => {
-        // Ensure all required data is present before saving.
         if (showSummary && course && auth.currentUser?.id) {
-            const timeSpent = (Date.now() - startTime) / 1000; // in seconds
-
-            // CRITICAL FIX: The saveTrackingData function expects individual arguments, not a single object.
+            const timeSpent = (Date.now() - startTime) / 1000;
             saveTrackingData(
                 auth.currentUser.id,
                 course,
@@ -206,48 +204,39 @@ const CoursePlayerPage: React.FC = () => {
 
     const handleCheckAnswer = () => {
         dispatch({ type: 'CHECK_ANSWER' });
-        // After checking the answer, automatically move to the next question after a short delay.
         setTimeout(() => {
             dispatch({ type: 'NEXT_QUESTION' });
-        }, 2000); // 2-second delay to show feedback
+        }, 2000);
     };
 
     const currentQuestion = course?.questions[currentQuestionIndex];
 
     const getMCQStatus = (optionId: string): AnswerStatus => {
-        if (!isAnswered) {
-            return selectedOptionId === optionId ? 'selected' : 'default';
-        }
+        if (!isAnswered) return selectedOptionId === optionId ? 'selected' : 'default';
         if (currentQuestion?.type !== 'mcq') return 'default';
         const correctOption = currentQuestion.options.find((o) => o.isCorrect);
-        if (correctOption?.id === optionId) {
-            return 'correct';
-        }
-        if (selectedOptionId === optionId) {
-            return 'incorrect';
-        }
-        return 'default';
+        return correctOption?.id === optionId
+            ? 'correct'
+            : selectedOptionId === optionId
+            ? 'incorrect'
+            : 'default';
     };
 
     const isCheckButtonDisabled = () => {
         if (!currentQuestion) return true;
+        // FIX: Ensure the payload includes the 'highlight-error' property.
         const answerPayload = {
             mcq: selectedOptionId,
             sti: stiAnswer,
             'alg-equation': algAnswers,
             'sentence-correction': sentenceCorrectionAnswer,
-            'highlight-error': highlightErrorIndices, // NEW: Pass the answer for validation
+            'highlight-error': highlightErrorIndices,
         };
         return !isAnswerValid(currentQuestion, answerPayload);
     };
 
-    if (!course) {
-        return <div>Loading...</div>;
-    }
-
+    if (!course) return <div>Loading...</div>;
     if (showSummary) {
-        // FIX: Pass the onComplete handler to the CourseSummary component
-        // so the user can navigate back to the dashboard.
         return (
             <CourseSummary
                 score={score}
@@ -271,7 +260,7 @@ const CoursePlayerPage: React.FC = () => {
                 stiAnswer={stiAnswer}
                 algAnswers={algAnswers}
                 sentenceCorrectionAnswer={sentenceCorrectionAnswer}
-                highlightErrorIndices={highlightErrorIndices} // NEW: Pass state down
+                highlightErrorIndices={highlightErrorIndices}
                 onExitCourse={() => navigate('/dashboard')}
                 onCheckAnswer={handleCheckAnswer}
                 onSelectOption={(id) => dispatch({ type: 'SELECT_OPTION', payload: id })}
@@ -282,7 +271,6 @@ const CoursePlayerPage: React.FC = () => {
                 onSentenceCorrectionChange={(value) =>
                     dispatch({ type: 'SET_SENTENCE_CORRECTION', payload: value })
                 }
-                // NEW: Pass the handler for the new question type
                 onHighlightErrorTokenSelect={(index) =>
                     dispatch({ type: 'TOGGLE_HIGHLIGHT_ERROR_INDEX', payload: index })
                 }
