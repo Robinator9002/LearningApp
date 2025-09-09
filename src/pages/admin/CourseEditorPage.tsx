@@ -50,6 +50,13 @@ const createNewQuestion = (type: IQuestion['type']): IQuestion => {
         // This case is deprecated and should not be used.
         case 'free-response':
             throw new Error("Deprecated question type: 'free-response' should not be created.");
+        case 'highlight-error':
+            return {
+                ...baseQuestion,
+                type: 'highlight-error',
+                sentence: '',
+                correctAnswerIndices: [],
+            };
         default:
             // This ensures we get a compile-time error if a new question type is added
             // but not handled here, preventing runtime errors.
