@@ -5,9 +5,9 @@ import { useTranslation } from 'react-i18next';
 import { X } from 'lucide-react';
 
 import type { IQuestionHighlightError } from '../../../types/database';
-import Button from '../../common/Button';
-import Label from '../../common/Form/Label';
-import Textarea from '../../common/Form/Textarea';
+import Button from '../../common/Button.tsx';
+import Label from '../../common/Form/Label.tsx';
+import Textarea from '../../common/Form/Textarea.tsx';
 
 interface HighlightTheErrorEditorProps {
     index: number;
@@ -75,7 +75,9 @@ const HighlightTheErrorEditor: React.FC<HighlightTheErrorEditorProps> = ({
                         type: t('questionTypes.highlightError'),
                     })}
                 </h4>
-                <Button variant="danger-outline" size="sm" onClick={() => onRemoveQuestion(index)}>
+                {/* FIX: Corrected Button props to match component definition. */}
+                {/* Changed variant to "danger" and removed the invalid "sm" size. */}
+                <Button variant="danger" onClick={() => onRemoveQuestion(index)}>
                     <X size={16} /> {t('buttons.remove')}
                 </Button>
             </div>
