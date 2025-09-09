@@ -67,7 +67,7 @@ const CourseEditorPage: React.FC = () => {
 
     // State management remains largely the same, but the layout will use it differently.
     const [title, setTitle] = useState('');
-    const [subject, setSubject] = useState<ICourse['subject']>('Math');
+    const [subject, setSubject] = useState<ICourse['subject']>('math');
     const [gradeRange, setGradeRange] = useState('');
     const [questions, setQuestions] = useState<IQuestion[]>([]);
     const [isLoading, setIsLoading] = useState(isEditMode);
