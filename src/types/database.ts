@@ -81,13 +81,21 @@ export interface IQuestionSentenceCorrection extends IQuestionBase {
     correctedSentence: string;
 }
 
+// --- NEW QUESTION TYPE: Highlight the Error ---
+export interface IQuestionHighlightError extends IQuestionBase {
+    type: 'highlight-error';
+    sentence: string; // The full sentence with one or more errors
+    correctAnswerIndices: number[]; // Array of zero-based indices of the incorrect words
+}
+
 // A union type that can represent any type of question in the system.
 export type IQuestion =
     | IQuestionMCQ
     | IQuestionSTI
     | IQuestionAlgEquation
     | IQuestionFreeResponse
-    | IQuestionSentenceCorrection;
+    | IQuestionSentenceCorrection
+    | IQuestionHighlightError; // Added the new type to the union
 
 // --- MAIN COURSE INTERFACE ---
 export interface ICourse {
