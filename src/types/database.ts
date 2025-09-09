@@ -96,6 +96,9 @@ export interface ICourse {
     subject: 'math' | 'reading' | 'writing' | 'english';
     questions: IQuestion[];
     gradeRange: string;
+    // NEW: Added the targetAudience property for age-based sorting.
+    // It's an optional tuple containing [minAge, maxAge].
+    targetAudience?: [number, number];
 }
 
 // --- LEARNER TRACKING SYSTEM ---
