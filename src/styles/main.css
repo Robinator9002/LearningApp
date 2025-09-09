@@ -16,9 +16,10 @@
 @import './components/common/form/number-input.css';
 
 /* == ADMIN == */
-@import './components/admin/question-editor.css';
+@import './components/admin/question-editor/question-editor.css';
 @import './components/admin/course-list.css';
-@import './components/admin/grade-assignment-editor.css';
+@import './components/admin/question-editor/grade-assignment-editor.css';
+@import './components/admin/question-editor/highlight-text-editor.css';
 @import './components/admin/add-question-modal.css';
 
 /* == LEARNER == */
