@@ -22,6 +22,7 @@
 
 /* = QUESTION EDITOR = */
 @import './components/admin/question-editor/highlight-text-editor.css';
+@import './components/admin/question-editor/highlight-error-player.css';
 
 /* == LEARNER == */
 /* = COURSE = */
