@@ -53,6 +53,7 @@ export interface IMCQOption {
 export interface IQuestionMCQ extends IQuestionBase {
     type: 'mcq';
     options: IMCQOption[];
+    imageUrl?: string; // MODIFICATION: Added optional image URL for diagrams.
 }
 
 // --- QUESTION TYPE: Smart Text Input (Fill-in-the-blank) ---
