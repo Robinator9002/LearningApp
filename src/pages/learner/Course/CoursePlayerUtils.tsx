@@ -2,20 +2,25 @@
 
 import type { IQuestion } from '../../../types/database';
 
-// MODIFICATION: The AnswerPayload now includes the new question type.
+// FINAL STEP: The AnswerPayload now includes all question types.
 type AnswerPayload = {
     mcq: string | null;
     sti: string;
     'alg-equation': Record<string, string>;
     'sentence-correction': string;
     'highlight-error': number[];
+    'sentence-order': string[];
 };
 
 /**
  * A robust evaluation function to simulate a real math library.
+ * This version handles implicit multiplication (e.g., '2x') to prevent SyntaxErrors.
  */
 const evalWithScope = (expression: string, scope: Record<string, number>): number => {
+    // Sanitize to prevent implicit multiplication errors, e.g., '2x' becomes '2*x'
     let sanitizedExpression = expression.replace(/(\d+)([a-zA-Z]+)/g, '$1*$2');
+
+    // Create a safe evaluation scope
     const functionBody = `
         "use strict";
         ${Object.keys(scope)
@@ -31,7 +36,7 @@ const evalWithScope = (expression: string, scope: Record<string, number>): numbe
         return result;
     } catch (error) {
         console.error('Evaluation error:', error);
-        return NaN;
+        return NaN; // Return NaN to indicate failure
     }
 };
 
@@ -41,13 +46,16 @@ const evalWithScope = (expression: string, scope: Record<string, number>): numbe
 export const evaluateEquation = (equation: string, answers: Record<string, string>): boolean => {
     const parts = equation.split('=');
     if (parts.length !== 2) return false;
+
     const [leftSide, rightSide] = parts.map((p) => p.trim());
+
     const scope: Record<string, number> = {};
     for (const key in answers) {
         const numValue = parseFloat(answers[key]);
         if (isNaN(numValue)) return false;
         scope[key] = numValue;
     }
+
     try {
         const leftResult = evalWithScope(leftSide, scope);
         const rightResult = evalWithScope(rightSide, scope);
@@ -78,9 +86,11 @@ export const isAnswerValid = (question: IQuestion, answers: AnswerPayload): bool
             );
         case 'sentence-correction':
             return answers['sentence-correction'].trim() !== '';
-        // NEW: Validation logic for the new question type.
         case 'highlight-error':
             return answers['highlight-error'].length > 0;
+        // FIX: For sentence-order, any arrangement is a valid attempt.
+        case 'sentence-order':
+            return true;
         default:
             return false;
     }
@@ -107,12 +117,21 @@ export const checkAnswer = (question: IQuestion, answers: AnswerPayload): boolea
             const corrected = answers['sentence-correction'].trim();
             const expected = question.correctedSentence.trim();
             return corrected === expected;
-        // NEW: Grading logic for the new question type.
         case 'highlight-error': {
-            const learnerAnswers = [...answers['highlight-error']].sort((a, b) => a - b);
-            const correctAnswers = [...question.correctAnswerIndices].sort((a, b) => a - b);
-            // The answer is correct only if the arrays are identical.
-            return JSON.stringify(learnerAnswers) === JSON.stringify(correctAnswers);
+            const { correctAnswerIndices } = question;
+            const selected = answers['highlight-error'];
+            if (correctAnswerIndices.length !== selected.length) {
+                return false;
+            }
+            const sortedCorrect = [...correctAnswerIndices].sort();
+            const sortedSelected = [...selected].sort();
+            return sortedCorrect.every((val, index) => val === sortedSelected[index]);
+        }
+        // NEW: Add the evaluation logic for sentence-order.
+        case 'sentence-order': {
+            // The simplest, most robust way to check if two arrays of strings
+            // are identical is to compare their JSON string representations.
+            return JSON.stringify(question.items) === JSON.stringify(answers['sentence-order']);
         }
         default:
             return false;
