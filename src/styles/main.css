@@ -22,7 +22,8 @@
 @import './components/admin/add-question-modal.css';
 
 /* = QUESTION EDITOR = */
-@import './components/admin/question-editor/highlight-error-player.css';
+@import './components/admin/question-editor/highlight-text-editor.css';
+@import './components/admin/question-editor/highlight-error-editor.css';
 @import './components/admin/question-editor/sentence-order-editor.css';
 
 /* == LEARNER == */
