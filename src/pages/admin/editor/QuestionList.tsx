@@ -1,12 +1,21 @@
 import React from 'react';
-import type { IQuestion } from '../../../types/database';
+import type {
+    IQuestion,
+    IQuestionMCQ,
+    IQuestionSTI,
+    IQuestionAlgEquation,
+    IQuestionSentenceCorrection,
+    IQuestionHighlightError,
+    IQuestionSentenceOrder,
+} from '../../../types/database';
 
-// --- Existing Component Imports ---
+// --- Component Imports ---
 import MultipleChoiceEditor from '../../../components/admin/QuestionEditor/MultipleChoiceEditor';
 import FillInTheBlankEditor from '../../../components/admin/QuestionEditor/FillInTheBlankEditor';
 import AlgebraEquationEditor from '../../../components/admin/QuestionEditor/AlgebraEquationEditor';
 import SentenceCorrectionEditor from '../../../components/admin/QuestionEditor/SentenceCorrectionEditor';
 import HighlightTheErrorEditor from '../../../components/admin/QuestionEditor/HighlightTheErrorEditor';
+import SentenceOrderEditor from '../../../components/admin/QuestionEditor/SentenceOrderEditor';
 
 interface QuestionListProps {
     questions: IQuestion[];
@@ -22,15 +31,13 @@ const QuestionList: React.FC<QuestionListProps> = ({
     return (
         <div className="course-editor-page__questions">
             {questions.map((q, index) => {
-                // The switch statement acts as a router, determining which editor
-                // component to render based on the question's 'type' property.
                 switch (q.type) {
                     case 'mcq':
                         return (
                             <MultipleChoiceEditor
                                 key={q.id}
                                 index={index}
-                                question={q}
+                                question={q as IQuestionMCQ}
                                 onQuestionChange={onQuestionChange}
                                 onRemoveQuestion={onRemoveQuestion}
                             />
@@ -40,7 +47,7 @@ const QuestionList: React.FC<QuestionListProps> = ({
                             <FillInTheBlankEditor
                                 key={q.id}
                                 index={index}
-                                question={q}
+                                question={q as IQuestionSTI}
                                 onQuestionChange={onQuestionChange}
                                 onRemoveQuestion={onRemoveQuestion}
                             />
@@ -50,18 +57,17 @@ const QuestionList: React.FC<QuestionListProps> = ({
                             <AlgebraEquationEditor
                                 key={q.id}
                                 index={index}
-                                question={q}
+                                question={q as IQuestionAlgEquation}
                                 onQuestionChange={onQuestionChange}
                                 onRemoveQuestion={onRemoveQuestion}
                             />
                         );
-                    // --- REMOVED: The case for 'free-response' has been excised. ---
                     case 'sentence-correction':
                         return (
                             <SentenceCorrectionEditor
                                 key={q.id}
                                 index={index}
-                                question={q}
+                                question={q as IQuestionSentenceCorrection}
                                 onQuestionChange={onQuestionChange}
                                 onRemoveQuestion={onRemoveQuestion}
                             />
@@ -71,17 +77,23 @@ const QuestionList: React.FC<QuestionListProps> = ({
                             <HighlightTheErrorEditor
                                 key={q.id}
                                 index={index}
-                                question={q}
+                                question={q as IQuestionHighlightError}
+                                onQuestionChange={onQuestionChange}
+                                onRemoveQuestion={onRemoveQuestion}
+                            />
+                        );
+                    case 'sentence-order':
+                        return (
+                            <SentenceOrderEditor
+                                key={q.id}
+                                index={index}
+                                question={q as IQuestionSentenceOrder}
                                 onQuestionChange={onQuestionChange}
                                 onRemoveQuestion={onRemoveQuestion}
                             />
                         );
                     default:
-                        // This ensures that if a new type is added to the data model but
-                        // not here, we don't crash the app. It's a good defensive measure.
-                        console.warn(
-                            `No editor component found for question type: ${(q as any).type}`,
-                        );
+                        console.warn(`No editor component for type: ${(q as any).type}`);
                         return null;
                 }
             })}

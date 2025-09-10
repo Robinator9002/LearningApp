@@ -1,45 +1,30 @@
 // src/components/admin/AddQuestionModal.tsx
 
 import React from 'react';
-import { useTranslation } from 'react-i18next'; // MODIFICATION: Imported useTranslation
+import { useTranslation } from 'react-i18next';
 import type { IQuestion } from '../../types/database';
 import Modal from '../common/Modal/Modal';
 
-/**
- * Defines the properties for the AddQuestionModal component.
- */
 interface AddQuestionModalProps {
     isOpen: boolean;
     onClose: () => void;
     onAddQuestion: (type: IQuestion['type']) => void;
 }
 
-/**
- * Defines the structure for a single question type button within the modal.
- */
 type QuestionOption = {
     type: IQuestion['type'];
     label: string;
     description: string;
 };
 
-/**
- * Defines the structure for a category of questions.
- */
 type QuestionCategory = {
     category: string;
     questions: QuestionOption[];
 };
 
-/**
- * A modal dialog for adding new questions to a course. It organizes
- * question types into categories for a much-improved user experience.
- */
 const AddQuestionModal: React.FC<AddQuestionModalProps> = ({ isOpen, onClose, onAddQuestion }) => {
-    const { t } = useTranslation(); // MODIFICATION: Initialized useTranslation
+    const { t } = useTranslation();
 
-    // MODIFICATION: The question categories are now dynamically generated using
-    // the translation keys, making the component fully data-driven and scalable.
     const questionCategories: QuestionCategory[] = [
         {
             category: t('addQuestionModal.categories.general'),
@@ -64,11 +49,15 @@ const AddQuestionModal: React.FC<AddQuestionModalProps> = ({ isOpen, onClose, on
                     label: t('addQuestionModal.sentenceCorrection.label'),
                     description: t('addQuestionModal.sentenceCorrection.description'),
                 },
-                // NEW: Added the "Highlight the Error" question type.
                 {
                     type: 'highlight-error',
                     label: t('addQuestionModal.highlightError.label'),
                     description: t('addQuestionModal.highlightError.description'),
+                },
+                {
+                    type: 'sentence-order',
+                    label: t('addQuestionModal.sentenceOrder.label'),
+                    description: t('addQuestionModal.sentenceOrder.description'),
                 },
             ],
         },
@@ -88,20 +77,15 @@ const AddQuestionModal: React.FC<AddQuestionModalProps> = ({ isOpen, onClose, on
         return null;
     }
 
-    /**
-     * Handles the selection of a question type.
-     */
     const handleSelectQuestion = (type: IQuestion['type']) => {
         onAddQuestion(type);
         onClose();
     };
 
     return (
-        // MODIFICATION: Replaced hardcoded title.
         <Modal isOpen={isOpen} onClose={onClose} title={t('addQuestionModal.title')}>
             <div className="add-question-modal">
                 <div className="add-question-modal__header">
-                    {/* MODIFICATION: Replaced hardcoded description. */}
                     <p>{t('addQuestionModal.description')}</p>
                 </div>
                 <div className="add-question-modal__content">
