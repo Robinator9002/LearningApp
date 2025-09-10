@@ -1,0 +1,29 @@
+/* src/styles/components/admin/sentence-order-editor.css */
+
+.sentence-order-editor__items-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-unit);
+}
+
+.sentence-order-editor__item {
+    display: flex;
+    align-items: flex-start; /* Align items to the top */
+    gap: var(--spacing-unit);
+}
+
+.sentence-order-editor__item-number {
+    font-weight: 700;
+    color: var(--color-text-secondary);
+    padding-top: calc(var(--spacing-unit) * 1.5); /* Align with textarea text */
+    flex-shrink: 0;
+}
+
+.sentence-order-editor__item > textarea {
+    flex-grow: 1; /* Allow textarea to take up available space */
+}
+
+/* Position the "Add Item" button below the list with some margin */
+.add-item-button {
+    margin-top: var(--spacing-unit);
+}
