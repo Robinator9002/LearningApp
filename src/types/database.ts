@@ -81,11 +81,11 @@ export interface IQuestionSentenceCorrection extends IQuestionBase {
     correctedSentence: string;
 }
 
-// --- NEW QUESTION TYPE: Highlight the Error ---
+// --- QUESTION TYPE: Highlight The Error ---
 export interface IQuestionHighlightError extends IQuestionBase {
     type: 'highlight-error';
-    sentence: string; // The full sentence with one or more errors
-    correctAnswerIndices: number[]; // Array of zero-based indices of the incorrect words
+    sentence: string;
+    correctAnswerIndices: number[];
 }
 
 // --- NEW: QUESTION TYPE: Sentence / Paragraph Ordering ---
@@ -101,30 +101,26 @@ export type IQuestion =
     | IQuestionAlgEquation
     | IQuestionFreeResponse
     | IQuestionSentenceCorrection
-    | IQuestionHighlightError; // Added the new type to the union
+    | IQuestionHighlightError
+    | IQuestionSentenceOrder;
 
 // --- MAIN COURSE INTERFACE ---
 export interface ICourse {
     id?: number;
     title: string;
-    subject: 'math' | 'reading' | 'writing' | 'english';
+    subject: 'Math' | 'Reading' | 'Writing' | 'English';
     questions: IQuestion[];
     gradeRange: string;
-    // NEW: Added the targetAudience property for age-based sorting.
-    // It's an optional tuple containing [minAge, maxAge].
     targetAudience?: [number, number];
 }
 
 // --- LEARNER TRACKING SYSTEM ---
-
-// Defines the grade a learner can receive.
 export type Grade = 'A' | 'B' | 'C' | 'D' | 'F' | '1' | '2' | '3' | '4' | '5' | '6';
 
-// Represents a single completed course in the user's history.
 export interface ITrackedCourse {
     courseId: number;
-    title: string; // FIX: Renamed from courseTitle for consistency
-    subject: ICourse['subject']; // FIX: Added subject for filtering/stats
+    title: string;
+    subject: ICourse['subject'];
     score: number;
     totalQuestions: number;
     timeSpent: number; // in seconds
@@ -132,27 +128,23 @@ export interface ITrackedCourse {
     grade: Grade;
 }
 
-// Represents a log of activity for a single day.
 export interface IDailyActivity {
     date: string; // YYYY-MM-DD
     timeSpent: number; // in seconds
 }
 
-// Represents aggregated stats for a single subject (e.g., "Math").
 export interface ITrackedSubject {
     coursesCompleted: number;
-    totalTimeSpent: number; // FIX: Re-added this essential property
+    totalTimeSpent: number;
 }
 
-// A flexible record for storing stats for each subject.
 export type IStatsBySubject = Partial<Record<ICourse['subject'], ITrackedSubject>>;
 
-// The main, comprehensive tracking document for a single user.
 export interface IUserTracking {
-    userId: number; // Foreign key to the User table
-    totalTimeSpent: number; // in seconds
+    userId: number;
+    totalTimeSpent: number;
     completedCourses: ITrackedCourse[];
     dailyActivity: IDailyActivity[];
     statsBySubject: IStatsBySubject;
-    averageScore: number; // Overall average percentage
+    averageScore: number;
 }
