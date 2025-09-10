@@ -17,7 +17,7 @@ import AlgebraEquationSolver from '../qa/AlgebraEquationSolver.tsx';
 import EquationDisplay from '../qa/EquationDisplay.tsx';
 import SentenceCorrectionPlayer from '../qa/SentenceCorrectionPlayer.tsx';
 import HighlightErrorPlayer from '../qa/HighlightErrorPlayer.tsx';
-import SentenceOrderPlayer from '../qa/SentenceOrderPlayer.tsx'; // NEW: Import the player
+import SentenceOrderPlayer from '../qa/SentenceOrderPlayer.tsx';
 
 interface CoursePlayerUIProps {
     course: ICourse;
@@ -30,7 +30,7 @@ interface CoursePlayerUIProps {
     algAnswers: Record<string, string>;
     sentenceCorrectionAnswer: string;
     highlightErrorIndices: number[];
-    sentenceOrderAnswer: string[]; // NEW: Add sentence order answer prop
+    sentenceOrderAnswer: string[];
     // --- Event Handlers ---
     onExitCourse: () => void;
     onCheckAnswer: () => void;
@@ -39,7 +39,7 @@ interface CoursePlayerUIProps {
     onAlgAnswerChange: (variable: string, value: string) => void;
     onSentenceCorrectionChange: (value: string) => void;
     onHighlightErrorTokenSelect: (index: number) => void;
-    onSentenceOrderChange: (newOrder: string[]) => void; // NEW: Add handler prop
+    onSentenceOrderChange: (newOrder: string[]) => void;
     // --- Status Getters ---
     getMCQStatus: (optionId: string) => AnswerStatus;
     isCheckButtonDisabled: () => boolean;
@@ -62,7 +62,7 @@ const CoursePlayerUI: React.FC<CoursePlayerUIProps> = ({
     onAlgAnswerChange,
     onSentenceCorrectionChange,
     onHighlightErrorTokenSelect,
-    onSentenceOrderChange, // NEW: Destructure prop
+    onSentenceOrderChange,
     getMCQStatus,
     isCheckButtonDisabled,
 }) => {
@@ -133,7 +133,6 @@ const CoursePlayerUI: React.FC<CoursePlayerUIProps> = ({
                         onTokenSelect={onHighlightErrorTokenSelect}
                     />
                 );
-            // NEW: Render the SentenceOrderPlayer
             case 'sentence-order':
                 return (
                     <SentenceOrderPlayer
@@ -169,6 +168,12 @@ const CoursePlayerUI: React.FC<CoursePlayerUIProps> = ({
 
             <main className="course-player-v2__main">
                 <div className="qa-card qa-card--question">
+                    {currentQuestion.type === 'mcq' && currentQuestion.imageUrl && (
+                        <div className="question-image-container">
+                            <img src={currentQuestion.imageUrl} alt={t('altText.questionImage')} />
+                        </div>
+                    )}
+
                     <p className="qa-card__question-text">{currentQuestion.questionText}</p>
                     {currentQuestion.type === 'alg-equation' && currentQuestion.equation && (
                         <EquationDisplay equation={currentQuestion.equation} />

@@ -1,11 +1,11 @@
 /* src/styles/components/admin/question-editor.css */
 
 .question-editor {
-    background-color: var(--color-background);
+    background-color: var(--color-surface);
     border: 1px solid var(--color-border);
     border-radius: var(--border-radius);
+    margin-bottom: calc(var(--spacing-unit) * 3);
     padding: calc(var(--spacing-unit) * 2);
-    margin-bottom: calc(var(--spacing-unit) * 2);
 }
 
 .question-editor__header {
@@ -13,19 +13,22 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: calc(var(--spacing-unit) * 2);
+    padding-bottom: var(--spacing-unit);
+    border-bottom: 1px solid var(--color-border-light);
 }
 
 .question-editor__title {
-    font-size: 1.125rem;
-    font-weight: 700;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
 }
 
-/* --- MCQ Specific Styles --- */
+/* --- MCQ Options --- */
+
 .question-editor__option-list {
     display: flex;
     flex-direction: column;
-    gap: calc(var(--spacing-unit) * 1.5);
-    margin-top: calc(var(--spacing-unit) * 2);
+    gap: var(--spacing-unit);
 }
 
 .question-editor__option {
@@ -34,66 +37,45 @@
     gap: var(--spacing-unit);
 }
 
-.question-editor__option .form-input {
+.question-editor__option > .form-input {
     flex-grow: 1;
 }
 
 .question-editor__option-radio {
-    margin-left: var(--spacing-unit);
-    cursor: pointer;
+    margin-left: auto; /* Push the radio button and label to the right */
 }
 
-.question-editor__option-label {
+.question-editor__option-label,
+.question-editor__option-label--correct {
     cursor: pointer;
-    color: var(--color-text-secondary);
-    transition: color 0.2s;
+    user-select: none;
+    padding: 4px 8px;
+    border-radius: var(--border-radius);
+    transition: background-color 0.2s;
 }
 
 .question-editor__option-label--correct {
-    cursor: pointer;
+    background-color: var(--color-feedback-positive);
+    color: #fff;
     font-weight: 700;
-    color: var(--color-feedback-positive);
 }
 
-/* --- Smart Text Input (sti) Specific Styles --- */
-/* This container will hold the list of answer inputs. */
-.answer-list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-unit);
-    margin-bottom: var(--spacing-unit);
-}
-
-/* Styles for each row (input + remove button). */
-.answer-list__item {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-unit);
-}
-
-/* Ensure the input field takes up all available space. */
-.answer-list__item .form-input {
-    flex-grow: 1;
-}
-
-/* Style the 'Add' button to be less prominent and aligned left. */
-.answer-list__add-btn {
-    align-self: flex-start;
+/* --- NEW: Image Preview --- */
+.image-preview {
     margin-top: var(--spacing-unit);
-}
-
-/* --- Info Box Styling --- */
-/* Used for notes and warnings within an editor, like for manual grading. */
-.form-group-info {
-    margin-top: calc(var(--spacing-unit) * 2);
     padding: var(--spacing-unit);
-    background-color: color-mix(in srgb, var(--color-accent) 10%, transparent);
-    border-left: 4px solid var(--color-accent);
+    background-color: var(--color-background);
     border-radius: var(--border-radius);
+    border: 1px dashed var(--color-border);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100px;
 }
 
-.form-group-info p {
-    margin: 0;
-    font-size: 0.9rem;
-    color: var(--color-text-secondary);
+.image-preview img {
+    max-width: 100%;
+    max-height: 200px;
+    border-radius: calc(var(--border-radius) - 2px);
+    object-fit: contain;
 }

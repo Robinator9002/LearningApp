@@ -2,21 +2,22 @@
 
 import React from 'react';
 import { X } from 'lucide-react';
-import { useTranslation } from 'react-i18next'; // MODIFICATION: Imported useTranslation
-import type { IQuestion } from '../../../types/database';
+import { useTranslation } from 'react-i18next';
+import type { IQuestionMCQ } from '../../../types/database';
 import Button from '../../common/Button';
 import Input from '../../common/Form/Input';
 import Label from '../../common/Form/Label';
 
 interface QuestionEditorProps {
-    question: IQuestion;
+    question: IQuestionMCQ;
     index: number;
-    onQuestionChange: (index: number, question: IQuestion) => void;
+    onQuestionChange: (index: number, question: IQuestionMCQ) => void;
     onRemoveQuestion: (index: number) => void;
 }
 
 /**
- * A component specifically for editing Multiple Choice Questions (MCQ).
+ * An enhanced component for editing Multiple Choice Questions (MCQ)
+ * that now supports an optional image URL.
  */
 const MultipleChoiceEditor: React.FC<QuestionEditorProps> = ({
     question,
@@ -24,7 +25,7 @@ const MultipleChoiceEditor: React.FC<QuestionEditorProps> = ({
     onQuestionChange,
     onRemoveQuestion,
 }) => {
-    const { t } = useTranslation(); // MODIFICATION: Initialized useTranslation
+    const { t } = useTranslation();
 
     // --- TYPE GUARD ---
     if (question.type !== 'mcq') {
@@ -33,6 +34,11 @@ const MultipleChoiceEditor: React.FC<QuestionEditorProps> = ({
 
     const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         onQuestionChange(index, { ...question, questionText: e.target.value });
+    };
+
+    // NEW: Handler for the image URL input.
+    const handleImageUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        onQuestionChange(index, { ...question, imageUrl: e.target.value });
     };
 
     const handleOptionTextChange = (optIndex: number, text: string) => {
@@ -53,33 +59,51 @@ const MultipleChoiceEditor: React.FC<QuestionEditorProps> = ({
     return (
         <div className="question-editor">
             <div className="question-editor__header">
-                {/* MODIFICATION: Title is now dynamically translated. */}
                 <h3 className="question-editor__title">
                     {t('editor.questionTitle', {
                         index: index + 1,
                         type: t('questionTypes.mcq'),
                     })}
                 </h3>
-                {/* MODIFICATION: Replaced hardcoded button text. */}
                 <Button variant="danger" onClick={() => onRemoveQuestion(index)}>
                     <X size={16} /> {t('buttons.remove')}
                 </Button>
             </div>
 
             <div className="form-group">
-                {/* MODIFICATION: Replaced hardcoded label. */}
                 <Label htmlFor={`question-text-${question.id}`}>{t('labels.questionText')}</Label>
                 <Input
                     id={`question-text-${question.id}`}
                     value={question.questionText}
                     onChange={handleTextChange}
-                    // MODIFICATION: Replaced hardcoded placeholder.
                     placeholder={t('placeholders.mcq.questionText')}
                 />
             </div>
 
+            {/* --- NEW: Image URL Input and Preview --- */}
             <div className="form-group">
-                {/* MODIFICATION: Replaced hardcoded label. */}
+                <Label htmlFor={`image-url-${question.id}`}>{t('labels.imageUrlOptional')}</Label>
+                <Input
+                    id={`image-url-${question.id}`}
+                    value={question.imageUrl || ''}
+                    onChange={handleImageUrlChange}
+                    placeholder={t('placeholders.mcq.imageUrl')}
+                />
+                {question.imageUrl && (
+                    <div className="image-preview">
+                        <img
+                            src={question.imageUrl}
+                            alt={t('altText.questionImagePreview')}
+                            onError={(e) => {
+                                (e.target as HTMLImageElement).style.display = 'none';
+                            }}
+                        />
+                    </div>
+                )}
+            </div>
+            {/* --- END NEW SECTION --- */}
+
+            <div className="form-group">
                 <Label>{t('labels.answerOptions')}</Label>
                 <div className="question-editor__option-list">
                     {question.options.map((option, optIndex) => (
@@ -87,7 +111,6 @@ const MultipleChoiceEditor: React.FC<QuestionEditorProps> = ({
                             <Input
                                 value={option.text}
                                 onChange={(e) => handleOptionTextChange(optIndex, e.target.value)}
-                                // MODIFICATION: Replaced hardcoded placeholder.
                                 placeholder={t('placeholders.mcq.option', {
                                     index: optIndex + 1,
                                 })}
@@ -108,7 +131,6 @@ const MultipleChoiceEditor: React.FC<QuestionEditorProps> = ({
                                         : 'question-editor__option-label'
                                 }
                             >
-                                {/* MODIFICATION: Replaced hardcoded label. */}
                                 {t('labels.correct')}
                             </Label>
                         </div>
@@ -119,5 +141,4 @@ const MultipleChoiceEditor: React.FC<QuestionEditorProps> = ({
     );
 };
 
-// MODIFICATION: Changed the component's export name for clarity.
 export default MultipleChoiceEditor;
