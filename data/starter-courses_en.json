@@ -1,197 +1,625 @@
 [
     {
-        "title": "Fun with Phonics",
-        "subject": "Reading",
-        "gradeRange": "2-4",
-        "questions": [
-            {
-                "id": "uuid-phonics-1",
-                "type": "mcq",
-                "questionText": "Which word rhymes with 'cat'?",
-                "options": [
-                    { "id": "uuid-phonics-1-1", "text": "Hat", "isCorrect": true },
-                    { "id": "uuid-phonics-1-2", "text": "Dog", "isCorrect": false },
-                    { "id": "uuid-phonics-1-3", "text": "Sun", "isCorrect": false },
-                    { "id": "uuid-phonics-1-4", "text": "Car", "isCorrect": false }
-                ]
-            },
-            {
-                "id": "uuid-phonics-2",
-                "type": "sti",
-                "questionText": "The opposite of 'hot' is ____.",
-                "correctAnswers": ["cold"],
-                "evaluationMode": "case-insensitive"
-            }
-        ]
-    },
-    {
-        "title": "Basic Addition",
+        "title": "Counting Fun",
         "subject": "Math",
-        "gradeRange": "2-4",
+        "gradeRange": "1-2",
         "questions": [
             {
-                "id": "uuid-addition-1",
+                "id": "en-12-m1-q1",
                 "type": "mcq",
-                "questionText": "What is 5 + 3?",
+                "questionText": "How many stars do you see?",
+                "imageUrl": "https://placehold.co/400x300/A2E4B8/000000?text=⭐%20⭐%20⭐%20⭐",
                 "options": [
-                    { "id": "uuid-addition-1-1", "text": "7", "isCorrect": false },
-                    { "id": "uuid-addition-1-2", "text": "8", "isCorrect": true },
-                    { "id": "uuid-addition-1-3", "text": "6", "isCorrect": false },
-                    { "id": "uuid-addition-1-4", "text": "9", "isCorrect": false }
+                    { "id": "opt-1", "text": "3", "isCorrect": false },
+                    { "id": "opt-2", "text": "4", "isCorrect": true },
+                    { "id": "opt-3", "text": "5", "isCorrect": false }
                 ]
             },
             {
-                "id": "uuid-addition-2",
+                "id": "en-12-m1-q2",
+                "type": "mcq",
+                "questionText": "Which number is BIGGER?",
+                "options": [
+                    { "id": "opt-1", "text": "9", "isCorrect": true },
+                    { "id": "opt-2", "text": "6", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-12-m1-q3",
+                "type": "sti",
+                "questionText": "If you have 3 apples and get 1 more, you have ____ apples.",
+                "correctAnswers": ["4", "four"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "en-12-m1-q4",
+                "type": "mcq",
+                "questionText": "What is 2 + 3?",
+                "options": [
+                    { "id": "opt-1", "text": "4", "isCorrect": false },
+                    { "id": "opt-2", "text": "5", "isCorrect": true },
+                    { "id": "opt-3", "text": "6", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-12-m1-q5",
                 "type": "alg-equation",
-                "questionText": "Solve for the missing number.",
-                "equation": "4 + x = 10",
+                "questionText": "What number is missing?",
+                "equation": "1 + x = 4",
                 "variables": ["x"]
             }
         ]
     },
     {
-        "title": "Story Starters",
-        "subject": "Writing",
-        "gradeRange": "2-4",
+        "title": "Alphabet Order",
+        "subject": "Reading",
+        "gradeRange": "1-2",
         "questions": [
             {
-                "id": "uuid-writing-1",
-                "type": "sentence-correction",
-                "questionText": "Correct the sentence below.",
-                "sentenceWithMistake": "i go to the park.",
-                "correctedSentence": "I go to the park."
+                "id": "en-12-r1-q1",
+                "type": "sentence-order",
+                "questionText": "Put the letters in the correct order.",
+                "items": ["A", "B", "C", "D"]
+            },
+            {
+                "id": "en-12-r1-q2",
+                "type": "mcq",
+                "questionText": "What letter comes after M?",
+                "options": [
+                    { "id": "opt-1", "text": "L", "isCorrect": false },
+                    { "id": "opt-2", "text": "N", "isCorrect": true },
+                    { "id": "opt-3", "text": "O", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-12-r1-q3",
+                "type": "sentence-order",
+                "questionText": "Put these words in alphabetical order.",
+                "items": ["Apple", "Banana", "Cherry"]
+            },
+            {
+                "id": "en-12-r1-q4",
+                "type": "sti",
+                "questionText": "What is the last letter of the alphabet?",
+                "correctAnswers": ["Z"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "en-12-r1-q5",
+                "type": "mcq",
+                "questionText": "Which word comes first in a dictionary?",
+                "options": [
+                    { "id": "opt-1", "text": "Dog", "isCorrect": false },
+                    { "id": "opt-2", "text": "Cat", "isCorrect": true },
+                    { "id": "opt-3", "text": "Fish", "isCorrect": false }
+                ]
             }
         ]
     },
     {
-        "title": "Noun Detective",
+        "title": "Comma Practice",
+        "subject": "Writing",
+        "gradeRange": "3-4",
+        "questions": [
+            {
+                "id": "en-34-w1-q1",
+                "type": "highlight-error",
+                "questionText": "Find the spot where a comma is missing in this list.",
+                "sentence": "I like apples oranges and bananas.",
+                "correctAnswerIndices": [1]
+            },
+            {
+                "id": "en-34-w1-q2",
+                "type": "sentence-correction",
+                "questionText": "Add the correct punctuation to the sentence.",
+                "sentenceWithMistake": "We went to Paris France last summer.",
+                "correctedSentence": "We went to Paris, France last summer."
+            },
+            {
+                "id": "en-34-w1-q3",
+                "type": "mcq",
+                "questionText": "Which sentence is punctuated correctly?",
+                "options": [
+                    { "id": "opt-1", "text": "Today is Tuesday January 1st.", "isCorrect": false },
+                    { "id": "opt-2", "text": "Today is Tuesday, January 1st.", "isCorrect": true },
+                    { "id": "opt-3", "text": "Today, is Tuesday January 1st.", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-34-w1-q4",
+                "type": "highlight-error",
+                "questionText": "Find the unnecessary comma.",
+                "sentence": "The big, red, car drove away.",
+                "correctAnswerIndices": [3]
+            },
+            {
+                "id": "en-34-w1-q5",
+                "type": "sentence-correction",
+                "questionText": "Correctly punctuate this list of items.",
+                "sentenceWithMistake": "Please buy milk eggs and bread.",
+                "correctedSentence": "Please buy milk, eggs, and bread."
+            }
+        ]
+    },
+    {
+        "title": "Synonym Search",
         "subject": "English",
-        "gradeRange": "2-4",
+        "gradeRange": "3-4",
         "questions": [
             {
-                "id": "uuid-english-1",
+                "id": "en-34-e1-q1",
                 "type": "mcq",
-                "questionText": "Which of these is a noun?",
+                "questionText": "Which word means the same as 'happy'?",
                 "options": [
-                    { "id": "uuid-english-1-1", "text": "Run", "isCorrect": false },
-                    { "id": "uuid-english-1-2", "text": "Happy", "isCorrect": false },
-                    { "id": "uuid-english-1-3", "text": "Apple", "isCorrect": true },
-                    { "id": "uuid-english-1-4", "text": "Quickly", "isCorrect": false }
-                ]
-            }
-        ]
-    },
-    {
-        "title": "Simple Subtraction",
-        "subject": "Math",
-        "gradeRange": "2-4",
-        "questions": [
-            {
-                "id": "uuid-subtraction-1",
-                "type": "mcq",
-                "questionText": "What is 12 - 5?",
-                "options": [
-                    { "id": "uuid-subtraction-1-1", "text": "7", "isCorrect": true },
-                    { "id": "uuid-subtraction-1-2", "text": "6", "isCorrect": false },
-                    { "id": "uuid-subtraction-1-3", "text": "8", "isCorrect": false },
-                    { "id": "uuid-subtraction-1-4", "text": "5", "isCorrect": false }
-                ]
-            }
-        ]
-    },
-    {
-        "title": "Advanced Vocabulary",
-        "subject": "Reading",
-        "gradeRange": "6-8",
-        "questions": [
-            {
-                "id": "uuid-vocab-1",
-                "type": "mcq",
-                "questionText": "Which word is a synonym for 'ephemeral'?",
-                "options": [
-                    { "id": "uuid-vocab-1-1", "text": "Permanent", "isCorrect": false },
-                    { "id": "uuid-vocab-1-2", "text": "Fleeting", "isCorrect": true },
-                    { "id": "uuid-vocab-1-3", "text": "Important", "isCorrect": false },
-                    { "id": "uuid-vocab-1-4", "text": "Ancient", "isCorrect": false }
+                    { "id": "opt-1", "text": "Sad", "isCorrect": false },
+                    { "id": "opt-2", "text": "Joyful", "isCorrect": true },
+                    { "id": "opt-3", "text": "Angry", "isCorrect": false }
                 ]
             },
             {
-                "id": "uuid-vocab-2",
+                "id": "en-34-e1-q2",
                 "type": "sti",
-                "questionText": "A story about a person's life written by that person is an ____.",
-                "correctAnswers": ["autobiography"],
+                "questionText": "A word for a very large house is a ____.",
+                "correctAnswers": ["mansion"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "en-34-e1-q3",
+                "type": "mcq",
+                "questionText": "If something is 'tiny', it is very...",
+                "options": [
+                    { "id": "opt-1", "text": "big", "isCorrect": false },
+                    { "id": "opt-2", "text": "fast", "isCorrect": false },
+                    { "id": "opt-3", "text": "small", "isCorrect": true }
+                ]
+            },
+            {
+                "id": "en-34-e1-q4",
+                "type": "mcq",
+                "questionText": "Which word is an antonym (opposite) of 'hot'?",
+                "options": [
+                    { "id": "opt-1", "text": "Warm", "isCorrect": false },
+                    { "id": "opt-2", "text": "Cold", "isCorrect": true },
+                    { "id": "opt-3", "text": "Sunny", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-34-e1-q5",
+                "type": "sti",
+                "questionText": "To speak very quietly is to ____.",
+                "correctAnswers": ["whisper"],
                 "evaluationMode": "case-insensitive"
             }
         ]
     },
     {
-        "title": "Pre-Algebra Concepts",
+        "title": "Fraction Foundations",
         "subject": "Math",
-        "gradeRange": "6-8",
+        "gradeRange": "5-6",
         "questions": [
             {
-                "id": "uuid-prealgebra-1",
-                "type": "alg-equation",
-                "questionText": "Solve for x in the equation.",
-                "equation": "3 * x + 7 = 22",
-                "variables": ["x"]
+                "id": "en-56-m1-q1",
+                "type": "mcq",
+                "questionText": "What fraction of the pizza has been eaten?",
+                "imageUrl": "https://placehold.co/400x300/E4A2A2/000000?text=🍕%20(1/4%20missing)",
+                "options": [
+                    { "id": "opt-1", "text": "1/2", "isCorrect": false },
+                    { "id": "opt-2", "text": "1/4", "isCorrect": true },
+                    { "id": "opt-3", "text": "3/4", "isCorrect": false }
+                ]
             },
             {
-                "id": "uuid-prealgebra-2",
+                "id": "en-56-m1-q2",
                 "type": "mcq",
-                "questionText": "What is the value of 2 to the power of 5?",
+                "questionText": "Which fraction is equivalent to 1/2?",
                 "options": [
-                    { "id": "uuid-prealgebra-2-1", "text": "10", "isCorrect": false },
-                    { "id": "uuid-prealgebra-2-2", "text": "25", "isCorrect": false },
-                    { "id": "uuid-prealgebra-2-3", "text": "32", "isCorrect": true },
-                    { "id": "uuid-prealgebra-2-4", "text": "16", "isCorrect": false }
+                    { "id": "opt-1", "text": "2/3", "isCorrect": false },
+                    { "id": "opt-2", "text": "3/5", "isCorrect": false },
+                    { "id": "opt-3", "text": "4/8", "isCorrect": true }
+                ]
+            },
+            {
+                "id": "en-56-m1-q3",
+                "type": "sti",
+                "questionText": "What is 1/3 + 1/3? (Write as a fraction like x/y)",
+                "correctAnswers": ["2/3"],
+                "evaluationMode": "exact-match"
+            },
+            {
+                "id": "en-56-m1-q4",
+                "type": "mcq",
+                "questionText": "Which diagram shows 2/5 shaded?",
+                "imageUrl": "https://placehold.co/600x200/A2BBE4/000000?text=A) 🟩🟩⬜⬜⬜ B) 🟩🟩🟩⬜⬜",
+                "options": [
+                    { "id": "opt-1", "text": "A", "isCorrect": true },
+                    { "id": "opt-2", "text": "B", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-56-m1-q5",
+                "type": "mcq",
+                "questionText": "Which fraction is the largest?",
+                "options": [
+                    { "id": "opt-1", "text": "1/5", "isCorrect": false },
+                    { "id": "opt-2", "text": "1/3", "isCorrect": true },
+                    { "id": "opt-3", "text": "1/8", "isCorrect": false }
                 ]
             }
         ]
     },
     {
-        "title": "Persuasive Arguments",
-        "subject": "Writing",
-        "gradeRange": "6-8",
+        "title": "Author's Purpose",
+        "subject": "Reading",
+        "gradeRange": "5-6",
         "questions": [
             {
-                "id": "uuid-persuasive-1",
+                "id": "en-56-r1-q1",
+                "type": "mcq",
+                "questionText": "Read the passage: 'Recycling is important. It saves energy, reduces pollution, and protects wildlife.' The author's main purpose is to...",
+                "options": [
+                    {
+                        "id": "opt-1",
+                        "text": "Entertain the reader with a story.",
+                        "isCorrect": false
+                    },
+                    { "id": "opt-2", "text": "Persuade the reader to recycle.", "isCorrect": true },
+                    {
+                        "id": "opt-3",
+                        "text": "Describe what recycling looks like.",
+                        "isCorrect": false
+                    }
+                ]
+            },
+            {
+                "id": "en-56-r1-q2",
+                "type": "mcq",
+                "questionText": "Read the passage: 'The old house creaked as the wind howled outside. A lone shadow flickered in the upstairs window.' The author's purpose is to create a feeling of...",
+                "options": [
+                    { "id": "opt-1", "text": "Joy", "isCorrect": false },
+                    { "id": "opt-2", "text": "Humor", "isCorrect": false },
+                    { "id": "opt-3", "text": "Suspense", "isCorrect": true }
+                ]
+            },
+            {
+                "id": "en-56-r1-q3",
+                "type": "sti",
+                "questionText": "A text that provides facts and details about a topic is meant to ____ the reader.",
+                "correctAnswers": ["inform", "teach", "educate"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "en-56-r1-q4",
+                "type": "mcq",
+                "questionText": "An advertisement for a new video game is written primarily to...",
+                "options": [
+                    { "id": "opt-1", "text": "Inform", "isCorrect": false },
+                    { "id": "opt-2", "text": "Persuade", "isCorrect": true },
+                    { "id": "opt-3", "text": "Entertain", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-56-r1-q5",
+                "type": "highlight-error",
+                "questionText": "Which word shows that the following sentence is an opinion? 'I think vanilla is the best flavor of ice cream.'",
+                "sentence": "I think vanilla is the best flavor of ice cream.",
+                "correctAnswerIndices": [1]
+            }
+        ]
+    },
+    {
+        "title": "Argument Structure",
+        "subject": "Writing",
+        "gradeRange": "7-8",
+        "questions": [
+            {
+                "id": "en-78-w1-q1",
+                "type": "mcq",
+                "questionText": "What is the main goal of a thesis statement?",
+                "options": [
+                    { "id": "opt-1", "text": "To ask a question.", "isCorrect": false },
+                    {
+                        "id": "opt-2",
+                        "text": "To present the main argument of the essay.",
+                        "isCorrect": true
+                    },
+                    { "id": "opt-3", "text": "To provide a surprising fact.", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-78-w1-q2",
+                "type": "sentence-order",
+                "questionText": "Arrange these sentences into a logical paragraph.",
+                "items": [
+                    "First, they provide shade on hot days.",
+                    "For these reasons, planting more trees is a great idea.",
+                    "In conclusion, trees offer many benefits to a community.",
+                    "Trees are essential for a healthy neighborhood."
+                ]
+            },
+            {
+                "id": "en-78-w1-q3",
+                "type": "mcq",
+                "questionText": "A piece of evidence used to support a claim should be...",
+                "options": [
+                    { "id": "opt-1", "text": "A personal opinion.", "isCorrect": false },
+                    { "id": "opt-2", "text": "A random story.", "isCorrect": false },
+                    { "id": "opt-3", "text": "A fact or statistic.", "isCorrect": true }
+                ]
+            },
+            {
+                "id": "en-78-w1-q4",
+                "type": "highlight-error",
+                "questionText": "Find the part of the sentence that is the main claim. 'School uniforms should be required because they promote equality.'",
+                "sentence": "School uniforms should be required because they promote equality.",
+                "correctAnswerIndices": [0, 1, 2, 3, 4]
+            },
+            {
+                "id": "en-78-w1-q5",
                 "type": "sentence-correction",
-                "questionText": "Correct the punctuation in the sentence.",
-                "sentenceWithMistake": "The team needs three things to succeed talent, dedication, and teamwork.",
-                "correctedSentence": "The team needs three things to succeed: talent, dedication, and teamwork."
+                "questionText": "Improve this weak thesis statement: 'This paper will discuss the history of the internet.'",
+                "sentenceWithMistake": "This paper will discuss the history of the internet.",
+                "correctedSentence": "The invention of the internet revolutionized communication by making information instantly accessible worldwide."
             }
         ]
     },
     {
         "title": "Literary Devices",
         "subject": "English",
-        "gradeRange": "6-8",
+        "gradeRange": "7-8",
         "questions": [
             {
-                "id": "uuid-literary-1",
+                "id": "en-78-e1-q1",
                 "type": "mcq",
-                "questionText": "'The wind whispered through the trees' is an example of what?",
+                "questionText": "'The calm lake was a mirror' is an example of a...",
                 "options": [
-                    { "id": "uuid-literary-1-1", "text": "Metaphor", "isCorrect": false },
-                    { "id": "uuid-literary-1-2", "text": "Simile", "isCorrect": false },
-                    { "id": "uuid-literary-1-3", "text": "Personification", "isCorrect": true },
-                    { "id": "uuid-literary-1-4", "text": "Hyperbole", "isCorrect": false }
+                    { "id": "opt-1", "text": "Simile", "isCorrect": false },
+                    { "id": "opt-2", "text": "Metaphor", "isCorrect": true },
+                    { "id": "opt-3", "text": "Personification", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-78-e1-q2",
+                "type": "mcq",
+                "questionText": "A comparison using 'like' or 'as' is known as a...",
+                "options": [
+                    { "id": "opt-1", "text": "Simile", "isCorrect": true },
+                    { "id": "opt-2", "text": "Metaphor", "isCorrect": false },
+                    { "id": "opt-3", "text": "Alliteration", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-78-e1-q3",
+                "type": "sti",
+                "questionText": "Giving human qualities to an inanimate object is called ____.",
+                "correctAnswers": ["personification"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "en-78-e1-q4",
+                "type": "highlight-error",
+                "questionText": "Find the example of alliteration in the sentence.",
+                "sentence": "The slithering snake sneaked silently.",
+                "correctAnswerIndices": [1, 2, 3, 4]
+            },
+            {
+                "id": "en-78-e1-q5",
+                "type": "mcq",
+                "questionText": "An extreme exaggeration used for effect is known as...",
+                "options": [
+                    { "id": "opt-1", "text": "Irony", "isCorrect": false },
+                    { "id": "opt-2", "text": "Foreshadowing", "isCorrect": false },
+                    { "id": "opt-3", "text": "Hyperbole", "isCorrect": true }
                 ]
             }
         ]
     },
     {
-        "title": "Order of Operations",
+        "title": "Solving Linear Systems",
         "subject": "Math",
-        "gradeRange": "6-8",
+        "gradeRange": "9-10",
         "questions": [
             {
-                "id": "uuid-pemdas-1",
+                "id": "en-910-m1-q1",
+                "type": "alg-equation",
+                "questionText": "Solve for x in the equation.",
+                "equation": "5x - 10 = 2x + 2",
+                "variables": ["x"]
+            },
+            {
+                "id": "en-910-m1-q2",
+                "type": "mcq",
+                "questionText": "What is the slope of the line y = 3x - 5?",
+                "options": [
+                    { "id": "opt-1", "text": "-5", "isCorrect": false },
+                    { "id": "opt-2", "text": "3", "isCorrect": true },
+                    { "id": "opt-3", "text": "5", "isCorrect": false },
+                    { "id": "opt-4", "text": "y", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-910-m1-q3",
+                "type": "mcq",
+                "questionText": "Which point lies on the line y = 2x + 1?",
+                "options": [
+                    { "id": "opt-1", "text": "(1, 2)", "isCorrect": false },
+                    { "id": "opt-2", "text": "(2, 5)", "isCorrect": true },
+                    { "id": "opt-3", "text": "(3, 6)", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-910-m1-q4",
+                "type": "alg-equation",
+                "questionText": "If x = 3, what is the value of y in the equation 2x + y = 10?",
+                "equation": "2*3 + y = 10",
+                "variables": ["y"]
+            },
+            {
+                "id": "en-910-m1-q5",
+                "type": "mcq",
+                "questionText": "The point where a line crosses the y-axis is called the...",
+                "options": [
+                    { "id": "opt-1", "text": "x-intercept", "isCorrect": false },
+                    { "id": "opt-2", "text": "y-intercept", "isCorrect": true },
+                    { "id": "opt-3", "text": "origin", "isCorrect": false }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Analyzing Satire",
+        "subject": "Reading",
+        "gradeRange": "9-10",
+        "questions": [
+            {
+                "id": "en-910-r1-q1",
+                "type": "mcq",
+                "questionText": "Satire is a literary technique that uses humor, irony, and exaggeration to...",
+                "options": [
+                    { "id": "opt-1", "text": "praise a subject.", "isCorrect": false },
+                    { "id": "opt-2", "text": "criticize or expose flaws.", "isCorrect": true },
+                    { "id": "opt-3", "text": "confuse the reader.", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-910-r1-q2",
+                "type": "mcq",
+                "questionText": "A political cartoon showing a politician as a puppet is using satire to suggest the politician is...",
+                "options": [
+                    { "id": "opt-1", "text": "a good entertainer.", "isCorrect": false },
+                    { "id": "opt-2", "text": "made of wood.", "isCorrect": false },
+                    { "id": "opt-3", "text": "controlled by others.", "isCorrect": true }
+                ]
+            },
+            {
+                "id": "en-910-r1-q3",
                 "type": "sti",
-                "questionText": "Calculate the value of: 5 + (3 * 2)^2",
-                "correctAnswers": ["41"],
-                "evaluationMode": "exact-match"
+                "questionText": "When what is said is the opposite of what is meant, it is called ____.",
+                "correctAnswers": ["irony", "verbal irony"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "en-910-r1-q4",
+                "type": "mcq",
+                "questionText": "The main purpose of a satirical news article that sounds real is to...",
+                "options": [
+                    { "id": "opt-1", "text": "Report the actual news.", "isCorrect": false },
+                    {
+                        "id": "opt-2",
+                        "text": "Comment on real-world issues in a humorous way.",
+                        "isCorrect": true
+                    },
+                    { "id": "opt-3", "text": "Sell newspapers.", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-910-r1-q5",
+                "type": "highlight-error",
+                "questionText": "Which part of the following statement is the satirical exaggeration? 'I have a million hours of homework tonight.'",
+                "sentence": "I have a million hours of homework tonight.",
+                "correctAnswerIndices": [2, 3]
+            }
+        ]
+    },
+    {
+        "title": "Advanced Punctuation",
+        "subject": "Writing",
+        "gradeRange": "Advanced",
+        "questions": [
+            {
+                "id": "en-adv-w1-q1",
+                "type": "mcq",
+                "questionText": "Which punctuation mark is used to introduce a list or an explanation?",
+                "options": [
+                    { "id": "opt-1", "text": "Semicolon (;)", "isCorrect": false },
+                    { "id": "opt-2", "text": "Colon (:)", "isCorrect": true },
+                    { "id": "opt-3", "text": "Em Dash (—)", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-adv-w1-q2",
+                "type": "sentence-correction",
+                "questionText": "Correct the punctuation in the sentence.",
+                "sentenceWithMistake": "She was tired, however, she kept working.",
+                "correctedSentence": "She was tired; however, she kept working."
+            },
+            {
+                "id": "en-adv-w1-q3",
+                "type": "highlight-error",
+                "questionText": "Find the incorrectly used semicolon.",
+                "sentence": "I like coffee; but he prefers tea.",
+                "correctAnswerIndices": [2]
+            },
+            {
+                "id": "en-adv-w1-q4",
+                "type": "mcq",
+                "questionText": "An em dash (—) can be used in place of which of the following?",
+                "options": [
+                    { "id": "opt-1", "text": "Commas, parentheses, or colons", "isCorrect": true },
+                    { "id": "opt-2", "text": "Only periods", "isCorrect": false },
+                    { "id": "opt-3", "text": "Only question marks", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-adv-w1-q5",
+                "type": "sentence-correction",
+                "questionText": "Add a colon to the sentence correctly.",
+                "sentenceWithMistake": "The recipe requires three ingredients flour, sugar, and eggs.",
+                "correctedSentence": "The recipe requires three ingredients: flour, sugar, and eggs."
+            }
+        ]
+    },
+    {
+        "title": "SAT Vocabulary Prep",
+        "subject": "English",
+        "gradeRange": "Advanced",
+        "questions": [
+            {
+                "id": "en-adv-e1-q1",
+                "type": "mcq",
+                "questionText": "Which word is the best synonym for 'ubiquitous'?",
+                "options": [
+                    { "id": "opt-1", "text": "Rare", "isCorrect": false },
+                    { "id": "opt-2", "text": "Pervasive", "isCorrect": true },
+                    { "id": "opt-3", "text": "Difficult", "isCorrect": false },
+                    { "id": "opt-4", "text": "Hidden", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-adv-e1-q2",
+                "type": "mcq",
+                "questionText": "A 'gregarious' person is very...",
+                "options": [
+                    { "id": "opt-1", "text": "Shy", "isCorrect": false },
+                    { "id": "opt-2", "text": "Intelligent", "isCorrect": false },
+                    { "id": "opt-3", "text": "Sociable", "isCorrect": true }
+                ]
+            },
+            {
+                "id": "en-adv-e1-q3",
+                "type": "sti",
+                "questionText": "To 'mitigate' a problem is to make it less ____.",
+                "correctAnswers": ["severe", "serious", "painful"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "en-adv-e1-q4",
+                "type": "mcq",
+                "questionText": "If a speech is 'eloquent', it is...",
+                "options": [
+                    { "id": "opt-1", "text": "Loud and confusing.", "isCorrect": false },
+                    { "id": "opt-2", "text": "Fluent and persuasive.", "isCorrect": true },
+                    { "id": "opt-3", "text": "Short and simple.", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-adv-e1-q5",
+                "type": "mcq",
+                "questionText": "Which word means 'to formally renounce a belief or claim'?",
+                "options": [
+                    { "id": "opt-1", "text": "Advocate", "isCorrect": false },
+                    { "id": "opt-2", "text": "Abjure", "isCorrect": true },
+                    { "id": "opt-3", "text": "Allege", "isCorrect": false }
+                ]
             }
         ]
     }
