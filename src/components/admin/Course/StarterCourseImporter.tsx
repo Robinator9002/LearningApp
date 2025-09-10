@@ -64,11 +64,6 @@ const StarterCourseImporter: React.FC = () => {
             <Button variant="secondary" onClick={handleImport} disabled={hasBeenImported}>
                 {t('buttons.importStarter')}
             </Button>
-            {hasBeenImported && (
-                <span className="import-status-message">
-                    {t('dashboard.starterCoursesImported')}
-                </span>
-            )}
         </div>
     );
 };
