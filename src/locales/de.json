@@ -31,8 +31,7 @@
             "savePassword": "Passwort speichern",
             "setPassword": "Passwort festlegen",
             "startCourse": "Kurs starten",
-            "scrollToTop": "Nach oben scrollen",
-            "addItem": "+ Element hinzufügen"
+            "scrollToTop": "Nach oben scrollen"
         },
         "topbar": {
             "myProgress": "Mein Fortschritt"
@@ -108,7 +107,6 @@
             "variables": "Variablen (durch Komma getrennt)",
             "sentenceWithErrors": "Satz mit Fehlern",
             "selectErrors": "Wählen Sie die falschen Wörter aus",
-            "sentenceOrderItems": "Sätze (in korrekter Reihenfolge)",
             "allSubjects": "Alle",
             "ageRange": "Alter",
             "sort": {
@@ -116,7 +114,8 @@
                 "alphaDesc": "Alphabetisch Absteigend",
                 "ageAsc": "Alter Aufsteigend",
                 "ageDesc": "Alter Absteigend"
-            }
+            },
+            "imageUrlOptional": "Bild-URL (Optional)"
         },
         "languages": {
             "en": "English",
@@ -134,9 +133,8 @@
                 "sentence": "z.B. Der schnelle braune Fuchs springen über den faulen Hund.",
                 "wordBank": "Geben Sie oben einen Satz ein, um die Fehler auszuwählen."
             },
-            "sentenceOrder": {
-                "questionText": "z.B. Bringen Sie die folgenden Ereignisse in die richtige chronologische Reihenfolge.",
-                "item": "Satz #{{index}} eingeben..."
+            "mcq": {
+                "imageUrl": "z.B. https://beispiel.de/diagramm.png"
             }
         },
         "player": {
@@ -174,7 +172,7 @@
             "sentenceCorrection": "Satzkorrektur",
             "sti": "Intelligente Texteingabe",
             "highlightError": "Fehler markieren",
-            "sentenceOrder": "Satzanordnung"
+            "sentence-order": "Satzreihenfolge"
         },
         "addQuestionModal": {
             "title": "Neue Frage hinzufügen",
@@ -196,17 +194,17 @@
                 "label": "Satzkorrektur",
                 "description": "Der Lernende tippt einen Satz neu ein, um einen grammatikalischen Fehler zu korrigieren."
             },
+            "algEquation": {
+                "label": "Algebraische Gleichung",
+                "description": "Der Lernende löst eine oder mehrere Variablen in einer Gleichung."
+            },
             "highlightError": {
                 "label": "Fehler markieren",
                 "description": "Der Lernende klickt auf das/die falsche(n) Wort/Wörter in einem Satz."
             },
-            "sentenceOrder": {
-                "label": "Satzanordnung",
-                "description": "Der Lernende zieht Sätze per Drag-and-Drop in die richtige logische Reihenfolge."
-            },
-            "algEquation": {
-                "label": "Algebraische Gleichung",
-                "description": "Der Lernende löst eine oder mehrere Variablen in einer Gleichung."
+            "sentence-order": {
+                "label": "Satzreihenfolge",
+                "description": "Der Lernende zieht Sätze per Drag & Drop in die richtige logische Reihenfolge."
             }
         },
         "roles": {
@@ -311,6 +309,9 @@
             "Reading": "Lesen",
             "Writing": "Schreiben",
             "English": "Englisch"
+        },
+        "altText": {
+            "questionImage": "Bild zur Frage"
         }
     }
 }

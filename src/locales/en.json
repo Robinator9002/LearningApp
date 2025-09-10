@@ -31,8 +31,7 @@
             "savePassword": "Save Password",
             "setPassword": "Set Password",
             "startCourse": "Start Course",
-            "scrollToTop": "Scroll to top",
-            "addItem": "+ Add Item"
+            "scrollToTop": "Scroll to top"
         },
         "topbar": {
             "myProgress": "My Progress"
@@ -108,7 +107,6 @@
             "variables": "Variables (comma-separated)",
             "sentenceWithErrors": "Sentence with Errors",
             "selectErrors": "Select the Incorrect Word(s)",
-            "sentenceOrderItems": "Sentences (in correct order)",
             "allSubjects": "All",
             "ageRange": "Age",
             "sort": {
@@ -116,7 +114,8 @@
                 "alphaDesc": "Alphabetical Descending",
                 "ageAsc": "Age Ascending",
                 "ageDesc": "Age Descending"
-            }
+            },
+            "imageUrlOptional": "Image URL (Optional)"
         },
         "languages": {
             "en": "English",
@@ -134,9 +133,8 @@
                 "sentence": "e.g., The quick brown fox jump over the lazy dog.",
                 "wordBank": "Enter a sentence above to select the errors."
             },
-            "sentenceOrder": {
-                "questionText": "e.g., Put the following events in chronological order.",
-                "item": "Enter sentence #{{index}}..."
+            "mcq": {
+                "imageUrl": "e.g., https://example.com/diagram.png"
             }
         },
         "player": {
@@ -174,7 +172,7 @@
             "sentenceCorrection": "Sentence Correction",
             "sti": "Smart Text Input",
             "highlightError": "Highlight the Error",
-            "sentenceOrder": "Sentence Ordering"
+            "sentence-order": "Sentence Ordering"
         },
         "addQuestionModal": {
             "title": "Add a New Question",
@@ -196,17 +194,17 @@
                 "label": "Sentence Correction",
                 "description": "Learner re-types a sentence to correct a grammatical error."
             },
+            "algEquation": {
+                "label": "Algebraic Equation",
+                "description": "Learner solves for one or more variables in an equation."
+            },
             "highlightError": {
                 "label": "Highlight the Error",
                 "description": "Learner clicks on the incorrect word(s) in a sentence."
             },
-            "sentenceOrder": {
+            "sentence-order": {
                 "label": "Sentence Ordering",
-                "description": "Learner drag-and-drops sentences into the correct logical order."
-            },
-            "algEquation": {
-                "label": "Algebraic Equation",
-                "description": "Learner solves for one or more variables in an equation."
+                "description": "Learner drags and drops sentences into the correct logical order."
             }
         },
         "roles": {
@@ -311,6 +309,9 @@
             "Reading": "Reading",
             "Writing": "Writing",
             "English": "English"
+        },
+        "altText": {
+            "questionImage": "Image accompanying the question"
         }
     }
 }
