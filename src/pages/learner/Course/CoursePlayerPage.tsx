@@ -2,8 +2,6 @@
 
 import React, { useEffect, useContext, useReducer, useState, useLayoutEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-// FIX: The build environment cannot resolve node modules directly.
-// Importing from a CDN like esm.sh resolves this dependency issue.
 import Confetti from 'react-confetti';
 
 import { db } from '../../../lib/db.ts';
@@ -16,7 +14,6 @@ import CourseSummary from '../../../components/learner/course/CourseSummary.tsx'
 import { checkAnswer, isAnswerValid } from './CoursePlayerUtils.tsx';
 import { saveTrackingData } from '../../../utils/trackingUtils.ts';
 
-// A simple custom hook to get the window size for the confetti effect.
 const useWindowSize = () => {
     const [size, setSize] = useState([0, 0]);
     useLayoutEffect(() => {
@@ -47,6 +44,7 @@ interface PlayerState {
     algAnswers: Record<string, string>;
     sentenceCorrectionAnswer: string;
     highlightErrorIndices: number[];
+    sentenceOrderAnswer: string[]; // NEW: State for sentence order answers
 }
 
 const initialState: PlayerState = {
@@ -63,6 +61,7 @@ const initialState: PlayerState = {
     algAnswers: {},
     sentenceCorrectionAnswer: '',
     highlightErrorIndices: [],
+    sentenceOrderAnswer: [], // NEW: Initialize sentence order state
 };
 
 type PlayerAction =
@@ -72,6 +71,8 @@ type PlayerAction =
     | { type: 'SET_ALG_ANSWER'; payload: { variable: string; value: string } }
     | { type: 'SET_SENTENCE_CORRECTION'; payload: string }
     | { type: 'TOGGLE_HIGHLIGHT_ERROR_INDEX'; payload: number }
+    // NEW: Action to update the sentence order answer
+    | { type: 'SET_SENTENCE_ORDER_ANSWER'; payload: string[] }
     | { type: 'CHECK_ANSWER' }
     | { type: 'NEXT_QUESTION' };
 
@@ -94,22 +95,24 @@ function playerReducer(state: PlayerState, action: PlayerAction): PlayerState {
         case 'SET_SENTENCE_CORRECTION':
             return { ...state, sentenceCorrectionAnswer: action.payload };
         case 'TOGGLE_HIGHLIGHT_ERROR_INDEX': {
-            const index = action.payload;
-            const newIndices = state.highlightErrorIndices.includes(index)
-                ? state.highlightErrorIndices.filter((i) => i !== index)
-                : [...state.highlightErrorIndices, index];
+            const newIndices = state.highlightErrorIndices.includes(action.payload)
+                ? state.highlightErrorIndices.filter((i) => i !== action.payload)
+                : [...state.highlightErrorIndices, action.payload];
             return { ...state, highlightErrorIndices: newIndices };
         }
+        // NEW: Handle sentence order updates
+        case 'SET_SENTENCE_ORDER_ANSWER':
+            return { ...state, sentenceOrderAnswer: action.payload };
         case 'CHECK_ANSWER': {
             if (!state.course) return state;
             const currentQuestion = state.course.questions[state.currentQuestionIndex];
-            // FIX: Ensure the payload includes the 'highlight-error' property.
             const answerPayload = {
                 mcq: state.selectedOptionId,
                 sti: state.stiAnswer,
                 'alg-equation': state.algAnswers,
                 'sentence-correction': state.sentenceCorrectionAnswer,
                 'highlight-error': state.highlightErrorIndices,
+                'sentence-order': state.sentenceOrderAnswer,
             };
             const isCorrect = checkAnswer(currentQuestion, answerPayload);
             return {
@@ -133,11 +136,13 @@ function playerReducer(state: PlayerState, action: PlayerAction): PlayerState {
                 isAnswered: false,
                 isCorrect: false,
                 showConfetti: false,
+                // --- Reset all answer states ---
                 selectedOptionId: null,
                 stiAnswer: '',
                 algAnswers: {},
                 sentenceCorrectionAnswer: '',
                 highlightErrorIndices: [],
+                sentenceOrderAnswer: [], // NEW: Reset sentence order state
             };
         }
         default:
@@ -168,6 +173,7 @@ const CoursePlayerPage: React.FC = () => {
         algAnswers,
         sentenceCorrectionAnswer,
         highlightErrorIndices,
+        sentenceOrderAnswer, // NEW: Destructure new state
     } = state;
 
     if (!modal || !auth) throw new Error('CoursePlayerPage must be used within required providers');
@@ -212,30 +218,37 @@ const CoursePlayerPage: React.FC = () => {
     const currentQuestion = course?.questions[currentQuestionIndex];
 
     const getMCQStatus = (optionId: string): AnswerStatus => {
-        if (!isAnswered) return selectedOptionId === optionId ? 'selected' : 'default';
+        if (!isAnswered) {
+            return selectedOptionId === optionId ? 'selected' : 'default';
+        }
         if (currentQuestion?.type !== 'mcq') return 'default';
         const correctOption = currentQuestion.options.find((o) => o.isCorrect);
-        return correctOption?.id === optionId
-            ? 'correct'
-            : selectedOptionId === optionId
-            ? 'incorrect'
-            : 'default';
+        if (correctOption?.id === optionId) {
+            return 'correct';
+        }
+        if (selectedOptionId === optionId) {
+            return 'incorrect';
+        }
+        return 'default';
     };
 
     const isCheckButtonDisabled = () => {
         if (!currentQuestion) return true;
-        // FIX: Ensure the payload includes the 'highlight-error' property.
         const answerPayload = {
             mcq: selectedOptionId,
             sti: stiAnswer,
             'alg-equation': algAnswers,
             'sentence-correction': sentenceCorrectionAnswer,
             'highlight-error': highlightErrorIndices,
+            'sentence-order': sentenceOrderAnswer,
         };
         return !isAnswerValid(currentQuestion, answerPayload);
     };
 
-    if (!course) return <div>Loading...</div>;
+    if (!course) {
+        return <div>Loading...</div>;
+    }
+
     if (showSummary) {
         return (
             <CourseSummary
@@ -257,10 +270,13 @@ const CoursePlayerPage: React.FC = () => {
                 progressPercentage={progressPercentage}
                 isAnswered={isAnswered}
                 isCorrect={isCorrect}
+                // --- Pass down answer states ---
                 stiAnswer={stiAnswer}
                 algAnswers={algAnswers}
                 sentenceCorrectionAnswer={sentenceCorrectionAnswer}
                 highlightErrorIndices={highlightErrorIndices}
+                sentenceOrderAnswer={sentenceOrderAnswer} // NEW: Pass down state
+                // --- Pass down event handlers ---
                 onExitCourse={() => navigate('/dashboard')}
                 onCheckAnswer={handleCheckAnswer}
                 onSelectOption={(id) => dispatch({ type: 'SELECT_OPTION', payload: id })}
@@ -274,6 +290,11 @@ const CoursePlayerPage: React.FC = () => {
                 onHighlightErrorTokenSelect={(index) =>
                     dispatch({ type: 'TOGGLE_HIGHLIGHT_ERROR_INDEX', payload: index })
                 }
+                // NEW: Pass down handler
+                onSentenceOrderChange={(newOrder) =>
+                    dispatch({ type: 'SET_SENTENCE_ORDER_ANSWER', payload: newOrder })
+                }
+                // --- Pass down status getters ---
                 getMCQStatus={getMCQStatus}
                 isCheckButtonDisabled={isCheckButtonDisabled}
             />

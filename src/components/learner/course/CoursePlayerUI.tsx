@@ -4,15 +4,20 @@ import React from 'react';
 import { ArrowLeft, Check, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
-import type { ICourse, IQuestionHighlightError } from '../../../types/database';
-import type { AnswerStatus } from '../qa/AnswerOption';
-import Button from '../../common/Button';
-import AnswerOption from '../qa/AnswerOption';
-import Input from '../../common/Form/Input';
-import AlgebraEquationSolver from '../qa/AlgebraEquationSolver';
-import EquationDisplay from '../qa/EquationDisplay';
-import SentenceCorrectionPlayer from '../qa/SentenceCorrectionPlayer';
-import HighlightErrorPlayer from '../qa/HighlightErrorPlayer';
+import type {
+    ICourse,
+    IQuestionHighlightError,
+    IQuestionSentenceOrder,
+} from '../../../types/database';
+import type { AnswerStatus } from '../qa/AnswerOption.tsx';
+import Button from '../../common/Button.tsx';
+import AnswerOption from '../qa/AnswerOption.tsx';
+import Input from '../../common/Form/Input.tsx';
+import AlgebraEquationSolver from '../qa/AlgebraEquationSolver.tsx';
+import EquationDisplay from '../qa/EquationDisplay.tsx';
+import SentenceCorrectionPlayer from '../qa/SentenceCorrectionPlayer.tsx';
+import HighlightErrorPlayer from '../qa/HighlightErrorPlayer.tsx';
+import SentenceOrderPlayer from '../qa/SentenceOrderPlayer.tsx'; // NEW: Import the player
 
 interface CoursePlayerUIProps {
     course: ICourse;
@@ -24,8 +29,8 @@ interface CoursePlayerUIProps {
     stiAnswer: string;
     algAnswers: Record<string, string>;
     sentenceCorrectionAnswer: string;
-    // FIX: Added the missing prop to the interface definition.
     highlightErrorIndices: number[];
+    sentenceOrderAnswer: string[]; // NEW: Add sentence order answer prop
     // --- Event Handlers ---
     onExitCourse: () => void;
     onCheckAnswer: () => void;
@@ -33,8 +38,8 @@ interface CoursePlayerUIProps {
     onStiAnswerChange: (value: string) => void;
     onAlgAnswerChange: (variable: string, value: string) => void;
     onSentenceCorrectionChange: (value: string) => void;
-    // FIX: Renamed prop to match what CoursePlayerPage is sending.
     onHighlightErrorTokenSelect: (index: number) => void;
+    onSentenceOrderChange: (newOrder: string[]) => void; // NEW: Add handler prop
     // --- Status Getters ---
     getMCQStatus: (optionId: string) => AnswerStatus;
     isCheckButtonDisabled: () => boolean;
@@ -57,6 +62,7 @@ const CoursePlayerUI: React.FC<CoursePlayerUIProps> = ({
     onAlgAnswerChange,
     onSentenceCorrectionChange,
     onHighlightErrorTokenSelect,
+    onSentenceOrderChange, // NEW: Destructure prop
     getMCQStatus,
     isCheckButtonDisabled,
 }) => {
@@ -124,7 +130,16 @@ const CoursePlayerUI: React.FC<CoursePlayerUIProps> = ({
                         question={currentQuestion as IQuestionHighlightError}
                         selectedIndices={highlightErrorIndices}
                         isAnswered={isAnswered}
-                        onTokenSelect={onHighlightErrorTokenSelect} // FIX: Prop name corrected
+                        onTokenSelect={onHighlightErrorTokenSelect}
+                    />
+                );
+            // NEW: Render the SentenceOrderPlayer
+            case 'sentence-order':
+                return (
+                    <SentenceOrderPlayer
+                        question={currentQuestion as IQuestionSentenceOrder}
+                        isAnswered={isAnswered}
+                        onAnswerChange={onSentenceOrderChange}
                     />
                 );
             default:
