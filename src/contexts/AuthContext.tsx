@@ -46,6 +46,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     useEffect(() => {
         const initializeAppState = async () => {
             try {
+                // This logic remains to ensure settings are created if they don't exist.
+                // The ThemeProvider will also fetch them, but this guarantees their existence.
                 let settings = await db.appSettings.get(1);
                 if (!settings) {
                     const defaultSettings: IAppSettings = {
@@ -58,14 +60,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                     await db.appSettings.put(defaultSettings);
                     settings = defaultSettings;
                 }
-
-                if (settings && typeof settings.starterCoursesImported === 'undefined') {
-                    await db.appSettings.update(1, { starterCoursesImported: false });
-                    settings = await db.appSettings.get(1);
-                }
-
-                // FIX: Coalesce 'undefined' from the database call to 'null' for the state setter.
-                // This resolves the TypeScript error.
                 setAppSettings(settings || null);
 
                 const savedUserJson = sessionStorage.getItem('currentUser');
@@ -86,23 +80,24 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         };
 
         initializeAppState();
-    }, [i18n]); // Dependency added back as it's used in initialization
+    }, [i18n]); // Dependency is fine here.
 
+    // REFACTORED: The login function is now much cleaner.
     const login = (user: IUser) => {
         setCurrentUser(user);
         sessionStorage.setItem('currentUser', JSON.stringify(user));
-        // Re-fetch app settings when logging in to pass the most current version
-        db.appSettings.get(1).then((settings) => {
-            theme.loadUserTheme(user, settings || null);
-            const targetLanguage = user.language || settings?.defaultLanguage || 'en';
-            i18n.changeLanguage(targetLanguage);
-        });
+        // It no longer fetches settings; it just tells the ThemeContext about the user.
+        theme.loadUserTheme(user);
+        const targetLanguage = user.language || appSettings?.defaultLanguage || 'en';
+        i18n.changeLanguage(targetLanguage);
     };
 
+    // REFACTORED: The logout function is also cleaner.
     const logout = () => {
         setCurrentUser(null);
         sessionStorage.removeItem('currentUser');
-        theme.loadUserTheme(null, appSettings);
+        // Tells the ThemeContext to revert to the default theme.
+        theme.loadUserTheme(null);
         i18n.changeLanguage(appSettings?.defaultLanguage || 'en');
         navigate('/');
     };
@@ -116,15 +111,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         if (currentUser?.id === userId) {
             const updatedCurrentUser = await db.users.get(userId);
             if (updatedCurrentUser) {
+                // Re-login to apply any potential settings changes.
                 login(updatedCurrentUser);
             }
         }
     };
 
     const deleteUser = async (userId: number) => {
-        await db.transaction('rw', db.users, db.progressLogs, async () => {
+        await db.transaction('rw', db.users, db.progressLogs, db.userTracking, async () => {
             await db.users.delete(userId);
             await db.progressLogs.where({ userId }).delete();
+            await db.userTracking.where({ userId }).delete();
         });
 
         if (currentUser?.id === userId) {
@@ -135,8 +132,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const updateAppSettings = async (updates: Partial<IAppSettings>) => {
         await db.appSettings.update(1, updates);
         const newSettings = await db.appSettings.get(1);
-        // FIX: Coalesce 'undefined' to 'null' here as well for consistency.
         setAppSettings(newSettings || null);
+        // If no user is logged in, immediately apply the new default theme.
+        if (!currentUser) {
+            theme.loadUserTheme(null);
+        }
     };
 
     const value: AuthContextType = {

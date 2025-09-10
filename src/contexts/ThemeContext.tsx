@@ -8,7 +8,6 @@ import React, {
     useCallback,
     useContext,
 } from 'react';
-// FIX: Added the .ts extension to the import path.
 import { db } from '../lib/db.ts';
 import type { IUser, IThemeState, IAppSettings } from '../types/database';
 
@@ -22,7 +21,8 @@ export type FontSize = IThemeState['fontSize'];
 
 // --- Context Shape ---
 interface ThemeContextType extends IThemeState {
-    loadUserTheme: (user: IUser | null, appSettings: IAppSettings | null) => void;
+    // REFACTORED: Simplified to only take a user object.
+    loadUserTheme: (user: IUser | null) => void;
     setTheme: (theme: Theme) => void;
     setAccent: (accent: Accent) => void;
     setContrast: (contrast: Contrast) => void;
@@ -50,7 +50,32 @@ interface ThemeProviderProps {
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     const [themeState, setThemeState] = useState<IThemeState>(defaultThemeState);
     const [currentUser, setCurrentUser] = useState<IUser | null>(null);
+    // NEW: State to hold the global app settings.
+    const [globalSettings, setGlobalSettings] = useState<IAppSettings | null>(null);
 
+    // NEW EFFECT: This effect runs ONCE when the app starts.
+    // Its sole job is to fetch the global settings and apply the default theme.
+    useEffect(() => {
+        const fetchGlobalSettings = async () => {
+            try {
+                const settings = await db.appSettings.get(1);
+                if (settings) {
+                    setGlobalSettings(settings);
+                    // Apply the default global theme immediately.
+                    const newDefaultState = {
+                        ...defaultThemeState,
+                        theme: settings.defaultTheme || 'light',
+                    };
+                    setThemeState(newDefaultState);
+                }
+            } catch (error) {
+                console.error('Failed to load global app settings:', error);
+            }
+        };
+        fetchGlobalSettings();
+    }, []);
+
+    // This effect applies the current themeState to the document body.
     useEffect(() => {
         const body = document.body;
         body.dataset.theme = themeState.theme;
@@ -63,18 +88,25 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
         );
     }, [themeState]);
 
-    const loadUserTheme = useCallback((user: IUser | null, appSettings: IAppSettings | null) => {
-        setCurrentUser(user);
-        if (user && user.settings) {
-            setThemeState(user.settings);
-        } else {
-            const newDefaultState = {
-                ...defaultThemeState,
-                theme: appSettings?.defaultTheme || 'light',
-            };
-            setThemeState(newDefaultState);
-        }
-    }, []);
+    // REFACTORED: This function is now much simpler.
+    // It decides whether to apply a user's theme or revert to the global default.
+    const loadUserTheme = useCallback(
+        (user: IUser | null) => {
+            setCurrentUser(user);
+            if (user && user.settings) {
+                // If a user with settings logs in, apply their theme.
+                setThemeState(user.settings);
+            } else if (globalSettings) {
+                // If no user, or user has no settings, revert to the global default theme.
+                const newDefaultState = {
+                    ...defaultThemeState,
+                    theme: globalSettings.defaultTheme || 'light',
+                };
+                setThemeState(newDefaultState);
+            }
+        },
+        [globalSettings], // Depends on globalSettings being loaded.
+    );
 
     const updateThemeSetting = useCallback(
         (newSettings: Partial<IThemeState>) => {
