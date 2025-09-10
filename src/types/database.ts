@@ -88,6 +88,12 @@ export interface IQuestionHighlightError extends IQuestionBase {
     correctAnswerIndices: number[]; // Array of zero-based indices of the incorrect words
 }
 
+// --- NEW: QUESTION TYPE: Sentence / Paragraph Ordering ---
+export interface IQuestionSentenceOrder extends IQuestionBase {
+    type: 'sentence-order';
+    items: string[]; // The sentences/paragraphs in the correct order
+}
+
 // A union type that can represent any type of question in the system.
 export type IQuestion =
     | IQuestionMCQ
