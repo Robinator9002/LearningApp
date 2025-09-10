@@ -1,197 +1,657 @@
 [
     {
-        "title": "Spaß mit Lauten",
+        "title": "Zählspaß",
+        "subject": "Math",
+        "gradeRange": "1-2",
+        "questions": [
+            {
+                "id": "de-12-m1-q1",
+                "type": "mcq",
+                "questionText": "Wie viele Sterne siehst du?",
+                "imageUrl": "https://placehold.co/400x300/A2E4B8/000000?text=⭐%20⭐%20⭐%20⭐",
+                "options": [
+                    { "id": "opt-1", "text": "3", "isCorrect": false },
+                    { "id": "opt-2", "text": "4", "isCorrect": true },
+                    { "id": "opt-3", "text": "5", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-12-m1-q2",
+                "type": "mcq",
+                "questionText": "Welche Zahl ist GRÖSSER?",
+                "options": [
+                    { "id": "opt-1", "text": "9", "isCorrect": true },
+                    { "id": "opt-2", "text": "6", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-12-m1-q3",
+                "type": "sti",
+                "questionText": "Wenn du 3 Äpfel hast und 1 mehr bekommst, hast du ____ Äpfel.",
+                "correctAnswers": ["4", "vier"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-12-m1-q4",
+                "type": "mcq",
+                "questionText": "Was ist 2 + 3?",
+                "options": [
+                    { "id": "opt-1", "text": "4", "isCorrect": false },
+                    { "id": "opt-2", "text": "5", "isCorrect": true },
+                    { "id": "opt-3", "text": "6", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-12-m1-q5",
+                "type": "alg-equation",
+                "questionText": "Welche Zahl fehlt?",
+                "equation": "1 + x = 4",
+                "variables": ["x"]
+            }
+        ]
+    },
+    {
+        "title": "Alphabetische Reihenfolge",
         "subject": "Reading",
-        "gradeRange": "2-4",
+        "gradeRange": "1-2",
         "questions": [
             {
-                "id": "uuid-phonics-1",
+                "id": "de-12-r1-q1",
+                "type": "sentence-order",
+                "questionText": "Bringe die Buchstaben in die richtige Reihenfolge.",
+                "items": ["A", "B", "C", "D"]
+            },
+            {
+                "id": "de-12-r1-q2",
                 "type": "mcq",
-                "questionText": "Welches Wort reimt sich auf 'Haus'?",
+                "questionText": "Welcher Buchstabe kommt nach M?",
                 "options": [
-                    { "id": "uuid-phonics-1-1", "text": "Maus", "isCorrect": true },
-                    { "id": "uuid-phonics-1-2", "text": "Hund", "isCorrect": false },
-                    { "id": "uuid-phonics-1-3", "text": "Sonne", "isCorrect": false },
-                    { "id": "uuid-phonics-1-4", "text": "Auto", "isCorrect": false }
+                    { "id": "opt-1", "text": "L", "isCorrect": false },
+                    { "id": "opt-2", "text": "N", "isCorrect": true },
+                    { "id": "opt-3", "text": "O", "isCorrect": false }
                 ]
             },
             {
-                "id": "uuid-phonics-2",
+                "id": "de-12-r1-q3",
+                "type": "sentence-order",
+                "questionText": "Bringe diese Wörter in alphabetische Reihenfolge.",
+                "items": ["Apfel", "Banane", "Kirsche"]
+            },
+            {
+                "id": "de-12-r1-q4",
                 "type": "sti",
-                "questionText": "Das Gegenteil von 'heiß' ist ____.",
-                "correctAnswers": ["kalt"],
+                "questionText": "Was ist der letzte Buchstabe im Alphabet?",
+                "correctAnswers": ["Z"],
                 "evaluationMode": "case-insensitive"
-            }
-        ]
-    },
-    {
-        "title": "Einfache Addition",
-        "subject": "Math",
-        "gradeRange": "2-4",
-        "questions": [
-            {
-                "id": "uuid-addition-1",
-                "type": "mcq",
-                "questionText": "Was ist 5 + 3?",
-                "options": [
-                    { "id": "uuid-addition-1-2", "text": "8", "isCorrect": true },
-                    { "id": "uuid-addition-1-1", "text": "7", "isCorrect": false },
-                    { "id": "uuid-addition-1-3", "text": "6", "isCorrect": false },
-                    { "id": "uuid-addition-1-4", "text": "9", "isCorrect": false }
-                ]
             },
             {
-                "id": "uuid-addition-2",
-                "type": "alg-equation",
-                "questionText": "Löse nach der fehlenden Zahl auf.",
-                "equation": "4 + x = 10",
-                "variables": ["x"]
+                "id": "de-12-r1-q5",
+                "type": "mcq",
+                "questionText": "Welches Wort kommt im Wörterbuch zuerst?",
+                "options": [
+                    { "id": "opt-1", "text": "Hund", "isCorrect": false },
+                    { "id": "opt-2", "text": "Katze", "isCorrect": true },
+                    { "id": "opt-3", "text": "Fisch", "isCorrect": false }
+                ]
             }
         ]
     },
     {
-        "title": "Geschichten-Anfänge",
+        "title": "Kommasetzung üben",
         "subject": "Writing",
-        "gradeRange": "2-4",
+        "gradeRange": "3-4",
         "questions": [
             {
-                "id": "uuid-writing-1",
+                "id": "de-34-w1-q1",
+                "type": "highlight-error",
+                "questionText": "Finde die Stelle, an der in dieser Liste ein Komma fehlt.",
+                "sentence": "Ich mag Äpfel Orangen und Bananen.",
+                "correctAnswerIndices": [2]
+            },
+            {
+                "id": "de-34-w1-q2",
                 "type": "sentence-correction",
-                "questionText": "Korrigiere den Satz unten.",
-                "sentenceWithMistake": "ich gehe in den park.",
-                "correctedSentence": "Ich gehe in den Park."
-            }
-        ]
-    },
-    {
-        "title": "Nomen-Detektiv (Englisch)",
-        "subject": "English",
-        "gradeRange": "2-4",
-        "questions": [
+                "questionText": "Füge die richtige Zeichensetzung in den Satz ein.",
+                "sentenceWithMistake": "Wir waren letzten Sommer in Paris Frankreich.",
+                "correctedSentence": "Wir waren letzten Sommer in Paris, Frankreich."
+            },
             {
-                "id": "uuid-english-1",
+                "id": "de-34-w1-q3",
                 "type": "mcq",
-                "questionText": "Welches dieser englischen Wörter ist ein Nomen (Substantiv)?",
+                "questionText": "Welcher Satz hat die richtige Zeichensetzung?",
                 "options": [
-                    { "id": "uuid-english-1-3", "text": "Apple", "isCorrect": true },
-                    { "id": "uuid-english-1-1", "text": "Run", "isCorrect": false },
-                    { "id": "uuid-english-1-2", "text": "Happy", "isCorrect": false },
-                    { "id": "uuid-english-1-4", "text": "Quickly", "isCorrect": false }
-                ]
-            }
-        ]
-    },
-    {
-        "title": "Einfache Subtraktion",
-        "subject": "Math",
-        "gradeRange": "2-4",
-        "questions": [
-            {
-                "id": "uuid-subtraction-1",
-                "type": "mcq",
-                "questionText": "Was ist 12 - 5?",
-                "options": [
-                    { "id": "uuid-subtraction-1-1", "text": "7", "isCorrect": true },
-                    { "id": "uuid-subtraction-1-2", "text": "6", "isCorrect": false },
-                    { "id": "uuid-subtraction-1-3", "text": "8", "isCorrect": false },
-                    { "id": "uuid-subtraction-1-4", "text": "5", "isCorrect": false }
-                ]
-            }
-        ]
-    },
-    {
-        "title": "Advanced Vocabulary",
-        "subject": "English",
-        "gradeRange": "6-8",
-        "questions": [
-            {
-                "id": "uuid-vocab-1",
-                "type": "mcq",
-                "questionText": "Which word is a synonym for 'ephemeral'?",
-                "options": [
-                    { "id": "uuid-vocab-1-2", "text": "Fleeting", "isCorrect": true },
-                    { "id": "uuid-vocab-1-1", "text": "Permanent", "isCorrect": false },
-                    { "id": "uuid-vocab-1-3", "text": "Important", "isCorrect": false },
-                    { "id": "uuid-vocab-1-4", "text": "Ancient", "isCorrect": false }
+                    {
+                        "id": "opt-1",
+                        "text": "Heute ist Dienstag der 1. Januar.",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": "opt-2",
+                        "text": "Heute ist Dienstag, der 1. Januar.",
+                        "isCorrect": true
+                    },
+                    {
+                        "id": "opt-3",
+                        "text": "Heute, ist Dienstag der 1. Januar.",
+                        "isCorrect": false
+                    }
                 ]
             },
             {
-                "id": "uuid-vocab-2",
+                "id": "de-34-w1-q4",
+                "type": "highlight-error",
+                "questionText": "Finde das unnötige Komma.",
+                "sentence": "Das große, rote, Auto fuhr weg.",
+                "correctAnswerIndices": [3]
+            },
+            {
+                "id": "de-34-w1-q5",
+                "type": "sentence-correction",
+                "questionText": "Setze die Kommas in dieser Aufzählung richtig.",
+                "sentenceWithMistake": "Bitte kaufe Milch Eier und Brot.",
+                "correctedSentence": "Bitte kaufe Milch, Eier und Brot."
+            }
+        ]
+    },
+    {
+        "title": "Synonyme finden",
+        "subject": "English",
+        "gradeRange": "3-4",
+        "questions": [
+            {
+                "id": "de-34-e1-q1",
+                "type": "mcq",
+                "questionText": "Welches Wort bedeutet dasselbe wie 'glücklich'?",
+                "options": [
+                    { "id": "opt-1", "text": "Traurig", "isCorrect": false },
+                    { "id": "opt-2", "text": "Fröhlich", "isCorrect": true },
+                    { "id": "opt-3", "text": "Wütend", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-34-e1-q2",
                 "type": "sti",
-                "questionText": "A story about a person's life written by that person is an ____.",
-                "correctAnswers": ["autobiography"],
+                "questionText": "Ein anderes Wort für ein sehr großes Haus ist eine ____.",
+                "correctAnswers": ["Villa"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-34-e1-q3",
+                "type": "mcq",
+                "questionText": "Wenn etwas 'winzig' ist, ist es sehr...",
+                "options": [
+                    { "id": "opt-1", "text": "groß", "isCorrect": false },
+                    { "id": "opt-2", "text": "schnell", "isCorrect": false },
+                    { "id": "opt-3", "text": "klein", "isCorrect": true }
+                ]
+            },
+            {
+                "id": "de-34-e1-q4",
+                "type": "mcq",
+                "questionText": "Welches Wort ist ein Antonym (Gegenteil) von 'heiß'?",
+                "options": [
+                    { "id": "opt-1", "text": "Warm", "isCorrect": false },
+                    { "id": "opt-2", "text": "Kalt", "isCorrect": true },
+                    { "id": "opt-3", "text": "Sonnig", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-34-e1-q5",
+                "type": "sti",
+                "questionText": "Sehr leise zu sprechen bedeutet zu ____.",
+                "correctAnswers": ["flüstern"],
                 "evaluationMode": "case-insensitive"
             }
         ]
     },
     {
-        "title": "Grundlagen der Algebra",
+        "title": "Grundlagen der Bruchrechnung",
         "subject": "Math",
-        "gradeRange": "6-8",
+        "gradeRange": "5-6",
         "questions": [
             {
-                "id": "uuid-prealgebra-1",
-                "type": "alg-equation",
-                "questionText": "Löse nach x in der Gleichung auf.",
-                "equation": "3 * x + 7 = 22",
-                "variables": ["x"]
+                "id": "de-56-m1-q1",
+                "type": "mcq",
+                "questionText": "Welcher Bruchteil der Pizza wurde gegessen?",
+                "imageUrl": "https://placehold.co/400x300/E4A2A2/000000?text=🍕%20(1/4%20fehlt)",
+                "options": [
+                    { "id": "opt-1", "text": "1/2", "isCorrect": false },
+                    { "id": "opt-2", "text": "1/4", "isCorrect": true },
+                    { "id": "opt-3", "text": "3/4", "isCorrect": false }
+                ]
             },
             {
-                "id": "uuid-prealgebra-2",
+                "id": "de-56-m1-q2",
                 "type": "mcq",
-                "questionText": "Was ist der Wert von 2 hoch 5?",
+                "questionText": "Welcher Bruch ist gleichwertig zu 1/2?",
                 "options": [
-                    { "id": "uuid-prealgebra-2-3", "text": "32", "isCorrect": true },
-                    { "id": "uuid-prealgebra-2-1", "text": "10", "isCorrect": false },
-                    { "id": "uuid-prealgebra-2-2", "text": "25", "isCorrect": false },
-                    { "id": "uuid-prealgebra-2-4", "text": "16", "isCorrect": false }
+                    { "id": "opt-1", "text": "2/3", "isCorrect": false },
+                    { "id": "opt-2", "text": "3/5", "isCorrect": false },
+                    { "id": "opt-3", "text": "4/8", "isCorrect": true }
+                ]
+            },
+            {
+                "id": "de-56-m1-q3",
+                "type": "sti",
+                "questionText": "Was ist 1/3 + 1/3? (Schreibe als Bruch wie x/y)",
+                "correctAnswers": ["2/3"],
+                "evaluationMode": "exact-match"
+            },
+            {
+                "id": "de-56-m1-q4",
+                "type": "mcq",
+                "questionText": "Welches Diagramm zeigt 2/5 als schraffierte Fläche?",
+                "imageUrl": "https://placehold.co/600x200/A2BBE4/000000?text=A) 🟩🟩⬜⬜⬜ B) 🟩🟩🟩⬜⬜",
+                "options": [
+                    { "id": "opt-1", "text": "A", "isCorrect": true },
+                    { "id": "opt-2", "text": "B", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-56-m1-q5",
+                "type": "mcq",
+                "questionText": "Welcher Bruch ist der größte?",
+                "options": [
+                    { "id": "opt-1", "text": "1/5", "isCorrect": false },
+                    { "id": "opt-2", "text": "1/3", "isCorrect": true },
+                    { "id": "opt-3", "text": "1/8", "isCorrect": false }
                 ]
             }
         ]
     },
     {
-        "title": "Überzeugende Argumente",
-        "subject": "Writing",
-        "gradeRange": "6-8",
+        "title": "Absicht des Autors",
+        "subject": "Reading",
+        "gradeRange": "5-6",
         "questions": [
             {
-                "id": "uuid-persuasive-1",
+                "id": "de-56-r1-q1",
+                "type": "mcq",
+                "questionText": "Lies den Text: 'Recycling ist wichtig. Es spart Energie, reduziert Umweltverschmutzung und schützt die Tierwelt.' Die Hauptabsicht des Autors ist es...",
+                "options": [
+                    {
+                        "id": "opt-1",
+                        "text": "den Leser mit einer Geschichte zu unterhalten.",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": "opt-2",
+                        "text": "den Leser vom Recycling zu überzeugen.",
+                        "isCorrect": true
+                    },
+                    {
+                        "id": "opt-3",
+                        "text": "zu beschreiben, wie Recycling aussieht.",
+                        "isCorrect": false
+                    }
+                ]
+            },
+            {
+                "id": "de-56-r1-q2",
+                "type": "mcq",
+                "questionText": "Lies den Text: 'Das alte Haus knarrte, als der Wind draußen heulte. Ein einsamer Schatten flackerte im Fenster im Obergeschoss.' Die Absicht des Autors ist es, ein Gefühl von ... zu erzeugen.",
+                "options": [
+                    { "id": "opt-1", "text": "Freude", "isCorrect": false },
+                    { "id": "opt-2", "text": "Humor", "isCorrect": false },
+                    { "id": "opt-3", "text": "Spannung", "isCorrect": true }
+                ]
+            },
+            {
+                "id": "de-56-r1-q3",
+                "type": "sti",
+                "questionText": "Ein Text, der Fakten und Details zu einem Thema liefert, soll den Leser ____.",
+                "correctAnswers": ["informieren", "lehren", "bilden"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-56-r1-q4",
+                "type": "mcq",
+                "questionText": "Eine Werbung für ein neues Videospiel wird hauptsächlich geschrieben, um zu...",
+                "options": [
+                    { "id": "opt-1", "text": "Informieren", "isCorrect": false },
+                    { "id": "opt-2", "text": "Überzeugen", "isCorrect": true },
+                    { "id": "opt-3", "text": "Unterhalten", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-56-r1-q5",
+                "type": "highlight-error",
+                "questionText": "Welches Wort zeigt, dass der folgende Satz eine Meinung ist? 'Ich denke, Vanille ist die beste Eissorte.'",
+                "sentence": "Ich denke, Vanille ist die beste Eissorte.",
+                "correctAnswerIndices": [1]
+            }
+        ]
+    },
+    {
+        "title": "Argumentationsstruktur",
+        "subject": "Writing",
+        "gradeRange": "7-8",
+        "questions": [
+            {
+                "id": "de-78-w1-q1",
+                "type": "mcq",
+                "questionText": "Was ist das Hauptziel einer Thesen-Aussage?",
+                "options": [
+                    { "id": "opt-1", "text": "Eine Frage zu stellen.", "isCorrect": false },
+                    {
+                        "id": "opt-2",
+                        "text": "Das Hauptargument des Aufsatzes zu präsentieren.",
+                        "isCorrect": true
+                    },
+                    {
+                        "id": "opt-3",
+                        "text": "Eine überraschende Tatsache zu liefern.",
+                        "isCorrect": false
+                    }
+                ]
+            },
+            {
+                "id": "de-78-w1-q2",
+                "type": "sentence-order",
+                "questionText": "Ordne diese Sätze zu einem logischen Absatz.",
+                "items": [
+                    "Erstens spenden sie an heißen Tagen Schatten.",
+                    "Aus diesen Gründen ist das Pflanzen von mehr Bäumen eine großartige Idee.",
+                    "Zusammenfassend lässt sich sagen, dass Bäume einer Gemeinschaft viele Vorteile bieten.",
+                    "Bäume sind für eine gesunde Nachbarschaft unerlässlich."
+                ]
+            },
+            {
+                "id": "de-78-w1-q3",
+                "type": "mcq",
+                "questionText": "Ein Beweis zur Unterstützung einer Behauptung sollte sein...",
+                "options": [
+                    { "id": "opt-1", "text": "Eine persönliche Meinung.", "isCorrect": false },
+                    { "id": "opt-2", "text": "Eine zufällige Geschichte.", "isCorrect": false },
+                    { "id": "opt-3", "text": "Eine Tatsache oder Statistik.", "isCorrect": true }
+                ]
+            },
+            {
+                "id": "de-78-w1-q4",
+                "type": "highlight-error",
+                "questionText": "Finde den Teil des Satzes, der die Hauptaussage ist. 'Schuluniformen sollten vorgeschrieben werden, weil sie die Gleichheit fördern.'",
+                "sentence": "Schuluniformen sollten vorgeschrieben werden, weil sie die Gleichheit fördern.",
+                "correctAnswerIndices": [0, 1, 2, 3]
+            },
+            {
+                "id": "de-78-w1-q5",
+                "type": "sentence-correction",
+                "questionText": "Verbessere diese schwache Thesen-Aussage: 'Dieses Papier wird die Geschichte des Internets diskutieren.'",
+                "sentenceWithMistake": "Dieses Papier wird die Geschichte des Internets diskutieren.",
+                "correctedSentence": "Die Erfindung des Internets revolutionierte die Kommunikation, indem sie Informationen weltweit sofort zugänglich machte."
+            }
+        ]
+    },
+    {
+        "title": "Stilmittel",
+        "subject": "English",
+        "gradeRange": "7-8",
+        "questions": [
+            {
+                "id": "de-78-e1-q1",
+                "type": "mcq",
+                "questionText": "'Der ruhige See war ein Spiegel' ist ein Beispiel für eine...",
+                "options": [
+                    { "id": "opt-1", "text": "Vergleich", "isCorrect": false },
+                    { "id": "opt-2", "text": "Metapher", "isCorrect": true },
+                    { "id": "opt-3", "text": "Personifikation", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-78-e1-q2",
+                "type": "mcq",
+                "questionText": "Ein Vergleich mit 'wie' oder 'als' ist bekannt als...",
+                "options": [
+                    { "id": "opt-1", "text": "Vergleich", "isCorrect": true },
+                    { "id": "opt-2", "text": "Metapher", "isCorrect": false },
+                    { "id": "opt-3", "text": "Alliteration", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-78-e1-q3",
+                "type": "sti",
+                "questionText": "Einem unbelebten Objekt menschliche Eigenschaften zu geben, nennt man ____.",
+                "correctAnswers": ["Personifikation"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-78-e1-q4",
+                "type": "highlight-error",
+                "questionText": "Finde das Beispiel für eine Alliteration im Satz.",
+                "sentence": "Fischers Fritz fischt frische Fische.",
+                "correctAnswerIndices": [0, 1, 2, 3, 4]
+            },
+            {
+                "id": "de-78-e1-q5",
+                "type": "mcq",
+                "questionText": "Eine extreme Übertreibung, die zur Verstärkung verwendet wird, nennt man...",
+                "options": [
+                    { "id": "opt-1", "text": "Ironie", "isCorrect": false },
+                    { "id": "opt-2", "text": "Vorausdeutung", "isCorrect": false },
+                    { "id": "opt-3", "text": "Hyperbel", "isCorrect": true }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Lineare Gleichungssysteme lösen",
+        "subject": "Math",
+        "gradeRange": "9-10",
+        "questions": [
+            {
+                "id": "de-910-m1-q1",
+                "type": "alg-equation",
+                "questionText": "Löse die Gleichung nach x auf.",
+                "equation": "5x - 10 = 2x + 2",
+                "variables": ["x"]
+            },
+            {
+                "id": "de-910-m1-q2",
+                "type": "mcq",
+                "questionText": "Was ist die Steigung der Geraden y = 3x - 5?",
+                "options": [
+                    { "id": "opt-1", "text": "-5", "isCorrect": false },
+                    { "id": "opt-2", "text": "3", "isCorrect": true },
+                    { "id": "opt-3", "text": "5", "isCorrect": false },
+                    { "id": "opt-4", "text": "y", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-910-m1-q3",
+                "type": "mcq",
+                "questionText": "Welcher Punkt liegt auf der Geraden y = 2x + 1?",
+                "options": [
+                    { "id": "opt-1", "text": "(1, 2)", "isCorrect": false },
+                    { "id": "opt-2", "text": "(2, 5)", "isCorrect": true },
+                    { "id": "opt-3", "text": "(3, 6)", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-910-m1-q4",
+                "type": "alg-equation",
+                "questionText": "Wenn x = 3 ist, was ist der Wert von y in der Gleichung 2x + y = 10?",
+                "equation": "2*3 + y = 10",
+                "variables": ["y"]
+            },
+            {
+                "id": "de-910-m1-q5",
+                "type": "mcq",
+                "questionText": "Der Punkt, an dem eine Gerade die y-Achse schneidet, heißt...",
+                "options": [
+                    { "id": "opt-1", "text": "x-Achsenabschnitt", "isCorrect": false },
+                    { "id": "opt-2", "text": "y-Achsenabschnitt", "isCorrect": true },
+                    { "id": "opt-3", "text": "Ursprung", "isCorrect": false }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Satire analysieren",
+        "subject": "Reading",
+        "gradeRange": "9-10",
+        "questions": [
+            {
+                "id": "de-910-r1-q1",
+                "type": "mcq",
+                "questionText": "Satire ist eine literarische Technik, die Humor, Ironie und Übertreibung verwendet, um...",
+                "options": [
+                    { "id": "opt-1", "text": "ein Thema zu loben.", "isCorrect": false },
+                    {
+                        "id": "opt-2",
+                        "text": "Mängel zu kritisieren oder aufzudecken.",
+                        "isCorrect": true
+                    },
+                    { "id": "opt-3", "text": "den Leser zu verwirren.", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-910-r1-q2",
+                "type": "mcq",
+                "questionText": "Eine politische Karikatur, die einen Politiker als Marionette darstellt, verwendet Satire, um nahezulegen, dass der Politiker...",
+                "options": [
+                    { "id": "opt-1", "text": "ein guter Entertainer ist.", "isCorrect": false },
+                    { "id": "opt-2", "text": "aus Holz gemacht ist.", "isCorrect": false },
+                    { "id": "opt-3", "text": "von anderen kontrolliert wird.", "isCorrect": true }
+                ]
+            },
+            {
+                "id": "de-910-r1-q3",
+                "type": "sti",
+                "questionText": "Wenn das Gesagte das Gegenteil von dem ist, was gemeint ist, nennt man das ____.",
+                "correctAnswers": ["Ironie"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-910-r1-q4",
+                "type": "mcq",
+                "questionText": "Der Hauptzweck eines satirischen Nachrichtenartikels, der echt klingt, ist es...",
+                "options": [
+                    {
+                        "id": "opt-1",
+                        "text": "die tatsächlichen Nachrichten zu berichten.",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": "opt-2",
+                        "text": "reale Themen auf humorvolle Weise zu kommentieren.",
+                        "isCorrect": true
+                    },
+                    { "id": "opt-3", "text": "Zeitungen zu verkaufen.", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-910-r1-q5",
+                "type": "highlight-error",
+                "questionText": "Welcher Teil der folgenden Aussage ist die satirische Übertreibung? 'Ich habe heute Abend eine Million Stunden Hausaufgaben.'",
+                "sentence": "Ich habe eine Million Stunden Hausaufgaben heute Abend.",
+                "correctAnswerIndices": [2, 3]
+            }
+        ]
+    },
+    {
+        "title": "Fortgeschrittene Zeichensetzung",
+        "subject": "Writing",
+        "gradeRange": "Advanced",
+        "questions": [
+            {
+                "id": "de-adv-w1-q1",
+                "type": "mcq",
+                "questionText": "Welches Satzzeichen wird verwendet, um eine Liste oder eine Erklärung einzuleiten?",
+                "options": [
+                    { "id": "opt-1", "text": "Semikolon (;)", "isCorrect": false },
+                    { "id": "opt-2", "text": "Doppelpunkt (:)", "isCorrect": true },
+                    { "id": "opt-3", "text": "Gedankenstrich (—)", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-adv-w1-q2",
                 "type": "sentence-correction",
                 "questionText": "Korrigiere die Zeichensetzung im Satz.",
-                "sentenceWithMistake": "Das Team braucht drei Dinge zum Erfolg Talent, Hingabe und Teamgeist.",
-                "correctedSentence": "Das Team braucht drei Dinge zum Erfolg: Talent, Hingabe und Teamgeist."
-            }
-        ]
-    },
-    {
-        "title": "Literary Devices",
-        "subject": "English",
-        "gradeRange": "6-8",
-        "questions": [
+                "sentenceWithMistake": "Sie war müde, trotzdem arbeitete sie weiter.",
+                "correctedSentence": "Sie war müde; trotzdem arbeitete sie weiter."
+            },
             {
-                "id": "uuid-literary-1",
+                "id": "de-adv-w1-q3",
+                "type": "highlight-error",
+                "questionText": "Finde das falsch verwendete Semikolon.",
+                "sentence": "Ich mag Kaffee; aber er bevorzugt Tee.",
+                "correctAnswerIndices": [2]
+            },
+            {
+                "id": "de-adv-w1-q4",
                 "type": "mcq",
-                "questionText": "'The wind whispered through the trees' is an example of what?",
+                "questionText": "Ein Gedankenstrich (—) kann anstelle von welchem der folgenden Zeichen verwendet werden?",
                 "options": [
-                    { "id": "uuid-literary-1-3", "text": "Personification", "isCorrect": true },
-                    { "id": "uuid-literary-1-1", "text": "Metaphor", "isCorrect": false },
-                    { "id": "uuid-literary-1-2", "text": "Simile", "isCorrect": false },
-                    { "id": "uuid-literary-1-4", "text": "Hyperbole", "isCorrect": false }
+                    {
+                        "id": "opt-1",
+                        "text": "Kommas, Klammern oder Doppelpunkten",
+                        "isCorrect": true
+                    },
+                    { "id": "opt-2", "text": "Nur Punkten", "isCorrect": false },
+                    { "id": "opt-3", "text": "Nur Fragezeichen", "isCorrect": false }
                 ]
+            },
+            {
+                "id": "de-adv-w1-q5",
+                "type": "sentence-correction",
+                "questionText": "Füge einen Doppelpunkt korrekt in den Satz ein.",
+                "sentenceWithMistake": "Das Rezept erfordert drei Zutaten Mehl, Zucker und Eier.",
+                "correctedSentence": "Das Rezept erfordert drei Zutaten: Mehl, Zucker und Eier."
             }
         ]
     },
     {
-        "title": "Reihenfolge der Rechenoperationen",
-        "subject": "Math",
-        "gradeRange": "6-8",
+        "title": "Gehobener Wortschatz",
+        "subject": "English",
+        "gradeRange": "Advanced",
         "questions": [
             {
-                "id": "uuid-pemdas-1",
+                "id": "de-adv-e1-q1",
+                "type": "mcq",
+                "questionText": "Welches Wort ist das beste Synonym für 'ubiquitär'?",
+                "options": [
+                    { "id": "opt-1", "text": "Selten", "isCorrect": false },
+                    { "id": "opt-2", "text": "Allgegenwärtig", "isCorrect": true },
+                    { "id": "opt-3", "text": "Schwierig", "isCorrect": false },
+                    { "id": "opt-4", "text": "Versteckt", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-adv-e1-q2",
+                "type": "mcq",
+                "questionText": "Eine 'gregarious' (gesellige) Person ist sehr...",
+                "options": [
+                    { "id": "opt-1", "text": "Schüchtern", "isCorrect": false },
+                    { "id": "opt-2", "text": "Intelligent", "isCorrect": false },
+                    { "id": "opt-3", "text": "Gesellig", "isCorrect": true }
+                ]
+            },
+            {
+                "id": "de-adv-e1-q3",
                 "type": "sti",
-                "questionText": "Berechne den Wert von: 5 + (3 * 2)^2",
-                "correctAnswers": ["41"],
-                "evaluationMode": "exact-match"
+                "questionText": "Ein Problem zu 'mitigate' (mildern) bedeutet, es weniger ____ zu machen.",
+                "correctAnswers": ["schwerwiegend", "ernst", "schmerzhaft"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-adv-e1-q4",
+                "type": "mcq",
+                "questionText": "Wenn eine Rede 'eloquent' (wortgewandt) ist, ist sie...",
+                "options": [
+                    { "id": "opt-1", "text": "Laut und verwirrend.", "isCorrect": false },
+                    { "id": "opt-2", "text": "Fließend und überzeugend.", "isCorrect": true },
+                    { "id": "opt-3", "text": "Kurz und einfach.", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-adv-e1-q5",
+                "type": "mcq",
+                "questionText": "Welches Wort bedeutet, einem Glauben oder Anspruch formell abzuschwören?",
+                "options": [
+                    { "id": "opt-1", "text": "Befürworten", "isCorrect": false },
+                    { "id": "opt-2", "text": "Abschwören", "isCorrect": true },
+                    { "id": "opt-3", "text": "Behaupten", "isCorrect": false }
+                ]
             }
         ]
     }
