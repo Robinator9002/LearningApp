@@ -11,7 +11,7 @@
         "preview": "vite preview",
         "electron:start": "electron .",
         "app:dev": "concurrently \"npm run dev\" \"wait-on http-get://localhost:5173 && npm run electron:start\"",
-        "build:electron": "vite build && electron-builder"
+        "build:electron": "vite build && npx electron-builder"
     },
     "dependencies": {
         "concurrently": "^9.2.1",
