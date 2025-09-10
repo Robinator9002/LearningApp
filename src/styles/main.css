@@ -35,6 +35,7 @@
 @import './components/learner/qa/question-display.css';
 @import './components/learner/qa/equation-display.css';
 @import './components/learner/qa/sentence-correction-player.css';
+@import './components/learner/qa/sentence-order-player.css';
 /* = DASHBOARD = */
 @import './components/learner/dashboard/progress-summary.css';
 

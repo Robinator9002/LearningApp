@@ -88,10 +88,10 @@ export interface IQuestionHighlightError extends IQuestionBase {
     correctAnswerIndices: number[];
 }
 
-// --- NEW: QUESTION TYPE: Sentence / Paragraph Ordering ---
+// --- QUESTION TYPE: Sentence / Paragraph Ordering ---
 export interface IQuestionSentenceOrder extends IQuestionBase {
     type: 'sentence-order';
-    items: string[]; // The sentences/paragraphs in the correct order
+    items: string[];
 }
 
 // A union type that can represent any type of question in the system.
@@ -108,7 +108,7 @@ export type IQuestion =
 export interface ICourse {
     id?: number;
     title: string;
-    subject: 'Math' | 'Reading' | 'Writing' | 'English';
+    subject: string; // REFACTOR: Subject is now a flexible string.
     questions: IQuestion[];
     gradeRange: string;
     targetAudience?: [number, number];

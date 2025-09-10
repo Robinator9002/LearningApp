@@ -1,8 +1,8 @@
 // src/components/learner/course/CourseCard.tsx
 
 import React from 'react';
-import { Book, Calculator, Pencil } from 'lucide-react';
-import { useTranslation } from 'react-i18next'; // MODIFICATION: Imported useTranslation
+import { Book, Calculator, Pencil, HelpCircle } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import type { ICourse } from '../../../types/database';
 import Button from '../../common/Button';
 
@@ -11,17 +11,19 @@ interface CourseCardProps {
     onSelect: (courseId: number) => void;
 }
 
-// NOTE: The subject names themselves come from the database and are not translated here.
-// In a production app with multi-language course content, this would be handled differently.
-const subjectIcons: Record<ICourse['subject'], React.ReactNode> = {
+// REFACTOR: This record now only defines icons for specific, known subjects.
+const subjectIcons: Record<string, React.ReactNode> = {
     Math: <Calculator size={48} />,
     Reading: <Book size={48} />,
     Writing: <Pencil size={48} />,
-    English: <Book size={48} />, // Using Book icon for English as well
+    English: <Book size={48} />,
 };
 
+// A default icon to use when the subject name doesn't match a known key.
+const defaultIcon = <HelpCircle size={48} />;
+
 const CourseCard: React.FC<CourseCardProps> = ({ course, onSelect }) => {
-    const { t } = useTranslation(); // MODIFICATION: Initialized useTranslation
+    const { t } = useTranslation();
 
     const handleCardClick = () => {
         if (course.id) {
@@ -29,14 +31,16 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onSelect }) => {
         }
     };
 
+    // REFACTOR: Safely get the icon for the subject, falling back to the default.
+    const icon = subjectIcons[course.subject] || defaultIcon;
+
     return (
         <div className="course-card" onClick={handleCardClick}>
-            <div className="course-card__icon-wrapper">{subjectIcons[course.subject]}</div>
+            <div className="course-card__icon-wrapper">{icon}</div>
             <div className="course-card__content">
                 <h3 className="course-card__title">{course.title}</h3>
                 <p className="course-card__subject">{course.subject}</p>
                 <div className="course-card__actions">
-                    {/* MODIFICATION: Replaced hardcoded button text */}
                     <Button variant="primary" onClick={handleCardClick}>
                         {t('buttons.startCourse')}
                     </Button>

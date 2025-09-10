@@ -1,0 +1,52 @@
+/* src/styles/components/learner/qa/sentence-order-player.css */
+
+.sentence-order-player {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-unit);
+}
+
+.sentence-order-player__item {
+    display: flex;
+    align-items: center;
+    padding: calc(var(--spacing-unit) * 1.5);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    cursor: grab;
+    transition: background-color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.sentence-order-player__item:not(.dragging):hover {
+    border-color: var(--color-accent);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.sentence-order-player__item.dragging {
+    opacity: 0.5;
+    border-style: dashed;
+    cursor: grabbing;
+}
+
+.sentence-order-player__item-text {
+    margin: 0;
+    flex-grow: 1;
+}
+
+.drag-handle {
+    margin-right: var(--spacing-unit);
+    color: var(--color-text-secondary);
+    flex-shrink: 0;
+}
+
+/* --- Feedback States --- */
+
+.sentence-order-player__item--correct {
+    border-color: var(--color-feedback-positive);
+    background-color: color-mix(in srgb, var(--color-feedback-positive) 15%, transparent);
+}
+
+.sentence-order-player__item--incorrect {
+    border-color: var(--color-feedback-negative);
+    background-color: color-mix(in srgb, var(--color-feedback-negative) 15%, transparent);
+}
