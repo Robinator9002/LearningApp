@@ -1,0 +1,920 @@
+[
+    {
+        "title": "Rechtschreibung: Groß und Klein 1",
+        "subject": "Schreiben",
+        "gradeRange": "2-4",
+        "questions": [
+            {
+                "id": "de-24-w-c1-q1",
+                "type": "mcq",
+                "questionText": "Welches Wort muss großgeschrieben werden?",
+                "sentence": "der hund bellt laut.",
+                "options": [
+                    { "id": "opt-w1-1", "text": "der", "isCorrect": false },
+                    { "id": "opt-w1-2", "text": "hund", "isCorrect": true },
+                    { "id": "opt-w1-3", "text": "bellt", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-w-c1-q2",
+                "type": "highlight-error",
+                "questionText": "Finde das Wort, das falsch geschrieben ist.",
+                "sentence": "Die katze schläft in der sonne.",
+                "correctAnswerIndices": [1]
+            },
+            {
+                "id": "de-24-w-c1-q3",
+                "type": "sentence-correction",
+                "questionText": "Korrigiere die Groß- und Kleinschreibung in diesem Satz.",
+                "sentenceWithMistake": "mein fahrrad ist rot.",
+                "correctedSentence": "Mein Fahrrad ist rot."
+            },
+            {
+                "id": "de-24-w-c1-q4",
+                "type": "mcq",
+                "questionText": "Welcher Satz ist komplett richtig geschrieben?",
+                "options": [
+                    { "id": "opt-w1-4", "text": "Der ball rollt schnell.", "isCorrect": false },
+                    { "id": "opt-w1-5", "text": "der Ball rollt schnell.", "isCorrect": false },
+                    { "id": "opt-w1-6", "text": "Der Ball rollt schnell.", "isCorrect": true }
+                ]
+            },
+            {
+                "id": "de-24-w-c1-q5",
+                "type": "sti",
+                "questionText": "Nomen wie 'Haus' oder 'Baum' schreibt man immer ____.",
+                "correctAnswers": ["groß"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-w-c1-q6",
+                "type": "highlight-error",
+                "questionText": "Finde die beiden Wörter, die großgeschrieben werden müssen.",
+                "sentence": "anna und tom spielen im garten.",
+                "correctAnswerIndices": [0, 2]
+            },
+            {
+                "id": "de-24-w-c1-q7",
+                "type": "sentence-correction",
+                "questionText": "Korrigiere den Satz.",
+                "sentenceWithMistake": "im winter liegt oft schnee.",
+                "correctedSentence": "Im Winter liegt oft Schnee."
+            },
+            {
+                "id": "de-24-w-c1-q8",
+                "type": "mcq",
+                "questionText": "Was ist richtig? 'Ich esse einen...'?",
+                "options": [
+                    { "id": "opt-w1-7", "text": "apfel", "isCorrect": false },
+                    { "id": "opt-w1-8", "text": "Apfel", "isCorrect": true }
+                ]
+            },
+            {
+                "id": "de-24-w-c1-q9",
+                "type": "highlight-error",
+                "questionText": "Hier sind drei Fehler. Finde das Nomen, das klein geschrieben wurde.",
+                "sentence": "Der vogel sitzt auf dem ast und singt ein lied.",
+                "correctAnswerIndices": [1]
+            },
+            {
+                "id": "de-24-w-c1-q10",
+                "type": "sentence-correction",
+                "questionText": "Ein Satzanfang wird immer großgeschrieben. Korrigiere!",
+                "sentenceWithMistake": "das auto fährt schnell.",
+                "correctedSentence": "Das Auto fährt schnell."
+            }
+        ]
+    },
+    {
+        "title": "Satzbau: Sätze puzzeln 1",
+        "subject": "Schreiben",
+        "gradeRange": "2-4",
+        "questions": [
+            {
+                "id": "de-24-w-c2-q1",
+                "type": "sentence-order",
+                "questionText": "Bringe die Wörter in die richtige Reihenfolge.",
+                "items": ["liest", "ein Buch", "Das Mädchen"]
+            },
+            {
+                "id": "de-24-w-c2-q2",
+                "type": "sentence-order",
+                "questionText": "Bilde einen sinnvollen Satz.",
+                "items": ["Der Hund", "im Garten", "spielt"]
+            },
+            {
+                "id": "de-24-w-c2-q3",
+                "type": "sentence-correction",
+                "questionText": "Dieser Satz ist durcheinander. Korrigiere ihn!",
+                "sentenceWithMistake": "malt ein Bild die Frau.",
+                "correctedSentence": "Die Frau malt ein Bild."
+            },
+            {
+                "id": "de-24-w-c2-q4",
+                "type": "mcq",
+                "questionText": "Welcher Satz ist richtig geordnet?",
+                "options": [
+                    { "id": "opt-w2-1", "text": "Der Apfel ist lecker.", "isCorrect": true },
+                    { "id": "opt-w2-2", "text": "Ist lecker der Apfel.", "isCorrect": false },
+                    { "id": "opt-w2-3", "text": "Lecker der Apfel ist.", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-w-c2-q5",
+                "type": "sentence-order",
+                "questionText": "Ordne die Wörter zu einer Frage.",
+                "items": ["du", "Wo", "wohnst"]
+            },
+            {
+                "id": "de-24-w-c2-q6",
+                "type": "sentence-order",
+                "questionText": "Bilde einen Satz über das Wetter.",
+                "items": ["scheint", "Die Sonne", "heute"]
+            },
+            {
+                "id": "de-24-w-c2-q7",
+                "type": "sentence-correction",
+                "questionText": "Stelle die Wörter richtig.",
+                "sentenceWithMistake": "Fahrrad fährt der Junge.",
+                "correctedSentence": "Der Junge fährt Fahrrad."
+            },
+            {
+                "id": "de-24-w-c2-q8",
+                "type": "mcq",
+                "questionText": "Welche Wortstellung ist korrekt?",
+                "options": [
+                    { "id": "opt-w2-4", "text": "Ich nach Hause gehe.", "isCorrect": false },
+                    { "id": "opt-w2-5", "text": "Ich gehe nach Hause.", "isCorrect": true },
+                    { "id": "opt-w2-6", "text": "Gehe ich nach Hause.", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-w-c2-q9",
+                "type": "sentence-order",
+                "questionText": "Was macht die Katze? Bilde einen Satz.",
+                "items": ["auf dem Sofa", "Die Katze", "schläft"]
+            },
+            {
+                "id": "de-24-w-c2-q10",
+                "type": "sentence-correction",
+                "questionText": "Bringe Ordnung in diesen Satz.",
+                "sentenceWithMistake": "gern Pizza essen wir.",
+                "correctedSentence": "Wir essen gern Pizza."
+            }
+        ]
+    },
+    {
+        "title": "Zeichensetzung: Satzende 1",
+        "subject": "Schreiben",
+        "gradeRange": "2-4",
+        "questions": [
+            {
+                "id": "de-24-w-c3-q1",
+                "type": "mcq",
+                "questionText": "Welches Zeichen gehört an das Ende dieses Satzes: 'Ich gehe in die Schule'",
+                "options": [
+                    { "id": "opt-w3-1", "text": "?", "isCorrect": false },
+                    { "id": "opt-w3-2", "text": ".", "isCorrect": true },
+                    { "id": "opt-w3-3", "text": "!", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-w-c3-q2",
+                "type": "mcq",
+                "questionText": "Welches Zeichen gehört an das Ende dieses Satzes: 'Wie spät ist es'",
+                "options": [
+                    { "id": "opt-w3-4", "text": ".", "isCorrect": false },
+                    { "id": "opt-w3-5", "text": "!", "isCorrect": false },
+                    { "id": "opt-w3-6", "text": "?", "isCorrect": true }
+                ]
+            },
+            {
+                "id": "de-24-w-c3-q3",
+                "type": "sentence-correction",
+                "questionText": "Füge das richtige Satzzeichen am Ende ein.",
+                "sentenceWithMistake": "Das ist ja super",
+                "correctedSentence": "Das ist ja super!"
+            },
+            {
+                "id": "de-24-w-c3-q4",
+                "type": "mcq",
+                "questionText": "Welcher Satz ist eine Frage?",
+                "options": [
+                    { "id": "opt-w3-7", "text": "Ich habe Hunger.", "isCorrect": false },
+                    { "id": "opt-w3-8", "text": "Hast du Hunger?", "isCorrect": true },
+                    { "id": "opt-w3-9", "text": "Iss dein Essen!", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-w-c3-q5",
+                "type": "sentence-correction",
+                "questionText": "Setze das passende Satzzeichen.",
+                "sentenceWithMistake": "Wo ist mein Stift",
+                "correctedSentence": "Wo ist mein Stift?"
+            },
+            {
+                "id": "de-24-w-c3-q6",
+                "type": "sentence-correction",
+                "questionText": "Ein Befehl oder ein starkes Gefühl braucht ein Ausrufezeichen. Korrigiere!",
+                "sentenceWithMistake": "Hilfe.",
+                "correctedSentence": "Hilfe!"
+            },
+            {
+                "id": "de-24-w-c3-q7",
+                "type": "mcq",
+                "questionText": "Was für ein Satz ist das: 'Morgen scheint die Sonne'",
+                "options": [
+                    { "id": "opt-w3-10", "text": "Eine Frage (Fragesatz)", "isCorrect": false },
+                    { "id": "opt-w3-11", "text": "Eine Aussage (Aussagesatz)", "isCorrect": true },
+                    { "id": "opt-w3-12", "text": "Ein Ausruf (Ausrufesatz)", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-w-c3-q8",
+                "type": "sentence-correction",
+                "questionText": "Beende den Satz korrekt.",
+                "sentenceWithMistake": "Der Vogel singt ein Lied",
+                "correctedSentence": "Der Vogel singt ein Lied."
+            },
+            {
+                "id": "de-24-w-c3-q9",
+                "type": "mcq",
+                "questionText": "Welches Zeichen brauchst du hier: 'Pass auf'",
+                "options": [
+                    { "id": "opt-w3-13", "text": "!", "isCorrect": true },
+                    { "id": "opt-w3-14", "text": "?", "isCorrect": false },
+                    { "id": "opt-w3-15", "text": ".", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-w-c3-q10",
+                "type": "sentence-correction",
+                "questionText": "Mache aus der Aussage eine Frage.",
+                "sentenceWithMistake": "Du kommst mit.",
+                "correctedSentence": "Kommst du mit?"
+            }
+        ]
+    },
+    {
+        "title": "Wortarten: Nomen erkennen 1",
+        "subject": "Schreiben",
+        "gradeRange": "2-4",
+        "questions": [
+            {
+                "id": "de-24-w-c4-q1",
+                "type": "mcq",
+                "questionText": "Welches Wort in diesem Satz ist ein Nomen? 'Der Hund schläft.'",
+                "options": [
+                    { "id": "opt-w4-1", "text": "Der", "isCorrect": false },
+                    { "id": "opt-w4-2", "text": "Hund", "isCorrect": true },
+                    { "id": "opt-w4-3", "text": "schläft", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-w-c4-q2",
+                "type": "highlight-error",
+                "questionText": "Finde das Nomen (Dingwort) in dem Satz.",
+                "sentence": "Die Blume wächst im Garten.",
+                "correctAnswerIndices": [1]
+            },
+            {
+                "id": "de-24-w-c4-q3",
+                "type": "mcq",
+                "questionText": "Welches dieser Wörter ist ein Nomen?",
+                "options": [
+                    { "id": "opt-w4-4", "text": "laufen", "isCorrect": false },
+                    { "id": "opt-w4-5", "text": "schnell", "isCorrect": false },
+                    { "id": "opt-w4-6", "text": "Tisch", "isCorrect": true }
+                ]
+            },
+            {
+                "id": "de-24-w-c4-q4",
+                "type": "sti",
+                "questionText": "Nomen sind Wörter für Menschen, Tiere, Pflanzen und ____.",
+                "correctAnswers": ["Dinge", "Gegenstände"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-w-c4-q5",
+                "type": "highlight-error",
+                "questionText": "In diesem Satz gibt es zwei Nomen. Finde eines davon.",
+                "sentence": "Das Kind wirft den Ball.",
+                "correctAnswerIndices": [1, 4]
+            },
+            {
+                "id": "de-24-w-c4-q6",
+                "type": "mcq",
+                "questionText": "Man erkennt Nomen oft an ihren Begleitern (Artikeln). Welcher Artikel passt zu 'Mädchen'?",
+                "options": [
+                    { "id": "opt-w4-7", "text": "der", "isCorrect": false },
+                    { "id": "opt-w4-8", "text": "die", "isCorrect": false },
+                    { "id": "opt-w4-9", "text": "das", "isCorrect": true }
+                ]
+            },
+            {
+                "id": "de-24-w-c4-q7",
+                "type": "mcq",
+                "questionText": "Welches Wort ist KEIN Nomen?",
+                "options": [
+                    { "id": "opt-w4-10", "text": "Auto", "isCorrect": false },
+                    { "id": "opt-w4-11", "text": "springen", "isCorrect": true },
+                    { "id": "opt-w4-12", "text": "Schule", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-w-c4-q8",
+                "type": "highlight-error",
+                "questionText": "Finde das Nomen im Satz.",
+                "sentence": "Ich lese gerne ein spannendes Buch.",
+                "correctAnswerIndices": [5]
+            },
+            {
+                "id": "de-24-w-c4-q9",
+                "type": "mcq",
+                "questionText": "Ein anderes Wort für Nomen ist...",
+                "options": [
+                    { "id": "opt-w4-13", "text": "Tuwort", "isCorrect": false },
+                    { "id": "opt-w4-14", "text": "Wiewort", "isCorrect": false },
+                    { "id": "opt-w4-15", "text": "Hauptwort", "isCorrect": true }
+                ]
+            },
+            {
+                "id": "de-24-w-c4-q10",
+                "type": "sti",
+                "questionText": "Schreibe ein Nomen auf, das du in einem Klassenzimmer finden kannst.",
+                "correctAnswers": ["Tafel", "Stuhl", "Tisch", "Buch", "Heft"],
+                "evaluationMode": "case-insensitive"
+            }
+        ]
+    },
+    {
+        "title": "Rechtschreibung: Schwierige Wörter 2",
+        "subject": "Schreiben",
+        "gradeRange": "2-4",
+        "questions": [
+            {
+                "id": "de-24-w-c5-q1",
+                "type": "mcq",
+                "questionText": "Welches Wort ist richtig geschrieben?",
+                "options": [
+                    { "id": "opt-w5-1", "text": "Fogel", "isCorrect": false },
+                    { "id": "opt-w5-2", "text": "Vogel", "isCorrect": true }
+                ]
+            },
+            {
+                "id": "de-24-w-c5-q2",
+                "type": "mcq",
+                "questionText": "Wie schreibt man das Tier, das quakt?",
+                "options": [
+                    { "id": "opt-w5-3", "text": "Ente", "isCorrect": true },
+                    { "id": "opt-w5-4", "text": "Änte", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-w-c5-q3",
+                "type": "highlight-error",
+                "questionText": "Finde das falsch geschriebene Wort.",
+                "sentence": "Der Bär ist ein großes Tihr.",
+                "correctAnswerIndices": [5]
+            },
+            {
+                "id": "de-24-w-c5-q4",
+                "type": "sentence-correction",
+                "questionText": "Korrigiere das Wort mit 'sp' oder 'st'.",
+                "sentenceWithMistake": "Die Suppe schmeckt scharf.",
+                "correctedSentence": "Die Suppe schmeckt scharf."
+            },
+            {
+                "id": "de-24-w-c5-q5",
+                "type": "mcq",
+                "questionText": "Was ist richtig: 'Ich ______ in die Schule.'",
+                "options": [
+                    { "id": "opt-w5-5", "text": "gehe", "isCorrect": true },
+                    { "id": "opt-w5-6", "text": "gehe", "isCorrect": true }
+                ]
+            },
+            {
+                "id": "de-24-w-c5-q6",
+                "type": "mcq",
+                "questionText": "ß oder ss? Was kommt in das Wort 'Fu_ball'?",
+                "options": [
+                    { "id": "opt-w5-7", "text": "ß", "isCorrect": true },
+                    { "id": "opt-w5-8", "text": "ss", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-w-c5-q7",
+                "type": "highlight-error",
+                "questionText": "Hier ist ein Fehler versteckt. Finde ihn!",
+                "sentence": "Meine Schwester ist net.",
+                "correctAnswerIndices": [3]
+            },
+            {
+                "id": "de-24-w-c5-q8",
+                "type": "sti",
+                "questionText": "Vervollständige das Wort: Ein Pferd kann schnell r__nen.",
+                "correctAnswers": ["ennen"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-w-c5-q9",
+                "type": "mcq",
+                "questionText": "Wie schreibt man die Zahl nach der Neun?",
+                "options": [
+                    { "id": "opt-w5-9", "text": "Zehn", "isCorrect": true },
+                    { "id": "opt-w5-10", "text": "Zen", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-w-c5-q10",
+                "type": "sentence-correction",
+                "questionText": "Korrigiere den Satz.",
+                "sentenceWithMistake": "Ich mahle gern Bilder.",
+                "correctedSentence": "Ich male gern Bilder."
+            }
+        ]
+    },
+    {
+        "title": "Satzbau: Fragen stellen 2",
+        "subject": "Schreiben",
+        "gradeRange": "2-4",
+        "questions": [
+            {
+                "id": "de-24-w-c6-q1",
+                "type": "sentence-order",
+                "questionText": "Bilde eine Frage mit den Wörtern.",
+                "items": ["alt", "bist", "Wie", "du"]
+            },
+            {
+                "id": "de-24-w-c6-q2",
+                "type": "sentence-correction",
+                "questionText": "Mache aus diesem Satz eine Frage.",
+                "sentenceWithMistake": "Du hast einen Hund.",
+                "correctedSentence": "Hast du einen Hund?"
+            },
+            {
+                "id": "de-24-w-c6-q3",
+                "type": "mcq",
+                "questionText": "Welches Wort leitet oft eine Frage ein?",
+                "options": [
+                    { "id": "opt-w6-1", "text": "Und", "isCorrect": false },
+                    { "id": "opt-w6-2", "text": "Warum", "isCorrect": true },
+                    { "id": "opt-w6-3", "text": "Dann", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-w-c6-q4",
+                "type": "sentence-order",
+                "questionText": "Ordne die Wörter zu einer Frage.",
+                "items": ["heißt", "dein Bruder", "Wie"]
+            },
+            {
+                "id": "de-24-w-c6-q5",
+                "type": "mcq",
+                "questionText": "Welcher Satz ist eine korrekte Frage?",
+                "options": [
+                    { "id": "opt-w6-4", "text": "Wo du wohnst?", "isCorrect": false },
+                    { "id": "opt-w6-5", "text": "Wo wohnst du?", "isCorrect": true },
+                    { "id": "opt-w6-6", "text": "Du wohnst wo?", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-w-c6-q6",
+                "type": "sentence-correction",
+                "questionText": "Formuliere eine Frage.",
+                "sentenceWithMistake": "Das ist dein Ball.",
+                "correctedSentence": "Ist das dein Ball?"
+            },
+            {
+                "id": "de-24-w-c6-q7",
+                "type": "sti",
+                "questionText": "Eine Frage beginnt oft mit einem ___-Wort (z.B. Wer, Wie, Was).",
+                "correctAnswers": ["W"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-w-c6-q8",
+                "type": "sentence-order",
+                "questionText": "Stelle eine Frage nach der Uhrzeit.",
+                "items": ["spät", "ist", "Wie", "es"]
+            },
+            {
+                "id": "de-24-w-c6-q9",
+                "type": "sentence-correction",
+                "questionText": "Korrigiere die Wortstellung, um eine Frage zu bilden.",
+                "sentenceWithMistake": "Du magst Eis.",
+                "correctedSentence": "Magst du Eis?"
+            },
+            {
+                "id": "de-24-w-c6-q10",
+                "type": "mcq",
+                "questionText": "Welches Fragewort passt in die Lücke: '___ kommst du?' - 'Aus Berlin.'",
+                "options": [
+                    { "id": "opt-w6-7", "text": "Wann", "isCorrect": false },
+                    { "id": "opt-w6-8", "text": "Woher", "isCorrect": true },
+                    { "id": "opt-w6-9", "text": "Warum", "isCorrect": false }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Wortarten: Verben finden 2",
+        "subject": "Schreiben",
+        "gradeRange": "2-4",
+        "questions": [
+            {
+                "id": "de-24-w-c7-q1",
+                "type": "mcq",
+                "questionText": "Welches Wort in dem Satz ist das Verb (Tuwort)? 'Die Kinder spielen.'",
+                "options": [
+                    { "id": "opt-w7-1", "text": "Die", "isCorrect": false },
+                    { "id": "opt-w7-2", "text": "Kinder", "isCorrect": false },
+                    { "id": "opt-w7-3", "text": "spielen", "isCorrect": true }
+                ]
+            },
+            {
+                "id": "de-24-w-c7-q2",
+                "type": "highlight-error",
+                "questionText": "Finde das Verb in diesem Satz.",
+                "sentence": "Der Vogel fliegt hoch am Himmel.",
+                "correctAnswerIndices": [2]
+            },
+            {
+                "id": "de-24-w-c7-q3",
+                "type": "mcq",
+                "questionText": "Welches dieser Wörter ist ein Verb?",
+                "options": [
+                    { "id": "opt-w7-4", "text": "singen", "isCorrect": true },
+                    { "id": "opt-w7-5", "text": "Lied", "isCorrect": false },
+                    { "id": "opt-w7-6", "text": "schön", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-w-c7-q4",
+                "type": "sti",
+                "questionText": "Verben sind Wörter, die beschreiben, was jemand oder etwas ____.",
+                "correctAnswers": ["tut", "macht"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-w-c7-q5",
+                "type": "highlight-error",
+                "questionText": "Finde das Tuwort in dem Satz.",
+                "sentence": "Papa kocht eine leckere Suppe.",
+                "correctAnswerIndices": [1]
+            },
+            {
+                "id": "de-24-w-c7-q6",
+                "type": "mcq",
+                "questionText": "Welches Wort ist KEIN Verb?",
+                "options": [
+                    { "id": "opt-w7-7", "text": "lachen", "isCorrect": false },
+                    { "id": "opt-w7-8", "text": "Maus", "isCorrect": true },
+                    { "id": "opt-w7-9", "text": "schreiben", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-w-c7-q7",
+                "type": "mcq",
+                "questionText": "Welche Form des Verbs 'laufen' passt in die Lücke: 'Ich _____ schnell.'",
+                "options": [
+                    { "id": "opt-w7-10", "text": "laufe", "isCorrect": true },
+                    { "id": "opt-w7-11", "text": "läufst", "isCorrect": false },
+                    { "id": "opt-w7-12", "text": "läuft", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-w-c7-q8",
+                "type": "highlight-error",
+                "questionText": "Finde das Verb.",
+                "sentence": "Wir fahren morgen in den Urlaub.",
+                "correctAnswerIndices": [1]
+            },
+            {
+                "id": "de-24-w-c7-q9",
+                "type": "sti",
+                "questionText": "Ein anderes Wort für Verb ist ____.",
+                "correctAnswers": ["Tuwort", "Tätigkeitswort"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-w-c7-q10",
+                "type": "mcq",
+                "questionText": "Welche Form von 'sehen' ist richtig: 'Du ____ einen Vogel.'",
+                "options": [
+                    { "id": "opt-w7-13", "text": "sehe", "isCorrect": false },
+                    { "id": "opt-w7-14", "text": "siehst", "isCorrect": true },
+                    { "id": "opt-w7-15", "text": "sieht", "isCorrect": false }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Zeichensetzung: Kommas in Aufzählungen 2",
+        "subject": "Schreiben",
+        "gradeRange": "2-4",
+        "questions": [
+            {
+                "id": "de-24-w-c8-q1",
+                "type": "sentence-correction",
+                "questionText": "Füge das Komma an der richtigen Stelle ein.",
+                "sentenceWithMistake": "Ich mag Äpfel Bananen und Kirschen.",
+                "correctedSentence": "Ich mag Äpfel, Bananen und Kirschen."
+            },
+            {
+                "id": "de-24-w-c8-q2",
+                "type": "highlight-error",
+                "questionText": "Wo fehlt in dieser Aufzählung ein Komma?",
+                "sentence": "Im Zoo gibt es Löwen Tiger und Bären.",
+                "correctAnswerIndices": [4]
+            },
+            {
+                "id": "de-24-w-c8-q3",
+                "type": "mcq",
+                "questionText": "Welcher Satz verwendet das Komma richtig?",
+                "options": [
+                    {
+                        "id": "opt-w8-1",
+                        "text": "Meine Lieblingsfarben sind rot, blau und grün.",
+                        "isCorrect": true
+                    },
+                    {
+                        "id": "opt-w8-2",
+                        "text": "Meine Lieblingsfarben sind, rot blau und grün.",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": "opt-w8-3",
+                        "text": "Meine Lieblingsfarben sind rot blau, und grün.",
+                        "isCorrect": false
+                    }
+                ]
+            },
+            {
+                "id": "de-24-w-c8-q4",
+                "type": "sentence-correction",
+                "questionText": "Setze das fehlende Komma.",
+                "sentenceWithMistake": "Wir brauchen Milch Eier und Brot.",
+                "correctedSentence": "Wir brauchen Milch, Eier und Brot."
+            },
+            {
+                "id": "de-24-w-c8-q5",
+                "type": "mcq",
+                "questionText": "Wie viele Kommas braucht dieser Satz? 'Zum Frühstück esse ich Müsli Toast und einen Apfel.'",
+                "options": [
+                    { "id": "opt-w8-4", "text": "Eins", "isCorrect": false },
+                    { "id": "opt-w8-5", "text": "Zwei", "isCorrect": true },
+                    { "id": "opt-w8-6", "text": "Keins", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-w-c8-q6",
+                "type": "highlight-error",
+                "questionText": "Wo ist das Komma falsch gesetzt?",
+                "sentence": "Der Bauer hat Kühe, Schweine, und Hühner.",
+                "correctAnswerIndices": [4]
+            },
+            {
+                "id": "de-24-w-c8-q7",
+                "type": "sentence-correction",
+                "questionText": "Korrigiere die Zeichensetzung.",
+                "sentenceWithMistake": "Meine Hobbys sind Lesen Malen und Schwimmen.",
+                "correctedSentence": "Meine Hobbys sind Lesen, Malen und Schwimmen."
+            },
+            {
+                "id": "de-24-w-c8-q8",
+                "type": "mcq",
+                "questionText": "In welchem Satz werden die Satzzeichen richtig verwendet?",
+                "options": [
+                    {
+                        "id": "opt-w8-7",
+                        "text": "Ich sehe einen Hund, eine Katze und einen Vogel!",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": "opt-w8-8",
+                        "text": "Ich sehe einen Hund, eine Katze und einen Vogel.",
+                        "isCorrect": true
+                    },
+                    {
+                        "id": "opt-w8-9",
+                        "text": "Ich sehe einen Hund eine Katze, und einen Vogel?",
+                        "isCorrect": false
+                    }
+                ]
+            },
+            {
+                "id": "de-24-w-c8-q9",
+                "type": "highlight-error",
+                "questionText": "Hier fehlt ein Komma. Wo?",
+                "sentence": "Im Mäppchen sind Stifte Schere und Kleber.",
+                "correctAnswerIndices": [3]
+            },
+            {
+                "id": "de-24-w-c8-q10",
+                "type": "sentence-correction",
+                "questionText": "Bitte korrigiere diesen Satz.",
+                "sentenceWithMistake": "Tim spielt Fußball Basketball und Tennis.",
+                "correctedSentence": "Tim spielt Fußball, Basketball und Tennis."
+            }
+        ]
+    },
+    {
+        "title": "Wortarten: Adjektive verwenden 3",
+        "subject": "Schreiben",
+        "gradeRange": "2-4",
+        "questions": [
+            {
+                "id": "de-24-w-c9-q1",
+                "type": "mcq",
+                "questionText": "Welches Wort beschreibt den Ball? 'Der rote Ball rollt.'",
+                "options": [
+                    { "id": "opt-w9-1", "text": "Der", "isCorrect": false },
+                    { "id": "opt-w9-2", "text": "rote", "isCorrect": true },
+                    { "id": "opt-w9-3", "text": "Ball", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-w-c9-q2",
+                "type": "highlight-error",
+                "questionText": "Finde das Adjektiv (Wiewort) in dem Satz.",
+                "sentence": "Das schnelle Auto fährt vorbei.",
+                "correctAnswerIndices": [1]
+            },
+            {
+                "id": "de-24-w-c9-q3",
+                "type": "mcq",
+                "questionText": "Welches dieser Wörter ist ein Adjektiv?",
+                "options": [
+                    { "id": "opt-w9-4", "text": "Hund", "isCorrect": false },
+                    { "id": "opt-w9-5", "text": "bellen", "isCorrect": false },
+                    { "id": "opt-w9-6", "text": "laut", "isCorrect": true }
+                ]
+            },
+            {
+                "id": "de-24-w-c9-q4",
+                "type": "sti",
+                "questionText": "Adjektive sind Wörter, die beschreiben, ____ etwas ist.",
+                "correctAnswers": ["wie"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-w-c9-q5",
+                "type": "highlight-error",
+                "questionText": "Finde das beschreibende Wort.",
+                "sentence": "Die Sonne scheint heute sehr hell.",
+                "correctAnswerIndices": [5]
+            },
+            {
+                "id": "de-24-w-c9-q6",
+                "type": "mcq",
+                "questionText": "Welches Adjektiv passt am besten zu 'Zitrone'?",
+                "options": [
+                    { "id": "opt-w9-7", "text": "süß", "isCorrect": false },
+                    { "id": "opt-w9-8", "text": "sauer", "isCorrect": true },
+                    { "id": "opt-w9-9", "text": "weich", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-w-c9-q7",
+                "type": "mcq",
+                "questionText": "Welches Wort ist KEIN Adjektiv?",
+                "options": [
+                    { "id": "opt-w9-10", "text": "groß", "isCorrect": false },
+                    { "id": "opt-w9-11", "text": "kalt", "isCorrect": false },
+                    { "id": "opt-w9-12", "text": "Haus", "isCorrect": true }
+                ]
+            },
+            {
+                "id": "de-24-w-c9-q8",
+                "type": "sti",
+                "questionText": "Finde ein passendes Adjektiv: 'Der ____ Elefant.'",
+                "correctAnswers": ["graue", "große", "schwere"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-w-c9-q9",
+                "type": "highlight-error",
+                "questionText": "Finde das Wiewort.",
+                "sentence": "Das kleine Mädchen hat ein schönes Kleid an.",
+                "correctAnswerIndices": [1]
+            },
+            {
+                "id": "de-24-w-c9-q10",
+                "type": "mcq",
+                "questionText": "Wie kann man ein Adjektiv noch nennen?",
+                "options": [
+                    { "id": "opt-w9-13", "text": "Tuwort", "isCorrect": false },
+                    { "id": "opt-w9-14", "text": "Wiewort", "isCorrect": true },
+                    { "id": "opt-w9-15", "text": "Hauptwort", "isCorrect": false }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Satzbau: Gemischte Übungen 3",
+        "subject": "Schreiben",
+        "gradeRange": "2-4",
+        "questions": [
+            {
+                "id": "de-24-w-c10-q1",
+                "type": "sentence-order",
+                "questionText": "Bilde einen korrekten Satz.",
+                "items": ["morgens", "Der Hahn", "früh", "kräht"]
+            },
+            {
+                "id": "de-24-w-c10-q2",
+                "type": "sentence-correction",
+                "questionText": "Korrigiere diesen Satz.",
+                "sentenceWithMistake": "fliegt der Schmetterling schön.",
+                "correctedSentence": "Der Schmetterling fliegt schön."
+            },
+            {
+                "id": "de-24-w-c10-q3",
+                "type": "mcq",
+                "questionText": "Welcher Satz ist eine sinnvolle Aussage?",
+                "options": [
+                    {
+                        "id": "opt-w10-1",
+                        "text": "Der Baum klettert auf den Jungen.",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": "opt-w10-2",
+                        "text": "Der Junge klettert auf den Baum.",
+                        "isCorrect": true
+                    },
+                    {
+                        "id": "opt-w10-3",
+                        "text": "Auf den Baum der Junge klettert.",
+                        "isCorrect": false
+                    }
+                ]
+            },
+            {
+                "id": "de-24-w-c10-q4",
+                "type": "sentence-order",
+                "questionText": "Ordne die Wörter zu einer Frage.",
+                "items": ["dein", "ist", "Was", "Lieblingstier"]
+            },
+            {
+                "id": "de-24-w-c10-q5",
+                "type": "sentence-correction",
+                "questionText": "Bringe die Wörter in die richtige Reihenfolge.",
+                "sentenceWithMistake": "ins Wasser der Frosch springt.",
+                "correctedSentence": "Der Frosch springt ins Wasser."
+            },
+            {
+                "id": "de-24-w-c10-q6",
+                "type": "mcq",
+                "questionText": "Was ist der häufigste Satzbau im Deutschen?",
+                "options": [
+                    { "id": "opt-w10-4", "text": "Subjekt - Objekt - Verb", "isCorrect": false },
+                    { "id": "opt-w10-5", "text": "Verb - Subjekt - Objekt", "isCorrect": false },
+                    { "id": "opt-w10-6", "text": "Subjekt - Verb - Objekt", "isCorrect": true }
+                ]
+            },
+            {
+                "id": "de-24-w-c10-q7",
+                "type": "sentence-order",
+                "questionText": "Bilde einen Satz.",
+                "items": ["Oma", "einen Kuchen", "backt", "leckeren"]
+            },
+            {
+                "id": "de-24-w-c10-q8",
+                "type": "sentence-correction",
+                "questionText": "Korrigiere die Wortstellung.",
+                "sentenceWithMistake": "Hausaufgaben mache ich meine.",
+                "correctedSentence": "Ich mache meine Hausaufgaben."
+            },
+            {
+                "id": "de-24-w-c10-q9",
+                "type": "mcq",
+                "questionText": "Welcher Satz klingt am natürlichsten?",
+                "options": [
+                    {
+                        "id": "opt-w10-7",
+                        "text": "Am Himmel die Sterne leuchten.",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": "opt-w10-8",
+                        "text": "Die Sterne leuchten am Himmel.",
+                        "isCorrect": true
+                    },
+                    {
+                        "id": "opt-w10-9",
+                        "text": "Leuchten die Sterne am Himmel.",
+                        "isCorrect": false
+                    }
+                ]
+            },
+            {
+                "id": "de-24-w-c10-q10",
+                "type": "sentence-order",
+                "questionText": "Formuliere einen Satz über eine Katze und eine Maus.",
+                "items": ["die Maus", "Die Katze", "jagt"]
+            }
+        ]
+    }
+]

@@ -52,8 +52,9 @@ export async function seedInitialCourses(language: 'en' | 'de'): Promise<void> {
 const validateCourseData = (data: any): data is Omit<ICourse, 'id'> => {
     if (typeof data !== 'object' || data === null) return false;
     if (typeof data.title !== 'string' || !data.title) return false;
-    if (!['Math', 'Reading', 'Writing', 'English'].includes(data.subject)) return false;
-    if (!['2-4', '6-8'].includes(data.gradeRange)) return false; // Added gradeRange validation
+    // Allow for more flexible subject and grade range during import
+    if (typeof data.subject !== 'string') return false;
+    if (typeof data.gradeRange !== 'string') return false;
     if (!Array.isArray(data.questions)) return false;
     // We could add deeper validation for each question here if needed.
     return true;
@@ -86,8 +87,9 @@ export const exportCourseToJson = (course: ICourse): void => {
 
 /**
  * Reads a user-provided JSON file, validates its structure, and adds it to the database.
+ * This function can now handle both a single course object and an array of courses.
  * @param file - The JSON file to import.
- * @returns A promise that resolves when the course is successfully imported.
+ * @returns A promise that resolves when the course(s) are successfully imported.
  * @throws An error if the file is invalid or the import fails.
  */
 export const importCourseFromJson = async (file: File): Promise<void> => {
@@ -101,13 +103,28 @@ export const importCourseFromJson = async (file: File): Promise<void> => {
                 }
                 const data = JSON.parse(content);
 
-                // CRITICAL: Validate the data before adding it to the database.
-                if (!validateCourseData(data)) {
-                    return reject(new Error('Invalid course file format.'));
+                // --- MODIFICATION START ---
+                // Check if the imported data is an array of courses or a single course.
+                if (Array.isArray(data)) {
+                    // It's an array. Validate each course in the array.
+                    const areAllValid = data.every(validateCourseData);
+                    if (!areAllValid) {
+                        return reject(
+                            new Error('One or more courses in the file have an invalid format.'),
+                        );
+                    }
+                    // Use bulkAdd for efficiency with arrays.
+                    await db.courses.bulkAdd(data as ICourse[]);
+                } else {
+                    // It's a single object. Validate it.
+                    if (!validateCourseData(data)) {
+                        return reject(new Error('Invalid course file format.'));
+                    }
+                    // Use the standard add method for single objects.
+                    await db.courses.add(data as ICourse);
                 }
+                // --- MODIFICATION END ---
 
-                // The data is valid, so we can add it.
-                await db.courses.add(data as ICourse);
                 resolve();
             } catch (error) {
                 console.error('Import failed:', error);

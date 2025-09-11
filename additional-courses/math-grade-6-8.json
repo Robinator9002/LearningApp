@@ -1,0 +1,971 @@
+[
+    {
+        "title": "Bruchrechnung für Fortgeschrittene",
+        "subject": "Mathematik",
+        "gradeRange": "6-8",
+        "questions": [
+            {
+                "id": "de-68-m-c1-q1",
+                "type": "mcq",
+                "questionText": "Was ist das Ergebnis von 3/4 + 1/6? Kürze so weit wie möglich.",
+                "options": [
+                    { "id": "opt-m1-1", "text": "4/10", "isCorrect": false },
+                    { "id": "opt-m1-2", "text": "11/12", "isCorrect": true },
+                    { "id": "opt-m1-3", "text": "4/24", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-68-m-c1-q2",
+                "type": "sti",
+                "questionText": "Berechne: 5/8 * 4/5 = (Antworte als gekürzten Bruch, z.B. 1/2)",
+                "correctAnswers": ["1/2"],
+                "evaluationMode": "exact-match"
+            },
+            {
+                "id": "de-68-m-c1-q3",
+                "type": "alg-equation",
+                "questionText": "Löse nach x auf: x - 1/3 = 1/2",
+                "equation": "x - 1/3 = 1/2",
+                "variables": ["x"]
+            },
+            {
+                "id": "de-68-m-c1-q4",
+                "type": "mcq",
+                "questionText": "Was ist 7/10 geteilt durch 1/2?",
+                "options": [
+                    { "id": "opt-m1-4", "text": "7/20", "isCorrect": false },
+                    { "id": "opt-m1-5", "text": "14/10", "isCorrect": false },
+                    { "id": "opt-m1-6", "text": "7/5", "isCorrect": true }
+                ]
+            },
+            {
+                "id": "de-68-m-c1-q5",
+                "type": "sti",
+                "questionText": "In einer Klasse mit 28 Schülern sind 3/7 Jungen. Wie viele Mädchen sind in der Klasse?",
+                "correctAnswers": ["16"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-68-m-c1-q6",
+                "type": "mcq",
+                "questionText": "Wandle den gemischten Bruch 2 3/5 in einen unechten Bruch um.",
+                "options": [
+                    { "id": "opt-m1-7", "text": "13/5", "isCorrect": true },
+                    { "id": "opt-m1-8", "text": "10/5", "isCorrect": false },
+                    { "id": "opt-m1-9", "text": "6/5", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-68-m-c1-q7",
+                "type": "sti",
+                "questionText": "Kürze den Bruch 36/48 vollständig.",
+                "correctAnswers": ["3/4"],
+                "evaluationMode": "exact-match"
+            },
+            {
+                "id": "de-68-m-c1-q8",
+                "type": "mcq",
+                "questionText": "Welcher Bruch liegt genau in der Mitte von 1/4 und 1/2?",
+                "options": [
+                    { "id": "opt-m1-10", "text": "1/3", "isCorrect": false },
+                    { "id": "opt-m1-11", "text": "3/8", "isCorrect": true },
+                    { "id": "opt-m1-12", "text": "2/6", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-68-m-c1-q9",
+                "type": "sti",
+                "questionText": "Berechne: (2/3)² =",
+                "correctAnswers": ["4/9"],
+                "evaluationMode": "exact-match"
+            },
+            {
+                "id": "de-68-m-c1-q10",
+                "type": "mcq",
+                "questionText": "Ein Rezept benötigt 1 1/2 Tassen Mehl. Wenn du das halbe Rezept machst, wie viel Mehl brauchst du?",
+                "options": [
+                    { "id": "opt-m1-13", "text": "1 Tasse", "isCorrect": false },
+                    { "id": "opt-m1-14", "text": "3/4 Tasse", "isCorrect": true },
+                    { "id": "opt-m1-15", "text": "1/2 Tasse", "isCorrect": false }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Dezimalzahlen und Rechnen",
+        "subject": "Mathematik",
+        "gradeRange": "6-8",
+        "questions": [
+            {
+                "id": "de-68-m-c2-q1",
+                "type": "mcq",
+                "questionText": "Was ist 3,75 + 2,5?",
+                "options": [
+                    { "id": "opt-m2-1", "text": "6,25", "isCorrect": true },
+                    { "id": "opt-m2-2", "text": "5,25", "isCorrect": false },
+                    { "id": "opt-m2-3", "text": "6,75", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-68-m-c2-q2",
+                "type": "sti",
+                "questionText": "Wandle den Bruch 3/8 in eine Dezimalzahl um.",
+                "correctAnswers": ["0,375"],
+                "evaluationMode": "exact-match"
+            },
+            {
+                "id": "de-68-m-c2-q3",
+                "type": "mcq",
+                "questionText": "Berechne: 12,4 x 0,5",
+                "options": [
+                    { "id": "opt-m2-4", "text": "6,2", "isCorrect": true },
+                    { "id": "opt-m2-5", "text": "62", "isCorrect": false },
+                    { "id": "opt-m2-6", "text": "0,62", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-68-m-c2-q4",
+                "type": "sti",
+                "questionText": "Ordne die Zahlen der Größe nach, beginnend mit der kleinsten: 0,5; 0,055; 0,505",
+                "correctAnswers": ["0,055; 0,5; 0,505"],
+                "evaluationMode": "exact-match"
+            },
+            {
+                "id": "de-68-m-c2-q5",
+                "type": "mcq",
+                "questionText": "Was ist 15,6 geteilt durch 3?",
+                "options": [
+                    { "id": "opt-m2-7", "text": "5,2", "isCorrect": true },
+                    { "id": "opt-m2-8", "text": "4,2", "isCorrect": false },
+                    { "id": "opt-m2-9", "text": "5,3", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-68-m-c2-q6",
+                "type": "sti",
+                "questionText": "Ein Produkt kostet 2,99 €. Wie viel kosten 3 Stück?",
+                "correctAnswers": ["8,97 €", "8,97"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-68-m-c2-q7",
+                "type": "mcq",
+                "questionText": "Wandle die Dezimalzahl 0,8 in einen gekürzten Bruch um.",
+                "options": [
+                    { "id": "opt-m2-10", "text": "8/10", "isCorrect": false },
+                    { "id": "opt-m2-11", "text": "4/5", "isCorrect": true },
+                    { "id": "opt-m2-12", "text": "2/3", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-68-m-c2-q8",
+                "type": "sti",
+                "questionText": "Berechne: 10 - 3,45 =",
+                "correctAnswers": ["6,55"],
+                "evaluationMode": "exact-match"
+            },
+            {
+                "id": "de-68-m-c2-q9",
+                "type": "mcq",
+                "questionText": "Ein Läufer braucht 9,6 Sekunden für 100 Meter. Wie lange braucht er im Durchschnitt für 10 Meter?",
+                "options": [
+                    { "id": "opt-m2-13", "text": "0,96 Sekunden", "isCorrect": true },
+                    { "id": "opt-m2-14", "text": "1,04 Sekunden", "isCorrect": false },
+                    { "id": "opt-m2-15", "text": "96 Sekunden", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-68-m-c2-q10",
+                "type": "sti",
+                "questionText": "Runde 7,856 auf zwei Nachkommastellen.",
+                "correctAnswers": ["7,86"],
+                "evaluationMode": "exact-match"
+            }
+        ]
+    },
+    {
+        "title": "Prozentrechnung Grundlagen",
+        "subject": "Mathematik",
+        "gradeRange": "6-8",
+        "questions": [
+            {
+                "id": "de-68-m-c3-q1",
+                "type": "mcq",
+                "questionText": "Wie viel sind 50% von 200?",
+                "options": [
+                    { "id": "opt-m3-1", "text": "50", "isCorrect": false },
+                    { "id": "opt-m3-2", "text": "100", "isCorrect": true },
+                    { "id": "opt-m3-3", "text": "150", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-68-m-c3-q2",
+                "type": "sti",
+                "questionText": "Wandle 25% in einen gekürzten Bruch um.",
+                "correctAnswers": ["1/4"],
+                "evaluationMode": "exact-match"
+            },
+            {
+                "id": "de-68-m-c3-q3",
+                "type": "mcq",
+                "questionText": "Ein T-Shirt kostet 40 €. Es ist um 10% reduziert. Wie viel sparst du?",
+                "options": [
+                    { "id": "opt-m3-4", "text": "4 €", "isCorrect": true },
+                    { "id": "opt-m3-5", "text": "10 €", "isCorrect": false },
+                    { "id": "opt-m3-6", "text": "36 €", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-68-m-c3-q4",
+                "type": "sti",
+                "questionText": "Wandle den Bruch 3/5 in Prozent um.",
+                "correctAnswers": ["60%", "60"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-68-m-c3-q5",
+                "type": "mcq",
+                "questionText": "In einer Umfrage gaben 80 von 200 Personen an, Pizza zu mögen. Wie viel Prozent sind das?",
+                "options": [
+                    { "id": "opt-m3-7", "text": "25%", "isCorrect": false },
+                    { "id": "opt-m3-8", "text": "40%", "isCorrect": true },
+                    { "id": "opt-m3-9", "text": "80%", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-68-m-c3-q6",
+                "type": "sti",
+                "questionText": "Berechne 20% von 150.",
+                "correctAnswers": ["30"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-68-m-c3-q7",
+                "type": "mcq",
+                "questionText": "Der Preis eines Spiels steigt von 50 € um 20%. Was ist der neue Preis?",
+                "options": [
+                    { "id": "opt-m3-10", "text": "52 €", "isCorrect": false },
+                    { "id": "opt-m3-11", "text": "60 €", "isCorrect": true },
+                    { "id": "opt-m3-12", "text": "70 €", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-68-m-c3-q8",
+                "type": "sti",
+                "questionText": "Wandle 0,07 in Prozent um.",
+                "correctAnswers": ["7%", "7"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-68-m-c3-q9",
+                "type": "mcq",
+                "questionText": "15 ist 25% von welcher Zahl?",
+                "options": [
+                    { "id": "opt-m3-13", "text": "45", "isCorrect": false },
+                    { "id": "opt-m3-14", "text": "50", "isCorrect": false },
+                    { "id": "opt-m3-15", "text": "60", "isCorrect": true }
+                ]
+            },
+            {
+                "id": "de-68-m-c3-q10",
+                "type": "sti",
+                "questionText": "Was sind 150% von 20?",
+                "correctAnswers": ["30"],
+                "evaluationMode": "case-insensitive"
+            }
+        ]
+    },
+    {
+        "title": "Zinsrechnung und Praxis",
+        "subject": "Mathematik",
+        "gradeRange": "6-8",
+        "questions": [
+            {
+                "id": "de-68-m-c4-q1",
+                "type": "mcq",
+                "questionText": "Du legst 500 € für ein Jahr zu einem Zinssatz von 2% an. Wie viele Zinsen bekommst du?",
+                "options": [
+                    { "id": "opt-m4-1", "text": "2 €", "isCorrect": false },
+                    { "id": "opt-m4-2", "text": "10 €", "isCorrect": true },
+                    { "id": "opt-m4-3", "text": "20 €", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-68-m-c4-q2",
+                "type": "sti",
+                "questionText": "Eine Jacke kostet 120 €. Du bekommst 15% Rabatt. Der neue Preis ist ____ €.",
+                "correctAnswers": ["102"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-68-m-c4-q3",
+                "type": "mcq",
+                "questionText": "Ein Betrag von 800 € wird für ein halbes Jahr zu 4% Jahreszins angelegt. Wie hoch sind die Zinsen?",
+                "options": [
+                    { "id": "opt-m4-4", "text": "32 €", "isCorrect": false },
+                    { "id": "opt-m4-5", "text": "16 €", "isCorrect": true },
+                    { "id": "opt-m4-6", "text": "8 €", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-68-m-c4-q4",
+                "type": "sti",
+                "questionText": "Ein Produkt kostet 50 € plus 19% Mehrwertsteuer. Der Endpreis ist ____ €.",
+                "correctAnswers": ["59,50", "59.50", "59,5"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-68-m-c4-q5",
+                "type": "mcq",
+                "questionText": "Nach einem Jahr hast du 20 € Zinsen bei einem Zinssatz von 5% erhalten. Welchen Betrag hattest du angelegt?",
+                "options": [
+                    { "id": "opt-m4-7", "text": "200 €", "isCorrect": false },
+                    { "id": "opt-m4-8", "text": "400 €", "isCorrect": true },
+                    { "id": "opt-m4-9", "text": "500 €", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-68-m-c4-q6",
+                "type": "sti",
+                "questionText": "Ein Fahrrad wurde von 400 € auf 320 € reduziert. Das ist ein Rabatt von ____ %.",
+                "correctAnswers": ["20"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-68-m-c4-q7",
+                "type": "mcq",
+                "questionText": "Du nimmst einen Kredit von 1000 € auf und musst nach einem Jahr 1050 € zurückzahlen. Wie hoch war der Zinssatz?",
+                "options": [
+                    { "id": "opt-m4-10", "text": "10%", "isCorrect": false },
+                    { "id": "opt-m4-11", "text": "5%", "isCorrect": true },
+                    { "id": "opt-m4-12", "text": "50%", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-68-m-c4-q8",
+                "type": "sti",
+                "questionText": "Die Miete einer Wohnung erhöht sich von 600 € um 3%. Die neue Miete beträgt ____ €.",
+                "correctAnswers": ["618"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-68-m-c4-q9",
+                "type": "mcq",
+                "questionText": "Was ist der Unterschied zwischen Sollzinsen und Habenzinsen?",
+                "options": [
+                    {
+                        "id": "opt-m4-13",
+                        "text": "Es gibt keinen Unterschied.",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": "opt-m4-14",
+                        "text": "Sollzinsen zahlt man für Kredite, Habenzinsen bekommt man für Guthaben.",
+                        "isCorrect": true
+                    },
+                    {
+                        "id": "opt-m4-15",
+                        "text": "Sollzinsen sind immer höher als Habenzinsen.",
+                        "isCorrect": false
+                    }
+                ]
+            },
+            {
+                "id": "de-68-m-c4-q10",
+                "type": "sti",
+                "questionText": "Du legst 2000 € für 3 Jahre zu 2% Zinsen an (einfache Zinsrechnung). Nach 3 Jahren hast du ____ € Zinsen erhalten.",
+                "correctAnswers": ["120"],
+                "evaluationMode": "case-insensitive"
+            }
+        ]
+    },
+    {
+        "title": "Algebra: Variablen und Terme",
+        "subject": "Mathematik",
+        "gradeRange": "6-8",
+        "questions": [
+            {
+                "id": "de-68-m-c5-q1",
+                "type": "mcq",
+                "questionText": "Vereinfache den Term: 3x + 5x - 2x",
+                "options": [
+                    { "id": "opt-m5-1", "text": "10x", "isCorrect": false },
+                    { "id": "opt-m5-2", "text": "6x", "isCorrect": true },
+                    { "id": "opt-m5-3", "text": "8x", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-68-m-c5-q2",
+                "type": "sti",
+                "questionText": "Setze für x = 4 in den Term 5x - 10 ein und berechne den Wert.",
+                "correctAnswers": ["10"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-68-m-c5-q3",
+                "type": "mcq",
+                "questionText": "Welcher Term passt zu dem Text: 'Das Fünffache einer Zahl vermindert um 3'?",
+                "options": [
+                    { "id": "opt-m5-4", "text": "5 + x - 3", "isCorrect": false },
+                    { "id": "opt-m5-5", "text": "5x - 3", "isCorrect": true },
+                    { "id": "opt-m5-6", "text": "3 - 5x", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-68-m-c5-q4",
+                "type": "sti",
+                "questionText": "Vereinfache: 2a + 3b + 4a - b =",
+                "correctAnswers": ["6a + 2b"],
+                "evaluationMode": "exact-match"
+            },
+            {
+                "id": "de-68-m-c5-q5",
+                "type": "mcq",
+                "questionText": "Multipliziere aus: 3(x + 4)",
+                "options": [
+                    { "id": "opt-m5-7", "text": "3x + 7", "isCorrect": false },
+                    { "id": "opt-m5-8", "text": "3x + 12", "isCorrect": true },
+                    { "id": "opt-m5-9", "text": "x + 12", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-68-m-c5-q6",
+                "type": "sti",
+                "questionText": "Setze a = 2 und b = 5 in den Term a² + b ein.",
+                "correctAnswers": ["9"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-68-m-c5-q7",
+                "type": "mcq",
+                "questionText": "Was ist eine Variable in der Mathematik?",
+                "options": [
+                    {
+                        "id": "opt-m5-10",
+                        "text": "Eine feste, unveränderliche Zahl.",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": "opt-m5-11",
+                        "text": "Ein Platzhalter für eine unbekannte oder veränderliche Zahl.",
+                        "isCorrect": true
+                    },
+                    { "id": "opt-m5-12", "text": "Ein Rechenzeichen.", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-68-m-c5-q8",
+                "type": "sti",
+                "questionText": "Klammere den gemeinsamen Faktor aus: 6y + 9",
+                "correctAnswers": ["3(2y + 3)"],
+                "evaluationMode": "exact-match"
+            },
+            {
+                "id": "de-68-m-c5-q9",
+                "type": "mcq",
+                "questionText": "Vereinfache den Term: 10 + 4x - 5 + x",
+                "options": [
+                    { "id": "opt-m5-13", "text": "5 + 5x", "isCorrect": true },
+                    { "id": "opt-m5-14", "text": "15 + 4x", "isCorrect": false },
+                    { "id": "opt-m5-15", "text": "5 + 3x", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-68-m-c5-q10",
+                "type": "sti",
+                "questionText": "Der Term für den Umfang eines Rechtecks mit Seitenlängen a und b lautet 2a + ____.",
+                "correctAnswers": ["2b"],
+                "evaluationMode": "exact-match"
+            }
+        ]
+    },
+    {
+        "title": "Algebra: Einfache Gleichungen",
+        "subject": "Mathematik",
+        "gradeRange": "6-8",
+        "questions": [
+            {
+                "id": "de-68-m-c6-q1",
+                "type": "alg-equation",
+                "questionText": "Löse die Gleichung nach x auf: x + 8 = 15",
+                "equation": "x + 8 = 15",
+                "variables": ["x"]
+            },
+            {
+                "id": "de-68-m-c6-q2",
+                "type": "alg-equation",
+                "questionText": "Löse die Gleichung: 3x = 21",
+                "equation": "3 * x = 21",
+                "variables": ["x"]
+            },
+            {
+                "id": "de-68-m-c6-q3",
+                "type": "mcq",
+                "questionText": "Welcher Wert für y ist die Lösung der Gleichung 2y - 5 = 7?",
+                "options": [
+                    { "id": "opt-m6-1", "text": "5", "isCorrect": false },
+                    { "id": "opt-m6-2", "text": "6", "isCorrect": true },
+                    { "id": "opt-m6-3", "text": "7", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-68-m-c6-q4",
+                "type": "alg-equation",
+                "questionText": "Löse die Gleichung: x / 4 = 5",
+                "equation": "x / 4 = 5",
+                "variables": ["x"]
+            },
+            {
+                "id": "de-68-m-c6-q5",
+                "type": "mcq",
+                "questionText": "Das Dreifache einer Zahl ist 18. Wie lautet die Gleichung?",
+                "options": [
+                    { "id": "opt-m6-4", "text": "x + 3 = 18", "isCorrect": false },
+                    { "id": "opt-m6-5", "text": "3x = 18", "isCorrect": true },
+                    { "id": "opt-m6-6", "text": "x/3 = 18", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-68-m-c6-q6",
+                "type": "alg-equation",
+                "questionText": "Löse die Gleichung: 5x + 2 = 12",
+                "equation": "5 * x + 2 = 12",
+                "variables": ["x"]
+            },
+            {
+                "id": "de-68-m-c6-q7",
+                "type": "mcq",
+                "questionText": "Wenn man eine Zahl verdoppelt und 4 addiert, erhält man 10. Wie lautet die Zahl?",
+                "options": [
+                    { "id": "opt-m6-7", "text": "2", "isCorrect": false },
+                    { "id": "opt-m6-8", "text": "3", "isCorrect": true },
+                    { "id": "opt-m6-9", "text": "4", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-68-m-c6-q8",
+                "type": "alg-equation",
+                "questionText": "Löse nach a auf: 4a - 3 = 2a + 5",
+                "equation": "4*a - 3 = 2*a + 5",
+                "variables": ["a"]
+            },
+            {
+                "id": "de-68-m-c6-q9",
+                "type": "mcq",
+                "questionText": "Was ist eine Äquivalenzumformung?",
+                "options": [
+                    {
+                        "id": "opt-m6-10",
+                        "text": "Eine Umformung, die die Lösungsmenge einer Gleichung verändert.",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": "opt-m6-11",
+                        "text": "Eine Umformung, die die Lösungsmenge einer Gleichung nicht verändert.",
+                        "isCorrect": true
+                    },
+                    {
+                        "id": "opt-m6-12",
+                        "text": "Das Einsetzen einer Zahl in eine Variable.",
+                        "isCorrect": false
+                    }
+                ]
+            },
+            {
+                "id": "de-68-m-c6-q10",
+                "type": "alg-equation",
+                "questionText": "Löse die Gleichung: 10 - 2x = 4",
+                "equation": "10 - 2*x = 4",
+                "variables": ["x"]
+            }
+        ]
+    },
+    {
+        "title": "Geometrie: Flächenberechnung",
+        "subject": "Mathematik",
+        "gradeRange": "6-8",
+        "questions": [
+            {
+                "id": "de-68-m-c7-q1",
+                "type": "mcq",
+                "questionText": "Ein Rechteck ist 8 cm lang und 5 cm breit. Wie groß ist sein Flächeninhalt?",
+                "options": [
+                    { "id": "opt-m7-1", "text": "13 cm²", "isCorrect": false },
+                    { "id": "opt-m7-2", "text": "40 cm²", "isCorrect": true },
+                    { "id": "opt-m7-3", "text": "26 cm²", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-68-m-c7-q2",
+                "type": "sti",
+                "questionText": "Ein Quadrat hat eine Seitenlänge von 6 m. Sein Flächeninhalt beträgt ____ m².",
+                "correctAnswers": ["36"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-68-m-c7-q3",
+                "type": "mcq",
+                "questionText": "Die Formel für den Flächeninhalt eines Dreiecks lautet A = (g * h) / 2. Ein Dreieck hat die Grundseite g = 10 cm und die Höhe h = 4 cm. Sein Flächeninhalt ist...",
+                "options": [
+                    { "id": "opt-m7-4", "text": "40 cm²", "isCorrect": false },
+                    { "id": "opt-m7-5", "text": "20 cm²", "isCorrect": true },
+                    { "id": "opt-m7-6", "text": "14 cm²", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-68-m-c7-q4",
+                "type": "sti",
+                "questionText": "Ein Kreis hat einen Radius von 5 cm. Sein Flächeninhalt beträgt π * r². Verwende π ≈ 3,14. Der Flächeninhalt ist ____ cm².",
+                "correctAnswers": ["78,5", "78.5"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-68-m-c7-q5",
+                "type": "mcq",
+                "questionText": "Ein Parallelogramm hat eine Grundseite von 12 m und eine Höhe von 5 m. Wie groß ist sein Flächeninhalt?",
+                "options": [
+                    { "id": "opt-m7-7", "text": "30 m²", "isCorrect": false },
+                    { "id": "opt-m7-8", "text": "60 m²", "isCorrect": true },
+                    { "id": "opt-m7-9", "text": "17 m²", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-68-m-c7-q6",
+                "type": "sti",
+                "questionText": "Der Flächeninhalt eines Rechtecks beträgt 50 cm². Die Länge ist 10 cm. Die Breite beträgt ____ cm.",
+                "correctAnswers": ["5"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-68-m-c7-q7",
+                "type": "mcq",
+                "questionText": "Wie verdoppelt man den Flächeninhalt eines Quadrats?",
+                "options": [
+                    {
+                        "id": "opt-m7-10",
+                        "text": "Man verdoppelt die Seitenlänge.",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": "opt-m7-11",
+                        "text": "Man vervierfacht die Seitenlänge.",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": "opt-m7-12",
+                        "text": "Das ist komplizierter; die neue Seitenlänge ist die alte mal Wurzel aus 2.",
+                        "isCorrect": true
+                    }
+                ]
+            },
+            {
+                "id": "de-68-m-c7-q8",
+                "type": "sti",
+                "questionText": "Ein Trapez hat die parallelen Seiten a = 8 cm und c = 4 cm und die Höhe h = 5 cm. Die Fläche ist A = ((a+c)/2)*h. Die Fläche beträgt ____ cm².",
+                "correctAnswers": ["30"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-68-m-c7-q9",
+                "type": "mcq",
+                "questionText": "Ein Fußballfeld ist ca. 100 m lang und 70 m breit. Sein Flächeninhalt ist...",
+                "options": [
+                    { "id": "opt-m7-13", "text": "700 m²", "isCorrect": false },
+                    { "id": "opt-m7-14", "text": "7000 m²", "isCorrect": true },
+                    { "id": "opt-m7-15", "text": "340 m²", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-68-m-c7-q10",
+                "type": "sti",
+                "questionText": "Ein rechtwinkliges Dreieck hat die Katheten 6 cm und 8 cm. Sein Flächeninhalt beträgt ____ cm².",
+                "correctAnswers": ["24"],
+                "evaluationMode": "case-insensitive"
+            }
+        ]
+    },
+    {
+        "title": "Geometrie: Umfang und Volumen",
+        "subject": "Mathematik",
+        "gradeRange": "6-8",
+        "questions": [
+            {
+                "id": "de-68-m-c8-q1",
+                "type": "mcq",
+                "questionText": "Ein Quadrat hat eine Seitenlänge von 7 cm. Wie groß ist sein Umfang?",
+                "options": [
+                    { "id": "opt-m8-1", "text": "14 cm", "isCorrect": false },
+                    { "id": "opt-m8-2", "text": "28 cm", "isCorrect": true },
+                    { "id": "opt-m8-3", "text": "49 cm", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-68-m-c8-q2",
+                "type": "sti",
+                "questionText": "Ein Rechteck ist 10 m lang und 4 m breit. Sein Umfang beträgt ____ m.",
+                "correctAnswers": ["28"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-68-m-c8-q3",
+                "type": "mcq",
+                "questionText": "Ein Kreis hat einen Radius von 3 m. Sein Umfang ist U = 2 * π * r. Verwende π ≈ 3,14. Der Umfang ist ca. ____ m.",
+                "options": [
+                    { "id": "opt-m8-4", "text": "9,42 m", "isCorrect": false },
+                    { "id": "opt-m8-5", "text": "18,84 m", "isCorrect": true },
+                    { "id": "opt-m8-6", "text": "28,26 m", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-68-m-c8-q4",
+                "type": "sti",
+                "questionText": "Ein Würfel hat eine Kantenlänge von 4 cm. Sein Volumen beträgt ____ cm³.",
+                "correctAnswers": ["64"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-68-m-c8-q5",
+                "type": "mcq",
+                "questionText": "Ein Quader ist 5 m lang, 3 m breit und 2 m hoch. Wie groß ist sein Volumen?",
+                "options": [
+                    { "id": "opt-m8-7", "text": "10 m³", "isCorrect": false },
+                    { "id": "opt-m8-8", "text": "30 m³", "isCorrect": true },
+                    { "id": "opt-m8-9", "text": "22 m³", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-68-m-c8-q6",
+                "type": "sti",
+                "questionText": "Der Umfang eines Quadrats beträgt 40 cm. Die Seitenlänge ist ____ cm.",
+                "correctAnswers": ["10"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-68-m-c8-q7",
+                "type": "mcq",
+                "questionText": "Was ist der Unterschied zwischen Umfang und Flächeninhalt?",
+                "options": [
+                    { "id": "opt-m8-10", "text": "Es gibt keinen.", "isCorrect": false },
+                    {
+                        "id": "opt-m8-11",
+                        "text": "Der Umfang ist die Länge der Außenlinie, der Flächeninhalt ist die Größe der inneren Fläche.",
+                        "isCorrect": true
+                    },
+                    {
+                        "id": "opt-m8-12",
+                        "text": "Der Umfang wird in cm² gemessen, der Flächeninhalt in cm.",
+                        "isCorrect": false
+                    }
+                ]
+            },
+            {
+                "id": "de-68-m-c8-q8",
+                "type": "sti",
+                "questionText": "Ein Aquarium mit den Maßen 100 cm x 50 cm x 40 cm hat ein Volumen von ____ cm³.",
+                "correctAnswers": ["200000"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-68-m-c8-q9",
+                "type": "mcq",
+                "questionText": "Der Durchmesser eines Rades beträgt 1 m. Wie weit rollt es bei einer Umdrehung (Umfang)? (π ≈ 3,14)",
+                "options": [
+                    { "id": "opt-m8-13", "text": "1 m", "isCorrect": false },
+                    { "id": "opt-m8-14", "text": "3,14 m", "isCorrect": true },
+                    { "id": "opt-m8-15", "text": "6,28 m", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-68-m-c8-q10",
+                "type": "sti",
+                "questionText": "Das Volumen eines Würfels ist 27 cm³. Die Kantenlänge beträgt ____ cm.",
+                "correctAnswers": ["3"],
+                "evaluationMode": "case-insensitive"
+            }
+        ]
+    },
+    {
+        "title": "Negative Zahlen",
+        "subject": "Mathematik",
+        "gradeRange": "6-8",
+        "questions": [
+            {
+                "id": "de-68-m-c9-q1",
+                "type": "mcq",
+                "questionText": "Welche Zahl ist größer: -8 oder -3?",
+                "options": [
+                    { "id": "opt-m9-1", "text": "-8", "isCorrect": false },
+                    { "id": "opt-m9-2", "text": "-3", "isCorrect": true },
+                    { "id": "opt-m9-3", "text": "Beide sind gleich groß.", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-68-m-c9-q2",
+                "type": "sti",
+                "questionText": "Berechne: 5 - 12 =",
+                "correctAnswers": ["-7"],
+                "evaluationMode": "exact-match"
+            },
+            {
+                "id": "de-68-m-c9-q3",
+                "type": "mcq",
+                "questionText": "Was ist -4 + (-6)?",
+                "options": [
+                    { "id": "opt-m9-4", "text": "2", "isCorrect": false },
+                    { "id": "opt-m9-5", "text": "-10", "isCorrect": true },
+                    { "id": "opt-m9-6", "text": "-2", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-68-m-c9-q4",
+                "type": "sti",
+                "questionText": "Die Temperatur sinkt von 3°C um 8 Grad. Die neue Temperatur ist ____ °C.",
+                "correctAnswers": ["-5"],
+                "evaluationMode": "exact-match"
+            },
+            {
+                "id": "de-68-m-c9-q5",
+                "type": "mcq",
+                "questionText": "Was ist -7 - (-3)?",
+                "options": [
+                    { "id": "opt-m9-7", "text": "-10", "isCorrect": false },
+                    { "id": "opt-m9-8", "text": "-4", "isCorrect": true },
+                    { "id": "opt-m9-9", "text": "4", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-68-m-c9-q6",
+                "type": "sti",
+                "questionText": "Berechne: (-5) * 4 =",
+                "correctAnswers": ["-20"],
+                "evaluationMode": "exact-match"
+            },
+            {
+                "id": "de-68-m-c9-q7",
+                "type": "mcq",
+                "questionText": "Was ergibt (-12) : (-3)?",
+                "options": [
+                    { "id": "opt-m9-10", "text": "-4", "isCorrect": false },
+                    { "id": "opt-m9-11", "text": "4", "isCorrect": true },
+                    { "id": "opt-m9-12", "text": "36", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-68-m-c9-q8",
+                "type": "sti",
+                "questionText": "Der Kontostand beträgt 50 €. Du hebst 70 € ab. Dein neuer Kontostand ist ____ €.",
+                "correctAnswers": ["-20"],
+                "evaluationMode": "exact-match"
+            },
+            {
+                "id": "de-68-m-c9-q9",
+                "type": "mcq",
+                "questionText": "Welches Ergebnis ist positiv? (-2) * (-5)",
+                "options": [
+                    { "id": "opt-m9-13", "text": "(-2) * 5", "isCorrect": false },
+                    { "id": "opt-m9-14", "text": "(-2) * (-5)", "isCorrect": true },
+                    { "id": "opt-m9-15", "text": "2 * (-5)", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-68-m-c9-q10",
+                "type": "sti",
+                "questionText": "Was ist der Betrag von -15?",
+                "correctAnswers": ["15"],
+                "evaluationMode": "case-insensitive"
+            }
+        ]
+    },
+    {
+        "title": "Gemischte Themen und Textaufgaben",
+        "subject": "Mathematik",
+        "gradeRange": "6-8",
+        "questions": [
+            {
+                "id": "de-68-m-c10-q1",
+                "type": "mcq",
+                "questionText": "Ein Zug fährt mit 120 km/h. Welche Strecke legt er in 2,5 Stunden zurück?",
+                "options": [
+                    { "id": "opt-m10-1", "text": "240 km", "isCorrect": false },
+                    { "id": "opt-m10-2", "text": "300 km", "isCorrect": true },
+                    { "id": "opt-m10-3", "text": "280 km", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-68-m-c10-q2",
+                "type": "sti",
+                "questionText": "Drei Freunde teilen sich eine Rechnung von 45,60 € gerecht. Jeder zahlt ____ €.",
+                "correctAnswers": ["15,20", "15.20", "15,2"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-68-m-c10-q3",
+                "type": "mcq",
+                "questionText": "Ein Rechteck hat einen Umfang von 30 cm. Die eine Seite ist 9 cm lang. Wie lang ist die andere Seite?",
+                "options": [
+                    { "id": "opt-m10-4", "text": "21 cm", "isCorrect": false },
+                    { "id": "opt-m10-5", "text": "6 cm", "isCorrect": true },
+                    { "id": "opt-m10-6", "text": "12 cm", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-68-m-c10-q4",
+                "type": "sti",
+                "questionText": "Wenn 5 Arbeiter 8 Stunden für eine Aufgabe brauchen, wie lange brauchen dann 4 Arbeiter (gleiche Arbeitsleistung)? ____ Stunden",
+                "correctAnswers": ["10"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-68-m-c10-q5",
+                "type": "mcq",
+                "questionText": "In einer Schale sind rote und blaue Kugeln. Die Wahrscheinlichkeit, eine rote Kugel zu ziehen, ist 1/3. Wie groß ist die Wahrscheinlichkeit, eine blaue Kugel zu ziehen?",
+                "options": [
+                    { "id": "opt-m10-7", "text": "1/3", "isCorrect": false },
+                    { "id": "opt-m10-8", "text": "2/3", "isCorrect": true },
+                    { "id": "opt-m10-9", "text": "1/2", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-68-m-c10-q6",
+                "type": "sti",
+                "questionText": "Der Durchschnitt von 10, 15 und 20 ist ____.",
+                "correctAnswers": ["15"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-68-m-c10-q7",
+                "type": "mcq",
+                "questionText": "Ein Auto verbraucht 8 Liter Benzin auf 100 km. Wie viel verbraucht es auf 250 km?",
+                "options": [
+                    { "id": "opt-m10-10", "text": "16 Liter", "isCorrect": false },
+                    { "id": "opt-m10-11", "text": "20 Liter", "isCorrect": true },
+                    { "id": "opt-m10-12", "text": "24 Liter", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-68-m-c10-q8",
+                "type": "sti",
+                "questionText": "Ein T-Shirt für 25 € wird um 20% reduziert. Danach wird auf den neuen Preis 10% aufgeschlagen. Der Endpreis ist ____ €.",
+                "correctAnswers": ["22"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-68-m-c10-q9",
+                "type": "mcq",
+                "questionText": "Was ist die nächste Zahl in der Folge: 3, 6, 12, 24, ...?",
+                "options": [
+                    { "id": "opt-m10-13", "text": "36", "isCorrect": false },
+                    { "id": "opt-m10-14", "text": "48", "isCorrect": true },
+                    { "id": "opt-m10-15", "text": "30", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-68-m-c10-q10",
+                "type": "sti",
+                "questionText": "Ein Würfel (6 Seiten, 1-6) wird geworfen. Die Wahrscheinlichkeit, eine Zahl größer als 4 zu würfeln, beträgt ____ (als gekürzter Bruch).",
+                "correctAnswers": ["1/3"],
+                "evaluationMode": "exact-match"
+            }
+        ]
+    }
+]

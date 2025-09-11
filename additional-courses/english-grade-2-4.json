@@ -1,0 +1,206 @@
+[
+    {
+        "title": "Farben und Zahlen (Colors & Numbers)",
+        "subject": "Englisch (Anfänger)",
+        "gradeRange": "2-4",
+        "questions": [
+            {
+                "id": "de-en-24-c1-q1",
+                "type": "mcq",
+                "questionText": "Was ist das englische Wort für 'rot'?",
+                "options": [
+                    { "id": "opt-de-en-1-1", "text": "blue", "isCorrect": false },
+                    { "id": "opt-de-en-1-2", "text": "red", "isCorrect": true },
+                    { "id": "opt-de-en-1-3", "text": "green", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-en-24-c1-q2",
+                "type": "sti",
+                "questionText": "Wie sagt man 'vier' auf Englisch?",
+                "correctAnswers": ["four"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-en-24-c1-q3",
+                "type": "mcq",
+                "questionText": "The sky is ____.",
+                "options": [
+                    { "id": "opt-de-en-1-4", "text": "yellow", "isCorrect": false },
+                    { "id": "opt-de-en-1-5", "text": "blue", "isCorrect": true },
+                    { "id": "opt-de-en-1-6", "text": "black", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-en-24-c1-q4",
+                "type": "sti",
+                "questionText": "Zähle auf Englisch: one, two, ____.",
+                "correctAnswers": ["three"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-en-24-c1-q5",
+                "type": "mcq",
+                "questionText": "Welches Wort ist eine Farbe?",
+                "options": [
+                    { "id": "opt-de-en-1-7", "text": "seven", "isCorrect": false },
+                    { "id": "opt-de-en-1-8", "text": "white", "isCorrect": true },
+                    { "id": "opt-de-en-1-9", "text": "ten", "isCorrect": false }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Tiere (Animals)",
+        "subject": "Englisch (Anfänger)",
+        "gradeRange": "2-4",
+        "questions": [
+            {
+                "id": "de-en-24-c2-q1",
+                "type": "mcq",
+                "questionText": "Was ist das englische Wort für 'Hund'?",
+                "options": [
+                    { "id": "opt-de-en-2-1", "text": "cat", "isCorrect": false },
+                    { "id": "opt-de-en-2-2", "text": "dog", "isCorrect": true },
+                    { "id": "opt-de-en-2-3", "text": "mouse", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-en-24-c2-q2",
+                "type": "sti",
+                "questionText": "Eine 'Katze' heißt auf Englisch ____.",
+                "correctAnswers": ["cat"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-en-24-c2-q3",
+                "type": "mcq",
+                "questionText": "Welches Tier sagt 'moo'?",
+                "options": [
+                    { "id": "opt-de-en-2-4", "text": "A pig", "isCorrect": false },
+                    { "id": "opt-de-en-2-5", "text": "A cow", "isCorrect": true },
+                    { "id": "opt-de-en-2-6", "text": "A bird", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-en-24-c2-q4",
+                "type": "sti",
+                "questionText": "Das englische Wort für 'Pferd' ist ____.",
+                "correctAnswers": ["horse"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-en-24-c2-q5",
+                "type": "mcq",
+                "questionText": "A ____ can fly.",
+                "options": [
+                    { "id": "opt-de-en-2-7", "text": "fish", "isCorrect": false },
+                    { "id": "opt-de-en-2-8", "text": "bird", "isCorrect": true },
+                    { "id": "opt-de-en-2-9", "text": "snake", "isCorrect": false }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Einfache Sätze (Simple Sentences)",
+        "subject": "Englisch (Anfänger)",
+        "gradeRange": "2-4",
+        "questions": [
+            {
+                "id": "de-en-24-c3-q1",
+                "type": "mcq",
+                "questionText": "Wie sagt man 'Ich bin ein Junge.' auf Englisch?",
+                "options": [
+                    { "id": "opt-de-en-3-1", "text": "I is a boy.", "isCorrect": false },
+                    { "id": "opt-de-en-3-2", "text": "I am a boy.", "isCorrect": true },
+                    { "id": "opt-de-en-3-3", "text": "I are a boy.", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-en-24-c3-q2",
+                "type": "sti",
+                "questionText": "Ergänze den Satz: This is ____ apple.",
+                "correctAnswers": ["an"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-en-24-c3-q3",
+                "type": "mcq",
+                "questionText": "Wähle die richtige Form: 'She ____ a girl.'",
+                "options": [
+                    { "id": "opt-de-en-3-4", "text": "am", "isCorrect": false },
+                    { "id": "opt-de-en-3-5", "text": "is", "isCorrect": true },
+                    { "id": "opt-de-en-3-6", "text": "are", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-en-24-c3-q4",
+                "type": "sentence-correction",
+                "questionText": "Bilde einen Satz: 'a / This / is / book'.",
+                "sentenceWithMistake": "a This is book",
+                "correctedSentence": "This is a book."
+            },
+            {
+                "id": "de-en-24-c3-q5",
+                "type": "mcq",
+                "questionText": "Wie übersetzt man 'Wir sind Freunde.'?",
+                "options": [
+                    { "id": "opt-de-en-3-7", "text": "We is friends.", "isCorrect": false },
+                    { "id": "opt-de-en-3-8", "text": "We are friends.", "isCorrect": true },
+                    { "id": "opt-de-en-3-9", "text": "We am friends.", "isCorrect": false }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Fragen und Antworten (Questions & Answers)",
+        "subject": "Englisch (Anfänger)",
+        "gradeRange": "2-4",
+        "questions": [
+            {
+                "id": "de-en-24-c4-q1",
+                "type": "mcq",
+                "questionText": "Jemand fragt: 'What is your name?' Was antwortest du?",
+                "options": [
+                    { "id": "opt-de-en-4-1", "text": "I am fine, thank you.", "isCorrect": false },
+                    { "id": "opt-de-en-4-2", "text": "My name is...", "isCorrect": true },
+                    { "id": "opt-de-en-4-3", "text": "I am 8 years old.", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-en-24-c4-q2",
+                "type": "sti",
+                "questionText": "Ergänze die Frage: '____ are you?' - 'I am fine.'",
+                "correctAnswers": ["How"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-en-24-c4-q3",
+                "type": "mcq",
+                "questionText": "Auf die Frage 'How old are you?' antwortet man mit seinem...",
+                "options": [
+                    { "id": "opt-de-en-4-4", "text": "Namen (name)", "isCorrect": false },
+                    { "id": "opt-de-en-4-5", "text": "Alter (age)", "isCorrect": true },
+                    { "id": "opt-de-en-4-6", "text": "Wohnort (hometown)", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-en-24-c4-q4",
+                "type": "sti",
+                "questionText": "Eine passende Antwort auf 'Thank you' ist 'You're ____'.",
+                "correctAnswers": ["welcome"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-en-24-c4-q5",
+                "type": "mcq",
+                "questionText": "Wie fragt man, woher jemand kommt?",
+                "options": [
+                    { "id": "opt-de-en-4-7", "text": "What is your name?", "isCorrect": false },
+                    { "id": "opt-de-en-4-8", "text": "Where are you from?", "isCorrect": true },
+                    { "id": "opt-de-en-4-9", "text": "Do you like apples?", "isCorrect": false }
+                ]
+            }
+        ]
+    }
+]

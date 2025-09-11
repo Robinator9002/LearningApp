@@ -1,0 +1,260 @@
+[
+    {
+        "title": "Lesen: Argumente erkennen",
+        "subject": "Lesen",
+        "gradeRange": "6-8",
+        "questions": [
+            {
+                "id": "de-68-r-c1-q1",
+                "type": "mcq",
+                "questionText": "Was ist die Hauptaussage (These) des Autors in diesem Text? 'Handys sollten in der Schule verboten werden, da sie vom Unterricht ablenken und zu Cybermobbing führen können.'",
+                "options": [
+                    {
+                        "id": "opt-r1-1",
+                        "text": "Handys sind nützlich für die Recherche.",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": "opt-r1-2",
+                        "text": "Handys sollten in der Schule verboten werden.",
+                        "isCorrect": true
+                    },
+                    {
+                        "id": "opt-r1-3",
+                        "text": "Cybermobbing ist ein Problem.",
+                        "isCorrect": false
+                    }
+                ]
+            },
+            {
+                "id": "de-68-r-c1-q2",
+                "type": "highlight-error",
+                "questionText": "Finde das Argument, das die These stützt. 'Schuluniformen sind sinnvoll. Sie fördern das Gemeinschaftsgefühl und reduzieren den Markendruck.'",
+                "sentence": "Schuluniformen sind sinnvoll. Sie fördern das Gemeinschaftsgefühl und reduzieren den Markendruck.",
+                "correctAnswerIndices": [4, 5, 6, 7, 8, 9, 10, 11]
+            },
+            {
+                "id": "de-68-r-c1-q3",
+                "type": "mcq",
+                "questionText": "Welcher der folgenden Sätze ist ein Fakt und kein Argument? 'Der Mount Everest ist 8848 Meter hoch.'",
+                "options": [
+                    {
+                        "id": "opt-r1-4",
+                        "text": "Bergsteigen ist der beste Sport.",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": "opt-r1-5",
+                        "text": "Der Mount Everest ist 8848 Meter hoch.",
+                        "isCorrect": true
+                    },
+                    {
+                        "id": "opt-r1-6",
+                        "text": "Jeder sollte einmal einen Berg besteigen.",
+                        "isCorrect": false
+                    }
+                ]
+            },
+            {
+                "id": "de-68-r-c1-q4",
+                "type": "sti",
+                "questionText": "Eine gut begründete Meinung nennt man ein ____.",
+                "correctAnswers": ["Argument"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-68-r-c1-q5",
+                "type": "mcq",
+                "questionText": "Was ist der Zweck eines Gegenarguments?",
+                "options": [
+                    {
+                        "id": "opt-r1-7",
+                        "text": "Die eigene Position zu schwächen.",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": "opt-r1-8",
+                        "text": "Mögliche Einwände vorwegzunehmen und zu entkräften.",
+                        "isCorrect": true
+                    },
+                    { "id": "opt-r1-9", "text": "Das Thema zu wechseln.", "isCorrect": false }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Lesen: Stilmittel erkennen",
+        "subject": "Lesen",
+        "gradeRange": "6-8",
+        "questions": [
+            {
+                "id": "de-68-r-c2-q1",
+                "type": "mcq",
+                "questionText": "Der Satz 'Die Zeit rennt' ist ein Beispiel für eine...",
+                "options": [
+                    { "id": "opt-r2-1", "text": "Metapher", "isCorrect": false },
+                    { "id": "opt-r2-2", "text": "Personifikation", "isCorrect": true },
+                    { "id": "opt-r2-3", "text": "Vergleich", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-68-r-c2-q2",
+                "type": "mcq",
+                "questionText": "Was ist ein Vergleich?",
+                "options": [
+                    {
+                        "id": "opt-r2-4",
+                        "text": "Eine direkte Gleichsetzung zweier Dinge.",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": "opt-r2-5",
+                        "text": "Eine Verknüpfung zweier Bereiche durch das Wort 'wie' oder 'als'.",
+                        "isCorrect": true
+                    },
+                    { "id": "opt-r2-6", "text": "Eine starke Übertreibung.", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-68-r-c2-q3",
+                "type": "highlight-error",
+                "questionText": "Finde die Metapher in diesem Satz: 'Er ist der Fels in der Brandung.'",
+                "sentence": "Er ist der Fels in der Brandung.",
+                "correctAnswerIndices": [3, 4, 5, 6, 7]
+            },
+            {
+                "id": "de-68-r-c2-q4",
+                "type": "sti",
+                "questionText": "Eine extreme Übertreibung nennt man ____.",
+                "correctAnswers": ["Hyperbel"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-68-r-c2-q5",
+                "type": "mcq",
+                "questionText": "Welcher Satz enthält eine Alliteration (Stabreim)?",
+                "options": [
+                    { "id": "opt-r2-7", "text": "Der Wind weht stark.", "isCorrect": false },
+                    {
+                        "id": "opt-r2-8",
+                        "text": "Milch macht müde Männer munter.",
+                        "isCorrect": true
+                    },
+                    { "id": "opt-r2-9", "text": "Die Sonne scheint hell.", "isCorrect": false }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Schreiben: Komplexe Sätze bilden",
+        "subject": "Schreiben",
+        "gradeRange": "6-8",
+        "questions": [
+            {
+                "id": "de-68-w-c1-q1",
+                "type": "sentence-correction",
+                "questionText": "Verbinde die beiden Sätze mit 'weil' zu einem Satzgefüge.",
+                "sentenceWithMistake": "Ich gehe nach Hause. Ich bin müde.",
+                "correctedSentence": "Ich gehe nach Hause, weil ich müde bin."
+            },
+            {
+                "id": "de-68-w-c1-q2",
+                "type": "mcq",
+                "questionText": "Welche Konjunktion leitet einen Nebensatz ein, der einen Grund angibt?",
+                "options": [
+                    { "id": "opt-w1-1", "text": "obwohl", "isCorrect": false },
+                    { "id": "opt-w1-2", "text": "damit", "isCorrect": false },
+                    { "id": "opt-w1-3", "text": "da", "isCorrect": true }
+                ]
+            },
+            {
+                "id": "de-68-w-c1-q3",
+                "type": "highlight-error",
+                "questionText": "Finde den Nebensatz. 'Er wartete, bis der Regen aufhörte.'",
+                "sentence": "Er wartete, bis der Regen aufhörte.",
+                "correctAnswerIndices": [3, 4, 5, 6]
+            },
+            {
+                "id": "de-68-w-c1-q4",
+                "type": "sentence-correction",
+                "questionText": "Verbinde die Sätze mit 'obwohl'.",
+                "sentenceWithMistake": "Es war kalt. Er trug keine Jacke.",
+                "correctedSentence": "Obwohl es kalt war, trug er keine Jacke."
+            },
+            {
+                "id": "de-68-w-c1-q5",
+                "type": "mcq",
+                "questionText": "Was ist charakteristisch für die Wortstellung in einem Nebensatz, der mit einer Konjunktion wie 'weil' oder 'dass' beginnt?",
+                "options": [
+                    {
+                        "id": "opt-w1-4",
+                        "text": "Das Verb steht an zweiter Stelle.",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": "opt-w1-5",
+                        "text": "Das konjugierte Verb steht am Ende.",
+                        "isCorrect": true
+                    },
+                    { "id": "opt-w1-6", "text": "Das Subjekt steht am Ende.", "isCorrect": false }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Schreiben: Stil und Ausdruck",
+        "subject": "Schreiben",
+        "gradeRange": "6-8",
+        "questions": [
+            {
+                "id": "de-68-w-c2-q1",
+                "type": "mcq",
+                "questionText": "Welcher Satz klingt am interessantesten? 'Der Mann ging die Straße entlang.'",
+                "options": [
+                    {
+                        "id": "opt-w2-1",
+                        "text": "Der Mann ging die Straße entlang.",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": "opt-w2-2",
+                        "text": "Der alte Mann schlurfte die verlassene Straße entlang.",
+                        "isCorrect": true
+                    },
+                    { "id": "opt-w2-3", "text": "Der Mann war auf der Straße.", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-68-w-c2-q2",
+                "type": "sentence-correction",
+                "questionText": "Ersetze das Wort 'sagen' durch ein treffenderes Verb. 'Sei leise', sagte er.",
+                "sentenceWithMistake": "'Sei leise', sagte er.",
+                "correctedSentence": "'Sei leise', flüsterte er."
+            },
+            {
+                "id": "de-68-w-c2-q3",
+                "type": "mcq",
+                "questionText": "Was sollte man in einem guten Text vermeiden?",
+                "options": [
+                    { "id": "opt-w2-4", "text": "Bildhafte Sprache", "isCorrect": false },
+                    { "id": "opt-w2-5", "text": "Wortwiederholungen", "isCorrect": true },
+                    { "id": "opt-w2-6", "text": "Unterschiedliche Satzlängen", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-68-w-c2-q4",
+                "type": "sti",
+                "questionText": "Statt 'sehr groß' kann man auch ____ sagen.",
+                "correctAnswers": ["riesig", "gewaltig", "enorm"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-68-w-c2-q5",
+                "type": "sentence-correction",
+                "questionText": "Formuliere diesen Satz aktiver: 'Der Ball wurde vom Jungen geworfen.'",
+                "sentenceWithMistake": "Der Ball wurde vom Jungen geworfen.",
+                "correctedSentence": "Der Junge warf den Ball."
+            }
+        ]
+    }
+]

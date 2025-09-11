@@ -1,0 +1,1255 @@
+[
+    {
+        "title": "Leseverständnis: Kurze Geschichten 1",
+        "subject": "Lesen",
+        "gradeRange": "2-4",
+        "questions": [
+            {
+                "id": "de-24-r-c1-q1",
+                "type": "mcq",
+                "questionText": "Wer ist die Hauptfigur in der Geschichte über den kleinen Löwen?",
+                "passage": "Leo der kleine Löwe wachte auf. Die Sonne schien hell und er hatte Hunger. Er ging aus seiner Höhle und sah einen großen, roten Apfel an einem Baum. Er sprang hoch, aber er konnte ihn nicht erreichen. Dann kam seine Freundin, die Giraffe Gina. Gina stupste den Apfel mit ihrer langen Nase an. Der Apfel fiel herunter und Leo teilte ihn mit Gina.",
+                "options": [
+                    { "id": "opt-1", "text": "Die Giraffe Gina", "isCorrect": false },
+                    { "id": "opt-2", "text": "Der Löwe Leo", "isCorrect": true },
+                    { "id": "opt-3", "text": "Der Apfel", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-r-c1-q2",
+                "type": "mcq",
+                "questionText": "Was wollte Leo essen?",
+                "passage": "Leo der kleine Löwe wachte auf. Die Sonne schien hell und er hatte Hunger. Er ging aus seiner Höhle und sah einen großen, roten Apfel an einem Baum. Er sprang hoch, aber er konnte ihn nicht erreichen. Dann kam seine Freundin, die Giraffe Gina. Gina stupste den Apfel mit ihrer langen Nase an. Der Apfel fiel herunter und Leo teilte ihn mit Gina.",
+                "options": [
+                    { "id": "opt-1", "text": "Eine Banane", "isCorrect": false },
+                    { "id": "opt-2", "text": "Ein Blatt", "isCorrect": false },
+                    { "id": "opt-3", "text": "Einen Apfel", "isCorrect": true }
+                ]
+            },
+            {
+                "id": "de-24-r-c1-q3",
+                "type": "sti",
+                "questionText": "Leos Freundin, die ihm geholfen hat, war eine ____.",
+                "passage": "Leo der kleine Löwe wachte auf. Die Sonne schien hell und er hatte Hunger. Er ging aus seiner Höhle und sah einen großen, roten Apfel an einem Baum. Er sprang hoch, aber er konnte ihn nicht erreichen. Dann kam seine Freundin, die Giraffe Gina. Gina stupste den Apfel mit ihrer langen Nase an. Der Apfel fiel herunter und Leo teilte ihn mit Gina.",
+                "correctAnswers": ["Giraffe", "Gina"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-r-c1-q4",
+                "type": "sentence-order",
+                "questionText": "Bringe die Ereignisse aus der Geschichte in die richtige Reihenfolge.",
+                "passage": "Leo der kleine Löwe wachte auf. Die Sonne schien hell und er hatte Hunger. Er ging aus seiner Höhle und sah einen großen, roten Apfel an einem Baum. Er sprang hoch, aber er konnte ihn nicht erreichen. Dann kam seine Freundin, die Giraffe Gina. Gina stupste den Apfel mit ihrer langen Nase an. Der Apfel fiel herunter und Leo teilte ihn mit Gina.",
+                "items": [
+                    "Leo konnte den Apfel nicht erreichen.",
+                    "Gina half Leo.",
+                    "Leo hatte Hunger.",
+                    "Leo teilte den Apfel."
+                ]
+            },
+            {
+                "id": "de-24-r-c1-q5",
+                "type": "mcq",
+                "questionText": "Welches Tier ist Mila?",
+                "passage": "Mila das Meerschweinchen liebte es, in ihrem Käfig zu rennen. Eines Tages ließ ihr Besitzer die Tür offen. Mila krabbelte hinaus. Die Welt war so groß! Sie sah eine riesige, flauschige Katze. Die Katze schaute Mila nur an und gähnte. Mila rannte schnell zurück in die Sicherheit ihres Käfigs.",
+                "options": [
+                    { "id": "opt-1", "text": "Eine Katze", "isCorrect": false },
+                    { "id": "opt-2", "text": "Ein Meerschweinchen", "isCorrect": true },
+                    { "id": "opt-3", "text": "Ein Hamster", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-r-c1-q6",
+                "type": "mcq",
+                "questionText": "Warum hat Mila ihren Käfig verlassen?",
+                "passage": "Mila das Meerschweinchen liebte es, in ihrem Käfig zu rennen. Eines Tages ließ ihr Besitzer die Tür offen. Mila krabbelte hinaus. Die Welt war so groß! Sie sah eine riesige, flauschige Katze. Die Katze schaute Mila nur an und gähnte. Mila rannte schnell zurück in die Sicherheit ihres Käfigs.",
+                "options": [
+                    { "id": "opt-1", "text": "Weil die Tür offen war.", "isCorrect": true },
+                    { "id": "opt-2", "text": "Weil sie Hunger hatte.", "isCorrect": false },
+                    {
+                        "id": "opt-3",
+                        "text": "Weil sie die Katze jagen wollte.",
+                        "isCorrect": false
+                    }
+                ]
+            },
+            {
+                "id": "de-24-r-c1-q7",
+                "type": "sti",
+                "questionText": "Was tat die große, flauschige Katze, als sie Mila sah?",
+                "passage": "Mila das Meerschweinchen liebte es, in ihrem Käfig zu rennen. Eines Tages ließ ihr Besitzer die Tür offen. Mila krabbelte hinaus. Die Welt war so groß! Sie sah eine riesige, flauschige Katze. Die Katze schaute Mila nur an und gähnte. Mila rannte schnell zurück in die Sicherheit ihres Käfigs.",
+                "correctAnswers": ["gähnte", "sie gähnte"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-r-c1-q8",
+                "type": "mcq",
+                "questionText": "Wo hat sich Mila am Ende am sichersten gefühlt?",
+                "passage": "Mila das Meerschweinchen liebte es, in ihrem Käfig zu rennen. Eines Tages ließ ihr Besitzer die Tür offen. Mila krabbelte hinaus. Die Welt war so groß! Sie sah eine riesige, flauschige Katze. Die Katze schaute Mila nur an und gähnte. Mila rannte schnell zurück in die Sicherheit ihres Käfigs.",
+                "options": [
+                    { "id": "opt-1", "text": "Draußen in der großen Welt", "isCorrect": false },
+                    { "id": "opt-2", "text": "Neben der Katze", "isCorrect": false },
+                    { "id": "opt-3", "text": "In ihrem Käfig", "isCorrect": true }
+                ]
+            },
+            {
+                "id": "de-24-r-c1-q9",
+                "type": "sti",
+                "questionText": "Was hat Finn am Strand gebaut?",
+                "passage": "Finn baute am Strand eine Sandburg. Er machte hohe Türme und einen tiefen Graben. Eine kleine Welle kam und füllte den Graben mit Wasser. Dann kam eine viel größere Welle. WUSCH! Die ganze Sandburg war weg. Finn war zuerst traurig, aber dann lachte er. Er konnte einfach eine neue, noch größere Burg bauen!",
+                "correctAnswers": ["eine Sandburg", "Sandburg"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-r-c1-q10",
+                "type": "mcq",
+                "questionText": "Was hat die Sandburg zerstört?",
+                "passage": "Finn baute am Strand eine Sandburg. Er machte hohe Türme und einen tiefen Graben. Eine kleine Welle kam und füllte den Graben mit Wasser. Dann kam eine viel größere Welle. WUSCH! Die ganze Sandburg war weg. Finn war zuerst traurig, aber dann lachte er. Er konnte einfach eine neue, noch größere Burg bauen!",
+                "options": [
+                    { "id": "opt-1", "text": "Der Wind", "isCorrect": false },
+                    { "id": "opt-2", "text": "Eine große Welle", "isCorrect": true },
+                    { "id": "opt-3", "text": "Ein Hund", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-r-c1-q11",
+                "type": "mcq",
+                "questionText": "Wie hat sich Finn ganz am Ende der Geschichte gefühlt?",
+                "passage": "Finn baute am Strand eine Sandburg. Er machte hohe Türme und einen tiefen Graben. Eine kleine Welle kam und füllte den Graben mit Wasser. Dann kam eine viel größere Welle. WUSCH! Die ganze Sandburg war weg. Finn war zuerst traurig, aber dann lachte er. Er konnte einfach eine neue, noch größere Burg bauen!",
+                "options": [
+                    { "id": "opt-1", "text": "Wütend und enttäuscht", "isCorrect": false },
+                    {
+                        "id": "opt-2",
+                        "text": "Glücklich und bereit, neu anzufangen",
+                        "isCorrect": true
+                    },
+                    { "id": "opt-3", "text": "Ängstlich vor dem Wasser", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-r-c1-q12",
+                "type": "highlight-error",
+                "questionText": "Finde das Wort, das nicht in die Geschichte passt.",
+                "sentence": "Finn baute am Strand einen Schneemann.",
+                "correctAnswerIndices": [5]
+            }
+        ]
+    },
+    {
+        "title": "Leseverständnis: Detektivgeschichten 2",
+        "subject": "Lesen",
+        "gradeRange": "2-4",
+        "questions": [
+            {
+                "id": "de-24-r-c2-q1",
+                "type": "mcq",
+                "questionText": "Was ist in der Geschichte verschwunden?",
+                "passage": "Tim war der beste Detektiv der Schule. Eines Tages war Frau Müllers Kuchen verschwunden, direkt aus dem Lehrerzimmer! Die einzige Spur war eine Reihe von winzigen, mehligen Pfotenabdrücken. Tim folgte den Spuren. Sie führten zu einem kleinen Loch in der Wand. Tim wusste sofort, wer der Täter war: die kleine Maus, die im Klassenzimmer lebte.",
+                "options": [
+                    { "id": "opt-c2-1", "text": "Ein Buch", "isCorrect": false },
+                    { "id": "opt-c2-2", "text": "Ein Kuchen", "isCorrect": true },
+                    { "id": "opt-c2-3", "text": "Ein Stift", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-r-c2-q2",
+                "type": "sti",
+                "questionText": "Welche Spur fand Detektiv Tim?",
+                "passage": "Tim war der beste Detektiv der Schule. Eines Tages war Frau Müllers Kuchen verschwunden, direkt aus dem Lehrerzimmer! Die einzige Spur war eine Reihe von winzigen, mehligen Pfotenabdrücken. Tim folgte den Spuren. Sie führten zu einem kleinen Loch in der Wand. Tim wusste sofort, wer der Täter war: die kleine Maus, die im Klassenzimmer lebte.",
+                "correctAnswers": ["Pfotenabdrücke", "mehlige Pfotenabdrücke"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-r-c2-q3",
+                "type": "mcq",
+                "questionText": "Wer war der Dieb des Kuchens?",
+                "passage": "Tim war der beste Detektiv der Schule. Eines Tages war Frau Müllers Kuchen verschwunden, direkt aus dem Lehrerzimmer! Die einzige Spur war eine Reihe von winzigen, mehligen Pfotenabdrücken. Tim folgte den Spuren. Sie führten zu einem kleinen Loch in der Wand. Tim wusste sofort, wer der Täter war: die kleine Maus, die im Klassenzimmer lebte.",
+                "options": [
+                    { "id": "opt-c2-4", "text": "Ein anderer Schüler", "isCorrect": false },
+                    { "id": "opt-c2-5", "text": "Frau Müller selbst", "isCorrect": false },
+                    { "id": "opt-c2-6", "text": "Eine kleine Maus", "isCorrect": true }
+                ]
+            },
+            {
+                "id": "de-24-r-c2-q4",
+                "type": "sentence-order",
+                "questionText": "Bringe die Schritte von Tims Ermittlung in die richtige Reihenfolge.",
+                "passage": "Tim war der beste Detektiv der Schule. Eines Tages war Frau Müllers Kuchen verschwunden, direkt aus dem Lehrerzimmer! Die einzige Spur war eine Reihe von winzigen, mehligen Pfotenabdrücken. Tim folgte den Spuren. Sie führten zu einem kleinen Loch in der Wand. Tim wusste sofort, wer der Täter war: die kleine Maus, die im Klassenzimmer lebte.",
+                "items": [
+                    "Tim findet mehlige Spuren.",
+                    "Tim folgt den Spuren zu einem Loch.",
+                    "Der Kuchen verschwindet.",
+                    "Tim identifiziert den Täter."
+                ]
+            },
+            {
+                "id": "de-24-r-c2-q5",
+                "type": "mcq",
+                "questionText": "Wo hat Jonas die geheimnisvolle Karte gefunden?",
+                "passage": "Jonas half seinem Opa, den Dachboden aufzuräumen. In einer alten Holztruhe fand er eine vergilbte Karte. Darauf war ihr Garten gezeichnet und ein großes, rotes 'X' markierte eine Stelle unter dem alten Apfelbaum. 'Ein Schatz!', rief Jonas. Sie gruben an der Stelle und fanden eine kleine Kiste. Darin war ein altes Foto von seinem Opa als Kind.",
+                "options": [
+                    { "id": "opt-c2-7", "text": "Im Garten", "isCorrect": false },
+                    {
+                        "id": "opt-c2-8",
+                        "text": "In einer Holztruhe auf dem Dachboden",
+                        "isCorrect": true
+                    },
+                    { "id": "opt-c2-9", "text": "Unter dem Apfelbaum", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-r-c2-q6",
+                "type": "mcq",
+                "questionText": "Was markierte das 'X' auf der Karte?",
+                "passage": "Jonas half seinem Opa, den Dachboden aufzuräumen. In einer alten Holztruhe fand er eine vergilbte Karte. Darauf war ihr Garten gezeichnet und ein großes, rotes 'X' markierte eine Stelle unter dem alten Apfelbaum. 'Ein Schatz!', rief Jonas. Sie gruben an der Stelle und fanden eine kleine Kiste. Darin war ein altes Foto von seinem Opa als Kind.",
+                "options": [
+                    { "id": "opt-c2-10", "text": "Den Eingang zum Haus", "isCorrect": false },
+                    {
+                        "id": "opt-c2-11",
+                        "text": "Eine Stelle unter dem Apfelbaum",
+                        "isCorrect": true
+                    },
+                    { "id": "opt-c2-12", "text": "Den Dachboden", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-r-c2-q7",
+                "type": "sti",
+                "questionText": "Was war der 'Schatz', den Jonas und sein Opa fanden?",
+                "passage": "Jonas half seinem Opa, den Dachboden aufzuräumen. In einer alten Holztruhe fand er eine vergilbte Karte. Darauf war ihr Garten gezeichnet und ein großes, rotes 'X' markierte eine Stelle unter dem alten Apfelbaum. 'Ein Schatz!', rief Jonas. Sie gruben an der Stelle und fanden eine kleine Kiste. Darin war ein altes Foto von seinem Opa als Kind.",
+                "correctAnswers": ["ein altes Foto", "ein Foto", "Foto von seinem Opa"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-r-c2-q8",
+                "type": "highlight-error",
+                "questionText": "Finde das Wort in dem Satz, das eine Vermutung und keine Tatsache ist.",
+                "sentence": "Jonas vermutete, dass es Gold in der Kiste gab.",
+                "correctAnswerIndices": [1]
+            },
+            {
+                "id": "de-24-r-c2-q9",
+                "type": "mcq",
+                "questionText": "Was für ein Geräusch hörte Lena nachts?",
+                "passage": "Lena las in ihrem Bett ein Buch, als sie ein seltsames Kratzen von der Wand hörte. Zuerst dachte sie, es wäre nur der Wind. Aber das Geräusch kam wieder, lauter dieses Mal. Mutig nahm sie eine Taschenlampe und ging der Sache nach. Hinter dem Bücherregal entdeckte sie ein kleines Loch. Am nächsten Tag half ihr Vater, es zu reparieren.",
+                "options": [
+                    { "id": "opt-c2-13", "text": "Musik", "isCorrect": false },
+                    { "id": "opt-c2-14", "text": "Ein Kratzen", "isCorrect": true },
+                    { "id": "opt-c2-15", "text": "Eine Stimme", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-r-c2-q10",
+                "type": "sti",
+                "questionText": "Was benutzte Lena, um nach der Quelle des Geräusches zu suchen?",
+                "passage": "Lena las in ihrem Bett ein Buch, als sie ein seltsames Kratzen von der Wand hörte. Zuerst dachte sie, es wäre nur der Wind. Aber das Geräusch kam wieder, lauter dieses Mal. Mutig nahm sie eine Taschenlampe und ging der Sache nach. Hinter dem Bücherregal entdeckte sie ein kleines Loch. Am nächsten Tag half ihr Vater, es zu reparieren.",
+                "correctAnswers": ["eine Taschenlampe", "Taschenlampe"],
+                "evaluationMode": "case-insensitive"
+            }
+        ]
+    },
+    {
+        "title": "Leseverständnis: Fantastische Welten 3",
+        "subject": "Lesen",
+        "gradeRange": "2-4",
+        "questions": [
+            {
+                "id": "de-24-r-c3-q1",
+                "type": "mcq",
+                "questionText": "Was war das Besondere an Elaras Drachen?",
+                "passage": "Im Tal der flüsternden Bäume lebte Elara mit ihrem Drachen Funki. Funki war kein normaler Drache. Anstatt Feuer zu spucken, nieste er bunte Seifenblasen. Jedes Mal, wenn er aufgeregt war, füllte sich die Luft mit schillernden Kugeln. Die Kinder des Dorfes liebten es, mit Funki zu spielen und die Blasen zu fangen.",
+                "options": [
+                    { "id": "opt-c3-1", "text": "Er konnte fliegen", "isCorrect": false },
+                    { "id": "opt-c3-2", "text": "Er nieste Seifenblasen", "isCorrect": true },
+                    { "id": "opt-c3-3", "text": "Er war sehr groß", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-r-c3-q2",
+                "type": "mcq",
+                "questionText": "Wann nieste Funki die Seifenblasen?",
+                "passage": "Im Tal der flüsternden Bäume lebte Elara mit ihrem Drachen Funki. Funki war kein normaler Drache. Anstatt Feuer zu spucken, nieste er bunte Seifenblasen. Jedes Mal, wenn er aufgeregt war, füllte sich die Luft mit schillernden Kugeln. Die Kinder des Dorfes liebten es, mit Funki zu spielen und die Blasen zu fangen.",
+                "options": [
+                    { "id": "opt-c3-4", "text": "Wenn er müde war", "isCorrect": false },
+                    { "id": "opt-c3-5", "text": "Wenn er traurig war", "isCorrect": false },
+                    { "id": "opt-c3-6", "text": "Wenn er aufgeregt war", "isCorrect": true }
+                ]
+            },
+            {
+                "id": "de-24-r-c3-q3",
+                "type": "sti",
+                "questionText": "Wer liebte es, mit Funki und den Seifenblasen zu spielen?",
+                "passage": "Im Tal der flüsternden Bäume lebte Elara mit ihrem Drachen Funki. Funki war kein normaler Drache. Anstatt Feuer zu spucken, nieste er bunte Seifenblasen. Jedes Mal, wenn er aufgeregt war, füllte sich die Luft mit schillernden Kugeln. Die Kinder des Dorfes liebten es, mit Funki zu spielen und die Blasen zu fangen.",
+                "correctAnswers": ["die Kinder", "die Kinder des Dorfes"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-r-c3-q4",
+                "type": "highlight-error",
+                "questionText": "Finde das Wort, das nicht zu einem Drachen passt.",
+                "sentence": "Der große Drache hatte Federn und einen Schnabel.",
+                "correctAnswerIndices": [4, 6]
+            },
+            {
+                "id": "de-24-r-c3-q5",
+                "type": "mcq",
+                "questionText": "Was passierte mit dem Keks, den Lilli backte?",
+                "passage": "Lilli fand ein altes Zauberbuch in Omas Küche. Sie probierte ein Rezept für einen 'Wachstumskeks' aus. Nachdem der Keks aus dem Ofen kam, begann er zu wachsen! Er wurde größer und größer, bis er aus der Tür quoll. Lilli und ihre Oma mussten den ganzen Tag Keks essen, um das Haus zu befreien.",
+                "options": [
+                    { "id": "opt-c3-7", "text": "Er verbrannte", "isCorrect": false },
+                    { "id": "opt-c3-8", "text": "Er begann zu wachsen", "isCorrect": true },
+                    { "id": "opt-c3-9", "text": "Er schmeckte nicht gut", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-r-c3-q6",
+                "type": "sti",
+                "questionText": "Wo fand Lilli das Rezept für den Keks?",
+                "passage": "Lilli fand ein altes Zauberbuch in Omas Küche. Sie probierte ein Rezept für einen 'Wachstumskeks' aus. Nachdem der Keks aus dem Ofen kam, begann er zu wachsen! Er wurde größer und größer, bis er aus der Tür quoll. Lilli und ihre Oma mussten den ganzen Tag Keks essen, um das Haus zu befreien.",
+                "correctAnswers": ["in einem Zauberbuch", "Zauberbuch"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-r-c3-q7",
+                "type": "sentence-order",
+                "questionText": "Bringe die Ereignisse in die richtige Reihenfolge.",
+                "passage": "Lilli fand ein altes Zauberbuch in Omas Küche. Sie probierte ein Rezept für einen 'Wachstumskeks' aus. Nachdem der Keks aus dem Ofen kam, begann er zu wachsen! Er wurde größer und größer, bis er aus der Tür quoll. Lilli und ihre Oma mussten den ganzen Tag Keks essen, um das Haus zu befreien.",
+                "items": [
+                    "Lilli backt einen Keks.",
+                    "Der Keks wird riesig.",
+                    "Lilli findet ein Zauberbuch.",
+                    "Lilli und Oma essen den Keks."
+                ]
+            },
+            {
+                "id": "de-24-r-c3-q8",
+                "type": "mcq",
+                "questionText": "Was konnte der Baum im verzauberten Wald?",
+                "passage": "Tief im verzauberten Wald stand ein Baum, dessen Blätter bei Berührung leise Musik spielten. Jedes Blatt hatte einen anderen Ton. Ein Junge namens Finn entdeckte den Baum und verbrachte Stunden damit, wunderschöne Melodien zu komponieren, indem er sanft über die Blätter strich.",
+                "options": [
+                    { "id": "opt-c3-10", "text": "Sprechen", "isCorrect": false },
+                    { "id": "opt-c3-11", "text": "Musik spielen", "isCorrect": true },
+                    { "id": "opt-c3-12", "text": "Laufen", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-r-c3-q9",
+                "type": "mcq",
+                "questionText": "Wie machte Finn Musik mit dem Baum?",
+                "passage": "Tief im verzauberten Wald stand ein Baum, dessen Blätter bei Berührung leise Musik spielten. Jedes Blatt hatte einen anderen Ton. Ein Junge namens Finn entdeckte den Baum und verbrachte Stunden damit, wunderschöne Melodien zu komponieren, indem er sanft über die Blätter strich.",
+                "options": [
+                    { "id": "opt-c3-13", "text": "Er schüttelte den Baum", "isCorrect": false },
+                    { "id": "opt-c3-14", "text": "Er sang für den Baum", "isCorrect": false },
+                    {
+                        "id": "opt-c3-15",
+                        "text": "Er strich sanft über die Blätter",
+                        "isCorrect": true
+                    }
+                ]
+            },
+            {
+                "id": "de-24-r-c3-q10",
+                "type": "sti",
+                "questionText": "Jedes Blatt des Baumes hatte einen anderen ____.",
+                "passage": "Tief im verzauberten Wald stand ein Baum, dessen Blätter bei Berührung leise Musik spielten. Jedes Blatt hatte einen anderen Ton. Ein Junge namens Finn entdeckte den Baum und verbrachte Stunden damit, wunderschöne Melodien zu komponieren, indem er sanft über die Blätter strich.",
+                "correctAnswers": ["Ton"],
+                "evaluationMode": "case-insensitive"
+            }
+        ]
+    },
+    {
+        "title": "Leseverständnis: Alltagsabenteuer 4",
+        "subject": "Lesen",
+        "gradeRange": "2-4",
+        "questions": [
+            {
+                "id": "de-24-r-c4-q1",
+                "type": "mcq",
+                "questionText": "Was war das Problem mit Moritz' Fahrrad?",
+                "passage": "Moritz wollte mit seinen Freunden zum Park fahren, aber sein Fahrrad hatte einen platten Reifen. Er versuchte, ihn aufzupumpen, aber die Luft entwich sofort wieder. Sein Vater zeigte ihm, wie man den kleinen Riss im Schlauch mit einem Flicken repariert. Nach einer halben Stunde war das Rad wieder fit und Moritz konnte losfahren.",
+                "options": [
+                    { "id": "opt-c4-1", "text": "Die Kette war abgesprungen.", "isCorrect": false },
+                    {
+                        "id": "opt-c4-2",
+                        "text": "Es hatte einen platten Reifen.",
+                        "isCorrect": true
+                    },
+                    {
+                        "id": "opt-c4-3",
+                        "text": "Das Licht funktionierte nicht.",
+                        "isCorrect": false
+                    }
+                ]
+            },
+            {
+                "id": "de-24-r-c4-q2",
+                "type": "mcq",
+                "questionText": "Wer half Moritz bei der Reparatur?",
+                "passage": "Moritz wollte mit seinen Freunden zum Park fahren, aber sein Fahrrad hatte einen platten Reifen. Er versuchte, ihn aufzupumpen, aber die Luft entwich sofort wieder. Sein Vater zeigte ihm, wie man den kleinen Riss im Schlauch mit einem Flicken repariert. Nach einer halben Stunde war das Rad wieder fit und Moritz konnte losfahren.",
+                "options": [
+                    { "id": "opt-c4-4", "text": "Seine Freunde", "isCorrect": false },
+                    { "id": "opt-c4-5", "text": "Sein Vater", "isCorrect": true },
+                    { "id": "opt-c4-6", "text": "Niemand", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-r-c4-q3",
+                "type": "sti",
+                "questionText": "Was benutzten sie, um den Riss im Schlauch zu reparieren?",
+                "passage": "Moritz wollte mit seinen Freunden zum Park fahren, aber sein Fahrrad hatte einen platten Reifen. Er versuchte, ihn aufzupumpen, aber die Luft entwich sofort wieder. Sein Vater zeigte ihm, wie man den kleinen Riss im Schlauch mit einem Flicken repariert. Nach einer halben Stunde war das Rad wieder fit und Moritz konnte losfahren.",
+                "correctAnswers": ["einen Flicken", "Flicken"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-r-c4-q4",
+                "type": "sentence-order",
+                "questionText": "Bringe die Schritte der Fahrradreparatur in die richtige Reihenfolge.",
+                "passage": "Moritz wollte mit seinen Freunden zum Park fahren, aber sein Fahrrad hatte einen platten Reifen. Er versuchte, ihn aufzupumpen, aber die Luft entwich sofort wieder. Sein Vater zeigte ihm, wie man den kleinen Riss im Schlauch mit einem Flicken repariert. Nach einer halben Stunde war das Rad wieder fit und Moritz konnte losfahren.",
+                "items": [
+                    "Der Vater zeigt, wie man den Schlauch flickt.",
+                    "Moritz bemerkt den platten Reifen.",
+                    "Moritz kann endlich losfahren.",
+                    "Sie reparieren den Riss mit einem Flicken."
+                ]
+            },
+            {
+                "id": "de-24-r-c4-q5",
+                "type": "mcq",
+                "questionText": "Warum war der Strom im Haus ausgefallen?",
+                "passage": "Während eines heftigen Gewitters fiel plötzlich der Strom aus. Es war stockdunkel. Mama holte Kerzen und Taschenlampen. Papa erklärte, dass wahrscheinlich ein Blitz in eine Stromleitung eingeschlagen hatte. Sie saßen alle zusammen im Kerzenlicht, erzählten Geschichten und warteten, bis das Licht wieder anging.",
+                "options": [
+                    {
+                        "id": "opt-c4-7",
+                        "text": "Weil jemand den Schalter umgelegt hat.",
+                        "isCorrect": false
+                    },
+                    { "id": "opt-c4-8", "text": "Wegen eines Gewitters.", "isCorrect": true },
+                    {
+                        "id": "opt-c4-9",
+                        "text": "Weil die Glühbirne kaputt war.",
+                        "isCorrect": false
+                    }
+                ]
+            },
+            {
+                "id": "de-24-r-c4-q6",
+                "type": "mcq",
+                "questionText": "Was machte die Familie, als es dunkel war?",
+                "passage": "Während eines heftigen Gewitters fiel plötzlich der Strom aus. Es war stockdunkel. Mama holte Kerzen und Taschenlampen. Papa erklärte, dass wahrscheinlich ein Blitz in eine Stromleitung eingeschlagen hatte. Sie saßen alle zusammen im Kerzenlicht, erzählten Geschichten und warteten, bis das Licht wieder anging.",
+                "options": [
+                    { "id": "opt-c4-10", "text": "Sie gingen schlafen.", "isCorrect": false },
+                    { "id": "opt-c4-11", "text": "Sie sahen fern.", "isCorrect": false },
+                    {
+                        "id": "opt-c4-12",
+                        "text": "Sie erzählten sich Geschichten bei Kerzenlicht.",
+                        "isCorrect": true
+                    }
+                ]
+            },
+            {
+                "id": "de-24-r-c4-q7",
+                "type": "sti",
+                "questionText": "Was holte Mama, um Licht zu machen?",
+                "passage": "Während eines heftigen Gewitters fiel plötzlich der Strom aus. Es war stockdunkel. Mama holte Kerzen und Taschenlampen. Papa erklärte, dass wahrscheinlich ein Blitz in eine Stromleitung eingeschlagen hatte. Sie saßen alle zusammen im Kerzenlicht, erzählten Geschichten und warteten, bis das Licht wieder anging.",
+                "correctAnswers": ["Kerzen und Taschenlampen", "Kerzen"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-r-c4-q8",
+                "type": "mcq",
+                "questionText": "Welches Insekt hat Sofie im Garten beobachtet?",
+                "passage": "Sofie entdeckte eine Raupe auf einem Blatt. Jeden Tag besuchte sie die Raupe und sah zu, wie sie fraß und wuchs. Eines Tages hatte sich die Raupe in einen Kokon verwandelt. Sofie wartete geduldig. Nach einer Woche schlüpfte aus dem Kokon ein wunderschöner Schmetterling und flog davon.",
+                "options": [
+                    { "id": "opt-c4-13", "text": "Eine Biene", "isCorrect": false },
+                    { "id": "opt-c4-14", "text": "Eine Raupe", "isCorrect": true },
+                    { "id": "opt-c4-15", "text": "Eine Ameise", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-r-c4-q9",
+                "type": "mcq",
+                "questionText": "In was hat sich die Raupe am Ende verwandelt?",
+                "passage": "Sofie entdeckte eine Raupe auf einem Blatt. Jeden Tag besuchte sie die Raupe und sah zu, wie sie fraß und wuchs. Eines Tages hatte sich die Raupe in einen Kokon verwandelt. Sofie wartete geduldig. Nach einer Woche schlüpfte aus dem Kokon ein wunderschöner Schmetterling und flog davon.",
+                "options": [
+                    { "id": "opt-c4-16", "text": "In einen Frosch", "isCorrect": false },
+                    { "id": "opt-c4-17", "text": "In eine größere Raupe", "isCorrect": false },
+                    { "id": "opt-c4-18", "text": "In einen Schmetterling", "isCorrect": true }
+                ]
+            },
+            {
+                "id": "de-24-r-c4-q10",
+                "type": "sti",
+                "questionText": "Die Raupe hat sich in einen ____ verwandelt, bevor sie ein Schmetterling wurde.",
+                "passage": "Sofie entdeckte eine Raupe auf einem Blatt. Jeden Tag besuchte sie die Raupe und sah zu, wie sie fraß und wuchs. Eines Tages hatte sich die Raupe in einen Kokon verwandelt. Sofie wartete geduldig. Nach einer Woche schlüpfte aus dem Kokon ein wunderschöner Schmetterling und flog davon.",
+                "correctAnswers": ["Kokon"],
+                "evaluationMode": "case-insensitive"
+            }
+        ]
+    },
+    {
+        "title": "Leseverständnis: Historische Momente 5",
+        "subject": "Lesen",
+        "gradeRange": "2-4",
+        "questions": [
+            {
+                "id": "de-24-r-c5-q1",
+                "type": "mcq",
+                "questionText": "Was war das Besondere an Karls Erfindung?",
+                "passage": "Vor langer Zeit, als es noch keine Autos gab, hatte ein Mann namens Karl eine Idee. Er baute einen Wagen mit drei Rädern und einem lauten, knatternden Motor. Die Leute staunten, als sie das 'Pferdelose Fahrzeug' sahen. Es war das erste Automobil. Zuerst war es langsam, aber es veränderte die Welt.",
+                "options": [
+                    { "id": "opt-c5-1", "text": "Es konnte fliegen.", "isCorrect": false },
+                    { "id": "opt-c5-2", "text": "Es fuhr ohne Pferde.", "isCorrect": true },
+                    { "id": "opt-c5-3", "text": "Es war sehr leise.", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-r-c5-q2",
+                "type": "mcq",
+                "questionText": "Wie nannten die Leute das Fahrzeug am Anfang?",
+                "passage": "Vor langer Zeit, als es noch keine Autos gab, hatte ein Mann namens Karl eine Idee. Er baute einen Wagen mit drei Rädern und einem lauten, knatternden Motor. Die Leute staunten, als sie das 'Pferdelose Fahrzeug' sahen. Es war das erste Automobil. Zuerst war es langsam, aber es veränderte die Welt.",
+                "options": [
+                    { "id": "opt-c5-4", "text": "Das schnelle Auto", "isCorrect": false },
+                    { "id": "opt-c5-5", "text": "Der laute Wagen", "isCorrect": false },
+                    { "id": "opt-c5-6", "text": "Das Pferdelose Fahrzeug", "isCorrect": true }
+                ]
+            },
+            {
+                "id": "de-24-r-c5-q3",
+                "type": "sti",
+                "questionText": "Die Erfindung von Karl war das erste ____.",
+                "passage": "Vor langer Zeit, als es noch keine Autos gab, hatte ein Mann namens Karl eine Idee. Er baute einen Wagen mit drei Rädern und einem lauten, knatternden Motor. Die Leute staunten, als sie das 'Pferdelose Fahrzeug' sahen. Es war das erste Automobil. Zuerst war es langsam, aber es veränderte die Welt.",
+                "correctAnswers": ["Automobil", "Auto"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-r-c5-q4",
+                "type": "highlight-error",
+                "questionText": "Finde das Wort, das nicht in die Zeit der ersten Autos passt.",
+                "sentence": "Karl hörte auf seinem Smartphone laute Musik.",
+                "correctAnswerIndices": [3]
+            },
+            {
+                "id": "de-24-r-c5-q5",
+                "type": "mcq",
+                "questionText": "Was schickten die Brüder Orville und Wilbur in die Luft?",
+                "passage": "Die Brüder Orville und Wilbur träumten davon, wie Vögel zu fliegen. Sie bauten in ihrer Werkstatt ein seltsames Fluggerät aus Holz und Stoff. An einem windigen Tag im Jahr 1903 hob ihr 'Flyer' für 12 Sekunden vom Boden ab. Es war der erste erfolgreiche Flug eines Flugzeugs in der Geschichte.",
+                "options": [
+                    { "id": "opt-c5-7", "text": "Einen Drachen", "isCorrect": false },
+                    { "id": "opt-c5-8", "text": "Ein Fluggerät namens 'Flyer'", "isCorrect": true },
+                    { "id": "opt-c5-9", "text": "Einen Heißluftballon", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-r-c5-q6",
+                "type": "sti",
+                "questionText": "Wie lange dauerte der allererste Flug?",
+                "passage": "Die Brüder Orville und Wilbur träumten davon, wie Vögel zu fliegen. Sie bauten in ihrer Werkstatt ein seltsames Fluggerät aus Holz und Stoff. An einem windigen Tag im Jahr 1903 hob ihr 'Flyer' für 12 Sekunden vom Boden ab. Es war der erste erfolgreiche Flug eines Flugzeugs in der Geschichte.",
+                "correctAnswers": ["12 Sekunden", "zwölf Sekunden"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-r-c5-q7",
+                "type": "sentence-order",
+                "questionText": "Bringe die Ereignisse in die richtige Reihenfolge.",
+                "passage": "Die Brüder Orville und Wilbur träumten davon, wie Vögel zu fliegen. Sie bauten in ihrer Werkstatt ein seltsames Fluggerät aus Holz und Stoff. An einem windigen Tag im Jahr 1903 hob ihr 'Flyer' für 12 Sekunden vom Boden ab. Es war der erste erfolgreiche Flug eines Flugzeugs in der Geschichte.",
+                "items": [
+                    "Die Brüder bauen den 'Flyer'.",
+                    "Das Fluggerät hebt vom Boden ab.",
+                    "Die Brüder träumen vom Fliegen.",
+                    "Der Flug dauert 12 Sekunden."
+                ]
+            },
+            {
+                "id": "de-24-r-c5-q8",
+                "type": "mcq",
+                "questionText": "Womit haben die Menschen früher Nachrichten über weite Strecken gesendet?",
+                "passage": "Bevor es Telefone oder das Internet gab, war es schwierig, schnell Nachrichten zu senden. Eine Methode war der Telegraf. Ein Operator tippte Nachrichten in Form von kurzen und langen Tönen – dem Morsealphabet. Die Nachricht reiste über Drähte zu einem anderen Telegrafen, wo sie übersetzt wurde.",
+                "options": [
+                    { "id": "opt-c5-10", "text": "Mit dem Telegrafen", "isCorrect": true },
+                    { "id": "opt-c5-11", "text": "Mit E-Mails", "isCorrect": false },
+                    { "id": "opt-c5-12", "text": "Mit Brieftauben", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-r-c5-q9",
+                "type": "mcq",
+                "questionText": "Was ist das Morsealphabet?",
+                "passage": "Bevor es Telefone oder das Internet gab, war es schwierig, schnell Nachrichten zu senden. Eine Methode war der Telegraf. Ein Operator tippte Nachrichten in Form von kurzen und langen Tönen – dem Morsealphabet. Die Nachricht reiste über Drähte zu einem anderen Telegrafen, wo sie übersetzt wurde.",
+                "options": [
+                    { "id": "opt-c5-13", "text": "Eine Geheimsprache", "isCorrect": false },
+                    {
+                        "id": "opt-c5-14",
+                        "text": "Eine Sprache aus kurzen und langen Tönen",
+                        "isCorrect": true
+                    },
+                    { "id": "opt-c5-15", "text": "Eine Bildersprache", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-r-c5-q10",
+                "type": "sti",
+                "questionText": "Die Nachricht reiste über ____ zu einem anderen Telegrafen.",
+                "passage": "Bevor es Telefone oder das Internet gab, war es schwierig, schnell Nachrichten zu senden. Eine Methode war der Telegraf. Ein Operator tippte Nachrichten in Form von kurzen und langen Tönen – dem Morsealphabet. Die Nachricht reiste über Drähte zu einem anderen Telegrafen, wo sie übersetzt wurde.",
+                "correctAnswers": ["Drähte"],
+                "evaluationMode": "case-insensitive"
+            }
+        ]
+    },
+    {
+        "title": "Leseverständnis: Naturphänomene 6",
+        "subject": "Lesen",
+        "gradeRange": "2-4",
+        "questions": [
+            {
+                "id": "de-24-r-c6-q1",
+                "type": "mcq",
+                "questionText": "Woraus besteht ein Regenbogen laut dem Text?",
+                "passage": "Ein Regenbogen ist ein wunderschönes Naturphänomen. Er entsteht, wenn Sonnenlicht durch Regentropfen scheint. Das Licht wird in seine verschiedenen Farben aufgespalten: Rot, Orange, Gelb, Grün, Blau, Indigo und Violett. Man kann einen Regenbogen nur sehen, wenn die Sonne im Rücken und der Regen vor einem ist.",
+                "options": [
+                    { "id": "opt-c6-1", "text": "Aus Wolken", "isCorrect": false },
+                    {
+                        "id": "opt-c6-2",
+                        "text": "Aus Sonnenlicht und Regentropfen",
+                        "isCorrect": true
+                    },
+                    { "id": "opt-c6-3", "text": "Aus buntem Nebel", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-r-c6-q2",
+                "type": "mcq",
+                "questionText": "Welche Bedingung muss erfüllt sein, um einen Regenbogen zu sehen?",
+                "passage": "Ein Regenbogen ist ein wunderschönes Naturphänomen. Er entsteht, wenn Sonnenlicht durch Regentropfen scheint. Das Licht wird in seine verschiedenen Farben aufgespalten: Rot, Orange, Gelb, Grün, Blau, Indigo und Violett. Man kann einen Regenbogen nur sehen, wenn die Sonne im Rücken und der Regen vor einem ist.",
+                "options": [
+                    {
+                        "id": "opt-c6-4",
+                        "text": "Die Sonne muss vor einem sein.",
+                        "isCorrect": false
+                    },
+                    { "id": "opt-c6-5", "text": "Es muss Nacht sein.", "isCorrect": false },
+                    {
+                        "id": "opt-c6-6",
+                        "text": "Die Sonne muss im Rücken sein.",
+                        "isCorrect": true
+                    }
+                ]
+            },
+            {
+                "id": "de-24-r-c6-q3",
+                "type": "sti",
+                "questionText": "Das Sonnenlicht wird in seine verschiedenen ____ aufgespalten.",
+                "passage": "Ein Regenbogen ist ein wunderschönes Naturphänomen. Er entsteht, wenn Sonnenlicht durch Regentropfen scheint. Das Licht wird in seine verschiedenen Farben aufgespalten: Rot, Orange, Gelb, Grün, Blau, Indigo und Violett. Man kann einen Regenbogen nur sehen, wenn die Sonne im Rücken und der Regen vor einem ist.",
+                "correctAnswers": ["Farben"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-r-c6-q4",
+                "type": "sentence-order",
+                "questionText": "Bringe die Farben des Regenbogens in die richtige Reihenfolge (von oben nach unten).",
+                "passage": "Ein Regenbogen ist ein wunderschönes Naturphänomen. Er entsteht, wenn Sonnenlicht durch Regentropfen scheint. Das Licht wird in seine verschiedenen Farben aufgespalten: Rot, Orange, Gelb, Grün, Blau, Indigo und Violett. Man kann einen Regenbogen nur sehen, wenn die Sonne im Rücken und der Regen vor einem ist.",
+                "items": ["Gelb", "Rot", "Grün", "Orange"]
+            },
+            {
+                "id": "de-24-r-c6-q5",
+                "type": "mcq",
+                "questionText": "Was ist ein Vulkan?",
+                "passage": "Ein Vulkan ist ein Berg, der eine Öffnung zur Erd-Inneren hat. Tief unter der Erde ist es so heiß, dass Gestein schmilzt und zu Magma wird. Wenn der Druck zu groß wird, kann das Magma als Lava aus dem Vulkan ausbrechen. Ein Vulkanausbruch kann Asche, Gestein und heiße Gase in die Luft schleudern.",
+                "options": [
+                    { "id": "opt-c6-7", "text": "Ein normaler, kalter Berg", "isCorrect": false },
+                    {
+                        "id": "opt-c6-8",
+                        "text": "Ein Berg mit einer Öffnung zum Erd-Inneren",
+                        "isCorrect": true
+                    },
+                    { "id": "opt-c6-9", "text": "Ein Berg aus Eis", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-r-c6-q6",
+                "type": "mcq",
+                "questionText": "Wie nennt man das geschmolzene Gestein, wenn es aus dem Vulkan austritt?",
+                "passage": "Ein Vulkan ist ein Berg, der eine Öffnung zur Erd-Inneren hat. Tief unter der Erde ist es so heiß, dass Gestein schmilzt und zu Magma wird. Wenn der Druck zu groß wird, kann das Magma als Lava aus dem Vulkan ausbrechen. Ein Vulkanausbruch kann Asche, Gestein und heiße Gase in die Luft schleudern.",
+                "options": [
+                    { "id": "opt-c6-10", "text": "Wasser", "isCorrect": false },
+                    { "id": "opt-c6-11", "text": "Magma", "isCorrect": false },
+                    { "id": "opt-c6-12", "text": "Lava", "isCorrect": true }
+                ]
+            },
+            {
+                "id": "de-24-r-c6-q7",
+                "type": "sti",
+                "questionText": "Tief unter der Erde schmilzt Gestein und wird zu ____.",
+                "passage": "Ein Vulkan ist ein Berg, der eine Öffnung zur Erd-Inneren hat. Tief unter der Erde ist es so heiß, dass Gestein schmilzt und zu Magma wird. Wenn der Druck zu groß wird, kann das Magma als Lava aus dem Vulkan ausbrechen. Ein Vulkanausbruch kann Asche, Gestein und heiße Gase in die Luft schleudern.",
+                "correctAnswers": ["Magma"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-r-c6-q8",
+                "type": "highlight-error",
+                "questionText": "Finde das Wort, das nicht zu einem Vulkanausbruch passt.",
+                "sentence": "Heiße Lava und kühler Schnee flossen den Berg hinab.",
+                "correctAnswerIndices": [3, 4]
+            },
+            {
+                "id": "de-24-r-c6-q9",
+                "type": "mcq",
+                "questionText": "Wie entstehen Jahreszeiten?",
+                "passage": "Die Jahreszeiten wie Frühling, Sommer, Herbst und Winter entstehen nicht, weil die Erde näher oder weiter von der Sonne entfernt ist. Sie entstehen, weil die Erdachse schräg ist. Während die Erde die Sonne umkreist, ist mal die Nordhalbkugel und mal die Südhalbkugel mehr zur Sonne geneigt.",
+                "options": [
+                    {
+                        "id": "opt-c6-13",
+                        "text": "Weil die Erdachse schräg ist.",
+                        "isCorrect": true
+                    },
+                    {
+                        "id": "opt-c6-14",
+                        "text": "Weil die Sonne manchmal heißer ist.",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": "opt-c6-15",
+                        "text": "Weil sich die Wolken verändern.",
+                        "isCorrect": false
+                    }
+                ]
+            },
+            {
+                "id": "de-24-r-c6-q10",
+                "type": "mcq",
+                "questionText": "Wenn bei uns Sommer ist, was ist dann auf der Südhalbkugel?",
+                "passage": "Die Jahreszeiten wie Frühling, Sommer, Herbst und Winter entstehen nicht, weil die Erde näher oder weiter von der Sonne entfernt ist. Sie entstehen, weil die Erdachse schräg ist. Während die Erde die Sonne umkreist, ist mal die Nordhalbkugel und mal die Südhalbkugel mehr zur Sonne geneigt.",
+                "options": [
+                    { "id": "opt-c6-16", "text": "Auch Sommer", "isCorrect": false },
+                    { "id": "opt-c6-17", "text": "Winter", "isCorrect": true },
+                    { "id": "opt-c6-18", "text": "Frühling", "isCorrect": false }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Leseverständnis: Berühmte Persönlichkeiten 7",
+        "subject": "Lesen",
+        "gradeRange": "2-4",
+        "questions": [
+            {
+                "id": "de-24-r-c7-q1",
+                "type": "mcq",
+                "questionText": "Wofür ist Marie Curie berühmt?",
+                "passage": "Marie Curie war eine sehr kluge Wissenschaftlerin aus Polen. Sie lebte in einer Zeit, in der nur wenige Frauen studieren durften. Trotzdem forschte sie unermüdlich und entdeckte zwei neue Elemente, Radium und Polonium. Ihre Arbeit half Ärzten, Krankheiten besser zu verstehen und zu behandeln. Sie war die erste Frau, die einen Nobelpreis gewann.",
+                "options": [
+                    {
+                        "id": "opt-c7-1",
+                        "text": "Sie hat ein Buch geschrieben.",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": "opt-c7-2",
+                        "text": "Sie hat neue Elemente entdeckt und den Nobelpreis gewonnen.",
+                        "isCorrect": true
+                    },
+                    {
+                        "id": "opt-c7-3",
+                        "text": "Sie war eine berühmte Malerin.",
+                        "isCorrect": false
+                    }
+                ]
+            },
+            {
+                "id": "de-24-r-c7-q2",
+                "type": "mcq",
+                "questionText": "Was war eine große Herausforderung für Marie Curie in ihrer Zeit?",
+                "passage": "Marie Curie war eine sehr kluge Wissenschaftlerin aus Polen. Sie lebte in einer Zeit, in der nur wenige Frauen studieren durften. Trotzdem forschte sie unermüdlich und entdeckte zwei neue Elemente, Radium und Polonium. Ihre Arbeit half Ärzten, Krankheiten besser zu verstehen und zu behandeln. Sie war die erste Frau, die einen Nobelpreis gewann.",
+                "options": [
+                    { "id": "opt-c7-4", "text": "Es gab keine Labore.", "isCorrect": false },
+                    {
+                        "id": "opt-c7-5",
+                        "text": "Nur wenige Frauen durften studieren.",
+                        "isCorrect": true
+                    },
+                    { "id": "opt-c7-6", "text": "Bücher waren zu teuer.", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-r-c7-q3",
+                "type": "sti",
+                "questionText": "Marie Curie war die erste Frau, die einen ____ gewann.",
+                "passage": "Marie Curie war eine sehr kluge Wissenschaftlerin aus Polen. Sie lebte in einer Zeit, in der nur wenige Frauen studieren durften. Trotzdem forschte sie unermüdlich und entdeckte zwei neue Elemente, Radium und Polonium. Ihre Arbeit half Ärzten, Krankheiten besser zu verstehen und zu behandeln. Sie war die erste Frau, die einen Nobelpreis gewann.",
+                "correctAnswers": ["Nobelpreis"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-r-c7-q4",
+                "type": "sentence-order",
+                "questionText": "Bringe die Stationen in Marie Curies Leben in die richtige Reihenfolge.",
+                "passage": "Marie Curie war eine sehr kluge Wissenschaftlerin aus Polen. Sie lebte in einer Zeit, in der nur wenige Frauen studieren durften. Trotzdem forschte sie unermüdlich und entdeckte zwei neue Elemente, Radium und Polonium. Ihre Arbeit half Ärzten, Krankheiten besser zu verstehen und zu behandeln. Sie war die erste Frau, die einen Nobelpreis gewann.",
+                "items": [
+                    "Marie entdeckt Radium und Polonium.",
+                    "Marie gewinnt den Nobelpreis.",
+                    "Marie lebt in einer Zeit, in der Frauen kaum studieren dürfen.",
+                    "Marie forscht unermüdlich."
+                ]
+            },
+            {
+                "id": "de-24-r-c7-q5",
+                "type": "mcq",
+                "questionText": "Welches berühmte Stück hat Wolfgang Amadeus Mozart komponiert?",
+                "passage": "Wolfgang Amadeus Mozart war ein musikalisches Wunderkind aus Österreich. Schon als kleiner Junge konnte er Klavier und Geige spielen und komponierte seine eigenen Stücke. Er reiste durch ganz Europa und spielte für Könige und Königinnen. Eines seiner berühmtesten Werke ist 'Die kleine Nachtmusik'.",
+                "options": [
+                    { "id": "opt-c7-7", "text": "'Die vier Jahreszeiten'", "isCorrect": false },
+                    { "id": "opt-c7-8", "text": "'Die kleine Nachtmusik'", "isCorrect": true },
+                    { "id": "opt-c7-9", "text": "'Für Elise'", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-r-c7-q6",
+                "type": "mcq",
+                "questionText": "Was bedeutet es, wenn jemand ein 'Wunderkind' ist?",
+                "passage": "Wolfgang Amadeus Mozart war ein musikalisches Wunderkind aus Österreich. Schon als kleiner Junge konnte er Klavier und Geige spielen und komponierte seine eigenen Stücke. Er reiste durch ganz Europa und spielte für Könige und Königinnen. Eines seiner berühmtesten Werke ist 'Die kleine Nachtmusik'.",
+                "options": [
+                    {
+                        "id": "opt-c7-10",
+                        "text": "Ein Kind, das sehr reich ist.",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": "opt-c7-11",
+                        "text": "Ein Kind, das eine außergewöhnliche Begabung hat.",
+                        "isCorrect": true
+                    },
+                    { "id": "opt-c7-12", "text": "Ein Kind, das viel reist.", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-r-c7-q7",
+                "type": "sti",
+                "questionText": "Schon als kleiner Junge konnte Mozart ____ und Geige spielen.",
+                "passage": "Wolfgang Amadeus Mozart war ein musikalisches Wunderkind aus Österreich. Schon als kleiner Junge konnte er Klavier und Geige spielen und komponierte seine eigenen Stücke. Er reiste durch ganz Europa und spielte für Könige und Königinnen. Eines seiner berühmtesten Werke ist 'Die kleine Nachtmusik'.",
+                "correctAnswers": ["Klavier"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-r-c7-q8",
+                "type": "mcq",
+                "questionText": "Was war die große Idee von Johannes Gutenberg?",
+                "passage": "Vor über 500 Jahren wurden Bücher mühsam von Hand abgeschrieben. Johannes Gutenberg hatte eine revolutionäre Idee: Er erfand den Buchdruck mit beweglichen Buchstaben. Plötzlich konnten Bücher schnell und in großer Zahl hergestellt werden. Seine Erfindung machte Wissen für viel mehr Menschen zugänglich.",
+                "options": [
+                    { "id": "opt-c7-13", "text": "Er erfand das Papier.", "isCorrect": false },
+                    { "id": "opt-c7-14", "text": "Er erfand den Buchdruck.", "isCorrect": true },
+                    {
+                        "id": "opt-c7-15",
+                        "text": "Er schrieb die meisten Bücher selbst.",
+                        "isCorrect": false
+                    }
+                ]
+            },
+            {
+                "id": "de-24-r-c7-q9",
+                "type": "mcq",
+                "questionText": "Was war der größte Vorteil von Gutenbergs Erfindung?",
+                "passage": "Vor über 500 Jahren wurden Bücher mühsam von Hand abgeschrieben. Johannes Gutenberg hatte eine revolutionäre Idee: Er erfand den Buchdruck mit beweglichen Buchstaben. Plötzlich konnten Bücher schnell und in großer Zahl hergestellt werden. Seine Erfindung machte Wissen für viel mehr Menschen zugänglich.",
+                "options": [
+                    { "id": "opt-c7-16", "text": "Bücher wurden schöner.", "isCorrect": false },
+                    {
+                        "id": "opt-c7-17",
+                        "text": "Die Buchstaben waren aus Gold.",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": "opt-c7-18",
+                        "text": "Wissen wurde für mehr Menschen zugänglich.",
+                        "isCorrect": true
+                    }
+                ]
+            },
+            {
+                "id": "de-24-r-c7-q10",
+                "type": "sti",
+                "questionText": "Vor Gutenbergs Erfindung wurden Bücher von ____ abgeschrieben.",
+                "passage": "Vor über 500 Jahren wurden Bücher mühsam von Hand abgeschrieben. Johannes Gutenberg hatte eine revolutionäre Idee: Er erfand den Buchdruck mit beweglichen Buchstaben. Plötzlich konnten Bücher schnell und in großer Zahl hergestellt werden. Seine Erfindung machte Wissen für viel mehr Menschen zugänglich.",
+                "correctAnswers": ["Hand"],
+                "evaluationMode": "case-insensitive"
+            }
+        ]
+    },
+    {
+        "title": "Leseverständnis: Sportliche Höchstleistungen 8",
+        "subject": "Lesen",
+        "gradeRange": "2-4",
+        "questions": [
+            {
+                "id": "de-24-r-c8-q1",
+                "type": "mcq",
+                "questionText": "Was war das Ziel von Annas großem Lauf?",
+                "passage": "Anna trainierte monatelang für den Stadtmarathon. Es war ihr erster großer Lauf. Die Strecke war lang und anstrengend, aber die jubelnden Menschen am Straßenrand gaben ihr Kraft. Als sie nach über vier Stunden endlich die Ziellinie überquerte, war sie erschöpft, aber überglücklich. Sie hatte es geschafft!",
+                "options": [
+                    { "id": "opt-c8-1", "text": "Einen Preis zu gewinnen.", "isCorrect": false },
+                    {
+                        "id": "opt-c8-2",
+                        "text": "Die Ziellinie des Marathons zu überqueren.",
+                        "isCorrect": true
+                    },
+                    {
+                        "id": "opt-c8-3",
+                        "text": "Schneller als ihre Freunde zu sein.",
+                        "isCorrect": false
+                    }
+                ]
+            },
+            {
+                "id": "de-24-r-c8-q2",
+                "type": "mcq",
+                "questionText": "Was gab Anna während des Laufs Kraft?",
+                "passage": "Anna trainierte monatelang für den Stadtmarathon. Es war ihr erster großer Lauf. Die Strecke war lang und anstrengend, aber die jubelnden Menschen am Straßenrand gaben ihr Kraft. Als sie nach über vier Stunden endlich die Ziellinie überquerte, war sie erschöpft, aber überglücklich. Sie hatte es geschafft!",
+                "options": [
+                    {
+                        "id": "opt-c8-4",
+                        "text": "Die Musik in ihren Kopfhörern.",
+                        "isCorrect": false
+                    },
+                    { "id": "opt-c8-5", "text": "Die jubelnden Menschen.", "isCorrect": true },
+                    { "id": "opt-c8-6", "text": "Das gute Wetter.", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-r-c8-q3",
+                "type": "sti",
+                "questionText": "Anna war ____, als sie die Ziellinie überquerte, aber auch überglücklich.",
+                "passage": "Anna trainierte monatelang für den Stadtmarathon. Es war ihr erster großer Lauf. Die Strecke war lang und anstrengend, aber die jubelnden Menschen am Straßenrand gaben ihr Kraft. Als sie nach über vier Stunden endlich die Ziellinie überquerte, war sie erschöpft, aber überglücklich. Sie hatte es geschafft!",
+                "correctAnswers": ["erschöpft"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-r-c8-q4",
+                "type": "sentence-order",
+                "questionText": "Bringe die Ereignisse in die richtige Reihenfolge.",
+                "passage": "Anna trainierte monatelang für den Stadtmarathon. Es war ihr erster großer Lauf. Die Strecke war lang und anstrengend, aber die jubelnden Menschen am Straßenrand gaben ihr Kraft. Als sie nach über vier Stunden endlich die Ziellinie überquerte, war sie erschöpft, aber überglücklich. Sie hatte es geschafft!",
+                "items": [
+                    "Anna überquert die Ziellinie.",
+                    "Die Menschen jubeln Anna zu.",
+                    "Anna trainiert für den Marathon.",
+                    "Anna ist erschöpft und glücklich."
+                ]
+            },
+            {
+                "id": "de-24-r-c8-q5",
+                "type": "mcq",
+                "questionText": "Was war der entscheidende Moment im Fußballspiel?",
+                "passage": "Es stand unentschieden im Finale der Schulmeisterschaft. Die letzte Minute lief. Pauls Mannschaft bekam einen Freistoß. Paul legte sich den Ball zurecht, nahm Anlauf und schoss. Der Ball flog in einem perfekten Bogen über die Mauer der Gegner und landete im Tor! Seine Mannschaft hatte gewonnen.",
+                "options": [
+                    { "id": "opt-c8-7", "text": "Der Anpfiff des Spiels.", "isCorrect": false },
+                    {
+                        "id": "opt-c8-8",
+                        "text": "Pauls Freistoßtor in der letzten Minute.",
+                        "isCorrect": true
+                    },
+                    { "id": "opt-c8-9", "text": "Die Halbzeitpause.", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-r-c8-q6",
+                "type": "sti",
+                "questionText": "Pauls Schuss flog in einem perfekten ____ über die Mauer.",
+                "passage": "Es stand unentschieden im Finale der Schulmeisterschaft. Die letzte Minute lief. Pauls Mannschaft bekam einen Freistoß. Paul legte sich den Ball zurecht, nahm Anlauf und schoss. Der Ball flog in einem perfekten Bogen über die Mauer der Gegner und landete im Tor! Seine Mannschaft hatte gewonnen.",
+                "correctAnswers": ["Bogen"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-r-c8-q7",
+                "type": "mcq",
+                "questionText": "Was war das Ergebnis von Pauls Schuss?",
+                "passage": "Es stand unentschieden im Finale der Schulmeisterschaft. Die letzte Minute lief. Pauls Mannschaft bekam einen Freistoß. Paul legte sich den Ball zurecht, nahm Anlauf und schoss. Der Ball flog in einem perfekten Bogen über die Mauer der Gegner und landete im Tor! Seine Mannschaft hatte gewonnen.",
+                "options": [
+                    { "id": "opt-c8-10", "text": "Der Ball ging daneben.", "isCorrect": false },
+                    {
+                        "id": "opt-c8-11",
+                        "text": "Der Torwart hielt den Ball.",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": "opt-c8-12",
+                        "text": "Seine Mannschaft gewann das Spiel.",
+                        "isCorrect": true
+                    }
+                ]
+            },
+            {
+                "id": "de-24-r-c8-q8",
+                "type": "mcq",
+                "questionText": "Welche Sportart übte Klara aus?",
+                "passage": "Klara stand auf dem Drei-Meter-Brett. Unter ihr glitzerte das Wasser des Schwimmbeckens. Sie atmete tief durch, sprang ab, machte in der Luft eine elegante Rolle und tauchte fast ohne Spritzer ins Wasser ein. Der Trainer klatschte. Das war ihr bisher bester Sprung.",
+                "options": [
+                    { "id": "opt-c8-13", "text": "Turmspringen", "isCorrect": true },
+                    { "id": "opt-c8-14", "text": "Weitsprung", "isCorrect": false },
+                    { "id": "opt-c8-15", "text": "Ballett", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-r-c8-q9",
+                "type": "mcq",
+                "questionText": "Was machte Klara in der Luft?",
+                "passage": "Klara stand auf dem Drei-Meter-Brett. Unter ihr glitzerte das Wasser des Schwimmbeckens. Sie atmete tief durch, sprang ab, machte in der Luft eine elegante Rolle und tauchte fast ohne Spritzer ins Wasser ein. Der Trainer klatschte. Das war ihr bisher bester Sprung.",
+                "options": [
+                    { "id": "opt-c8-16", "text": "Einen Salto", "isCorrect": false },
+                    { "id": "opt-c8-17", "text": "Eine elegante Rolle", "isCorrect": true },
+                    { "id": "opt-c8-18", "text": "Einen Schrei", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-r-c8-q10",
+                "type": "sti",
+                "questionText": "Klara tauchte fast ohne ____ ins Wasser ein.",
+                "passage": "Klara stand auf dem Drei-Meter-Brett. Unter ihr glitzerte das Wasser des Schwimmbeckens. Sie atmete tief durch, sprang ab, machte in der Luft eine elegante Rolle und tauchte fast ohne Spritzer ins Wasser ein. Der Trainer klatschte. Das war ihr bisher bester Sprung.",
+                "correctAnswers": ["Spritzer"],
+                "evaluationMode": "case-insensitive"
+            }
+        ]
+    },
+    {
+        "title": "Leseverständnis: Kuriose Erfindungen 9",
+        "subject": "Lesen",
+        "gradeRange": "2-4",
+        "questions": [
+            {
+                "id": "de-24-r-c9-q1",
+                "type": "mcq",
+                "questionText": "Was war das Problem, das Professor Tüftels Maschine lösen sollte?",
+                "passage": "Professor Phileas Tüftel war ein brillanter, aber sehr vergesslicher Erfinder. Ständig vergaß er, seine Blumen zu gießen. Also baute er eine komplizierte Maschine: eine 'Selbst-Gieß-Anlage'. Sie bestand aus einem Wecker, der einen Löffel anstieß, der eine Kugel rollen ließ, die am Ende eine Gießkanne umkippte.",
+                "options": [
+                    { "id": "opt-c9-1", "text": "Er vergaß seine Schlüssel.", "isCorrect": false },
+                    {
+                        "id": "opt-c9-2",
+                        "text": "Er vergaß, die Blumen zu gießen.",
+                        "isCorrect": true
+                    },
+                    { "id": "opt-c9-3", "text": "Er fand seine Brille nicht.", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-r-c9-q2",
+                "type": "mcq",
+                "questionText": "Was war der erste Teil der Kettenreaktion in der Maschine?",
+                "passage": "Professor Phileas Tüftel war ein brillanter, aber sehr vergesslicher Erfinder. Ständig vergaß er, seine Blumen zu gießen. Also baute er eine komplizierte Maschine: eine 'Selbst-Gieß-Anlage'. Sie bestand aus einem Wecker, der einen Löffel anstieß, der eine Kugel rollen ließ, die am Ende eine Gießkanne umkippte.",
+                "options": [
+                    { "id": "opt-c9-4", "text": "Eine Kugel rollt.", "isCorrect": false },
+                    { "id": "opt-c9-5", "text": "Ein Wecker klingelt.", "isCorrect": true },
+                    { "id": "opt-c9-6", "text": "Eine Gießkanne kippt um.", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-r-c9-q3",
+                "type": "sti",
+                "questionText": "Am Ende der Kettenreaktion kippte eine ____ um.",
+                "passage": "Professor Phileas Tüftel war ein brillanter, aber sehr vergesslicher Erfinder. Ständig vergaß er, seine Blumen zu gießen. Also baute er eine komplizierte Maschine: eine 'Selbst-Gieß-Anlage'. Sie bestand aus einem Wecker, der einen Löffel anstieß, der eine Kugel rollen ließ, die am Ende eine Gießkanne umkippte.",
+                "correctAnswers": ["Gießkanne"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-r-c9-q4",
+                "type": "sentence-order",
+                "questionText": "Bringe die Teile der Maschine in die richtige Reihenfolge.",
+                "passage": "Professor Phileas Tüftel war ein brillanter, aber sehr vergesslicher Erfinder. Ständig vergaß er, seine Blumen zu gießen. Also baute er eine komplizierte Maschine: eine 'Selbst-Gieß-Anlage'. Sie bestand aus einem Wecker, der einen Löffel anstieß, der eine Kugel rollen ließ, die am Ende eine Gießkanne umkippte.",
+                "items": [
+                    "Der Löffel wird angestoßen.",
+                    "Die Gießkanne kippt um.",
+                    "Der Wecker klingelt.",
+                    "Die Kugel rollt los."
+                ]
+            },
+            {
+                "id": "de-24-r-c9-q5",
+                "type": "mcq",
+                "questionText": "Was konnte Emilias 'Traum-Zeichner'?",
+                "passage": "Emilia erfand eine Maschine, die Träume aufzeichnen konnte. Sie setzte sich einen Helm auf, schlief ein und am nächsten Morgen druckte die Maschine ein Bild von ihrem Traum aus. Einmal träumte sie, sie würde auf einem fliegenden Wal reiten. Das ausgedruckte Bild hängte sie über ihr Bett.",
+                "options": [
+                    { "id": "opt-c9-7", "text": "Gedanken lesen.", "isCorrect": false },
+                    {
+                        "id": "opt-c9-8",
+                        "text": "Bilder von Träumen ausdrucken.",
+                        "isCorrect": true
+                    },
+                    { "id": "opt-c9-9", "text": "Die Zukunft vorhersagen.", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-r-c9-q6",
+                "type": "sti",
+                "questionText": "Was musste Emilia aufsetzen, damit die Maschine funktionierte?",
+                "passage": "Emilia erfand eine Maschine, die Träume aufzeichnen konnte. Sie setzte sich einen Helm auf, schlief ein und am nächsten Morgen druckte die Maschine ein Bild von ihrem Traum aus. Einmal träumte sie, sie würde auf einem fliegenden Wal reiten. Das ausgedruckte Bild hängte sie über ihr Bett.",
+                "correctAnswers": ["einen Helm", "Helm"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-r-c9-q7",
+                "type": "mcq",
+                "questionText": "Was war auf dem Bild zu sehen, das Emilia über ihr Bett hängte?",
+                "passage": "Emilia erfand eine Maschine, die Träume aufzeichnen konnte. Sie setzte sich einen Helm auf, schlief ein und am nächsten Morgen druckte die Maschine ein Bild von ihrem Traum aus. Einmal träumte sie, sie würde auf einem fliegenden Wal reiten. Das ausgedruckte Bild hängte sie über ihr Bett.",
+                "options": [
+                    { "id": "opt-c9-10", "text": "Ein fliegender Wal.", "isCorrect": true },
+                    { "id": "opt-c9-11", "text": "Ein sprechender Hund.", "isCorrect": false },
+                    { "id": "opt-c9-12", "text": "Ein Haus aus Süßigkeiten.", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-r-c9-q8",
+                "type": "mcq",
+                "questionText": "Welches Problem hatte der 'Aufweck-Automat 3000'?",
+                "passage": "Oskar baute eine Maschine, die ihn sanft wecken sollte. Sie sollte ihn mit einer Feder kitzeln. Doch beim ersten Test ging etwas schief. Anstatt ihn sanft zu kitzeln, kippte die Maschine einen ganzen Eimer Wasser über sein Bett. Oskar war wach, aber auch sehr nass.",
+                "options": [
+                    { "id": "opt-c9-13", "text": "Er war zu leise.", "isCorrect": false },
+                    {
+                        "id": "opt-c9-14",
+                        "text": "Er kippte einen Eimer Wasser aus.",
+                        "isCorrect": true
+                    },
+                    { "id": "opt-c9-15", "text": "Er funktionierte gar nicht.", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-r-c9-q9",
+                "type": "mcq",
+                "questionText": "Wie sollte die Maschine Oskar ursprünglich wecken?",
+                "passage": "Oskar baute eine Maschine, die ihn sanft wecken sollte. Sie sollte ihn mit einer Feder kitzeln. Doch beim ersten Test ging etwas schief. Anstatt ihn sanft zu kitzeln, kippte die Maschine einen ganzen Eimer Wasser über sein Bett. Oskar war wach, aber auch sehr nass.",
+                "options": [
+                    { "id": "opt-c9-16", "text": "Mit lauter Musik.", "isCorrect": false },
+                    { "id": "opt-c9-17", "text": "Mit einer Tasse Kakao.", "isCorrect": false },
+                    {
+                        "id": "opt-c9-18",
+                        "text": "Indem sie ihn mit einer Feder kitzelt.",
+                        "isCorrect": true
+                    }
+                ]
+            },
+            {
+                "id": "de-24-r-c9-q10",
+                "type": "sti",
+                "questionText": "Nach dem Missgeschick war Oskar wach, aber auch sehr ____.",
+                "passage": "Oskar baute eine Maschine, die ihn sanft wecken sollte. Sie sollte ihn mit einer Feder kitzeln. Doch beim ersten Test ging etwas schief. Anstatt ihn sanft zu kitzeln, kippte die Maschine einen ganzen Eimer Wasser über sein Bett. Oskar war wach, aber auch sehr nass.",
+                "correctAnswers": ["nass"],
+                "evaluationMode": "case-insensitive"
+            }
+        ]
+    },
+    {
+        "title": "Leseverständnis: Reisen in andere Länder 10",
+        "subject": "Lesen",
+        "gradeRange": "2-4",
+        "questions": [
+            {
+                "id": "de-24-r-c10-q1",
+                "type": "mcq",
+                "questionText": "Wo verbrachte die Familie ihren Urlaub?",
+                "passage": "Familie Schmidt flog für den Urlaub nach Italien. Sie besuchten Rom und sahen das riesige Kolosseum. Am meisten aber liebten die Kinder das italienische Eis, das 'Gelato' genannt wird. Sie aßen jeden Tag eine neue Sorte. Papa sagte, wenn sie so weitermachen, rollen sie am Ende nach Hause.",
+                "options": [
+                    { "id": "opt-c10-1", "text": "In Frankreich", "isCorrect": false },
+                    { "id": "opt-c10-2", "text": "In Italien", "isCorrect": true },
+                    { "id": "opt-c10-3", "text": "In Spanien", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-r-c10-q2",
+                "type": "mcq",
+                "questionText": "Was liebten die Kinder in Italien am meisten?",
+                "passage": "Familie Schmidt flog für den Urlaub nach Italien. Sie besuchten Rom und sahen das riesige Kolosseum. Am meisten aber liebten die Kinder das italienische Eis, das 'Gelato' genannt wird. Sie aßen jeden Tag eine neue Sorte. Papa sagte, wenn sie so weitermachen, rollen sie am Ende nach Hause.",
+                "options": [
+                    { "id": "opt-c10-4", "text": "Die alten Gebäude", "isCorrect": false },
+                    { "id": "opt-c10-5", "text": "Die Pizza", "isCorrect": false },
+                    {
+                        "id": "opt-c10-6",
+                        "text": "Das italienische Eis (Gelato)",
+                        "isCorrect": true
+                    }
+                ]
+            },
+            {
+                "id": "de-24-r-c10-q3",
+                "type": "sti",
+                "questionText": "In Rom sahen sie das riesige ____.",
+                "passage": "Familie Schmidt flog für den Urlaub nach Italien. Sie besuchten Rom und sahen das riesige Kolosseum. Am meisten aber liebten die Kinder das italienische Eis, das 'Gelato' genannt wird. Sie aßen jeden Tag eine neue Sorte. Papa sagte, wenn sie so weitermachen, rollen sie am Ende nach Hause.",
+                "correctAnswers": ["Kolosseum"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-r-c10-q4",
+                "type": "highlight-error",
+                "questionText": "Finde das Wort, das nicht nach Italien passt.",
+                "sentence": "In Rom aßen sie Pizza, Pasta und Sushi.",
+                "correctAnswerIndices": [6]
+            },
+            {
+                "id": "de-24-r-c10-q5",
+                "type": "mcq",
+                "questionText": "Welches Tier sah Kenji in den heißen Quellen?",
+                "passage": "Kenji besuchte mit seiner Familie Japan im Winter. Sie gingen zu einem Ort in den Bergen, wo es heiße Quellen gab. Im dampfenden Wasser saßen viele Affen, die sich wärmten. Sie hatten rote Gesichter und schienen den Schnee um sich herum gar nicht zu bemerken. Man nennt sie Schneeaffen.",
+                "options": [
+                    { "id": "opt-c10-7", "text": "Bären", "isCorrect": false },
+                    { "id": "opt-c10-8", "text": "Affen", "isCorrect": true },
+                    { "id": "opt-c10-9", "text": "Fische", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-r-c10-q6",
+                "type": "mcq",
+                "questionText": "Warum saßen die Affen im heißen Wasser?",
+                "passage": "Kenji besuchte mit seiner Familie Japan im Winter. Sie gingen zu einem Ort in den Bergen, wo es heiße Quellen gab. Im dampfenden Wasser saßen viele Affen, die sich wärmten. Sie hatten rote Gesichter und schienen den Schnee um sich herum gar nicht zu bemerken. Man nennt sie Schneeaffen.",
+                "options": [
+                    { "id": "opt-c10-10", "text": "Um sich zu waschen.", "isCorrect": false },
+                    {
+                        "id": "opt-c10-11",
+                        "text": "Um sich vor dem kalten Schnee zu wärmen.",
+                        "isCorrect": true
+                    },
+                    { "id": "opt-c10-12", "text": "Um nach Futter zu suchen.", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-r-c10-q7",
+                "type": "sti",
+                "questionText": "Die Affen, die im Winter in heißen Quellen baden, nennt man ____.",
+                "passage": "Kenji besuchte mit seiner Familie Japan im Winter. Sie gingen zu einem Ort in den Bergen, wo es heiße Quellen gab. Im dampfenden Wasser saßen viele Affen, die sich wärmten. Sie hatten rote Gesichter und schienen den Schnee um sich herum gar nicht zu bemerken. Man nennt sie Schneeaffen.",
+                "correctAnswers": ["Schneeaffen"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-r-c10-q8",
+                "type": "mcq",
+                "questionText": "Was ist das Besondere an den Pyramiden in Ägypten?",
+                "passage": "Fatima reiste mit ihren Eltern nach Ägypten. Dort bestaunte sie die riesigen Pyramiden von Gizeh. Ihr Reiseführer erklärte, dass diese vor Tausenden von Jahren als Gräber für die Pharaonen gebaut wurden. Es ist ein Rätsel, wie die Menschen damals die schweren Steinblöcke bewegen konnten.",
+                "options": [
+                    { "id": "opt-c10-13", "text": "Sie sind aus Gold gebaut.", "isCorrect": false },
+                    {
+                        "id": "opt-c10-14",
+                        "text": "Sie wurden als riesige Gräber für Pharaonen gebaut.",
+                        "isCorrect": true
+                    },
+                    { "id": "opt-c10-15", "text": "Sie stehen unter Wasser.", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-r-c10-q9",
+                "type": "mcq",
+                "questionText": "Was ist bis heute ein Rätsel bei den Pyramiden?",
+                "passage": "Fatima reiste mit ihren Eltern nach Ägypten. Dort bestaunte sie die riesigen Pyramiden von Gizeh. Ihr Reiseführer erklärte, dass diese vor Tausenden von Jahren als Gräber für die Pharaonen gebaut wurden. Es ist ein Rätsel, wie die Menschen damals die schweren Steinblöcke bewegen konnten.",
+                "options": [
+                    {
+                        "id": "opt-c10-16",
+                        "text": "Wer in ihnen begraben liegt.",
+                        "isCorrect": false
+                    },
+                    { "id": "opt-c10-17", "text": "Ihre genaue Farbe.", "isCorrect": false },
+                    {
+                        "id": "opt-c10-18",
+                        "text": "Wie die schweren Steinblöcke bewegt wurden.",
+                        "isCorrect": true
+                    }
+                ]
+            },
+            {
+                "id": "de-24-r-c10-q10",
+                "type": "sti",
+                "questionText": "Die Herrscher im alten Ägypten nannte man ____.",
+                "passage": "Fatima reiste mit ihren Eltern nach Ägypten. Dort bestaunte sie die riesigen Pyramiden von Gizeh. Ihr Reiseführer erklärte, dass diese vor Tausenden von Jahren als Gräber für die Pharaonen gebaut wurden. Es ist ein Rätsel, wie die Menschen damals die schweren Steinblöcke bewegen konnten.",
+                "correctAnswers": ["Pharaonen", "Pharao"],
+                "evaluationMode": "case-insensitive"
+            }
+        ]
+    }
+]

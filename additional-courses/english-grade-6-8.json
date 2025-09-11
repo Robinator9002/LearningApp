@@ -1,0 +1,830 @@
+[
+    {
+        "title": "Vocabulary: Synonyms & Antonyms",
+        "subject": "English",
+        "gradeRange": "6-8",
+        "questions": [
+            {
+                "id": "en-68-e-c1-q1",
+                "type": "mcq",
+                "questionText": "Which word is a synonym for 'essential'?",
+                "options": [
+                    { "id": "opt-e1-1", "text": "Optional", "isCorrect": false },
+                    { "id": "opt-e1-2", "text": "Crucial", "isCorrect": true },
+                    { "id": "opt-e1-3", "text": "Unimportant", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-68-e-c1-q2",
+                "type": "sti",
+                "questionText": "What is an antonym for the word 'brave'?",
+                "correctAnswers": ["cowardly", "fearful", "afraid"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "en-68-e-c1-q3",
+                "type": "mcq",
+                "questionText": "The ancient castle was ____, with huge walls and towers.",
+                "options": [
+                    { "id": "opt-e1-4", "text": "tiny", "isCorrect": false },
+                    { "id": "opt-e1-5", "text": "enormous", "isCorrect": true },
+                    { "id": "opt-e1-6", "text": "modern", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-68-e-c1-q4",
+                "type": "sti",
+                "questionText": "A synonym for 'difficult' is ____.",
+                "correctAnswers": ["hard", "challenging", "tough"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "en-68-e-c1-q5",
+                "type": "mcq",
+                "questionText": "Which word is an antonym for 'permanent'?",
+                "options": [
+                    { "id": "opt-e1-7", "text": "temporary", "isCorrect": true },
+                    { "id": "opt-e1-8", "text": "forever", "isCorrect": false },
+                    { "id": "opt-e1-9", "text": "stable", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-68-e-c1-q6",
+                "type": "mcq",
+                "questionText": "She gave a very ____ and logical explanation.",
+                "options": [
+                    { "id": "opt-e1-10", "text": "confusing", "isCorrect": false },
+                    { "id": "opt-e1-11", "text": "clear", "isCorrect": true },
+                    { "id": "opt-e1-12", "text": "silly", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-68-e-c1-q7",
+                "type": "sti",
+                "questionText": "The opposite of 'generous' is ____.",
+                "correctAnswers": ["selfish", "stingy"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "en-68-e-c1-q8",
+                "type": "mcq",
+                "questionText": "To 'create' means to...",
+                "options": [
+                    { "id": "opt-e1-13", "text": "destroy something.", "isCorrect": false },
+                    { "id": "opt-e1-14", "text": "make something new.", "isCorrect": true },
+                    { "id": "opt-e1-15", "text": "copy something.", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-68-e-c1-q9",
+                "type": "sti",
+                "questionText": "An antonym for 'simple' is ____.",
+                "correctAnswers": ["complex", "complicated"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "en-68-e-c1-q10",
+                "type": "mcq",
+                "questionText": "The story was so ____ that I couldn't stop reading.",
+                "options": [
+                    { "id": "opt-e1-16", "text": "boring", "isCorrect": false },
+                    { "id": "opt-e1-17", "text": "fascinating", "isCorrect": true },
+                    { "id": "opt-e1-18", "text": "long", "isCorrect": false }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Vocabulary: Context & Idioms",
+        "subject": "English",
+        "gradeRange": "6-8",
+        "questions": [
+            {
+                "id": "en-68-e-c2-q1",
+                "type": "mcq",
+                "questionText": "The archaeologist found an ancient 'artifact'. Based on the context, an artifact is likely...",
+                "options": [
+                    { "id": "opt-e2-1", "text": "a type of plant.", "isCorrect": false },
+                    {
+                        "id": "opt-e2-2",
+                        "text": "an object made by humans long ago.",
+                        "isCorrect": true
+                    },
+                    { "id": "opt-e2-3", "text": "a modern machine.", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-68-e-c2-q2",
+                "type": "mcq",
+                "questionText": "What does the idiom 'break a leg' mean?",
+                "options": [
+                    { "id": "opt-e2-4", "text": "Be careful.", "isCorrect": false },
+                    { "id": "opt-e2-5", "text": "Good luck!", "isCorrect": true },
+                    { "id": "opt-e2-6", "text": "Try harder.", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-68-e-c2-q3",
+                "type": "sti",
+                "questionText": "If a task is 'a piece of cake', it is very ____.",
+                "correctAnswers": ["easy"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "en-68-e-c2-q4",
+                "type": "mcq",
+                "questionText": "The politician's speech was 'ambiguous'; nobody was sure what he really meant. 'Ambiguous' means...",
+                "options": [
+                    { "id": "opt-e2-7", "text": "very clear and direct.", "isCorrect": false },
+                    {
+                        "id": "opt-e2-8",
+                        "text": "unclear or having more than one meaning.",
+                        "isCorrect": true
+                    },
+                    { "id": "opt-e2-9", "text": "loud and angry.", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-68-e-c2-q5",
+                "type": "sti",
+                "questionText": "When you 'hit the books', it means you are going to ____.",
+                "correctAnswers": ["study"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "en-68-e-c2-q6",
+                "type": "mcq",
+                "questionText": "To 'bite the bullet' means to...",
+                "options": [
+                    {
+                        "id": "opt-e2-10",
+                        "text": "eat something you don't like.",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": "opt-e2-11",
+                        "text": "face a difficult situation with courage.",
+                        "isCorrect": true
+                    },
+                    { "id": "opt-e2-12", "text": "stop talking.", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-68-e-c2-q7",
+                "type": "sti",
+                "questionText": "If it is 'raining cats and dogs', it is raining very ____.",
+                "correctAnswers": ["heavily", "hard"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "en-68-e-c2-q8",
+                "type": "mcq",
+                "questionText": "Her plan was 'meticulous', with every tiny detail planned out. 'Meticulous' means...",
+                "options": [
+                    { "id": "opt-e2-13", "text": "careless and messy.", "isCorrect": false },
+                    { "id": "opt-e2-14", "text": "very careful and precise.", "isCorrect": true },
+                    { "id": "opt-e2-15", "text": "quick and simple.", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-68-e-c2-q9",
+                "type": "mcq",
+                "questionText": "What does it mean to 'let the cat out of the bag'?",
+                "options": [
+                    { "id": "opt-e2-16", "text": "To buy a pet.", "isCorrect": false },
+                    { "id": "opt-e2-17", "text": "To reveal a secret.", "isCorrect": true },
+                    { "id": "opt-e2-18", "text": "To be very clumsy.", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-68-e-c2-q10",
+                "type": "sti",
+                "questionText": "When something happens 'once in a blue moon', it happens very ____.",
+                "correctAnswers": ["rarely", "infrequently"],
+                "evaluationMode": "case-insensitive"
+            }
+        ]
+    },
+    {
+        "title": "Grammar: Simple & Continuous Tenses",
+        "subject": "English",
+        "gradeRange": "6-8",
+        "questions": [
+            {
+                "id": "en-68-e-c3-q1",
+                "type": "sentence-correction",
+                "questionText": "Correct the verb tense in this sentence.",
+                "sentenceWithMistake": "Yesterday, I go to the park.",
+                "correctedSentence": "Yesterday, I went to the park."
+            },
+            {
+                "id": "en-68-e-c3-q2",
+                "type": "mcq",
+                "questionText": "Which sentence is in the present continuous tense?",
+                "options": [
+                    {
+                        "id": "opt-e3-1",
+                        "text": "She reads a book every night.",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": "opt-e3-2",
+                        "text": "She is reading a book right now.",
+                        "isCorrect": true
+                    },
+                    { "id": "opt-e3-3", "text": "She will read a book later.", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-68-e-c3-q3",
+                "type": "sti",
+                "questionText": "Tomorrow, we ____ (visit) our grandparents.",
+                "correctAnswers": ["will visit", "are visiting", "are going to visit"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "en-68-e-c3-q4",
+                "type": "mcq",
+                "questionText": "Look! The children ____ in the garden.",
+                "options": [
+                    { "id": "opt-e3-4", "text": "play", "isCorrect": false },
+                    { "id": "opt-e3-5", "text": "are playing", "isCorrect": true },
+                    { "id": "opt-e3-6", "text": "played", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-68-e-c3-q5",
+                "type": "sentence-correction",
+                "questionText": "Correct the verb tense.",
+                "sentenceWithMistake": "He is liking chocolate ice cream.",
+                "correctedSentence": "He likes chocolate ice cream."
+            },
+            {
+                "id": "en-68-e-c3-q6",
+                "type": "mcq",
+                "questionText": "What ____ you do last weekend?",
+                "options": [
+                    { "id": "opt-e3-7", "text": "do", "isCorrect": false },
+                    { "id": "opt-e3-8", "text": "did", "isCorrect": true },
+                    { "id": "opt-e3-9", "text": "will", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-68-e-c3-q7",
+                "type": "sti",
+                "questionText": "While I was studying, my brother ____ (watch) TV.",
+                "correctAnswers": ["was watching"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "en-68-e-c3-q8",
+                "type": "mcq",
+                "questionText": "I think it ____ tomorrow.",
+                "options": [
+                    { "id": "opt-e3-10", "text": "rains", "isCorrect": false },
+                    { "id": "opt-e3-11", "text": "will rain", "isCorrect": true },
+                    { "id": "opt-e3-12", "text": "is raining", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-68-e-c3-q9",
+                "type": "sentence-correction",
+                "questionText": "Correct the verb tense.",
+                "sentenceWithMistake": "She is listen to music at the moment.",
+                "correctedSentence": "She is listening to music at the moment."
+            },
+            {
+                "id": "en-68-e-c3-q10",
+                "type": "sti",
+                "questionText": "They usually ____ (go) to the cinema on Fridays.",
+                "correctAnswers": ["go"],
+                "evaluationMode": "case-insensitive"
+            }
+        ]
+    },
+    {
+        "title": "Grammar: Perfect Tenses",
+        "subject": "English",
+        "gradeRange": "6-8",
+        "questions": [
+            {
+                "id": "en-68-e-c4-q1",
+                "type": "mcq",
+                "questionText": "I ____ my homework. I can go out now.",
+                "options": [
+                    { "id": "opt-e4-1", "text": "finished", "isCorrect": false },
+                    { "id": "opt-e4-2", "text": "have finished", "isCorrect": true },
+                    { "id": "opt-e4-3", "text": "had finished", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-68-e-c4-q2",
+                "type": "sentence-correction",
+                "questionText": "Correct the sentence.",
+                "sentenceWithMistake": "She have already seen that movie.",
+                "correctedSentence": "She has already seen that movie."
+            },
+            {
+                "id": "en-68-e-c4-q3",
+                "type": "mcq",
+                "questionText": "By the time we arrived, the train ____.",
+                "options": [
+                    { "id": "opt-e4-4", "text": "has left", "isCorrect": false },
+                    { "id": "opt-e4-5", "text": "had left", "isCorrect": true },
+                    { "id": "opt-e4-6", "text": "will have left", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-68-e-c4-q4",
+                "type": "sti",
+                "questionText": "____ you ever ____ (be) to London?",
+                "correctAnswers": ["Have you ever been", "Have...been"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "en-68-e-c4-q5",
+                "type": "mcq",
+                "questionText": "By next week, I ____ all the exams.",
+                "options": [
+                    { "id": "opt-e4-7", "text": "will finish", "isCorrect": false },
+                    { "id": "opt-e4-8", "text": "will have finished", "isCorrect": true },
+                    { "id": "opt-e4-9", "text": "have finished", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-68-e-c4-q6",
+                "type": "mcq",
+                "questionText": "He ____ in this city since 2010.",
+                "options": [
+                    { "id": "opt-e4-10", "text": "lived", "isCorrect": false },
+                    { "id": "opt-e4-11", "text": "has lived", "isCorrect": true },
+                    { "id": "opt-e4-12", "text": "was living", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-68-e-c4-q7",
+                "type": "sentence-correction",
+                "questionText": "Correct the sentence.",
+                "sentenceWithMistake": "They had saw the sign before they turned.",
+                "correctedSentence": "They had seen the sign before they turned."
+            },
+            {
+                "id": "en-68-e-c4-q8",
+                "type": "sti",
+                "questionText": "She couldn't open the door because she ____ (lose) her keys.",
+                "correctAnswers": ["had lost"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "en-68-e-c4-q9",
+                "type": "mcq",
+                "questionText": "I can't believe he ____ eaten the whole cake!",
+                "options": [
+                    { "id": "opt-e4-13", "text": "had", "isCorrect": false },
+                    { "id": "opt-e4-14", "text": "has", "isCorrect": true },
+                    { "id": "opt-e4-15", "text": "did", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-68-e-c4-q10",
+                "type": "sti",
+                "questionText": "By the end of the year, she ____ (save) enough money for a new car.",
+                "correctAnswers": ["will have saved"],
+                "evaluationMode": "case-insensitive"
+            }
+        ]
+    },
+    {
+        "title": "Grammar: Punctuation Power",
+        "subject": "English",
+        "gradeRange": "6-8",
+        "questions": [
+            {
+                "id": "en-68-e-c5-q1",
+                "type": "sentence-correction",
+                "questionText": "Add the necessary commas to this sentence.",
+                "sentenceWithMistake": "For breakfast I had eggs toast and orange juice.",
+                "correctedSentence": "For breakfast I had eggs, toast, and orange juice."
+            },
+            {
+                "id": "en-68-e-c5-q2",
+                "type": "mcq",
+                "questionText": "Which sentence is correct?",
+                "options": [
+                    { "id": "opt-e5-1", "text": "The dog wagged it's tail.", "isCorrect": false },
+                    { "id": "opt-e5-2", "text": "The dog wagged its tail.", "isCorrect": true },
+                    { "id": "opt-e5-3", "text": "The dog wagged its' tail.", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-68-e-c5-q3",
+                "type": "highlight-error",
+                "questionText": "Find the punctuation mistake in this sentence.",
+                "sentence": "Its a beautiful day outside, isn't it?",
+                "correctAnswerIndices": [0]
+            },
+            {
+                "id": "en-68-e-c5-q4",
+                "type": "mcq",
+                "questionText": "Choose the correctly punctuated sentence.",
+                "options": [
+                    { "id": "opt-e5-4", "text": "Lets eat Grandma.", "isCorrect": false },
+                    { "id": "opt-e5-5", "text": "Let's eat, Grandma.", "isCorrect": true },
+                    { "id": "opt-e5-6", "text": "Lets, eat Grandma.", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-68-e-c5-q5",
+                "type": "mcq",
+                "questionText": "A semicolon (;) is used to...",
+                "options": [
+                    { "id": "opt-e5-7", "text": "end a sentence.", "isCorrect": false },
+                    {
+                        "id": "opt-e5-8",
+                        "text": "connect two closely related independent clauses.",
+                        "isCorrect": true
+                    },
+                    { "id": "opt-e5-9", "text": "introduce a list.", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-68-e-c5-q6",
+                "type": "sentence-correction",
+                "questionText": "Add an apostrophe to show possession.",
+                "sentenceWithMistake": "The cats toys were all over the floor.",
+                "correctedSentence": "The cat's toys were all over the floor."
+            },
+            {
+                "id": "en-68-e-c5-q7",
+                "type": "mcq",
+                "questionText": "Which punctuation mark should be used? 'I have one goal to win.'",
+                "options": [
+                    { "id": "opt-e5-10", "text": "A comma (,)", "isCorrect": false },
+                    { "id": "opt-e5-11", "text": "A colon (:)", "isCorrect": true },
+                    { "id": "opt-e5-12", "text": "A period (.)", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-68-e-c5-q8",
+                "type": "highlight-error",
+                "questionText": "Find the unnecessary comma.",
+                "sentence": "The tall, man walked into the store.",
+                "correctAnswerIndices": [1]
+            },
+            {
+                "id": "en-68-e-c5-q9",
+                "type": "mcq",
+                "questionText": "When do you use a question mark (?)",
+                "options": [
+                    { "id": "opt-e5-13", "text": "After every sentence.", "isCorrect": false },
+                    { "id": "opt-e5-14", "text": "After a direct question.", "isCorrect": true },
+                    { "id": "opt-e5-15", "text": "To show excitement.", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-68-e-c5-q10",
+                "type": "sentence-correction",
+                "questionText": "Correctly punctuate the dialogue.",
+                "sentenceWithMistake": "Be careful she whispered.",
+                "correctedSentence": "\"Be careful,\" she whispered."
+            }
+        ]
+    },
+    {
+        "title": "Reading: Finding the Main Idea",
+        "subject": "English",
+        "gradeRange": "6-8",
+        "questions": [
+            {
+                "id": "en-68-e-c6-q1",
+                "type": "mcq",
+                "questionText": "Read the passage: 'Recycling is crucial for the environment. It conserves natural resources like timber and water. It also reduces the amount of waste that goes into landfills, which helps to prevent pollution.' What is the main idea?",
+                "options": [
+                    {
+                        "id": "opt-e6-1",
+                        "text": "Landfills are a big problem.",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": "opt-e6-2",
+                        "text": "Recycling has important environmental benefits.",
+                        "isCorrect": true
+                    },
+                    {
+                        "id": "opt-e6-3",
+                        "text": "Timber is a natural resource.",
+                        "isCorrect": false
+                    }
+                ]
+            },
+            {
+                "id": "en-68-e-c6-q2",
+                "type": "sti",
+                "questionText": "Read the passage: 'A new video game console was released last week. It has a faster processor, better graphics, and a larger hard drive than its predecessor. Many new games have been developed just for this system.' What would be a good title for this passage?",
+                "correctAnswers": ["New Game Console Released", "Features of the New Console"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "en-68-e-c6-q3",
+                "type": "highlight-error",
+                "questionText": "Find the sentence that does NOT support the main idea. The main idea is: 'Dogs make excellent pets.'",
+                "sentence": "Dogs are known for their loyalty and companionship. Many dog breeds are good with children. Cats are also very independent animals. They can also be trained to perform many tasks.",
+                "correctAnswerIndices": [8, 9, 10, 11, 12]
+            },
+            {
+                "id": "en-68-e-c6-q4",
+                "type": "mcq",
+                "questionText": "What is a 'main idea' in a text?",
+                "options": [
+                    {
+                        "id": "opt-e6-4",
+                        "text": "A small detail from the story.",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": "opt-e6-5",
+                        "text": "The most important point the author is trying to make.",
+                        "isCorrect": true
+                    },
+                    {
+                        "id": "opt-e6-6",
+                        "text": "A question that the author asks.",
+                        "isCorrect": false
+                    }
+                ]
+            },
+            {
+                "id": "en-68-e-c6-q5",
+                "type": "mcq",
+                "questionText": "Read the passage: 'To stay healthy, it's important to have a balanced diet. This includes fruits, vegetables, proteins, and whole grains. Regular exercise is also vital for cardiovascular health and muscle strength.' What is the passage mainly about?",
+                "options": [
+                    {
+                        "id": "opt-e6-7",
+                        "text": "The benefits of eating fruit.",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": "opt-e6-8",
+                        "text": "The key components of a healthy lifestyle.",
+                        "isCorrect": true
+                    },
+                    { "id": "opt-e6-9", "text": "Why exercise is fun.", "isCorrect": false }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Reading: Making Inferences",
+        "subject": "English",
+        "gradeRange": "6-8",
+        "questions": [
+            {
+                "id": "en-68-e-c7-q1",
+                "type": "mcq",
+                "questionText": "When Sarah came inside, she was dripping wet and carrying a broken umbrella. What can you infer about the weather?",
+                "options": [
+                    { "id": "opt-e7-1", "text": "It is sunny.", "isCorrect": false },
+                    { "id": "opt-e7-2", "text": "It is raining.", "isCorrect": true },
+                    { "id": "opt-e7-3", "text": "It is snowing.", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-68-e-c7-q2",
+                "type": "mcq",
+                "questionText": "Tom slammed his book shut and stormed out of the room. How is Tom likely feeling?",
+                "options": [
+                    { "id": "opt-e7-4", "text": "Happy and excited.", "isCorrect": false },
+                    { "id": "opt-e7-5", "text": "Angry or frustrated.", "isCorrect": true },
+                    { "id": "opt-e7-6", "text": "Calm and relaxed.", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-68-e-c7-q3",
+                "type": "sti",
+                "questionText": "The smoke alarm went off and everyone ran out of the building. You can infer there might be a ____.",
+                "correctAnswers": ["fire"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "en-68-e-c7-q4",
+                "type": "mcq",
+                "questionText": "The ground is covered in a thick blanket of white and the school has announced a closure for the day. What will the children probably do?",
+                "options": [
+                    { "id": "opt-e7-7", "text": "Go to the beach.", "isCorrect": false },
+                    { "id": "opt-e7-8", "text": "Play outside in the snow.", "isCorrect": true },
+                    { "id": "opt-e7-9", "text": "Study for their exams.", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-68-e-c7-q5",
+                "type": "mcq",
+                "questionText": "A character in a story is described as having a 'sly grin' and 'shifty eyes'. What can you infer about this character?",
+                "options": [
+                    {
+                        "id": "opt-e7-10",
+                        "text": "They are honest and trustworthy.",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": "opt-e7-11",
+                        "text": "They might be mischievous or deceptive.",
+                        "isCorrect": true
+                    },
+                    { "id": "opt-e7-12", "text": "They are very sad.", "isCorrect": false }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Writing: Paragraph Structure",
+        "subject": "English",
+        "gradeRange": "6-8",
+        "questions": [
+            {
+                "id": "en-68-e-c8-q1",
+                "type": "sentence-order",
+                "questionText": "Arrange these sentences into a logical paragraph.",
+                "items": [
+                    "This is because they offer both physical and mental health benefits.",
+                    "In conclusion, having a hobby is a valuable part of a balanced life.",
+                    "For example, sports improve fitness, while reading expands knowledge.",
+                    "Everyone should have a hobby."
+                ]
+            },
+            {
+                "id": "en-68-e-c8-q2",
+                "type": "mcq",
+                "questionText": "What is the purpose of a topic sentence?",
+                "options": [
+                    { "id": "opt-e8-1", "text": "To give a specific example.", "isCorrect": false },
+                    {
+                        "id": "opt-e8-2",
+                        "text": "To introduce the main idea of the paragraph.",
+                        "isCorrect": true
+                    },
+                    { "id": "opt-e8-3", "text": "To end the paragraph.", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-68-e-c8-q3",
+                "type": "mcq",
+                "questionText": "Which of the following would be a good supporting sentence for the topic: 'Learning a musical instrument is challenging'?",
+                "options": [
+                    {
+                        "id": "opt-e8-4",
+                        "text": "Music can be very enjoyable to listen to.",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": "opt-e8-5",
+                        "text": "It requires hours of practice every day to master the technique.",
+                        "isCorrect": true
+                    },
+                    {
+                        "id": "opt-e8-6",
+                        "text": "Many different types of instruments exist.",
+                        "isCorrect": false
+                    }
+                ]
+            },
+            {
+                "id": "en-68-e-c8-q4",
+                "type": "sti",
+                "questionText": "The sentences that provide details and examples for the main idea are called ____ sentences.",
+                "correctAnswers": ["supporting"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "en-68-e-c8-q5",
+                "type": "mcq",
+                "questionText": "A concluding sentence should...",
+                "options": [
+                    {
+                        "id": "opt-e8-7",
+                        "text": "introduce a completely new idea.",
+                        "isCorrect": false
+                    },
+                    {
+                        "id": "opt-e8-8",
+                        "text": "summarize the main point or offer a final thought.",
+                        "isCorrect": true
+                    },
+                    {
+                        "id": "opt-e8-9",
+                        "text": "be the longest sentence in the paragraph.",
+                        "isCorrect": false
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Writing: Transitions & Cohesion",
+        "subject": "English",
+        "gradeRange": "6-8",
+        "questions": [
+            {
+                "id": "en-68-e-c9-q1",
+                "type": "mcq",
+                "questionText": "Choose the best transition word: 'I wanted to go to the party; ____, I was too tired.'",
+                "options": [
+                    { "id": "opt-e9-1", "text": "therefore", "isCorrect": false },
+                    { "id": "opt-e9-2", "text": "however", "isCorrect": true },
+                    { "id": "opt-e9-3", "text": "in addition", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-68-e-c9-q2",
+                "type": "mcq",
+                "questionText": "Which transition word shows cause and effect? 'It started to rain; ____, the picnic was cancelled.'",
+                "options": [
+                    { "id": "opt-e9-4", "text": "for example", "isCorrect": false },
+                    { "id": "opt-e9-5", "text": "as a result", "isCorrect": true },
+                    { "id": "opt-e9-6", "text": "similarly", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-68-e-c9-q3",
+                "type": "sti",
+                "questionText": "To add another point, you can use the phrase 'In ____'.",
+                "correctAnswers": ["addition"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "en-68-e-c9-q4",
+                "type": "sentence-correction",
+                "questionText": "Combine the sentences using a suitable transition.",
+                "sentenceWithMistake": "The book is very long. It is also quite boring.",
+                "correctedSentence": "The book is very long; furthermore, it is quite boring."
+            },
+            {
+                "id": "en-68-e-c9-q5",
+                "type": "mcq",
+                "questionText": "Which word is used to introduce an example?",
+                "options": [
+                    { "id": "opt-e9-7", "text": "Nevertheless", "isCorrect": false },
+                    { "id": "opt-e9-8", "text": "For instance", "isCorrect": true },
+                    { "id": "opt-e9-9", "text": "In conclusion", "isCorrect": false }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Literary Devices",
+        "subject": "English",
+        "gradeRange": "6-8",
+        "questions": [
+            {
+                "id": "en-68-e-c10-q1",
+                "type": "mcq",
+                "questionText": "'He is as strong as an ox' is an example of a...",
+                "options": [
+                    { "id": "opt-e10-1", "text": "Simile", "isCorrect": true },
+                    { "id": "opt-e10-2", "text": "Metaphor", "isCorrect": false },
+                    { "id": "opt-e10-3", "text": "Personification", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-68-e-c10-q2",
+                "type": "mcq",
+                "questionText": "'The angry clouds marched across the sky' is an example of...",
+                "options": [
+                    { "id": "opt-e10-4", "text": "Simile", "isCorrect": false },
+                    { "id": "opt-e10-5", "text": "Metaphor", "isCorrect": false },
+                    { "id": "opt-e10-6", "text": "Personification", "isCorrect": true }
+                ]
+            },
+            {
+                "id": "en-68-e-c10-q3",
+                "type": "sti",
+                "questionText": "A direct comparison that does NOT use 'like' or 'as' is called a ____.",
+                "correctAnswers": ["metaphor"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "en-68-e-c10-q4",
+                "type": "highlight-error",
+                "questionText": "Find the metaphor in this sentence: 'Her voice was music to his ears.'",
+                "sentence": "Her voice was music to his ears.",
+                "correctAnswerIndices": [3]
+            },
+            {
+                "id": "en-68-e-c10-q5",
+                "type": "mcq",
+                "questionText": "The sentence 'I'm so hungry I could eat a horse' uses which literary device?",
+                "options": [
+                    { "id": "opt-e10-7", "text": "Simile", "isCorrect": false },
+                    { "id": "opt-e10-8", "text": "Hyperbole", "isCorrect": true },
+                    { "id": "opt-e10-9", "text": "Personification", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "en-68-e-c10-q6",
+                "type": "sti",
+                "questionText": "The repetition of the same sound at the beginning of words, like in 'Peter Piper picked a peck of pickled peppers,' is called ____.",
+                "correctAnswers": ["alliteration"],
+                "evaluationMode": "case-insensitive"
+            }
+        ]
+    }
+]

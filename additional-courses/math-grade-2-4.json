@@ -1,0 +1,916 @@
+[
+    {
+        "title": "Addition: Zusammenzählen 1",
+        "subject": "Mathematik",
+        "gradeRange": "2-4",
+        "questions": [
+            {
+                "id": "de-24-m-c1-q1",
+                "type": "mcq",
+                "questionText": "Was ist 5 + 3?",
+                "options": [
+                    { "id": "opt-m1-1", "text": "7", "isCorrect": false },
+                    { "id": "opt-m1-2", "text": "8", "isCorrect": true },
+                    { "id": "opt-m1-3", "text": "9", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-m-c1-q2",
+                "type": "sti",
+                "questionText": "Lisa hat 4 Bonbons. Sie bekommt 2 dazu. Wie viele hat sie jetzt? ____ Bonbons",
+                "correctAnswers": ["6", "sechs"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-m-c1-q3",
+                "type": "alg-equation",
+                "questionText": "Welche Zahl fehlt? 10 + x = 15",
+                "equation": "10 + x = 15",
+                "variables": ["x"]
+            },
+            {
+                "id": "de-24-m-c1-q4",
+                "type": "mcq",
+                "questionText": "Rechne: 7 + 8 =",
+                "options": [
+                    { "id": "opt-m1-4", "text": "15", "isCorrect": true },
+                    { "id": "opt-m1-5", "text": "14", "isCorrect": false },
+                    { "id": "opt-m1-6", "text": "16", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-m-c1-q5",
+                "type": "sti",
+                "questionText": "Auf einem Baum sitzen 6 Vögel. 3 weitere fliegen dazu. Insgesamt sind es ____ Vögel.",
+                "correctAnswers": ["9"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-m-c1-q6",
+                "type": "mcq",
+                "questionText": "Was ergibt 20 + 30?",
+                "options": [
+                    { "id": "opt-m1-7", "text": "40", "isCorrect": false },
+                    { "id": "opt-m1-8", "text": "50", "isCorrect": true },
+                    { "id": "opt-m1-9", "text": "60", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-m-c1-q7",
+                "type": "alg-equation",
+                "questionText": "Finde die fehlende Zahl: x + 5 = 12",
+                "equation": "x + 5 = 12",
+                "variables": ["x"]
+            },
+            {
+                "id": "de-24-m-c1-q8",
+                "type": "sti",
+                "questionText": "Tom hat 11 Murmeln. Er gewinnt 5 dazu. Jetzt hat er ____ Murmeln.",
+                "correctAnswers": ["16", "sechzehn"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-m-c1-q9",
+                "type": "mcq",
+                "questionText": "Welche Rechnung hat das Ergebnis 20?",
+                "options": [
+                    { "id": "opt-m1-10", "text": "10 + 9", "isCorrect": false },
+                    { "id": "opt-m1-11", "text": "12 + 8", "isCorrect": true },
+                    { "id": "opt-m1-12", "text": "15 + 6", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-m-c1-q10",
+                "type": "sti",
+                "questionText": "18 + 2 =",
+                "correctAnswers": ["20"],
+                "evaluationMode": "case-insensitive"
+            }
+        ]
+    },
+    {
+        "title": "Subtraktion: Wegnehmen 1",
+        "subject": "Mathematik",
+        "gradeRange": "2-4",
+        "questions": [
+            {
+                "id": "de-24-m-c2-q1",
+                "type": "mcq",
+                "questionText": "Was ist 9 - 4?",
+                "options": [
+                    { "id": "opt-m2-1", "text": "5", "isCorrect": true },
+                    { "id": "opt-m2-2", "text": "6", "isCorrect": false },
+                    { "id": "opt-m2-3", "text": "4", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-m-c2-q2",
+                "type": "sti",
+                "questionText": "Du hast 10 Kekse und isst 3 davon. Übrig bleiben ____ Kekse.",
+                "correctAnswers": ["7", "sieben"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-m-c2-q3",
+                "type": "alg-equation",
+                "questionText": "Welche Zahl fehlt? 12 - x = 8",
+                "equation": "12 - x = 8",
+                "variables": ["x"]
+            },
+            {
+                "id": "de-24-m-c2-q4",
+                "type": "mcq",
+                "questionText": "Rechne: 17 - 6 =",
+                "options": [
+                    { "id": "opt-m2-4", "text": "12", "isCorrect": false },
+                    { "id": "opt-m2-5", "text": "11", "isCorrect": true },
+                    { "id": "opt-m2-6", "text": "10", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-m-c2-q5",
+                "type": "sti",
+                "questionText": "Ein Bus hat 15 Fahrgäste. An einer Haltestelle steigen 5 aus. Im Bus sind noch ____ Fahrgäste.",
+                "correctAnswers": ["10"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-m-c2-q6",
+                "type": "mcq",
+                "questionText": "Was ergibt 50 - 20?",
+                "options": [
+                    { "id": "opt-m2-7", "text": "30", "isCorrect": true },
+                    { "id": "opt-m2-8", "text": "20", "isCorrect": false },
+                    { "id": "opt-m2-9", "text": "40", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-m-c2-q7",
+                "type": "alg-equation",
+                "questionText": "Finde die fehlende Zahl: x - 7 = 13",
+                "equation": "x - 7 = 13",
+                "variables": ["x"]
+            },
+            {
+                "id": "de-24-m-c2-q8",
+                "type": "sti",
+                "questionText": "Anna hat 20 Euro. Sie kauft ein Buch für 8 Euro. Sie hat noch ____ Euro übrig.",
+                "correctAnswers": ["12", "zwölf"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-m-c2-q9",
+                "type": "mcq",
+                "questionText": "Welche Rechnung hat das Ergebnis 9?",
+                "options": [
+                    { "id": "opt-m2-10", "text": "19 - 9", "isCorrect": false },
+                    { "id": "opt-m2-11", "text": "16 - 7", "isCorrect": true },
+                    { "id": "opt-m2-12", "text": "14 - 6", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-m-c2-q10",
+                "type": "sti",
+                "questionText": "25 - 5 =",
+                "correctAnswers": ["20"],
+                "evaluationMode": "case-insensitive"
+            }
+        ]
+    },
+    {
+        "title": "Multiplikation: Malnehmen 1",
+        "subject": "Mathematik",
+        "gradeRange": "2-4",
+        "questions": [
+            {
+                "id": "de-24-m-c3-q1",
+                "type": "mcq",
+                "questionText": "Was ist 3 x 4?",
+                "options": [
+                    { "id": "opt-m3-1", "text": "7", "isCorrect": false },
+                    { "id": "opt-m3-2", "text": "12", "isCorrect": true },
+                    { "id": "opt-m3-3", "text": "10", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-m-c3-q2",
+                "type": "sti",
+                "questionText": "Ein Auto hat 4 Reifen. Wie viele Reifen haben 2 Autos? ____ Reifen",
+                "correctAnswers": ["8", "acht"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-m-c3-q3",
+                "type": "mcq",
+                "questionText": "Die Rechnung 5 + 5 + 5 ist das Gleiche wie...",
+                "options": [
+                    { "id": "opt-m3-4", "text": "5 x 5", "isCorrect": false },
+                    { "id": "opt-m3-5", "text": "3 x 5", "isCorrect": true },
+                    { "id": "opt-m3-6", "text": "5 + 3", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-m-c3-q4",
+                "type": "mcq",
+                "questionText": "Rechne: 6 x 3 =",
+                "options": [
+                    { "id": "opt-m3-7", "text": "18", "isCorrect": true },
+                    { "id": "opt-m3-8", "text": "16", "isCorrect": false },
+                    { "id": "opt-m3-9", "text": "20", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-m-c3-q5",
+                "type": "sti",
+                "questionText": "Eine Packung Eier hat 10 Eier. 3 Packungen haben ____ Eier.",
+                "correctAnswers": ["30"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-m-c3-q6",
+                "type": "mcq",
+                "questionText": "Was ergibt 7 x 5?",
+                "options": [
+                    { "id": "opt-m3-10", "text": "30", "isCorrect": false },
+                    { "id": "opt-m3-11", "text": "35", "isCorrect": true },
+                    { "id": "opt-m3-12", "text": "40", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-m-c3-q7",
+                "type": "alg-equation",
+                "questionText": "Finde die fehlende Zahl: 8 x x = 16",
+                "equation": "8 * x = 16",
+                "variables": ["x"]
+            },
+            {
+                "id": "de-24-m-c3-q8",
+                "type": "sti",
+                "questionText": "Eine Woche hat 7 Tage. 4 Wochen haben ____ Tage.",
+                "correctAnswers": ["28", "achtundzwanzig"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-m-c3-q9",
+                "type": "mcq",
+                "questionText": "Welche Rechnung hat das Ergebnis 24?",
+                "options": [
+                    { "id": "opt-m3-13", "text": "4 x 6", "isCorrect": true },
+                    { "id": "opt-m3-14", "text": "5 x 5", "isCorrect": false },
+                    { "id": "opt-m3-15", "text": "3 x 7", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-m-c3-q10",
+                "type": "sti",
+                "questionText": "9 x 2 =",
+                "correctAnswers": ["18"],
+                "evaluationMode": "case-insensitive"
+            }
+        ]
+    },
+    {
+        "title": "Division: Teilen 1",
+        "subject": "Mathematik",
+        "gradeRange": "2-4",
+        "questions": [
+            {
+                "id": "de-24-m-c4-q1",
+                "type": "mcq",
+                "questionText": "Was ist 12 : 3?",
+                "options": [
+                    { "id": "opt-m4-1", "text": "3", "isCorrect": false },
+                    { "id": "opt-m4-2", "text": "4", "isCorrect": true },
+                    { "id": "opt-m4-3", "text": "5", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-m-c4-q2",
+                "type": "sti",
+                "questionText": "10 Bonbons werden gerecht an 2 Kinder verteilt. Jedes Kind bekommt ____ Bonbons.",
+                "correctAnswers": ["5", "fünf"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-m-c4-q3",
+                "type": "mcq",
+                "questionText": "Die Rechnung 8 : 4 ist das Gleiche wie die Frage...",
+                "options": [
+                    { "id": "opt-m4-4", "text": "Was mal 8 ist 4?", "isCorrect": false },
+                    { "id": "opt-m4-5", "text": "Was mal 4 ist 8?", "isCorrect": true },
+                    { "id": "opt-m4-6", "text": "Was plus 4 ist 8?", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-m-c4-q4",
+                "type": "mcq",
+                "questionText": "Rechne: 20 : 5 =",
+                "options": [
+                    { "id": "opt-m4-7", "text": "4", "isCorrect": true },
+                    { "id": "opt-m4-8", "text": "5", "isCorrect": false },
+                    { "id": "opt-m4-9", "text": "6", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-m-c4-q5",
+                "type": "sti",
+                "questionText": "Ein Bauer hat 18 Äpfel und packt sie in Körbe mit je 6 Äpfeln. Er braucht ____ Körbe.",
+                "correctAnswers": ["3"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-m-c4-q6",
+                "type": "mcq",
+                "questionText": "Was ergibt 30 : 10?",
+                "options": [
+                    { "id": "opt-m4-10", "text": "10", "isCorrect": false },
+                    { "id": "opt-m4-11", "text": "3", "isCorrect": true },
+                    { "id": "opt-m4-12", "text": "4", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-m-c4-q7",
+                "type": "alg-equation",
+                "questionText": "Finde die fehlende Zahl: 24 : x = 8",
+                "equation": "24 / x = 8",
+                "variables": ["x"]
+            },
+            {
+                "id": "de-24-m-c4-q8",
+                "type": "sti",
+                "questionText": "Eine Pizza mit 8 Stücken wird an 4 Freunde verteilt. Jeder bekommt ____ Stücke.",
+                "correctAnswers": ["2", "zwei"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-m-c4-q9",
+                "type": "mcq",
+                "questionText": "Welche Rechnung hat das Ergebnis 7?",
+                "options": [
+                    { "id": "opt-m4-13", "text": "28 : 4", "isCorrect": true },
+                    { "id": "opt-m4-14", "text": "30 : 5", "isCorrect": false },
+                    { "id": "opt-m4-15", "text": "40 : 8", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-m-c4-q10",
+                "type": "sti",
+                "questionText": "15 : 3 =",
+                "correctAnswers": ["5"],
+                "evaluationMode": "case-insensitive"
+            }
+        ]
+    },
+    {
+        "title": "Gemischte Rechenarten 1",
+        "subject": "Mathematik",
+        "gradeRange": "2-4",
+        "questions": [
+            {
+                "id": "de-24-m-c5-q1",
+                "type": "mcq",
+                "questionText": "Was ist 10 + 5 - 3?",
+                "options": [
+                    { "id": "opt-m5-1", "text": "12", "isCorrect": true },
+                    { "id": "opt-m5-2", "text": "18", "isCorrect": false },
+                    { "id": "opt-m5-3", "text": "8", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-m-c5-q2",
+                "type": "mcq",
+                "questionText": "Was ist 4 x 3 + 2?",
+                "options": [
+                    { "id": "opt-m5-4", "text": "14", "isCorrect": true },
+                    { "id": "opt-m5-5", "text": "20", "isCorrect": false },
+                    { "id": "opt-m5-6", "text": "9", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-m-c5-q3",
+                "type": "sti",
+                "questionText": "Punktrechnung (mal, geteilt) geht vor Strichrechnung (plus, minus). Was ist 2 + 3 x 5?",
+                "correctAnswers": ["17"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-m-c5-q4",
+                "type": "mcq",
+                "questionText": "Rechne: 20 - 10 : 2 =",
+                "options": [
+                    { "id": "opt-m5-7", "text": "5", "isCorrect": false },
+                    { "id": "opt-m5-8", "text": "10", "isCorrect": false },
+                    { "id": "opt-m5-9", "text": "15", "isCorrect": true }
+                ]
+            },
+            {
+                "id": "de-24-m-c5-q5",
+                "type": "sti",
+                "questionText": "Max kauft 3 Hefte für je 2 Euro und einen Stift für 1 Euro. Er bezahlt ____ Euro.",
+                "correctAnswers": ["7"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-m-c5-q6",
+                "type": "mcq",
+                "questionText": "Was ist 16 : 4 + 6?",
+                "options": [
+                    { "id": "opt-m5-10", "text": "10", "isCorrect": true },
+                    { "id": "opt-m5-11", "text": "8", "isCorrect": false },
+                    { "id": "opt-m5-12", "text": "2", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-m-c5-q7",
+                "type": "alg-equation",
+                "questionText": "Finde die fehlende Zahl: 5 x 5 - x = 20",
+                "equation": "5 * 5 - x = 20",
+                "variables": ["x"]
+            },
+            {
+                "id": "de-24-m-c5-q8",
+                "type": "sti",
+                "questionText": "Eine Klasse mit 20 Kindern wird in 4 Gruppen aufgeteilt. In jeder Gruppe sind ____ Kinder.",
+                "correctAnswers": ["5", "fünf"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-m-c5-q9",
+                "type": "mcq",
+                "questionText": "Welche Rechnung ergibt 10? (Denk an Punkt vor Strich!)",
+                "options": [
+                    { "id": "opt-m5-13", "text": "4 + 2 x 3", "isCorrect": true },
+                    { "id": "opt-m5-14", "text": "10 - 5 x 2", "isCorrect": false },
+                    { "id": "opt-m5-15", "text": "20 : 2 + 3", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-m-c5-q10",
+                "type": "sti",
+                "questionText": "30 - 3 x 3 =",
+                "correctAnswers": ["21"],
+                "evaluationMode": "case-insensitive"
+            }
+        ]
+    },
+    {
+        "title": "Addition: Größere Zahlen 2",
+        "subject": "Mathematik",
+        "gradeRange": "2-4",
+        "questions": [
+            {
+                "id": "de-24-m-c6-q1",
+                "type": "mcq",
+                "questionText": "Was ist 45 + 23?",
+                "options": [
+                    { "id": "opt-m6-1", "text": "68", "isCorrect": true },
+                    { "id": "opt-m6-2", "text": "65", "isCorrect": false },
+                    { "id": "opt-m6-3", "text": "78", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-m-c6-q2",
+                "type": "sti",
+                "questionText": "100 + 50 + 25 =",
+                "correctAnswers": ["175"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-m-c6-q3",
+                "type": "alg-equation",
+                "questionText": "Welche Zahl fehlt? 50 + x = 120",
+                "equation": "50 + x = 120",
+                "variables": ["x"]
+            },
+            {
+                "id": "de-24-m-c6-q4",
+                "type": "mcq",
+                "questionText": "Rechne: 67 + 19 =",
+                "options": [
+                    { "id": "opt-m6-4", "text": "76", "isCorrect": false },
+                    { "id": "opt-m6-5", "text": "86", "isCorrect": true },
+                    { "id": "opt-m6-6", "text": "85", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-m-c6-q5",
+                "type": "sti",
+                "questionText": "Ein Buch hat 120 Seiten. Ein anderes hat 80 Seiten. Zusammen haben sie ____ Seiten.",
+                "correctAnswers": ["200"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-m-c6-q6",
+                "type": "mcq",
+                "questionText": "Was ergibt 340 + 50?",
+                "options": [
+                    { "id": "opt-m6-7", "text": "380", "isCorrect": false },
+                    { "id": "opt-m6-8", "text": "390", "isCorrect": true },
+                    { "id": "opt-m6-9", "text": "400", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-m-c6-q7",
+                "type": "alg-equation",
+                "questionText": "Finde die fehlende Zahl: x + 200 = 500",
+                "equation": "x + 200 = 500",
+                "variables": ["x"]
+            },
+            {
+                "id": "de-24-m-c6-q8",
+                "type": "sti",
+                "questionText": "Auf einer Hochzeit sind 75 Erwachsene und 25 Kinder. Insgesamt sind es ____ Gäste.",
+                "correctAnswers": ["100"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-m-c6-q9",
+                "type": "mcq",
+                "questionText": "Welche Rechnung hat das Ergebnis 99?",
+                "options": [
+                    { "id": "opt-m6-10", "text": "45 + 55", "isCorrect": false },
+                    { "id": "opt-m6-11", "text": "33 + 66", "isCorrect": true },
+                    { "id": "opt-m6-12", "text": "77 + 21", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-m-c6-q10",
+                "type": "sti",
+                "questionText": "88 + 12 =",
+                "correctAnswers": ["100"],
+                "evaluationMode": "case-insensitive"
+            }
+        ]
+    },
+    {
+        "title": "Subtraktion: Größere Zahlen 2",
+        "subject": "Mathematik",
+        "gradeRange": "2-4",
+        "questions": [
+            {
+                "id": "de-24-m-c7-q1",
+                "type": "mcq",
+                "questionText": "Was ist 78 - 34?",
+                "options": [
+                    { "id": "opt-m7-1", "text": "44", "isCorrect": true },
+                    { "id": "opt-m7-2", "text": "42", "isCorrect": false },
+                    { "id": "opt-m7-3", "text": "34", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-m-c7-q2",
+                "type": "sti",
+                "questionText": "100 - 25 =",
+                "correctAnswers": ["75"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-m-c7-q3",
+                "type": "alg-equation",
+                "questionText": "Welche Zahl fehlt? 90 - x = 40",
+                "equation": "90 - x = 40",
+                "variables": ["x"]
+            },
+            {
+                "id": "de-24-m-c7-q4",
+                "type": "mcq",
+                "questionText": "Rechne: 52 - 18 =",
+                "options": [
+                    { "id": "opt-m7-4", "text": "44", "isCorrect": false },
+                    { "id": "opt-m7-5", "text": "34", "isCorrect": true },
+                    { "id": "opt-m7-6", "text": "36", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-m-c7-q5",
+                "type": "sti",
+                "questionText": "Ein Puzzle hat 500 Teile. 50 Teile fehlen. Es sind noch ____ Teile da.",
+                "correctAnswers": ["450"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-m-c7-q6",
+                "type": "mcq",
+                "questionText": "Was ergibt 250 - 100?",
+                "options": [
+                    { "id": "opt-m7-7", "text": "150", "isCorrect": true },
+                    { "id": "opt-m7-8", "text": "50", "isCorrect": false },
+                    { "id": "opt-m7-9", "text": "100", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-m-c7-q7",
+                "type": "alg-equation",
+                "questionText": "Finde die fehlende Zahl: x - 30 = 70",
+                "equation": "x - 30 = 70",
+                "variables": ["x"]
+            },
+            {
+                "id": "de-24-m-c7-q8",
+                "type": "sti",
+                "questionText": "Von 88 Luftballons fliegen 11 weg. Übrig bleiben ____ Luftballons.",
+                "correctAnswers": ["77"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-m-c7-q9",
+                "type": "mcq",
+                "questionText": "Welche Rechnung hat das Ergebnis 25?",
+                "options": [
+                    { "id": "opt-m7-10", "text": "75 - 40", "isCorrect": false },
+                    { "id": "opt-m7-11", "text": "60 - 35", "isCorrect": true },
+                    { "id": "opt-m7-12", "text": "45 - 15", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-m-c7-q10",
+                "type": "sti",
+                "questionText": "91 - 19 =",
+                "correctAnswers": ["72"],
+                "evaluationMode": "case-insensitive"
+            }
+        ]
+    },
+    {
+        "title": "Das kleine Einmaleins 2",
+        "subject": "Mathematik",
+        "gradeRange": "2-4",
+        "questions": [
+            {
+                "id": "de-24-m-c8-q1",
+                "type": "mcq",
+                "questionText": "Was ist 7 x 8?",
+                "options": [
+                    { "id": "opt-m8-1", "text": "54", "isCorrect": false },
+                    { "id": "opt-m8-2", "text": "56", "isCorrect": true },
+                    { "id": "opt-m8-3", "text": "64", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-m-c8-q2",
+                "type": "mcq",
+                "questionText": "Was ist 6 x 9?",
+                "options": [
+                    { "id": "opt-m8-4", "text": "54", "isCorrect": true },
+                    { "id": "opt-m8-5", "text": "56", "isCorrect": false },
+                    { "id": "opt-m8-6", "text": "63", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-m-c8-q3",
+                "type": "sti",
+                "questionText": "8 x 8 =",
+                "correctAnswers": ["64"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-m-c8-q4",
+                "type": "mcq",
+                "questionText": "Welche Rechnung ergibt 42?",
+                "options": [
+                    { "id": "opt-m8-7", "text": "6 x 6", "isCorrect": false },
+                    { "id": "opt-m8-8", "text": "7 x 6", "isCorrect": true },
+                    { "id": "opt-m8-9", "text": "8 x 5", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-m-c8-q5",
+                "type": "sti",
+                "questionText": "9 x 5 =",
+                "correctAnswers": ["45"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-m-c8-q6",
+                "type": "mcq",
+                "questionText": "Was ist das Ergebnis von 3 x 8?",
+                "options": [
+                    { "id": "opt-m8-10", "text": "21", "isCorrect": false },
+                    { "id": "opt-m8-11", "text": "24", "isCorrect": true },
+                    { "id": "opt-m8-12", "text": "27", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-m-c8-q7",
+                "type": "alg-equation",
+                "questionText": "Finde die fehlende Zahl: 4 x x = 36",
+                "equation": "4 * x = 36",
+                "variables": ["x"]
+            },
+            {
+                "id": "de-24-m-c8-q8",
+                "type": "sti",
+                "questionText": "7 x 7 =",
+                "correctAnswers": ["49"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-m-c8-q9",
+                "type": "mcq",
+                "questionText": "Welche Zahl mal 5 ergibt 50?",
+                "options": [
+                    { "id": "opt-m8-13", "text": "8", "isCorrect": false },
+                    { "id": "opt-m8-14", "text": "9", "isCorrect": false },
+                    { "id": "opt-m8-15", "text": "10", "isCorrect": true }
+                ]
+            },
+            {
+                "id": "de-24-m-c8-q10",
+                "type": "sti",
+                "questionText": "6 x 7 =",
+                "correctAnswers": ["42"],
+                "evaluationMode": "case-insensitive"
+            }
+        ]
+    },
+    {
+        "title": "Division mit Rest 2",
+        "subject": "Mathematik",
+        "gradeRange": "2-4",
+        "questions": [
+            {
+                "id": "de-24-m-c9-q1",
+                "type": "mcq",
+                "questionText": "Was ist 13 : 4?",
+                "options": [
+                    { "id": "opt-m9-1", "text": "3", "isCorrect": false },
+                    { "id": "opt-m9-2", "text": "3 Rest 1", "isCorrect": true },
+                    { "id": "opt-m9-3", "text": "4", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-m-c9-q2",
+                "type": "sti",
+                "questionText": "11 Äpfel werden an 3 Kinder verteilt. Jedes Kind bekommt 3 Äpfel. Es bleiben ____ Äpfel übrig.",
+                "correctAnswers": ["2", "zwei"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-m-c9-q3",
+                "type": "mcq",
+                "questionText": "Rechne: 22 : 5 =",
+                "options": [
+                    { "id": "opt-m9-4", "text": "4 Rest 2", "isCorrect": true },
+                    { "id": "opt-m9-5", "text": "5", "isCorrect": false },
+                    { "id": "opt-m9-6", "text": "4 Rest 1", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-m-c9-q4",
+                "type": "sti",
+                "questionText": "17 : 3 = 5 Rest ____",
+                "correctAnswers": ["2"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-m-c9-q5",
+                "type": "mcq",
+                "questionText": "25 Murmeln werden in Schachteln mit je 6 Murmeln verpackt. Wie viele Murmeln bleiben übrig?",
+                "options": [
+                    { "id": "opt-m9-7", "text": "Keine", "isCorrect": false },
+                    { "id": "opt-m9-8", "text": "1", "isCorrect": true },
+                    { "id": "opt-m9-9", "text": "2", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-m-c9-q6",
+                "type": "mcq",
+                "questionText": "Was ist 33 : 10?",
+                "options": [
+                    { "id": "opt-m9-10", "text": "3 Rest 3", "isCorrect": true },
+                    { "id": "opt-m9-11", "text": "3", "isCorrect": false },
+                    { "id": "opt-m9-12", "text": "10 Rest 3", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-m-c9-q7",
+                "type": "sti",
+                "questionText": "46 : 9 = 5 Rest ____",
+                "correctAnswers": ["1"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-m-c9-q8",
+                "type": "mcq",
+                "questionText": "Ein Seil ist 50cm lang. Wie viele 8cm lange Stücke kann man abschneiden? Wie viel cm bleiben übrig?",
+                "options": [
+                    { "id": "opt-m9-13", "text": "6 Stücke, 2cm Rest", "isCorrect": true },
+                    { "id": "opt-m9-14", "text": "5 Stücke, 10cm Rest", "isCorrect": false },
+                    { "id": "opt-m9-15", "text": "7 Stücke, 0cm Rest", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-m-c9-q9",
+                "type": "sti",
+                "questionText": "52 geteilt durch 7 ist 7 Rest ____.",
+                "correctAnswers": ["3"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-m-c9-q10",
+                "type": "mcq",
+                "questionText": "Was ist der Rest bei 19 : 2?",
+                "options": [
+                    { "id": "opt-m9-16", "text": "0", "isCorrect": false },
+                    { "id": "opt-m9-17", "text": "1", "isCorrect": true },
+                    { "id": "opt-m9-18", "text": "2", "isCorrect": false }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Einführung in Brüche 1",
+        "subject": "Mathematik",
+        "gradeRange": "2-4",
+        "questions": [
+            {
+                "id": "de-24-m-c10-q1",
+                "type": "mcq",
+                "questionText": "Eine Pizza wird in 2 gleiche Teile geteilt. Wie nennt man einen Teil?",
+                "options": [
+                    { "id": "opt-m10-1", "text": "Ein Ganzes", "isCorrect": false },
+                    { "id": "opt-m10-2", "text": "Ein Halbes (1/2)", "isCorrect": true },
+                    { "id": "opt-m10-3", "text": "Ein Viertel (1/4)", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-m-c10-q2",
+                "type": "mcq",
+                "questionText": "Ein Kuchen wird in 4 gleiche Stücke geschnitten. Du isst ein Stück. Welchen Bruchteil hast du gegessen?",
+                "options": [
+                    { "id": "opt-m10-4", "text": "1/2", "isCorrect": false },
+                    { "id": "opt-m10-5", "text": "1/3", "isCorrect": false },
+                    { "id": "opt-m10-6", "text": "1/4", "isCorrect": true }
+                ]
+            },
+            {
+                "id": "de-24-m-c10-q3",
+                "type": "sti",
+                "questionText": "Wenn du einen Apfel in zwei Hälften teilst, hast du 2 ____.",
+                "correctAnswers": ["Hälften", "halbe"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-m-c10-q4",
+                "type": "mcq",
+                "questionText": "Welcher Bruch ist am größten?",
+                "options": [
+                    { "id": "opt-m10-7", "text": "1/2", "isCorrect": true },
+                    { "id": "opt-m10-8", "text": "1/4", "isCorrect": false },
+                    { "id": "opt-m10-9", "text": "1/8", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-m-c10-q5",
+                "type": "mcq",
+                "questionText": "Was bedeutet der Bruch 3/4?",
+                "options": [
+                    { "id": "opt-m10-10", "text": "Nimm 4 Teile von 3.", "isCorrect": false },
+                    { "id": "opt-m10-11", "text": "Nimm 3 Teile von 4.", "isCorrect": true },
+                    { "id": "opt-m10-12", "text": "Teile in 3 und nimm 4.", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-m-c10-q6",
+                "type": "sti",
+                "questionText": "Die Zahl über dem Bruchstrich heißt Zähler. Die Zahl darunter heißt ____.",
+                "correctAnswers": ["Nenner"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-m-c10-q7",
+                "type": "mcq",
+                "questionText": "Wie viele Viertel (1/4) sind das Gleiche wie ein Halbes (1/2)?",
+                "options": [
+                    { "id": "opt-m10-13", "text": "1", "isCorrect": false },
+                    { "id": "opt-m10-14", "text": "2", "isCorrect": true },
+                    { "id": "opt-m10-15", "text": "3", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-m-c10-q8",
+                "type": "sti",
+                "questionText": "Ein Kreis ist in 3 gleiche Teile geteilt. Ein Teil ist gefärbt. Das ist ____ Drittel.",
+                "correctAnswers": ["ein"],
+                "evaluationMode": "case-insensitive"
+            },
+            {
+                "id": "de-24-m-c10-q9",
+                "type": "mcq",
+                "questionText": "Wenn 2/2 einer Pizza da sind, bedeutet das...",
+                "options": [
+                    { "id": "opt-m10-16", "text": "die halbe Pizza ist da.", "isCorrect": false },
+                    { "id": "opt-m10-17", "text": "die ganze Pizza ist da.", "isCorrect": true },
+                    { "id": "opt-m10-18", "text": "keine Pizza ist da.", "isCorrect": false }
+                ]
+            },
+            {
+                "id": "de-24-m-c10-q10",
+                "type": "sti",
+                "questionText": "Schreibe als Bruch: Fünf von acht Teilen.",
+                "correctAnswers": ["5/8"],
+                "evaluationMode": "exact-match"
+            }
+        ]
+    }
+]
