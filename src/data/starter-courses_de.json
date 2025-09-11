@@ -7,12 +7,11 @@
             {
                 "id": "de-12-m1-q1",
                 "type": "mcq",
-                "questionText": "Wie viele Sterne siehst du?",
-                "imageUrl": "https://placehold.co/400x300/A2E4B8/000000?text=⭐%20⭐%20⭐%20⭐",
+                "questionText": "Was kommt als Nächstes? 2, 4, 6, ___",
                 "options": [
-                    { "id": "opt-1", "text": "3", "isCorrect": false },
-                    { "id": "opt-2", "text": "4", "isCorrect": true },
-                    { "id": "opt-3", "text": "5", "isCorrect": false }
+                    { "id": "opt-1", "text": "7", "isCorrect": false },
+                    { "id": "opt-2", "text": "8", "isCorrect": true },
+                    { "id": "opt-3", "text": "10", "isCorrect": false }
                 ]
             },
             {
@@ -212,12 +211,11 @@
             {
                 "id": "de-56-m1-q1",
                 "type": "mcq",
-                "questionText": "Welcher Bruchteil der Pizza wurde gegessen?",
-                "imageUrl": "https://placehold.co/400x300/E4A2A2/000000?text=🍕%20(1/4%20fehlt)",
+                "questionText": "Wenn du 1 Stück einer in 8 Stücke geschnittenen Pizza isst, welchen Bruchteil hast du gegessen?",
                 "options": [
-                    { "id": "opt-1", "text": "1/2", "isCorrect": false },
-                    { "id": "opt-2", "text": "1/4", "isCorrect": true },
-                    { "id": "opt-3", "text": "3/4", "isCorrect": false }
+                    { "id": "opt-1", "text": "1/4", "isCorrect": false },
+                    { "id": "opt-2", "text": "1/8", "isCorrect": true },
+                    { "id": "opt-3", "text": "1/2", "isCorrect": false }
                 ]
             },
             {
@@ -240,11 +238,11 @@
             {
                 "id": "de-56-m1-q4",
                 "type": "mcq",
-                "questionText": "Welches Diagramm zeigt 2/5 als schraffierte Fläche?",
-                "imageUrl": "https://placehold.co/600x200/A2BBE4/000000?text=A) 🟩🟩⬜⬜⬜ B) 🟩🟩🟩⬜⬜",
+                "questionText": "Welcher Bruch ist kleiner als 1/2?",
                 "options": [
-                    { "id": "opt-1", "text": "A", "isCorrect": true },
-                    { "id": "opt-2", "text": "B", "isCorrect": false }
+                    { "id": "opt-1", "text": "3/4", "isCorrect": false },
+                    { "id": "opt-2", "text": "2/3", "isCorrect": false },
+                    { "id": "opt-3", "text": "1/3", "isCorrect": true }
                 ]
             },
             {
