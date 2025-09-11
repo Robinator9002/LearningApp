@@ -1,18 +1,26 @@
-// src/main.tsx
-
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
+
+// --- The Fix ---
+// Import the i18n configuration file here.
+// This executes the file and initializes the i18next instance before the app renders.
+import './lib/i18n';
+// ---------------
+
 import App from './App.tsx';
-import './styles/main.css'
+import './styles/main.css';
 
-// Import the i18n configuration to initialize it
-import './lib/i18n.ts';
+const rootElement = document.getElementById('root');
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-    <React.StrictMode>
-        <BrowserRouter>
-            <App />
-        </BrowserRouter>
-    </React.StrictMode>,
-);
+if (rootElement) {
+    ReactDOM.createRoot(rootElement).render(
+        <React.StrictMode>
+            <HashRouter>
+                <App />
+            </HashRouter>
+        </React.StrictMode>,
+    );
+} else {
+    console.error('Failed to find the root element');
+}

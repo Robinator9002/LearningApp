@@ -23,8 +23,8 @@ export async function seedInitialCourses(language: 'en' | 'de'): Promise<void> {
         // Use dynamic import() to load the correct JSON file based on the language.
         const courseModule =
             language === 'de'
-                ? await import('../../data/starter-courses_de.json')
-                : await import('../../data/starter-courses_en.json');
+                ? await import('../data/starter-courses_de.json')
+                : await import('../data/starter-courses_en.json');
 
         // The default export of the JSON module is the array of courses.
         const starterCourses = courseModule.default;
